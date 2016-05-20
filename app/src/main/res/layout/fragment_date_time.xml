@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="需要在fragment中使用"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_data_select1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择日期"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_data_select2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择日期(自定义按钮)"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_data_select3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择日期(Dark)"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_data_select4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择时间"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_data_select5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择时间(自定义按钮)"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_data_select6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我选择时间(Dark)"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

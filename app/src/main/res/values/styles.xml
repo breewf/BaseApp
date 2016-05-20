@@ -1,0 +1,128 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!-- 自定义主题样式 -->
+    <style name="MyAppTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimTheme</item>
+    </style>
+
+    <!-- 自定义activity进入退出动画-->
+    <style name="ActivityAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_alpha_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_alpha_out</item>
+    </style>
+
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+             
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="LoadingDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- 自定义circleProgressBar样式-->
+    <style name="Material.Drawable.MyCircularProgress">
+        <item name="cpd_padding">0dp</item>
+        <item name="cpd_initialAngle">0</item>
+        <item name="cpd_maxSweepAngle">270</item>
+        <item name="cpd_minSweepAngle">1</item>
+        <item name="cpd_strokeSize">4dp</item>
+        <item name="cpd_strokeColor">?attr/colorAccent</item>
+        <item name="cpd_strokeSecondaryColor">@android:color/transparent</item>
+        <item name="cpd_reverse">false</item>
+        <item name="cpd_rotateDuration">1000</item>
+        <item name="cpd_transformDuration">600</item>
+        <item name="cpd_keepDuration">200</item>
+        <item name="cpd_transformInterpolator">@android:anim/decelerate_interpolator</item>
+        <item name="pv_progressMode">indeterminate</item>
+        <item name="cpd_inAnimDuration">0</item>
+        <item name="cpd_outAnimDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
+
+    <!-- 自定lineProgressBar样式-->
+    <style name="Material.Drawable.MyLinearProgress">
+        <item name="lpd_maxLineWidth">75%</item>
+        <item name="lpd_minLineWidth">10%</item>
+        <item name="lpd_strokeSize">4dp</item>
+        <item name="lpd_strokeColor">?attr/colorAccent</item>
+        <item name="lpd_strokeSecondaryColor">@android:color/transparent</item>
+        <item name="lpd_reverse">false</item>
+        <item name="lpd_travelDuration">1000</item>
+        <item name="lpd_transformDuration">600</item>
+        <item name="lpd_keepDuration">200</item>
+        <item name="lpd_transformInterpolator">@android:anim/decelerate_interpolator</item>
+        <item name="pv_progressMode">indeterminate</item>
+        <item name="lpd_inAnimDuration">@android:integer/config_mediumAnimTime</item>
+        <item name="lpd_outAnimDuration">@android:integer/config_mediumAnimTime</item>
+        <item name="lpd_verticalAlign">bottom</item>
+    </style>
+
+    <!-- 底部PopupWindow窗口动画 -->
+    <style name="AnimationPopupWindow">
+        <item name="android:windowEnterAnimation">@anim/view_show_translate_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/view_hide_translate_to_bottom</item>
+    </style>
+
+    <!-- TabHost样式-->
+    <style name="main_tab_bottom">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@drawable/index_tab_host_selector_text</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <!-- 自定义TabLayout样式-->
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabBackground">@color/common_background_grey</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <!-- 自定义TabLayout样式2-->
+    <style name="MyCustomTabLayout2" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabBackground">@color/colorPrimary</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+    </style>
+
+</resources>

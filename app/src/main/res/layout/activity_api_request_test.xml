@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:mContext="com.company.myapp.activity.ApiRequestTestActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get请求http://wthrcdn.etouch.cn/weather_mini/101010100" />
+
+            <Button
+                android:id="@+id/btn_get_weather1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="点我请求天气数据(Activity)"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_weather1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="天气数据"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Post请求油价http://123.56.129.228:9090/api/s/getOilPriceInfo?province=北京" />
+
+            <Button
+                android:id="@+id/btn_get_oil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="点我请求油价数据(Activity)"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_oil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="油价数据"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/colorPrimary" />
+
+            <fragment
+                android:id="@+id/test3_fragment"
+                android:name="com.company.myapp.fragment.ApiRequestTestFragment"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="使用Retrofit请求天气数据" />
+
+            <Button
+                android:id="@+id/btn_get_weather2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="点我请求天气数据(Activity)"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_weather2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="天气数据"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:mContext="com.company.myapp.activity.DialogTestActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btn_dialog1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居左(不带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居左(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/btn_dialog4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居中(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居左不带标题(不带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居中不带标题(不带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通对话框文字居中三个按钮(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Material风格对话框(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Material风格自定义按钮文本(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Material风格对话框一个按钮(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Material风格一个按钮无标题(不带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Material风格对话框三个按钮(带监听)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="默认List样式"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="自定义List样式"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="QQ底部弹框样式"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="QQ底部弹框样式(无标题)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="BubblePopup样式"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="BubblePopup样式"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="点我弹出多个Toast提示"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_dialog22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="点我弹出一条Toast提示"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

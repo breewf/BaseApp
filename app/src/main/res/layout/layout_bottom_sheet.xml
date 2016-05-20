@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_share_popup_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="BottomSheet"
+       android:textSize="18sp"
+       android:textColor="#fc8825"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0.5"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="#cccccc"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="dddddddddddddddddddddddddddd"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="gggggggggggggggggggggggggggg"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/btn_bottom_sheet_ok1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:textSize="18dp"
+        android:textColor="#fc8825"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/common_background_grey"
+        android:gravity="center"
+        android:text="确定" />
+
+</LinearLayout>

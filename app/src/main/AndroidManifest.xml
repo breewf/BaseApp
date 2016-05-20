@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.company.myapp">
+
+    <!-- 用户权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyAppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.ActivityStatusTestActivity" />
+        <activity android:name=".activity.FragmentStatusActivity" />
+        <activity android:name=".activity.PictureTestActivity" />
+        <activity android:name=".activity.LoadingTestActivity" />
+        <activity android:name=".activity.ApiRequestTestActivity" />
+        <activity android:name=".activity.DialogTestActivity" />
+        <activity android:name=".activity.MyDialogTestActivity" />
+        <activity android:name=".activity.WheelTestActivity" />
+        <activity android:name=".activity.LabelViewTestActivity" />
+        <activity android:name=".activity.SnackBarTestActivity" />
+        <activity android:name=".activity.DateTimeTestActivity" />
+        <activity android:name=".activity.SheetTestActivity" />
+        <activity android:name=".activity.BannerTestActivity" />
+        <activity android:name=".activity.RefreshTest1Activity" />
+        <activity android:name=".activity.ListViewTest1Activity" />
+        <activity android:name=".activity.ListViewTest2Activity" />
+        <activity android:name=".activity.ListViewMoreItemTypeTestActivity" />
+        <activity android:name=".activity.RefreshTest2Activity" />
+        <activity android:name=".activity.RefreshTest3Activity" />
+        <activity android:name=".activity.RefreshTest4Activity" />
+        <activity android:name="com.ghy.baseapp.activity.IndexHomeActivity" />
+        <activity android:name="com.ghy.baseapp.activity.IndexTabActivity" />
+        <activity android:name=".activity.IndexTestHomeActivity" />
+        <activity android:name=".activity.IndexTestCarActivity" />
+        <activity android:name=".activity.IndexTestMessageActivity" />
+        <activity android:name=".activity.IndexTestMeActivity" />
+        <activity android:name="com.ghy.baseapp.activity.TabLayoutActivity" />
+        <activity android:name="com.ghy.baseapp.activity.TabLayoutMeActivity" />
+        <activity android:name=".activity.PaletteTestActivity" />
+        <activity android:name=".activity.PaletteListTestActivity" />
+        <activity android:name=".activity.RecyclerViewTest1Activity" />
+        <activity android:name=".activity.RecyclerViewTest2Activity" />
+        <activity android:name=".activity.RecyclerViewTest3Activity" />
+        <activity android:name=".activity.RecyclerViewTest4Activity" />
+        <activity android:name=".activity.PullZoomTest1Activity" />
+        <activity android:name=".activity.SlidMenuTestActivity" />
+        <activity android:name=".activity.SlidMenuTabTestActivity" />
+        <activity android:name=".activity.SlidMenuIndexTestHomeActivity" />
+        <activity android:name=".activity.SlidMenuIndexTestCarActivity" />
+        <activity android:name=".activity.SlidMenuIndexTestMessageActivity" />
+        <activity android:name=".activity.SlidMenuIndexTestMeActivity" />
+        <activity android:name=".activity.FileDownloadTestActivity"></activity>
+    </application>
+
+</manifest>

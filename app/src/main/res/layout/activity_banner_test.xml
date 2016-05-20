@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ghy.baseapp.component.banner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/convenientBanner"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:canLoop="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_banner_page1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果AccordionTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果CubeOutTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果DepthPageTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果ForegroundToBackgroundTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果RotateDownTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果RotateUpTransformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="翻页效果StackTransformer"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/view_selector_white_gray"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:id="@+id/tv_banner_page8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_white_gray"
+                android:padding="20dp"
+                android:text="翻页效果ZoomOutTranformer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

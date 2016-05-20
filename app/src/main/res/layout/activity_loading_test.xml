@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:mContext="com.company.myapp.activity.LoadingTestActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="Activity页面loading测试"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_loading1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我页面内Loading"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="注意：如果页面中同时使用了fragment，则activity中的页面内loading有可能被覆盖"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_loading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我整个页面Loading"
+        android:textColor="@color/colorAccent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/common_view_grey"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="Fragment页面loading测试"
+        android:textSize="18sp" />
+
+    <fragment
+        android:id="@+id/test3_fragment"
+        android:name="com.company.myapp.fragment.LoadingTestFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dimen_10" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/common_view_grey"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="测试文本 测试文本 测试文本 测试文本"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="测试文本 测试文本 测试文本 测试文本"
+        android:textSize="14sp" />
+
+</LinearLayout>

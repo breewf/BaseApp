@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/iv_base_status_error"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/icon_status_error" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_base_status_error"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="服务器开小差了，点击重试"
+        android:textColor="@color/black_alpha"
+        android:textSize="16sp" />
+
+</RelativeLayout>

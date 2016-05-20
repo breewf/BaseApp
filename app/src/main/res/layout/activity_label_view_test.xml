@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:mContext="com.company.myapp.activity.LabelViewTestActivity">
+
+
+    <com.ghy.baseapp.component.labelview.LabelButtonView
+        android:id="@+id/labelbutton1"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:background="#03a9f4"
+        android:gravity="center"
+        android:text="Button"
+        android:textColor="#ffffff"
+        app:label_backgroundColor="#C2185B"
+        app:label_distance="20dp"
+        app:label_height="20dp"
+        app:label_orientation="RIGHT_TOP"
+        app:label_text="HD"
+        app:label_textSize="12sp" />
+
+    <com.ghy.baseapp.component.labelview.LabelButtonView
+        android:id="@+id/labelbutton2"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="#03a9f4"
+        android:gravity="center"
+        android:text="Button"
+        android:textColor="#ffffff"
+        app:label_backgroundColor="#C2185B"
+        app:label_distance="20dp"
+        app:label_height="20dp"
+        app:label_orientation="LEFT_TOP"
+        app:label_text="HD"
+        app:label_textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <com.ghy.baseapp.component.labelview.LabelImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_lab_view1"
+            app:label_backgroundColor="#3F51B5"
+            app:label_orientation="LEFT_TOP"
+            app:label_text="BIG MAX" />
+
+
+        <com.ghy.baseapp.component.labelview.LabelImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_lab_view2"
+            app:label_backgroundColor="#3F51B5"
+            app:label_orientation="RIGHT_TOP"
+            app:label_text="WANG" />
+
+    </LinearLayout>
+
+    <com.ghy.baseapp.component.labelview.LabelTextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="#212121"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="流行歌曲"
+        android:textColor="#ffffff"
+        app:label_backgroundColor="#03A9F4"
+        app:label_distance="15dp"
+        app:label_orientation="LEFT_TOP"
+        app:label_text="POP"
+        app:label_textSize="10sp" />
+
+    <com.ghy.baseapp.component.labelview.LabelTextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="#212121"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="热门歌曲"
+        android:textColor="#ffffff"
+        app:label_backgroundColor="#ff0000"
+        app:label_distance="15dp"
+        app:label_orientation="LEFT_TOP"
+        app:label_text="HOT"
+        app:label_textSize="10sp" />
+
+
+</LinearLayout>

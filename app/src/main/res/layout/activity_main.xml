@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:mContext="com.company.myapp.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BaseApp使用示例"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_test1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Activity页面状态切换测试" />
+
+            <Button
+                android:id="@+id/btn_test2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Loading加载中测试" />
+
+            <Button
+                android:id="@+id/btn_test3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Fragment页面状态切换测试" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_test4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Api请求数据测试" />
+
+                <Button
+                    android:id="@+id/btn_pic_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="图片加载测试" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_dialog_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Dialog对话框测试及Toast测试" />
+
+            <Button
+                android:id="@+id/btn_dialog_test2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="自定义MyDialog对话框测试" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_test_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="滚动控件测试" />
+
+                <Button
+                    android:id="@+id/btn_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="LabelView测试" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_snack_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="SnackBar弹出框测试" />
+
+                <Button
+                    android:id="@+id/btn_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="Banner测试" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="时间日期选择控件" />
+
+                <Button
+                    android:id="@+id/btn_sheet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="BottomSheetDialog" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_listView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="普通ListView" />
+
+                <Button
+                    android:id="@+id/btn_listView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="带header和footer" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_listView_item_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="不同item类型的ListView" />
+
+            <Button
+                android:id="@+id/btn_pull_to_refresh1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="谷歌下拉刷新ListView" />
+
+            <Button
+                android:id="@+id/btn_pull_to_refresh2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="自定义下拉刷新上拉加载的ListView" />
+
+            <Button
+                android:id="@+id/btn_pull_to_refresh3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="谷歌下拉刷新ScrollView" />
+
+            <Button
+                android:id="@+id/btn_pull_to_refresh4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="自定义下拉刷新上拉加载的ScrollView" />
+
+            <Button
+                android:id="@+id/btn_tab_change_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="底部Tab颜色可渐变的导航按钮" />
+
+            <Button
+                android:id="@+id/btn_tab_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="底部Tab使用TabActivity的导航按钮" />
+
+            <Button
+                android:id="@+id/btn_tab_layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="谷歌TabLayout导航布局" />
+
+            <Button
+                android:id="@+id/btn_tab_layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="简单自定义的TabLayout布局" />
+
+            <Button
+                android:id="@+id/btn_palette"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Palette颜色拾取测试" />
+
+            <Button
+                android:id="@+id/btn_recycler3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="普通RecyclerView" />
+
+            <Button
+                android:id="@+id/btn_recycler1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="带下拉刷新和上拉加载的RecyclerView" />
+
+            <Button
+                android:id="@+id/btn_recycler2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="多item类型的RecyclerView" />
+
+            <Button
+                android:id="@+id/btn_recycler4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="自定义下拉和上拉的RecyclerView" />
+
+            <Button
+                android:id="@+id/btn_zoom1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="PullZoom下拉缩放" />
+
+            <Button
+                android:id="@+id/btn_slid_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="侧滑菜单SlidingMenu" />
+
+            <Button
+                android:id="@+id/btn_slid_menu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="侧滑菜单SlidingMenu+底部Tab" />
+
+            <Button
+                android:id="@+id/btn_file_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="FileDownload文件下载测试" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

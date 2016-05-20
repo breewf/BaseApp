@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ghy="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0.5"
+        android:background="@color/gray_cc"/>
+
+    <com.ghy.baseapp.view.MyTabView
+        android:id="@+id/id_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eeeeee"
+        android:orientation="horizontal"
+        ghy:item_padding="10dp"
+        ghy:text_normal_color="#777777"
+        ghy:text_select_color="#fc8825"
+        ghy:text_size="10sp" />
+
+</LinearLayout>

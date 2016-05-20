@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:mContext="com.company.myapp.activity.MyDialogTestActivity">
+
+    <Button
+        android:id="@+id/btn_my_dialog1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="点我弹出普通对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_my_dialog2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="没有标题对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_my_dialog3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="没有内容对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_my_dialog4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="自定义按钮文本对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_my_dialog5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="只有确定按钮对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_my_dialog6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="只有取消按钮对话框"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+</LinearLayout>
