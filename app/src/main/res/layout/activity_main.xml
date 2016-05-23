@@ -272,20 +272,6 @@
                 android:text="PullZoom下拉缩放" />
 
             <Button
-                android:id="@+id/btn_slid_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="侧滑菜单SlidingMenu" />
-
-            <Button
-                android:id="@+id/btn_slid_menu2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="侧滑菜单SlidingMenu+底部Tab" />
-
-            <Button
                 android:id="@+id/btn_file_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

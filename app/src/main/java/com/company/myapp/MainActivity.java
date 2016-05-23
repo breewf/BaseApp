@@ -27,8 +27,6 @@ import com.company.myapp.activity.RefreshTest2Activity;
 import com.company.myapp.activity.RefreshTest3Activity;
 import com.company.myapp.activity.RefreshTest4Activity;
 import com.company.myapp.activity.SheetTestActivity;
-import com.company.myapp.activity.SlidMenuTabTestActivity;
-import com.company.myapp.activity.SlidMenuTestActivity;
 import com.company.myapp.activity.SnackBarTestActivity;
 import com.company.myapp.activity.WheelTestActivity;
 import com.ghy.baseapp.activity.IndexHomeActivity;
@@ -241,16 +239,6 @@ public class MainActivity extends AbsBaseActivity {
     @OnClick(R.id.btn_zoom1)
     public void btnPullZoom1(){
         startActivity(this, PullZoomTest1Activity.class);
-    }
-
-    @OnClick(R.id.btn_slid_menu)
-    public void btnSlidMenu(){
-        startActivity(this, SlidMenuTestActivity.class);
-    }
-
-    @OnClick(R.id.btn_slid_menu2)
-    public void btnSlidMenu2(){
-        startActivity(this, SlidMenuTabTestActivity.class);
     }
 
     @OnClick(R.id.btn_file_download)
