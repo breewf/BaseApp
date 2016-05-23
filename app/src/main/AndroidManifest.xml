@@ -57,10 +57,6 @@
         <activity android:name=".activity.RecyclerViewTest3Activity" />
         <activity android:name=".activity.RecyclerViewTest4Activity" />
         <activity android:name=".activity.PullZoomTest1Activity" />
-        <activity android:name=".activity.SlidMenuIndexTestHomeActivity" />
-        <activity android:name=".activity.SlidMenuIndexTestCarActivity" />
-        <activity android:name=".activity.SlidMenuIndexTestMessageActivity" />
-        <activity android:name=".activity.SlidMenuIndexTestMeActivity" />
         <activity android:name=".activity.FileDownloadTestActivity"></activity>
     </application>
 
