@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorAccentAlpha">#9fFF4081</color>
+
     <color name="black">#000000</color>
     <color name="black_alpha">#333333</color>
     <color name="white">#FFFFFF</color>
@@ -28,6 +30,8 @@
     <color name="common_view_grey">#e5e5e5</color>
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
+
+    <color name="slid_menu_grey">#EDEDEB</color>
 
     <!-- 颜色色值-->
     <color name="ivory">#FFFFF0</color><!--象牙色 -->

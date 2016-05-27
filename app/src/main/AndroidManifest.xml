@@ -57,7 +57,8 @@
         <activity android:name=".activity.RecyclerViewTest3Activity" />
         <activity android:name=".activity.RecyclerViewTest4Activity" />
         <activity android:name=".activity.PullZoomTest1Activity" />
-        <activity android:name=".activity.FileDownloadTestActivity"></activity>
+        <activity android:name=".activity.FileDownloadTestActivity" />
+        <activity android:name=".activity.SlidingMenuTestActivity"></activity>
     </application>
 
 </manifest>

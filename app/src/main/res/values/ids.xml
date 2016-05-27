@@ -3,4 +3,6 @@
 
     <item name="cb_item_tag" type="id"/>
 
+    <item name="selected_view" type="id"/>
+
 </resources>

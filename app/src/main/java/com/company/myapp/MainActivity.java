@@ -27,6 +27,7 @@ import com.company.myapp.activity.RefreshTest2Activity;
 import com.company.myapp.activity.RefreshTest3Activity;
 import com.company.myapp.activity.RefreshTest4Activity;
 import com.company.myapp.activity.SheetTestActivity;
+import com.company.myapp.activity.SlidingMenuTestActivity;
 import com.company.myapp.activity.SnackBarTestActivity;
 import com.company.myapp.activity.WheelTestActivity;
 import com.ghy.baseapp.activity.IndexHomeActivity;
@@ -244,6 +245,11 @@ public class MainActivity extends AbsBaseActivity {
     @OnClick(R.id.btn_file_download)
     public void btnFileDownLoad(){
         startActivity(this, FileDownloadTestActivity.class);
+    }
+
+    @OnClick(R.id.btn_sliding_menu)
+    public void btnSlidingMenu(){
+        startActivity(this, SlidingMenuTestActivity.class);
     }
 
 
