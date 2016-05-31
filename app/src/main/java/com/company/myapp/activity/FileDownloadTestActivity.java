@@ -11,6 +11,8 @@ import android.widget.SeekBar;
 import com.company.myapp.R;
 import com.ghy.baseapp.base.AbsBaseActivity;
 import com.ghy.baseapp.common.log.Log;
+import com.ghy.baseapp.component.slidr.Slidr;
+import com.ghy.baseapp.component.slidr.model.SlidrConfig;
 import com.ghy.baseapp.helper.FileHelper;
 import com.ghy.baseapp.helper.ToastHelper;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -34,6 +36,8 @@ public class FileDownloadTestActivity extends AbsBaseActivity {
     Notification notification;
     int notificationId = 10000;
 
+    private SlidrConfig mConfig;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_file_download_test;
@@ -52,6 +56,8 @@ public class FileDownloadTestActivity extends AbsBaseActivity {
         final String path = FileHelper.getDownloadPath();
         filePath = path + "cheyipai.apk";
         Log.i("downloadPath-->>", filePath);
+
+        Slidr.attach(this);
     }
 
     @OnClick(R.id.btn_down_start)
