@@ -1,2 +1,1 @@
 # BaseApp
-MyBaseApp
