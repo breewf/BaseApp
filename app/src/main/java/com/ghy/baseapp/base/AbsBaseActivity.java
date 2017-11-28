@@ -20,6 +20,7 @@ import com.rey.material.widget.ProgressView;
 
 import butterknife.ButterKnife;
 
+
 /**
  * Created by GHY on 2016/4/29.
  * Activity基类

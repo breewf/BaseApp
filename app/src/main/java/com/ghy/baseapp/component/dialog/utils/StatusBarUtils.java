@@ -2,7 +2,6 @@ package com.ghy.baseapp.component.dialog.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * StatusBar Utils handle with special FlymeOS4.x/Android4.4.4
