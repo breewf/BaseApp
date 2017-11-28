@@ -26,7 +26,6 @@
         <activity android:name=".activity.FragmentStatusActivity" />
         <activity android:name=".activity.PictureTestActivity" />
         <activity android:name=".activity.LoadingTestActivity" />
-        <activity android:name=".activity.ApiRequestTestActivity" />
         <activity android:name=".activity.DialogTestActivity" />
         <activity android:name=".activity.MyDialogTestActivity" />
         <activity android:name=".activity.WheelTestActivity" />
@@ -35,13 +34,6 @@
         <activity android:name=".activity.DateTimeTestActivity" />
         <activity android:name=".activity.SheetTestActivity" />
         <activity android:name=".activity.BannerTestActivity" />
-        <activity android:name=".activity.RefreshTest1Activity" />
-        <activity android:name=".activity.ListViewTest1Activity" />
-        <activity android:name=".activity.ListViewTest2Activity" />
-        <activity android:name=".activity.ListViewMoreItemTypeTestActivity" />
-        <activity android:name=".activity.RefreshTest2Activity" />
-        <activity android:name=".activity.RefreshTest3Activity" />
-        <activity android:name=".activity.RefreshTest4Activity" />
         <activity android:name="com.ghy.baseapp.activity.IndexHomeActivity" />
         <activity android:name="com.ghy.baseapp.activity.IndexTabActivity" />
         <activity android:name=".activity.IndexTestHomeActivity" />
@@ -52,11 +44,6 @@
         <activity android:name="com.ghy.baseapp.activity.TabLayoutMeActivity" />
         <activity android:name=".activity.PaletteTestActivity" />
         <activity android:name=".activity.PaletteListTestActivity" />
-        <activity android:name=".activity.RecyclerViewTest1Activity" />
-        <activity android:name=".activity.RecyclerViewTest2Activity" />
-        <activity android:name=".activity.RecyclerViewTest3Activity" />
-        <activity android:name=".activity.RecyclerViewTest4Activity" />
-        <activity android:name=".activity.PullZoomTest1Activity" />
         <activity android:name=".activity.FileDownloadTestActivity" />
         <activity android:name=".activity.SlidingMenuTestActivity"></activity>
     </application>

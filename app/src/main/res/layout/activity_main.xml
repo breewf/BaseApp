@@ -51,16 +51,9 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_test4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Api请求数据测试" />
-
-                <Button
                     android:id="@+id/btn_pic_test"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_10"
                     android:text="图片加载测试" />
             </LinearLayout>
 
@@ -144,63 +137,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_listView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="普通ListView" />
-
-                <Button
-                    android:id="@+id/btn_listView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="带header和footer" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_listView_item_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="不同item类型的ListView" />
-
-            <Button
-                android:id="@+id/btn_pull_to_refresh1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="谷歌下拉刷新ListView" />
-
-            <Button
-                android:id="@+id/btn_pull_to_refresh2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="自定义下拉刷新上拉加载的ListView" />
-
-            <Button
-                android:id="@+id/btn_pull_to_refresh3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="谷歌下拉刷新ScrollView" />
-
-            <Button
-                android:id="@+id/btn_pull_to_refresh4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="自定义下拉刷新上拉加载的ScrollView" />
-
             <Button
                 android:id="@+id/btn_tab_change_color"
                 android:layout_width="wrap_content"
@@ -235,41 +171,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="Palette颜色拾取测试" />
-
-            <Button
-                android:id="@+id/btn_recycler3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="普通RecyclerView" />
-
-            <Button
-                android:id="@+id/btn_recycler1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="带下拉刷新和上拉加载的RecyclerView" />
-
-            <Button
-                android:id="@+id/btn_recycler2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="多item类型的RecyclerView" />
-
-            <Button
-                android:id="@+id/btn_recycler4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="自定义下拉和上拉的RecyclerView" />
-
-            <Button
-                android:id="@+id/btn_zoom1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="PullZoom下拉缩放" />
 
             <Button
                 android:id="@+id/btn_file_download"
