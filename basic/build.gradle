@@ -17,10 +17,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    lintOptions {
+        abortOnError false
+    }
 }
 
 publish {
@@ -28,7 +31,7 @@ publish {
     groupId = 'com.ghy'         //compile引用时的第1部分groupId
     artifactId = 'Basic'     //compile引用时的第2部分项目名
     publishVersion = '1.0.0'    //compile引用时的第3部分版本号
-    desc = 'V1.0 Basic' //描述
+    desc = 'V1.0 Basic:BaseActivity、BaseFragment、some Utils' //描述
     website = 'https://github.com/breewf' //网址
 }
 
@@ -39,4 +42,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'com.android.support:design:26.1.0'
 }

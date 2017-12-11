@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#4183ff</color>
+    <color name="colorPrimaryDark">#4179ff</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 通用颜色值 -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_gay">#DEDFE2</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="page_bg">#F4F4F4</color>
+    <color name="text_deep">#333333</color>
+    <color name="text_normal">#666666</color>
+    <color name="text_lighter">#999999</color>
+    <color name="text_lighter_gray">#a1a1a1</color>
+    <color name="text_hint">#bbbbbb</color>
+    <color name="text_link">#33b5e5</color>
+    <color name="title_text">#483126</color>
+    <color name="item_press_color">#f9f9f9</color>
+    <color name="press_color">#e5e5e5</color>
+    <color name="press_color_deep">#bbbbbb</color>
+    <color name="btn_gray">#cccccc</color>
+    <color name="status_bar_bg">#bbbbbb</color>
+    <color name="red">#F02B2B</color>
+    <color name="red_text">#ff3b30</color>
+    <color name="divide_line">#EEEEEE</color>
+
+    <color name="black_b0">#b0b0b0</color>
+    <color name="black_db">#dbdbdb</color>
+    <color name="black_c0">#c0c0c0</color>
+    <color name="black_e5">#e5e5e5</color>
+    <color name="black_3f">#3F3F3F</color>
+    <color name="black_33">#333333</color>
+    <color name="black_66">#666666</color>
+    <color name="black_88">#888888</color>
+
+    <color name="black_04">#040404</color>
+    <color name="black_15">#151515</color>
+    <color name="black_2a">#2A2A2A</color>
+    <color name="black_cc">#cccccc</color>
+    <color name="black_8c">#8c8c8c</color>
+    <color name="black_99">#999999</color>
+    <color name="black_bd">#bdbdbd</color>
+    <color name="black_eb">#EBEBEB</color>
+    <color name="black_c6">#C6C6C6</color>
+    <color name="black_aa">#AAAAAA</color>
+    <color name="black_f0">#f0f0f0</color>
+
+</resources>

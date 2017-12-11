@@ -14,8 +14,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -42,4 +46,5 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.liulishuo.filedownloader:library:0.2.0'
+    compile project(path: ':basic')
 }
