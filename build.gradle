@@ -20,10 +20,14 @@ allprojects {
         google()
     }
     tasks.withType(Javadoc) {
-        options{ encoding "UTF-8"
+        options {
+            encoding "UTF-8"
             charSet 'UTF-8'
             links "http://docs.oracle.com/javase/7/docs/api"
         }
+        //解决 Execution failed for task':[YourLibraryName]:mavenAndroidJavadocs'
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
     }
 }
 
