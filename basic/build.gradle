@@ -30,8 +30,8 @@ publish {
     userOrg = 'breewf'      //bintray注册的用户名
     groupId = 'com.ghy'         //compile引用时的第1部分groupId
     artifactId = 'Basic'     //compile引用时的第2部分项目名
-    publishVersion = '1.0.0'    //compile引用时的第3部分版本号
-    desc = 'V1.0 Basic:BaseActivity,BaseFragment,some Utils' //描述
+    publishVersion = '1.0.1'    //compile引用时的第3部分版本号
+    desc = 'BaseActivity,BaseFragment,some Utils' //描述
     website = 'https://github.com/breewf' //网址
 }
 
