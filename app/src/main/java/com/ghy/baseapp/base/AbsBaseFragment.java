@@ -141,16 +141,30 @@ public abstract class AbsBaseFragment extends Fragment {
         loadingProgressDismiss();
         switch (fragmentStatus) {
             case FRAGMENT_STATUS_SUCCESS:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 mContentView.setVisibility(View.VISIBLE);
                 break;
             case FRAGMENT_STATUS_LOADING:
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 loadingLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_loading_layout, null);
                 ProgressView loadingProgress = (ProgressView) loadingLayoutView.findViewById(R.id.abs_loading_progress);
                 mRootFrameLayout.addView(loadingLayoutView);
@@ -158,9 +172,15 @@ public abstract class AbsBaseFragment extends Fragment {
                 loadingProgressStartDelay(loadingProgress);
                 break;
             case FRAGMENT_STATUS_NO_NET:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 noNetLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_no_net_layout, null);
                 mRootFrameLayout.addView(noNetLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
@@ -168,9 +188,15 @@ public abstract class AbsBaseFragment extends Fragment {
                 setNoNetClickListener(noNetLayoutView);
                 break;
             case FRAGMENT_STATUS_EMPTY:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 emptyLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_empty_layout, null);
                 mRootFrameLayout.addView(emptyLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
@@ -178,14 +204,22 @@ public abstract class AbsBaseFragment extends Fragment {
                 setEmptyClickListener(emptyLayoutView);
                 break;
             case FRAGMENT_STATUS_ERROR:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
                 errorLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_error_layout, null);
                 mRootFrameLayout.addView(errorLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
                 //错误页面布局点击事件
                 setErrorClickListener(errorLayoutView);
+                break;
+            default:
                 break;
         }
     }
@@ -210,14 +244,18 @@ public abstract class AbsBaseFragment extends Fragment {
      * @param noNetLayoutView
      */
     private void setNoNetClickListener(View noNetLayoutView) {
-        if (noNetLayoutView != null) noNetLayoutView.setOnClickListener(new NoNetClickListener());
+        if (noNetLayoutView != null) {
+            noNetLayoutView.setOnClickListener(new NoNetClickListener());
+        }
     }
 
     private class NoNetClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
+            if (noNetLayoutView != null) {
+                mRootFrameLayout.removeView(noNetLayoutView);
+            }
             loadingProgressShow();
             onNoNetClick(v);
         }
@@ -229,14 +267,18 @@ public abstract class AbsBaseFragment extends Fragment {
      * @param emptyLayoutView
      */
     private void setEmptyClickListener(View emptyLayoutView) {
-        if (emptyLayoutView != null) emptyLayoutView.setOnClickListener(new EmptyClickListener());
+        if (emptyLayoutView != null) {
+            emptyLayoutView.setOnClickListener(new EmptyClickListener());
+        }
     }
 
     private class EmptyClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
+            if (emptyLayoutView != null) {
+                mRootFrameLayout.removeView(emptyLayoutView);
+            }
             loadingProgressShow();
             onEmptyClick(v);
         }
@@ -248,14 +290,18 @@ public abstract class AbsBaseFragment extends Fragment {
      * @param errorLayoutView
      */
     private void setErrorClickListener(View errorLayoutView) {
-        if (errorLayoutView != null) errorLayoutView.setOnClickListener(new ErrorClickListener());
+        if (errorLayoutView != null) {
+            errorLayoutView.setOnClickListener(new ErrorClickListener());
+        }
     }
 
     private class ErrorClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+            if (errorLayoutView != null) {
+                mRootFrameLayout.removeView(errorLayoutView);
+            }
             loadingProgressShow();
             onErrorClick(v);
         }

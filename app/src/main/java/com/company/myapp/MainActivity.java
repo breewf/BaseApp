@@ -99,78 +99,78 @@ public class MainActivity extends AbsBaseActivity {
     }
 
     @OnClick(R.id.btn_dialog_test)
-    public void dialogTest(){
+    public void dialogTest() {
         startActivity(this, DialogTestActivity.class);
     }
 
     @OnClick(R.id.btn_dialog_test2)
-    public void dialogTest2(){
+    public void dialogTest2() {
         startActivity(this, MyDialogTestActivity.class);
     }
 
     @OnClick(R.id.btn_test_5)
-    public void btn5Click(){
+    public void btn5Click() {
         startActivity(this, WheelTestActivity.class);
     }
 
     @OnClick(R.id.btn_label)
-    public void btnlabelView(){
+    public void btnlabelView() {
         startActivity(this, LabelViewTestActivity.class);
     }
 
     @OnClick(R.id.btn_snack_bar)
-    public void btnSnackBar(){
+    public void btnSnackBar() {
         startActivity(this, SnackBarTestActivity.class);
     }
 
     @OnClick(R.id.btn_banner)
-    public void btnBanner(){
+    public void btnBanner() {
         startActivity(this, BannerTestActivity.class);
     }
 
 
     @OnClick(R.id.btn_data)
-    public void btnData(){
+    public void btnData() {
         startActivity(this, DateTimeTestActivity.class);
     }
 
     @OnClick(R.id.btn_sheet)
-    public void btnSheet(){
+    public void btnSheet() {
         startActivity(this, SheetTestActivity.class);
     }
 
     @OnClick(R.id.btn_tab_change_color)
-    public void btnTabChange(){
+    public void btnTabChange() {
         startActivity(this, IndexHomeActivity.class);
     }
 
     @OnClick(R.id.btn_tab_index)
-    public void btnTabIndex(){
+    public void btnTabIndex() {
         startActivity(this, IndexTabActivity.class);
     }
 
     @OnClick(R.id.btn_tab_layout1)
-    public void btnTabLayout1(){
+    public void btnTabLayout1() {
         startActivity(this, TabLayoutActivity.class);
     }
 
     @OnClick(R.id.btn_tab_layout2)
-    public void btnTabLayout2(){
+    public void btnTabLayout2() {
         startActivity(this, TabLayoutMeActivity.class);
     }
 
     @OnClick(R.id.btn_palette)
-    public void btnPalette(){
+    public void btnPalette() {
         startActivity(this, PaletteTestActivity.class);
     }
 
     @OnClick(R.id.btn_file_download)
-    public void btnFileDownLoad(){
+    public void btnFileDownLoad() {
         startActivity(this, FileDownloadTestActivity.class);
     }
 
     @OnClick(R.id.btn_sliding_menu)
-    public void btnSlidingMenu(){
+    public void btnSlidingMenu() {
         startActivity(this, SlidingMenuTestActivity.class);
     }
 
@@ -189,6 +189,8 @@ public class MainActivity extends AbsBaseActivity {
                         break;
                     case R.id.abs_menu_main_item2:
                         MainActivity.this.finish();
+                        break;
+                    default:
                         break;
                 }
             }

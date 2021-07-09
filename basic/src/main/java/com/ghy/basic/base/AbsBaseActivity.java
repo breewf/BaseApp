@@ -137,7 +137,9 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
 
     public void setActivityStatus(int activityStatus) {
         int bottomPadding = AppUtils.dip2px(this, 100);
-        if (loadingSmile != null) loadingSmile.stopAnim();
+        if (loadingSmile != null) {
+            loadingSmile.stopAnim();
+        }
         switch (activityStatus) {
             case ACTIVITY_STATUS_SUCCESS:
                 removePageStatusView();
@@ -177,6 +179,8 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 mSonView.setVisibility(View.INVISIBLE);
                 setPageStatusViewClickListener(ACTIVITY_STATUS_ERROR, errorLayoutView);
                 break;
+            default:
+                break;
         }
     }
 
@@ -184,10 +188,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * 移除添加的页面状态布局View
      */
     private void removePageStatusView() {
-        if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-        if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-        if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-        if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+        if (loadingLayoutView != null) {
+            mRootFrameLayout.removeView(loadingLayoutView);
+        }
+        if (noNetLayoutView != null) {
+            mRootFrameLayout.removeView(noNetLayoutView);
+        }
+        if (emptyLayoutView != null) {
+            mRootFrameLayout.removeView(emptyLayoutView);
+        }
+        if (errorLayoutView != null) {
+            mRootFrameLayout.removeView(errorLayoutView);
+        }
     }
 
     /**
@@ -197,7 +209,9 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @param pageView
      */
     private void setPageStatusViewClickListener(final int pageStatus, View pageView) {
-        if (pageView == null) return;
+        if (pageView == null) {
+            return;
+        }
         pageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,6 +224,8 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                         break;
                     case ACTIVITY_STATUS_ERROR:
                         onErrorClick(view);
+                        break;
+                    default:
                         break;
                 }
             }

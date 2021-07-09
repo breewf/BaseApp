@@ -245,18 +245,32 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         loadingProgressDismiss();
         switch (activityStatus) {
             case ACTIVITY_STATUS_SUCCESS:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 mSonView.setVisibility(View.VISIBLE);
                 //添加淡入动画
                 AnimUtils.fadeIn(mSonView);
                 break;
             case ACTIVITY_STATUS_LOADING:
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 loadingLayoutView = getLayoutInflater().inflate(R.layout.abs_base_loading_layout, null);
                 ProgressView loadingProgress = (ProgressView) loadingLayoutView.findViewById(R.id.abs_loading_progress);
                 mRootFrameLayout.addView(loadingLayoutView);
@@ -264,9 +278,15 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 loadingProgressStartDelay(loadingProgress);
                 break;
             case ACTIVITY_STATUS_NO_NET:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 noNetLayoutView = getLayoutInflater().inflate(R.layout.abs_base_no_net_layout, null);
                 mRootFrameLayout.addView(noNetLayoutView);
                 mSonView.setVisibility(View.INVISIBLE);
@@ -274,9 +294,15 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 setNoNetClickListener(noNetLayoutView);
                 break;
             case ACTIVITY_STATUS_EMPTY:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (errorLayoutView != null) {
+                    mRootFrameLayout.removeView(errorLayoutView);
+                }
                 emptyLayoutView = getLayoutInflater().inflate(R.layout.abs_base_empty_layout, null);
                 mRootFrameLayout.addView(emptyLayoutView);
                 mSonView.setVisibility(View.INVISIBLE);
@@ -284,14 +310,22 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 setEmptyClickListener(emptyLayoutView);
                 break;
             case ACTIVITY_STATUS_ERROR:
-                if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-                if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-                if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
+                if (loadingLayoutView != null) {
+                    mRootFrameLayout.removeView(loadingLayoutView);
+                }
+                if (noNetLayoutView != null) {
+                    mRootFrameLayout.removeView(noNetLayoutView);
+                }
+                if (emptyLayoutView != null) {
+                    mRootFrameLayout.removeView(emptyLayoutView);
+                }
                 errorLayoutView = getLayoutInflater().inflate(R.layout.abs_base_error_layout, null);
                 mRootFrameLayout.addView(errorLayoutView);
                 mSonView.setVisibility(View.INVISIBLE);
                 //错误页面布局点击事件
                 setErrorClickListener(errorLayoutView);
+                break;
+            default:
                 break;
         }
     }
@@ -316,14 +350,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @param noNetLayoutView
      */
     private void setNoNetClickListener(View noNetLayoutView) {
-        if (noNetLayoutView != null) noNetLayoutView.setOnClickListener(new NoNetClickListener());
+        if (noNetLayoutView != null) {
+            noNetLayoutView.setOnClickListener(new NoNetClickListener());
+        }
     }
 
     private class NoNetClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
+            if (noNetLayoutView != null) {
+                mRootFrameLayout.removeView(noNetLayoutView);
+            }
             loadingProgressShow();
             onNoNetClick(v);
         }
@@ -335,14 +373,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @param emptyLayoutView
      */
     private void setEmptyClickListener(View emptyLayoutView) {
-        if (emptyLayoutView != null) emptyLayoutView.setOnClickListener(new EmptyClickListener());
+        if (emptyLayoutView != null) {
+            emptyLayoutView.setOnClickListener(new EmptyClickListener());
+        }
     }
 
     private class EmptyClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
+            if (emptyLayoutView != null) {
+                mRootFrameLayout.removeView(emptyLayoutView);
+            }
             loadingProgressShow();
             onEmptyClick(v);
         }
@@ -354,14 +396,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @param errorLayoutView
      */
     private void setErrorClickListener(View errorLayoutView) {
-        if (errorLayoutView != null) errorLayoutView.setOnClickListener(new ErrorClickListener());
+        if (errorLayoutView != null) {
+            errorLayoutView.setOnClickListener(new ErrorClickListener());
+        }
     }
 
     private class ErrorClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //点击后清除该布局并显示loadingProgress
-            if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+            if (errorLayoutView != null) {
+                mRootFrameLayout.removeView(errorLayoutView);
+            }
             loadingProgressShow();
             onErrorClick(v);
         }
@@ -449,15 +495,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 return true;
             case TOOLBAR_RIGHT_TYPE_IV:
                 getMenuInflater().inflate(R.menu.abs_menu_main_iv, menu);
-                if (setToolBarRightIv() != 0)
+                if (setToolBarRightIv() != 0) {
                     menu.getItem(0).setIcon(getResources().getDrawable(setToolBarRightIv()));
-                if (!TextUtils.isEmpty(setToolBarRightIvTitle()))
+                }
+                if (!TextUtils.isEmpty(setToolBarRightIvTitle())) {
                     menu.getItem(0).setTitle(setToolBarRightIvTitle());
+                }
                 return true;
             case TOOLBAR_RIGHT_TYPE_TV:
                 getMenuInflater().inflate(R.menu.abs_menu_main_tv, menu);
-                if (!TextUtils.isEmpty(setToolBarRightTv()))
+                if (!TextUtils.isEmpty(setToolBarRightTv())) {
                     menu.getItem(0).setTitle(setToolBarRightTv());
+                }
                 return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -472,18 +521,24 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 this.finish();
                 break;
             case R.id.abs_menu_main_iv:
-                if (rightIvClickListener != null) rightIvClickListener.onToolBarRightIvClick();
+                if (rightIvClickListener != null) {
+                    rightIvClickListener.onToolBarRightIvClick();
+                }
                 break;
             case R.id.abs_menu_main_tv:
-                if (rightTvClickListener != null) rightTvClickListener.onToolBarRightTvClick();
+                if (rightTvClickListener != null) {
+                    rightTvClickListener.onToolBarRightTvClick();
+                }
                 break;
             case R.id.abs_menu_main_item1:
-                if (rightItemClickListener != null)
+                if (rightItemClickListener != null) {
                     rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item1);
+                }
                 break;
             case R.id.abs_menu_main_item2:
-                if (rightItemClickListener != null)
+                if (rightItemClickListener != null) {
                     rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item2);
+                }
                 break;
 
         }

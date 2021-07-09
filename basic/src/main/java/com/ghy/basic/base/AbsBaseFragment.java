@@ -115,7 +115,9 @@ public abstract class AbsBaseFragment extends Fragment {
 
     public void setFragmentStatus(int fragmentStatus) {
         int bottomPadding = AppUtils.dip2px(getActivity(), 100);
-        if (loadingSmile != null) loadingSmile.stopAnim();
+        if (loadingSmile != null) {
+            loadingSmile.stopAnim();
+        }
         switch (fragmentStatus) {
             case FRAGMENT_STATUS_SUCCESS:
                 removePageStatusView();
@@ -155,6 +157,8 @@ public abstract class AbsBaseFragment extends Fragment {
                 mContentView.setVisibility(View.INVISIBLE);
                 setPageStatusViewClickListener(FRAGMENT_STATUS_ERROR, errorLayoutView);
                 break;
+            default:
+                break;
         }
     }
 
@@ -162,10 +166,18 @@ public abstract class AbsBaseFragment extends Fragment {
      * 移除添加的页面状态布局View
      */
     private void removePageStatusView() {
-        if (loadingLayoutView != null) mRootFrameLayout.removeView(loadingLayoutView);
-        if (noNetLayoutView != null) mRootFrameLayout.removeView(noNetLayoutView);
-        if (emptyLayoutView != null) mRootFrameLayout.removeView(emptyLayoutView);
-        if (errorLayoutView != null) mRootFrameLayout.removeView(errorLayoutView);
+        if (loadingLayoutView != null) {
+            mRootFrameLayout.removeView(loadingLayoutView);
+        }
+        if (noNetLayoutView != null) {
+            mRootFrameLayout.removeView(noNetLayoutView);
+        }
+        if (emptyLayoutView != null) {
+            mRootFrameLayout.removeView(emptyLayoutView);
+        }
+        if (errorLayoutView != null) {
+            mRootFrameLayout.removeView(errorLayoutView);
+        }
     }
 
     /**
@@ -175,7 +187,9 @@ public abstract class AbsBaseFragment extends Fragment {
      * @param pageView
      */
     private void setPageStatusViewClickListener(final int pageStatus, View pageView) {
-        if (pageView == null) return;
+        if (pageView == null) {
+            return;
+        }
         pageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +202,8 @@ public abstract class AbsBaseFragment extends Fragment {
                         break;
                     case FRAGMENT_STATUS_ERROR:
                         onErrorClick(view);
+                        break;
+                    default:
                         break;
                 }
             }
