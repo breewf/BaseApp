@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.company.myapp"
+        applicationId "com.hy.baseapp"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -36,8 +36,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile 'com.github.bumptech.glide:glide:3.6.1'
-    //material design
-    compile 'com.github.rey5137:material:1.2.2'
     //rxJava and retrofit
     compile 'io.reactivex:rxjava:1.3.0'
     compile 'io.reactivex:rxandroid:1.2.1'

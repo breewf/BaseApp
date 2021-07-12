@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="@dimen/dimen_10"
     android:background="@color/white"
-    tools:context="com.company.myapp.activity.FileDownloadTestActivity">
+    tools:context="com.hy.myapp.activity.FileDownloadTestActivity">
 
     <Button
         android:id="@+id/btn_down_start"

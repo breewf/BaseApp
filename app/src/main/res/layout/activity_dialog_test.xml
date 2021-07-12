@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:mContext="com.company.myapp.activity.DialogTestActivity">
+    tools:mContext="com.hy.myapp.activity.DialogTestActivity">
 
     <ScrollView
         android:layout_width="match_parent"

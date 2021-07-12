@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:mContext="com.ghy.baseapp.activity.TabLayoutMeActivity">
+    tools:mContext="com.hy.baseapp.activity.TabLayoutMeActivity">
 
     <include layout="@layout/abs_my_tab_layout"/>
 

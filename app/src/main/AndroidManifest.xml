@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.company.myapp">
+    package="com.hy.myapp">
 
     <!-- 用户权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,43 +9,42 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.hy.myapp.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.hy.myapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ActivityStatusTestActivity" />
-        <activity android:name=".activity.FragmentStatusActivity" />
-        <activity android:name=".activity.PictureTestActivity" />
-        <activity android:name=".activity.LoadingTestActivity" />
-        <activity android:name=".activity.DialogTestActivity" />
-        <activity android:name=".activity.MyDialogTestActivity" />
-        <activity android:name=".activity.WheelTestActivity" />
-        <activity android:name=".activity.LabelViewTestActivity" />
-        <activity android:name=".activity.SnackBarTestActivity" />
-        <activity android:name=".activity.DateTimeTestActivity" />
-        <activity android:name=".activity.SheetTestActivity" />
-        <activity android:name=".activity.BannerTestActivity" />
-        <activity android:name="com.ghy.baseapp.activity.IndexHomeActivity" />
-        <activity android:name="com.ghy.baseapp.activity.IndexTabActivity" />
-        <activity android:name=".activity.IndexTestHomeActivity" />
-        <activity android:name=".activity.IndexTestCarActivity" />
-        <activity android:name=".activity.IndexTestMessageActivity" />
-        <activity android:name=".activity.IndexTestMeActivity" />
-        <activity android:name="com.ghy.baseapp.activity.TabLayoutActivity" />
-        <activity android:name="com.ghy.baseapp.activity.TabLayoutMeActivity" />
-        <activity android:name=".activity.PaletteTestActivity" />
-        <activity android:name=".activity.PaletteListTestActivity" />
-        <activity android:name=".activity.FileDownloadTestActivity" />
-        <activity android:name=".activity.SlidingMenuTestActivity"></activity>
+        <activity android:name="com.hy.myapp.activity.ActivityStatusTestActivity" />
+        <activity android:name="com.hy.myapp.activity.FragmentStatusActivity" />
+        <activity android:name="com.hy.myapp.activity.PictureTestActivity" />
+        <activity android:name="com.hy.myapp.activity.LoadingTestActivity" />
+        <activity android:name="com.hy.myapp.activity.DialogTestActivity" />
+        <activity android:name="com.hy.myapp.activity.MyDialogTestActivity" />
+        <activity android:name="com.hy.myapp.activity.WheelTestActivity" />
+        <activity android:name="com.hy.myapp.activity.LabelViewTestActivity" />
+        <activity android:name="com.hy.myapp.activity.SnackBarTestActivity" />
+        <activity android:name="com.hy.myapp.activity.SheetTestActivity" />
+        <activity android:name="com.hy.myapp.activity.BannerTestActivity" />
+        <activity android:name="com.hy.baseapp.activity.IndexHomeActivity" />
+        <activity android:name="com.hy.baseapp.activity.IndexTabActivity" />
+        <activity android:name="com.hy.myapp.activity.IndexTestHomeActivity" />
+        <activity android:name="com.hy.myapp.activity.IndexTestCarActivity" />
+        <activity android:name="com.hy.myapp.activity.IndexTestMessageActivity" />
+        <activity android:name="com.hy.myapp.activity.IndexTestMeActivity" />
+        <activity android:name="com.hy.baseapp.activity.TabLayoutActivity" />
+        <activity android:name="com.hy.baseapp.activity.TabLayoutMeActivity" />
+        <activity android:name="com.hy.myapp.activity.PaletteTestActivity" />
+        <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
+        <activity android:name="com.hy.myapp.activity.FileDownloadTestActivity" />
+        <activity android:name="com.hy.myapp.activity.SlidingMenuTestActivity" />
     </application>
 
 </manifest>

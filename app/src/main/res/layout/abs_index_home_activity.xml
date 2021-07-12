@@ -16,7 +16,7 @@
         android:layout_height="@dimen/dimen_0.5"
         android:background="@color/gray_cc"/>
 
-    <com.ghy.baseapp.view.MyTabView
+    <com.hy.baseapp.view.MyTabView
         android:id="@+id/id_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

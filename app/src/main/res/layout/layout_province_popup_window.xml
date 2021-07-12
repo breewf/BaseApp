@@ -11,7 +11,7 @@
         android:layout_height="@dimen/dimen_0.5"
         android:background="#cccccc"/>
 
-    <com.ghy.baseapp.view.WheelView
+    <com.hy.baseapp.view.WheelView
         android:id="@+id/province_wv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

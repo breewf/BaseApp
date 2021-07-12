@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ghy.baseapp.component.dialog.view.TriangleView
+    <com.hy.baseapp.component.dialog.view.TriangleView
         android:id="@+id/triangle_view"
         android:layout_width="24dp"
         android:layout_height="12dp"/>

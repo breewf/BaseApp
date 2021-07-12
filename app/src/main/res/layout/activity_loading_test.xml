@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:mContext="com.company.myapp.activity.LoadingTestActivity">
+    tools:mContext="com.hy.myapp.activity.LoadingTestActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/test3_fragment"
-        android:name="com.company.myapp.fragment.LoadingTestFragment"
+        android:name="com.hy.myapp.fragment.LoadingTestFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="@dimen/dimen_10" />

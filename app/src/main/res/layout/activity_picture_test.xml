@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:mContext="com.company.myapp.activity.PictureTestActivity">
+    tools:mContext="com.hy.myapp.activity.PictureTestActivity">
 
     <ScrollView
         android:layout_width="match_parent"

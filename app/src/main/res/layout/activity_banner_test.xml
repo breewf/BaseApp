@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ghy.baseapp.component.banner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.hy.baseapp.component.banner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/convenientBanner"
         android:layout_width="match_parent"
         android:layout_height="160dp"

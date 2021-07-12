@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:mContext="com.company.myapp.activity.SnackBarTestActivity">
+    tools:mContext="com.hy.myapp.activity.SnackBarTestActivity">
 
     <Button
         android:id="@+id/btn_snack1"
