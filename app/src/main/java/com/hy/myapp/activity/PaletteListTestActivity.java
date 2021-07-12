@@ -2,7 +2,6 @@ package com.hy.myapp.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.v7.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.hy.myapp.R;
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.helper.ImageHelper;
+import com.hy.myapp.R;
 
+import androidx.palette.graphics.Palette;
 import butterknife.Bind;
 
 public class PaletteListTestActivity extends AbsBaseActivity {
@@ -75,13 +75,17 @@ public class PaletteListTestActivity extends AbsBaseActivity {
      * @param bitmap
      */
     public void getColor(Bitmap bitmap) {
-        if (bitmap == null) return;
+        if (bitmap == null) {
+            return;
+        }
         // 使用Palette来设置从Bitmap中提取出的颜色
         Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
                 Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                if (vibrantSwatch == null) return;
+                if (vibrantSwatch == null) {
+                    return;
+                }
                 setColor(vibrantSwatch.getRgb());
             }
         });
@@ -93,7 +97,9 @@ public class PaletteListTestActivity extends AbsBaseActivity {
      * @param color
      */
     private void setColor(int color) {
-        if (getToolBar() != null) getToolBar().setBackgroundColor(color);
+        if (getToolBar() != null) {
+            getToolBar().setBackgroundColor(color);
+        }
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             //顶部状态栏颜色加深

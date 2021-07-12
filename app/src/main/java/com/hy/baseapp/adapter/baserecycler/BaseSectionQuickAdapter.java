@@ -1,7 +1,7 @@
 package com.hy.baseapp.adapter.baserecycler;
 
 import android.content.Context;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.hy.baseapp.adapter.baserecycler.entity.SectionEntity;

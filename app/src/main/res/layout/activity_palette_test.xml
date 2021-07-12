@@ -7,14 +7,14 @@
     android:orientation="vertical"
     tools:mContext="com.hy.myapp.activity.PaletteTestActivity">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_palette"
         android:layout_width="match_parent"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         android:layout_height="wrap_content" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/tab_palette_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

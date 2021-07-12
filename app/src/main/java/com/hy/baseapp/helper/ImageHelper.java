@@ -78,7 +78,9 @@ public class ImageHelper {
             @Override
             public void onFinalImageSet(String id, Object imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
-                if (listener != null) listener.onLoadComplete();
+                if (listener != null) {
+                    listener.onLoadComplete();
+                }
             }
         };
         Uri uri = Uri.parse(url);
@@ -108,7 +110,9 @@ public class ImageHelper {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
                 super.onResourceReady(resource, animation);
-                if (listener != null) listener.onLoadComplete();
+                if (listener != null) {
+                    listener.onLoadComplete();
+                }
             }
         });
     }

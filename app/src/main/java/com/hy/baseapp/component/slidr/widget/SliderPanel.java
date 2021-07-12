@@ -6,9 +6,9 @@
 package com.hy.baseapp.component.slidr.widget;
 
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewGroupCompat;
-import android.support.v4.widget.ViewDragHelper;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
+import androidx.customview.widget.ViewDragHelper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;

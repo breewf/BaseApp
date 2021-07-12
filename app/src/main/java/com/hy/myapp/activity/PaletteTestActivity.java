@@ -4,19 +4,19 @@ import android.animation.FloatEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
 import android.view.Window;
 import android.view.animation.LinearInterpolator;
 
+import com.google.android.material.tabs.TabLayout;
+import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.myapp.R;
 import com.hy.myapp.fragment.PalettePageFragment;
-import com.hy.baseapp.base.AbsBaseActivity;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.palette.graphics.Palette;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.Bind;
 
 public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActivity.ToolBarRightTvClickListener,
@@ -80,14 +80,18 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
             setActivityStatus(ACTIVITY_STATUS_SUCCESS);
             isFirstStart = false;
         }
-        if (bitmap == null) return;
+        if (bitmap == null) {
+            return;
+        }
         // 使用Palette来设置从Bitmap中提取出的颜色
         Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
                 Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                if (vibrantSwatch == null) return;
-//                setColor(vibrantSwatch.getRgb());
+                if (vibrantSwatch == null) {
+                    return;
+                }
+                //setColor(vibrantSwatch.getRgb());
                 //使用颜色加深过度动画
                 startAnimation(vibrantSwatch.getRgb());
             }
@@ -100,7 +104,9 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      * @param color
      */
     private void setColor(int color) {
-        if (getToolBar() != null) getToolBar().setBackgroundColor(color);
+        if (getToolBar() != null) {
+            getToolBar().setBackgroundColor(color);
+        }
         tabLayoutPalette.setBackgroundColor(color);
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
