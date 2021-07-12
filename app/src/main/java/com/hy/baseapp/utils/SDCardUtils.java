@@ -4,8 +4,9 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 
-import com.hy.baseapp.common.log.Log;
+import com.hy.myapp.BuildConfig;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -179,7 +180,7 @@ public class SDCardUtils {
                 sd.totalBytes = sf.getTotalBytes();
             }
         }
-        if (Log.isPrint) {
+        if (BuildConfig.DEBUG) {
             Log.i(TAG, sd.toString());
         }
         return sd;

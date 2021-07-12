@@ -57,6 +57,9 @@ dependencies {
     implementation 'com.trello:rxlifecycle-android:1.0'
     implementation 'com.trello:rxlifecycle-components:1.0'
 
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.5.0'
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'commons-io:commons-io:2.6'
 

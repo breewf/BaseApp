@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.os.Build.VERSION;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -19,8 +20,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.hy.baseapp.common.log.Log;
-import com.hy.baseapp.common.utils.AppUtils;
 import com.hy.baseapp.global.AppConfig;
 
 
@@ -465,7 +464,7 @@ public class ViewUtils {
         int scaledHeight = scaleValue(view.getContext(), heightPixels);
         ViewGroup.LayoutParams params = view.getLayoutParams();
         if (params == null) {
-            Log.e(ViewUtils.class, "setViewSize出错,如果是代码new出来的View，需要设置一个适合的LayoutParams");
+            Log.e("ViewUtils", "setViewSize出错,如果是代码new出来的View，需要设置一个适合的LayoutParams");
             return;
         }
         if (widthPixels != INVALID) {

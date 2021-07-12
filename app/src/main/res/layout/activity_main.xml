@@ -164,6 +164,13 @@
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="SlidingMenu侧滑菜单" />
 
+            <Button
+                android:id="@+id/btn_retrofit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Retrofit网络请求" />
+
         </LinearLayout>
 
     </ScrollView>

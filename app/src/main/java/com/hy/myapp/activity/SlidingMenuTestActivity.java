@@ -51,20 +51,22 @@ public class SlidingMenuTestActivity extends AbsBaseActivity {
     private void initSlidingView() {
         TextView tvLogin = (TextView) findViewById(R.id.slid_user_login);
         TextView tvRegist = (TextView) findViewById(R.id.slid_user_regist);
-        if (tvLogin != null)
+        if (tvLogin != null) {
             tvLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-        if (tvRegist != null)
+        }
+        if (tvRegist != null) {
             tvRegist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
+        }
     }
 
 }

@@ -2,8 +2,6 @@ package com.hy.baseapp.helper;
 
 import android.os.Environment;
 
-import com.hy.baseapp.common.log.Log;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -18,7 +16,6 @@ public class FileHelper {
     public static final String APP_DOWNLOAD = "download"; //下载文件夹根目录
     public static final String APP_ROOT_COUNT = "analyse"; //统计文件夹根目录
     public static final String COUNT_FILE_NAME = "temp"; //统计文件文件名
-
 
     /**
      * 获取log文件夹
@@ -71,10 +68,8 @@ public class FileHelper {
             }
             return dirFile + File.separator;
         } else {
-            Log.e("SD卡不存在-->>创建文件夹失败");
             return null;
         }
-
     }
 
     /**
@@ -90,7 +85,6 @@ public class FileHelper {
             }
             return rootFile + File.separator;
         } else {
-            Log.e("SD卡不存在-->>创建根目录失败");
             return null;
         }
     }
@@ -106,18 +100,15 @@ public class FileHelper {
         File file;
         if (path != null && fileName != null) {
             file = new File(path + fileName);
-            Log.i("文件路径---->>>>" + path + fileName);
             if (!file.exists()) {
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("创建文件发生异常");
                     return null;
                 }
             }
         } else {
-            Log.e("创建文件时发生错误-->>文件路径或文件名为空");
             return null;
         }
         return file;
@@ -143,16 +134,16 @@ public class FileHelper {
     private static boolean delete(String path) {
 
         //路径为空，返回删除失败
-        if (path == null) return false;
+        if (path == null) {
+            return false;
+        }
 
         File file = new File(path);
         //文件为空或文件不存在，返回删除成功
-        if (file == null || !file.exists()) {
-            Log.i("文件不存在，返回删除成功");
+        if (!file.exists()) {
             return true;
         } else {
             if (file.isDirectory()) {
-                Log.i("路径为文件夹，删除文件失败");
                 return false;
             } else {
                 boolean isDelete = file.delete();

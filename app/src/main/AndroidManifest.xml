@@ -4,6 +4,7 @@
 
     <!-- 用户权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -31,7 +32,6 @@
         <activity android:name="com.hy.myapp.activity.WheelTestActivity" />
         <activity android:name="com.hy.myapp.activity.LabelViewTestActivity" />
         <activity android:name="com.hy.myapp.activity.SnackBarTestActivity" />
-        <activity android:name="com.hy.myapp.activity.SheetTestActivity" />
         <activity android:name="com.hy.myapp.activity.BannerTestActivity" />
         <activity android:name="com.hy.baseapp.activity.IndexHomeActivity" />
         <activity android:name="com.hy.baseapp.activity.IndexTabActivity" />
@@ -45,6 +45,7 @@
         <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
         <activity android:name="com.hy.myapp.activity.FileDownloadTestActivity" />
         <activity android:name="com.hy.myapp.activity.SlidingMenuTestActivity" />
+        <activity android:name="com.hy.myapp.activity.RetrofitTestActivity" />
     </application>
 
 </manifest>

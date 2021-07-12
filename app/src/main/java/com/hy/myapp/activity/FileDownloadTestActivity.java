@@ -5,16 +5,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
 
-import com.hy.myapp.R;
 import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.common.log.Log;
 import com.hy.baseapp.component.slidr.Slidr;
 import com.hy.baseapp.component.slidr.model.SlidrConfig;
 import com.hy.baseapp.helper.FileHelper;
 import com.hy.baseapp.helper.ToastHelper;
+import com.hy.myapp.R;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;

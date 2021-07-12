@@ -2,11 +2,10 @@ package com.hy.baseapp;
 
 import android.app.Application;
 
-import com.hy.myapp.BuildConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.hy.baseapp.common.log.Log;
 import com.hy.baseapp.common.logger.LogLevel;
 import com.hy.baseapp.common.logger.Logger;
+import com.hy.myapp.BuildConfig;
 import com.liulishuo.filedownloader.FileDownloader;
 
 /**
@@ -68,7 +67,6 @@ public class BaseApplication extends Application {
             Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.FULL);// default LogLevel.FULL
         } else {
             //release versions不打印log
-            Log.isPrint = false;
             Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.NONE);// default LogLevel.FULL
         }
     }
