@@ -2,6 +2,6 @@
 .idea/
 .gradle/
 build/
-local.properties
 app/build/
 *.gradle
+local.properties

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.hy.baseapp"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -21,6 +21,8 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    ndkVersion "22.1.7171670"
 }
 
 dependencies {
