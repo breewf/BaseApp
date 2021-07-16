@@ -23,16 +23,12 @@ import butterknife.OnClick;
 
 public class BannerTestActivity extends AbsBaseActivity {
 
-    private String[] images = {"http://www.pp3.cn/uploads/allimg/111112/110323M57-5.jpg",
-            "http://p4.so.qhimg.com/sdr/1228_768_/t013e442f43954f6ef4.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://p1.so.qhimg.com/sdr/1228_768_/t01fc41b1c114cc1b46.jpg"
-    };
+    private String[] images = {"https://img2.baidu.com/it/u=3561514531,2170659185&fm=26&fmt=auto&gp=0.jpg",
+            "https://img2.baidu.com/it/u=3307484942,1189254751&fm=26&fmt=auto&gp=0.jpg",
+            "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
+            "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
 
-    private List<String> networkImages;
-
-    @Bind(R.id.convenientBanner)
-    ConvenientBanner banner;
+    @Bind(R.id.convenientBanner) ConvenientBanner banner;
 
     @Override
     protected int getLayoutID() {
@@ -46,9 +42,7 @@ public class BannerTestActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
-
-        networkImages = Arrays.asList(images);
-
+        List<String> networkImages = Arrays.asList(images);
         banner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
@@ -60,7 +54,6 @@ public class BannerTestActivity extends AbsBaseActivity {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                 .setOnItemClickListener(new OnBannerClickListener());
-
     }
 
     /**

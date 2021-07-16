@@ -29,9 +29,9 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
 
     public static PaletteTestActivity mInstance;
 
-    private String tabTitles[] = new String[]{"tab1", "tab2", "tab3", "tab4"};
+    private final String[] tabTitles = new String[]{"tab1", "tab2", "tab3", "tab4"};
 
-    private boolean isFirstStart = true;
+    private boolean isFirstSet = true;
 
     @Override
     protected int getLayoutID() {
@@ -76,9 +76,9 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
     }
 
     public void getColor(Bitmap bitmap) {
-        if (isFirstStart) {
+        if (isFirstSet) {
             setActivityStatus(ACTIVITY_STATUS_SUCCESS);
-            isFirstStart = false;
+            isFirstSet = false;
         }
         if (bitmap == null) {
             return;

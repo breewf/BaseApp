@@ -44,7 +44,6 @@
         <activity android:name="com.hy.myapp.activity.PaletteTestActivity" />
         <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
         <activity android:name="com.hy.myapp.activity.FileDownloadTestActivity" />
-        <activity android:name="com.hy.myapp.activity.SlidingMenuTestActivity" />
         <activity android:name="com.hy.myapp.activity.RetrofitTestActivity" />
     </application>
 

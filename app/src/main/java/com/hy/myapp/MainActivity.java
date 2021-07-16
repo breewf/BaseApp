@@ -19,7 +19,6 @@ import com.hy.myapp.activity.MyDialogTestActivity;
 import com.hy.myapp.activity.PaletteTestActivity;
 import com.hy.myapp.activity.PictureTestActivity;
 import com.hy.myapp.activity.RetrofitTestActivity;
-import com.hy.myapp.activity.SlidingMenuTestActivity;
 import com.hy.myapp.activity.SnackBarTestActivity;
 import com.hy.myapp.activity.WheelTestActivity;
 
@@ -157,16 +156,10 @@ public class MainActivity extends AbsBaseActivity {
         startActivity(this, FileDownloadTestActivity.class);
     }
 
-    @OnClick(R.id.btn_sliding_menu)
-    public void btnSlidingMenu() {
-        startActivity(this, SlidingMenuTestActivity.class);
-    }
-
     @OnClick(R.id.btn_retrofit)
     public void btnRetrofit() {
         startActivity(this, RetrofitTestActivity.class);
     }
-
 
     /**
      * toolBar右侧按钮点击事件

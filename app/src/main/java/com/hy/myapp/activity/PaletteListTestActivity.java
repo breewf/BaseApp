@@ -22,16 +22,16 @@ import butterknife.Bind;
 public class PaletteListTestActivity extends AbsBaseActivity {
 
 
-    private String[] urls = {"http://g.hiphotos.baidu.com/image/pic/item/1f178a82b9014a90b04cc438ae773912b21beec1.jpg",
-            "http://img3.imgtn.bdimg.com/it/u=826333428,4229099179&fm=21&gp=0.jpg",
-            "http://img1.imgtn.bdimg.com/it/u=2669799184,4062348277&fm=21&gp=0.jpg",
-            "http://img3.imgtn.bdimg.com/it/u=1219545299,4180981016&fm=21&gp=0.jpg",
-            "http://img2.imgtn.bdimg.com/it/u=3910940699,3916213189&fm=21&gp=0.jpg",
-            "http://img3.imgtn.bdimg.com/it/u=3758056319,2732037056&fm=21&gp=0.jpg",
-            "http://img3.imgtn.bdimg.com/it/u=2730013132,2691125751&fm=21&gp=0.jpg",
-            "http://e.hiphotos.baidu.com/zhidao/pic/item/5366d0160924ab18eb02b75e35fae6cd7b890b46.jpg",
-            "http://img4.imgtn.bdimg.com/it/u=2989430555,1416378759&fm=21&gp=0.jpg",
-            "http://image.tianjimedia.com/uploadImages/2012/010/XC4Y39BYZT9A.jpg"};
+    private String[] urls = {"https://img1.baidu.com/it/u=3021819484,2455139200&fm=26&fmt=auto&gp=0.jpg",
+            "https://img1.baidu.com/it/u=1093577051,512997137&fm=26&fmt=auto&gp=0.jpg",
+            "https://img1.baidu.com/it/u=3189143085,2808291968&fm=26&fmt=auto&gp=0.jpg",
+            "https://img0.baidu.com/it/u=3388914057,1541350825&fm=26&fmt=auto&gp=0.jpg",
+            "https://img1.baidu.com/it/u=2673390958,3377558716&fm=26&fmt=auto&gp=0.jpg",
+            "https://img0.baidu.com/it/u=372055851,3186859110&fm=26&fmt=auto&gp=0.jpg",
+            "https://img2.baidu.com/it/u=3561514531,2170659185&fm=26&fmt=auto&gp=0.jpg",
+            "https://img2.baidu.com/it/u=3307484942,1189254751&fm=26&fmt=auto&gp=0.jpg",
+            "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
+            "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
 
     private Bitmap bitmap;
     private Bitmap[] bitmaps = new Bitmap[10];
@@ -152,7 +152,7 @@ public class PaletteListTestActivity extends AbsBaseActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-//            ImageHelper.getInstance().loadImage(holder.imageView,urls[position]);
+            //ImageHelper.getInstance().loadImage(holder.imageView,urls[position]);
 
             ImageHelper.getInstance().loadImage(holder.imageView, urls[position],
                     new ImageHelper.OnLoadCompleteListener() {
