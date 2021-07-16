@@ -1,6 +1,8 @@
 package com.hy.basic.network.interceptor;
 
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ public class HttpLoggingInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
+        Log.i(getClass().getSimpleName(), request.toString());
         return chain.proceed(request);
     }
 }

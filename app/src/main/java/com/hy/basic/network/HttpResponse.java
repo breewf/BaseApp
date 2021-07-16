@@ -31,4 +31,7 @@ public class HttpResponse<T> extends BaseModel {
     public String desc;
     @SerializedName("result")
     public T result;
+
+    @SerializedName("content")
+    public String content;
 }

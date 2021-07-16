@@ -1,20 +1,20 @@
 package com.hy.baseapp.activity;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
+import com.hy.baseapp.base.AbsBaseActivity;
+import com.hy.baseapp.view.MyTabView;
 import com.hy.myapp.R;
 import com.hy.myapp.fragment.PagerFragment1;
 import com.hy.myapp.fragment.PagerFragment2;
 import com.hy.myapp.fragment.PagerFragment3;
 import com.hy.myapp.fragment.PagerFragment4;
-import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.view.MyTabView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * 使用fragment+viewPager的导航Tab Activity
@@ -48,7 +48,9 @@ public class IndexHomeActivity extends AbsBaseActivity {
         mViewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(3);
         mTabView = (MyTabView) findViewById(R.id.id_tab);
-        if (mTabView != null) mTabView.setViewPager(mViewPager);
+        if (mTabView != null) {
+            mTabView.setViewPager(mViewPager);
+        }
     }
 
     private void initFragment() {

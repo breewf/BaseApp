@@ -72,11 +72,11 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
 
     @Override
     public void onToolBarRightTvClick() {
-        startActivity(this,PaletteListTestActivity.class);
+        startActivity(this, PaletteListTestActivity.class);
     }
 
     public void getColor(Bitmap bitmap) {
-        if (isFirstStart){
+        if (isFirstStart) {
             setActivityStatus(ACTIVITY_STATUS_SUCCESS);
             isFirstStart = false;
         }
@@ -128,7 +128,7 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
                 colorAlpha = (Float) animation.getAnimatedValue();
                 // 以处理过的变淡（0.3）的色值为参考色值起点，colorAlpha(color,(float) 0.3)
                 // 在500毫秒内逐渐加深颜色到正常值（0.2）
-                setColor(colorDark(colorAlpha(color,(float) 0.3),colorAlpha));
+                setColor(colorDark(colorAlpha(color, (float) 0.3), colorAlpha));
             }
         });
         anim.setInterpolator(new LinearInterpolator());
@@ -187,7 +187,7 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      * @param color
      * @return
      */
-    public int colorDark(int color,float alpha) {
+    public int colorDark(int color, float alpha) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv); // convert to hsv
         hsv[1] = hsv[1] + alpha; // more saturation

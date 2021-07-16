@@ -6,13 +6,26 @@
     tools:context="com.hy.myapp.activity.SlidingMenuTestActivity">
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:padding="16dp"
+        android:text="Hello Retrofit!"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="24sp"
+        android:padding="16dp"
+        android:text="Hello Retrofit!"
         android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:text="Hello Retrofit!"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

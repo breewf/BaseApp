@@ -10,11 +10,9 @@ import com.hy.basic.network.interceptor.HttpLoggingInterceptor;
 import com.hy.myapp.App;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -55,10 +53,6 @@ public class RetrofitClient {
                 .connectTimeout(NetConstants.DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(NetConstants.DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(NetConstants.DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS)
-                // 错误重连
-                .retryOnConnectionFailure(true)
-                // 支持HTTPS
-                .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS))
                 // cookie持久化
                 .cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.getInstance())));
 
@@ -88,7 +82,7 @@ public class RetrofitClient {
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(NetConstants.BASE_URL_REVIEW)
+                .baseUrl(NetConstants.BASE_URL)
                 .build();
 
         // 创建API接口类

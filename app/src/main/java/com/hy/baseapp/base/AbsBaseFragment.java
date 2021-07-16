@@ -1,8 +1,6 @@
 package com.hy.baseapp.base;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +9,16 @@ import android.widget.ProgressBar;
 
 import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.R;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 
 /**
  * Created by HY on 2016/4/30.
  * fragment基类
  */
-public abstract class AbsBaseFragment extends Fragment {
+public abstract class AbsBaseFragment extends RxFragment {
 
     private final String TAG = "AbsBaseFragment";
     private static final int NO_FRAGMENT_LAYOUT = 0;

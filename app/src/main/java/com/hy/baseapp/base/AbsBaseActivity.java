@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +14,9 @@ import android.widget.ProgressBar;
 import com.hy.baseapp.common.logger.Logger;
 import com.hy.baseapp.utils.AnimUtils;
 import com.hy.myapp.R;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.ButterKnife;
 
 
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by GHY on 2016/4/29.
  * Activity基类
  */
-public abstract class AbsBaseActivity extends AppCompatActivity {
+public abstract class AbsBaseActivity extends RxAppCompatActivity {
 
     private final String TAG = "AbsBaseActivity";
     private static final int NO_LAYOUT = 0;

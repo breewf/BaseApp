@@ -1,6 +1,7 @@
 package com.hy.basic.network;
 
 import com.hy.myapp.bean.ReviewProductData;
+import com.hy.myapp.bean.TestResultData;
 
 import org.json.JSONObject;
 
@@ -23,13 +24,22 @@ import rx.Observable;
  **/
 public interface IServiceApi {
 
-    @GET("common/weather/get15DaysWeatherByArea")
-    Observable<HttpResponse<String>> getWeatherByArea(
-            @Query("apiKey") String apiKey, @Query("area") String area);
+    String BASE_URL_REVIEW = NetConstants.BASE_URL_REVIEW;
 
+    /**
+     * sid=28654780
+     */
+    @GET("https://api.apiopen.top/getSingleJoke")
+    Observable<HttpResponse<TestResultData>> getApiDataTest(
+            @Query("sid") String sid);
 
     @FormUrlEncoded
-    @POST("review/product")
+    @POST("https://api.uomg.com/api/rand.qinghua?format=json")
+    Observable<HttpResponse<String>> getApiDataTest2(
+            @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST(BASE_URL_REVIEW + "review/product")
     Observable<HttpResponse<ReviewProductData>> getReviewProductDetail(
             @Field("review_product_id") String reviewProductId);
 

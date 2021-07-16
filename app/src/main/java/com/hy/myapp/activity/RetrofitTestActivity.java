@@ -7,7 +7,8 @@ import com.hy.baseapp.common.Toasts;
 import com.hy.basic.network.ResponseSubscriber;
 import com.hy.myapp.R;
 import com.hy.myapp.api.ApiDataRepo;
-import com.hy.myapp.bean.ReviewProductData;
+import com.hy.myapp.bean.TestResultData;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
 import butterknife.Bind;
 
@@ -18,7 +19,8 @@ import butterknife.Bind;
  **/
 public class RetrofitTestActivity extends AbsBaseActivity {
 
-    @Bind(R.id.tv) TextView mTextView;
+    @Bind(R.id.tv_2) TextView mTextView2;
+    @Bind(R.id.tv_1) TextView mTextView1;
 
     @Override
     protected int getLayoutID() {
@@ -33,27 +35,42 @@ public class RetrofitTestActivity extends AbsBaseActivity {
     @Override
     protected void init() {
 
-        new ApiDataRepo().getReviewProductDetail("66",
-
-                new ResponseSubscriber<ReviewProductData>() {
+        new ApiDataRepo().getApiDataTest2()
+                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new ResponseSubscriber<String>() {
                     @Override
-                    public void onNext(ReviewProductData reviewProductData) {
-
-                        if (reviewProductData == null) {
-                            Toasts.showShort("获取数据为空");
-                            return;
-                        }
-
-                        mTextView.setText(reviewProductData.toString());
+                    public void onNext(String string) {
+                        mTextView1.setText(string);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         Toasts.showShort(throwable.getMessage());
-                        //mTextView.setText(throwable.getMessage());
+                        mTextView1.setText(throwable.getMessage());
                     }
                 });
+
+        new ApiDataRepo().getApiDataTest("28654780")
+                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new ResponseSubscriber<TestResultData>() {
+                    @Override
+                    public void onNext(TestResultData resultData) {
+                        if (resultData == null) {
+                            Toasts.showShort("获取数据为空");
+                            return;
+                        }
+                        mTextView2.setText(resultData.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        Toasts.showShort(throwable.getMessage());
+                        mTextView2.setText(throwable.getMessage());
+                    }
+                });
+
     }
 
 }
