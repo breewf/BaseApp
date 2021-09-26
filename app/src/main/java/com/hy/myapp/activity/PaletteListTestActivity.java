@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.helper.ImageHelper;
 import com.hy.myapp.R;
@@ -20,7 +19,6 @@ import androidx.palette.graphics.Palette;
 import butterknife.Bind;
 
 public class PaletteListTestActivity extends AbsBaseActivity {
-
 
     private String[] urls = {"https://img1.baidu.com/it/u=3021819484,2455139200&fm=26&fmt=auto&gp=0.jpg",
             "https://img1.baidu.com/it/u=1093577051,512997137&fm=26&fmt=auto&gp=0.jpg",
@@ -33,7 +31,6 @@ public class PaletteListTestActivity extends AbsBaseActivity {
             "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
             "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
 
-    private Bitmap bitmap;
     private Bitmap[] bitmaps = new Bitmap[10];
 
     @Bind(R.id.lv_palette)
@@ -102,7 +99,6 @@ public class PaletteListTestActivity extends AbsBaseActivity {
         }
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
-            //顶部状态栏颜色加深
             window.setStatusBarColor(getDarkerColor(color));
         }
     }
@@ -115,13 +111,11 @@ public class PaletteListTestActivity extends AbsBaseActivity {
      */
     public int getDarkerColor(int color) {
         float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); // convert to hsv
-        hsv[1] = hsv[1] + 0.1f; // more saturation
-        hsv[2] = hsv[2] - 0.1f; // less brightness
-        int darkerColor = Color.HSVToColor(hsv);
-        return darkerColor;
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] + 0.1f;
+        hsv[2] = hsv[2] - 0.1f;
+        return Color.HSVToColor(hsv);
     }
-
 
     public class ListViewAdapter extends BaseAdapter {
 
@@ -152,15 +146,10 @@ public class PaletteListTestActivity extends AbsBaseActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            //ImageHelper.getInstance().loadImage(holder.imageView,urls[position]);
-
             ImageHelper.getInstance().loadImage(holder.imageView, urls[position],
-                    new ImageHelper.OnLoadCompleteListener() {
-                        @Override
-                        public void onLoadComplete() {
-                            bitmap = ((GlideBitmapDrawable) holder.imageView.getDrawable()).getBitmap();
-                            bitmaps[position] = bitmap;
-                        }
+                    bitmap -> {
+                        bitmaps[position] = bitmap;
+                        holder.imageView.setImageBitmap(bitmap);
                     });
 
             return convertView;

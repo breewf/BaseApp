@@ -15,7 +15,6 @@ public class PictureTestActivity extends AbsBaseActivity {
     private String url4 = "http://p4.so.qhimg.com/sdr/1228_768_/t01185f568f2f064f39.jpg";
     private String urlCircle = "http://img4.duitang.com/uploads/item/201501/20/20150120180628_Uy5in.jpeg";
 
-    //本地Gif图，也可以是网络Gif图
     String urlGif = "res:// /" + R.mipmap.xiaohuangren;
 
     @Bind(R.id.iv_test1)

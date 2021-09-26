@@ -1,5 +1,7 @@
 package com.hy.baseapp.utils;
 
+import android.text.TextUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,18 +37,6 @@ public class RegularUtils {
     }
 
     /**
-     * 验证固定电话号
-     *
-     * @param phonenum
-     * @return
-     */
-    public static boolean isTelephone(String phonenum) {
-        Pattern p = Pattern.compile("^(0[0-9]{2,3}\\-)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?$");
-        Matcher m = p.matcher(phonenum);
-        return m.matches();
-    }
-
-    /**
      * 验证密码 必须是数字与字母的混合
      *
      * @param password
@@ -70,31 +60,6 @@ public class RegularUtils {
         return m.matches();
     }
 
-
-    /**
-     * 汉字字母数字匹配 2-20
-     *
-     * @param idCard
-     * @return
-     */
-    public static boolean isHanZiOrNumOrLetter20(String idCard) {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9\\u4E00-\\u9FA5]{2,20}$");
-        Matcher m = p.matcher(idCard);
-        return m.matches();
-    }
-
-    /**
-     * 汉字字母数字匹配 2-10
-     *
-     * @param idCard
-     * @return
-     */
-    public static boolean isHanZiOrNumOrLetter10(String idCard) {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9\\u4E00-\\u9FA5]{2,10}$");
-        Matcher m = p.matcher(idCard);
-        return m.matches();
-    }
-
     /**
      * 验证银行卡号合法性
      *
@@ -108,70 +73,26 @@ public class RegularUtils {
     }
 
     /**
-     * 验证微信号
-     *
-     * @param wechatId
-     * @return
-     */
-    public static boolean isWeiChat(String wechatId) {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9_\\-]{6,20}$");
-        Matcher m = p.matcher(wechatId);
-        return m.matches();
-    }
-
-    /**
-     * 验证QQ
-     *
-     * @param QQId
-     * @return
-     */
-    public static boolean isQQ(String QQId) {
-        Pattern p = Pattern.compile("^\\d{4,13}$");
-        Matcher m = p.matcher(QQId);
-        return m.matches();
-    }
-
-    /**
-     * 验证用户姓名 只能为汉字和2-10字
-     *
-     * @param userName
-     * @return
-     */
-    public static boolean isName(String userName) {
-        Pattern p = Pattern.compile("^[\\u4E00-\\u9FA5\\u00b7\\u2022]{2,10}$");
-        Matcher m = p.matcher(userName);
-        return m.matches();
-    }
-
-    /**
-     * 验证工资 只能为正整数或小数
-     *
-     * @param wage
-     * @return
-     */
-    public static boolean isWage(String wage) {
-        Pattern p = Pattern.compile("^(([1-9][0-9]{2,7})|([1-9][0-9]{0,}\\.[0-9]{1,2}))$");
-        Matcher m = p.matcher(wage);
-        return m.matches();
-    }
-
-    /**
      * 是否是有效的身份证号码
-     * @param IDNumber
+     *
+     * @param idNumber
      * @return
      */
-    public static boolean isLegal(String IDNumber) {
-        boolean result = IDNumber.matches("[0-9]{15}|[0-9]{17}[0-9X]");
+    public static boolean isLegal(String idNumber) {
+        if (TextUtils.isEmpty(idNumber)) {
+            return false;
+        }
+        boolean result = idNumber.matches("[0-9]{15}|[0-9]{17}[0-9X]");
         if (result) {
             int year, month, date;
-            if (IDNumber.length() == 15) {
-                year = Integer.parseInt(IDNumber.substring(6, 8));
-                month = Integer.parseInt(IDNumber.substring(8, 10));
-                date = Integer.parseInt(IDNumber.substring(10, 12));
+            if (idNumber.length() == 15) {
+                year = Integer.parseInt(idNumber.substring(6, 8));
+                month = Integer.parseInt(idNumber.substring(8, 10));
+                date = Integer.parseInt(idNumber.substring(10, 12));
             } else {
-                year = Integer.parseInt(IDNumber.substring(6, 10));
-                month = Integer.parseInt(IDNumber.substring(10, 12));
-                date = Integer.parseInt(IDNumber.substring(12, 14));
+                year = Integer.parseInt(idNumber.substring(6, 10));
+                month = Integer.parseInt(idNumber.substring(10, 12));
+                date = Integer.parseInt(idNumber.substring(12, 14));
             }
             switch (month) {
                 case 2:
@@ -200,19 +121,7 @@ public class RegularUtils {
         return result;
     }
 
-    /**
-     * Url链接验证
-     *
-     * @param url
-     * @return
-     */
-    public static boolean isHttpUrl(String url) {
-        Pattern pattern = Pattern.compile("(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?");
-        Matcher matcher = pattern.matcher(url);
-        return matcher.matches();
-    }
-
-    public static boolean isComUrl(String url) {
+    public static boolean isWebUrl(String url) {
         Pattern pattern = Pattern.compile("^(((ht|f)tp(s?))\\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\\-\\.]+\\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\;\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$");
         Matcher matcher = pattern.matcher(url);
         return matcher.matches();

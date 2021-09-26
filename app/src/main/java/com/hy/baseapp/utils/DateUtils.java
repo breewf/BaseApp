@@ -476,68 +476,6 @@ public class DateUtils {
     }
 
     /**
-     * 描述：根据时间返回格式化后的时间的描述.
-     * 小于1小时显示多少分钟前  大于1小时显示今天＋实际日期，大于今天全部显示实际时间
-     *
-     * @param strDate   the str date
-     * @param outFormat the out format
-     * @return the string
-     */
-    public static String formatDateStr2Desc(String strDate, String outFormat) {
-
-        DateFormat df = new SimpleDateFormat(dateFormatYMDHMS);
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        try {
-            c2.setTime(df.parse(strDate));
-            c1.setTime(new Date());
-            int d = getOffectDay(c1.getTimeInMillis(), c2.getTimeInMillis());
-            if (d == 0) {
-                int h = getOffectHour(c1.getTimeInMillis(), c2.getTimeInMillis());
-                if (h > 0) {
-                    return "今天" + getStringByFormat(strDate, dateFormatHM);
-                    //return h + "小时前";
-                } else if (h < 0) {
-                    //return Math.abs(h) + "小时后";
-                } else if (h == 0) {
-                    int m = getOffectMinutes(c1.getTimeInMillis(), c2.getTimeInMillis());
-                    if (m > 0) {
-                        return m + "分钟前";
-                    } else if (m < 0) {
-                        //return Math.abs(m) + "分钟后";
-                    } else {
-                        return "刚刚";
-                    }
-                }
-
-            } else if (d > 0) {
-                if (d == 1) {
-                    //return "昨天"+getStringByFormat(strDate,outFormat);
-                } else if (d == 2) {
-                    //return "前天"+getStringByFormat(strDate,outFormat);
-                }
-            } else if (d < 0) {
-                if (d == -1) {
-                    //return "明天"+getStringByFormat(strDate,outFormat);
-                } else if (d == -2) {
-                    //return "后天"+getStringByFormat(strDate,outFormat);
-                } else {
-                    //return Math.abs(d) + "天后"+getStringByFormat(strDate,outFormat);
-                }
-            }
-
-            String out = getStringByFormat(strDate, outFormat);
-            if (!StringUtils.isEmpty(out)) {
-                return out;
-            }
-        } catch (Exception e) {
-        }
-
-        return strDate;
-    }
-
-
-    /**
      * 取指定日期为星期几.
      *
      * @param strDate  指定日期
@@ -590,10 +528,11 @@ public class DateUtils {
     public static String getTimeQuantum(String strDate, String format) {
         Date mDate = getDateByFormat(strDate, format);
         int hour = mDate.getHours();
-        if (hour >= 12)
+        if (hour >= 12) {
             return "PM";
-        else
+        } else {
             return "AM";
+        }
     }
 
     /**
@@ -618,9 +557,9 @@ public class DateUtils {
         }
     }
 
-    public static long oneHourMillis = 60 * 60 * 1000; // 一小时的毫秒数
-    public static long oneDayMillis = 24 * oneHourMillis; // 一天的毫秒数
-    public static long oneYearMillis = 365 * oneDayMillis; // 一年的毫秒数
+    public static long oneHourMillis = 60 * 60 * 1000;
+    public static long oneDayMillis = 24 * oneHourMillis;
+    public static long oneYearMillis = 365 * oneDayMillis;
 
     public static String millisToLifeString(long millis) {
         long now = System.currentTimeMillis();
@@ -628,7 +567,7 @@ public class DateUtils {
                 "yyyy-MM-dd");
 
         // 一小时内
-        if (now - millis <= oneHourMillis && now - millis > 0l) {
+        if (now - millis <= oneHourMillis && now - millis > 0L) {
             String m = millisToStringShort(now - millis, false, false);
             return "".equals(m) ? "1分钟内" : m + "前";
         }

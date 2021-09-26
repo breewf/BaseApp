@@ -159,11 +159,10 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      */
     public int getDarkerColor(int color) {
         float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); // convert to hsv
-        hsv[1] = hsv[1] + 0.1f; // more saturation
-        hsv[2] = hsv[2] - 0.1f; // less brightness
-        int darkerColor = Color.HSVToColor(hsv);
-        return darkerColor;
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] + 0.1f;
+        hsv[2] = hsv[2] - 0.1f;
+        return Color.HSVToColor(hsv);
     }
 
     /**
@@ -174,11 +173,10 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      */
     public int getBrighterColor(int color) {
         float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); // convert to hsv
-        hsv[1] = hsv[1] - 0.1f; // less saturation
-        hsv[2] = hsv[2] + 0.1f; // more brightness
-        int brighterColor = Color.HSVToColor(hsv);
-        return brighterColor;
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] - 0.1f;
+        hsv[2] = hsv[2] + 0.1f;
+        return Color.HSVToColor(hsv);
     }
 
     /**
@@ -189,11 +187,10 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      */
     public int colorDark(int color, float alpha) {
         float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); // convert to hsv
-        hsv[1] = hsv[1] + alpha; // more saturation
-        hsv[2] = hsv[2] - alpha; // less brightness
-        int darkerColor = Color.HSVToColor(hsv);
-        return darkerColor;
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] + alpha;
+        hsv[2] = hsv[2] - alpha;
+        return Color.HSVToColor(hsv);
     }
 
     /**
@@ -205,11 +202,10 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
      */
     private int colorAlpha(int color, float alpha) {
         float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); // convert to hsv
-        hsv[1] = hsv[1] - alpha; // less saturation
-        hsv[2] = hsv[2] + alpha; // more brightness
-        int brighterColor = Color.HSVToColor(hsv);
-        return brighterColor;
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] - alpha;
+        hsv[2] = hsv[2] + alpha;
+        return Color.HSVToColor(hsv);
     }
 
     /**

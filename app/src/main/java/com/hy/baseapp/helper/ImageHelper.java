@@ -1,15 +1,15 @@
 package com.hy.baseapp.helper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
@@ -17,6 +17,9 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.hy.baseapp.BaseApplication;
+import com.hy.baseapp.common.iface.IImageLoadCompleteListener;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by GHY on 2016/4/29.
@@ -24,16 +27,10 @@ import com.hy.baseapp.BaseApplication;
  */
 public class ImageHelper {
 
-    // String url = "res:// /" + R.mipmap.ic_launcher;
-    // String url_gif = "http://img3.3lian.com/2006/013/08/20051103121420947.gif";
-
-    public interface OnLoadCompleteListener{
-        void onLoadComplete();
-    }
-
+    @SuppressLint("StaticFieldLeak")
     private static ImageHelper mInstance;
 
-    private Context mContext;
+    private final Context mContext;
 
     /**
      * gif图是否在播放
@@ -70,16 +67,16 @@ public class ImageHelper {
      * 加载图片
      *
      * @param simpleDraweeView
-     * @param url 图片地址
+     * @param url              图片地址
      * @param listener
      */
-    public void loadImage(SimpleDraweeView simpleDraweeView, String url, final OnLoadCompleteListener listener) {
-        ControllerListener controllerListener = new BaseControllerListener(){
+    public void loadImage(SimpleDraweeView simpleDraweeView, String url, final IImageLoadCompleteListener listener) {
+        ControllerListener controllerListener = new BaseControllerListener() {
             @Override
             public void onFinalImageSet(String id, Object imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (listener != null) {
-                    listener.onLoadComplete();
+                    listener.loadComplete(null);
                 }
             }
         };
@@ -92,26 +89,27 @@ public class ImageHelper {
 
     /**
      * 使用Glide加载imageView
+     *
      * @param imageView
      * @param url
      */
-    public void loadImage(ImageView imageView,String url){
+    public void loadImage(ImageView imageView, String url) {
         Glide.with(mContext).load(url).into(imageView);
     }
 
     /**
      * 使用Glide加载imageView
+     *
      * @param imageView
      * @param url
      * @param listener
      */
-    public void loadImage(ImageView imageView, String url, final OnLoadCompleteListener listener){
-        Glide.with(mContext).load(url).into(new GlideDrawableImageViewTarget(imageView){
+    public void loadImage(ImageView imageView, String url, final IImageLoadCompleteListener listener) {
+        Glide.with(mContext).asBitmap().load(url).into(new ImageViewTarget<Bitmap>(imageView) {
             @Override
-            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                super.onResourceReady(resource, animation);
+            protected void setResource(@Nullable Bitmap resource) {
                 if (listener != null) {
-                    listener.onLoadComplete();
+                    listener.loadComplete(resource);
                 }
             }
         });

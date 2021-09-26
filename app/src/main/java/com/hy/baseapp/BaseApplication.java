@@ -6,7 +6,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hy.baseapp.common.logger.LogLevel;
 import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.BuildConfig;
-import com.liulishuo.filedownloader.FileDownloader;
 
 /**
  * Created by GHY on 2016/4/29.
@@ -30,16 +29,6 @@ public class BaseApplication extends Application {
         initLogger();
         //初始化Fresco
         initFresco();
-        //初始化文件下载
-        initFileDownLoad();
-    }
-
-    /**
-     * 初始化文件下载
-     * https://github.com/lingochamp/FileDownloader/blob/master/README-zh.md
-     */
-    private void initFileDownLoad() {
-        FileDownloader.init(this);
     }
 
     /**
@@ -64,10 +53,10 @@ public class BaseApplication extends Application {
      */
     private void initLogger() {
         if (BuildConfig.DEBUG) {
-            Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.FULL);// default LogLevel.FULL
+            Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.FULL);
         } else {
             //release versions不打印log
-            Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.NONE);// default LogLevel.FULL
+            Logger.init(DEFAULT_LOGGER_TAG).logLevel(LogLevel.NONE);
         }
     }
 

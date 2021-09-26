@@ -19,7 +19,6 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by GHY on 2016/4/29.
  * Activity基类
@@ -271,10 +270,8 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                     mRootFrameLayout.removeView(errorLayoutView);
                 }
                 loadingLayoutView = getLayoutInflater().inflate(R.layout.abs_base_loading_layout, null);
-                ProgressBar loadingProgress = (ProgressBar) loadingLayoutView.findViewById(R.id.abs_loading_progress);
                 mRootFrameLayout.addView(loadingLayoutView);
                 mSonView.setVisibility(View.INVISIBLE);
-                loadingProgressStartDelay(loadingProgress);
                 break;
             case ACTIVITY_STATUS_NO_NET:
                 if (loadingLayoutView != null) {
@@ -327,20 +324,6 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
             default:
                 break;
         }
-    }
-
-    /**
-     * loadingProgress延迟转动
-     *
-     * @param loadingProgress
-     */
-    private void loadingProgressStartDelay(final ProgressBar loadingProgress) {
-        //new Handler().postDelayed(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //
-        //    }
-        //}, 200);
     }
 
     /**
@@ -429,13 +412,11 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     public void loadingProgressShow() {
         switch (setLoadingProgressType()) {
             case LOADING_PROGRESS_TYPE_CIRCLE:
+            default:
                 mProgressCircle.setVisibility(View.VISIBLE);
                 break;
             case LOADING_PROGRESS_TYPE_LINE:
                 mProgressLine.setVisibility(View.VISIBLE);
-                break;
-            default:
-                mProgressCircle.setVisibility(View.VISIBLE);
                 break;
         }
     }

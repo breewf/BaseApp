@@ -11,7 +11,6 @@ import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.activity.ActivityStatusTestActivity;
 import com.hy.myapp.activity.BannerTestActivity;
 import com.hy.myapp.activity.DialogTestActivity;
-import com.hy.myapp.activity.FileDownloadTestActivity;
 import com.hy.myapp.activity.FragmentStatusActivity;
 import com.hy.myapp.activity.LabelViewTestActivity;
 import com.hy.myapp.activity.LoadingTestActivity;
@@ -149,11 +148,6 @@ public class MainActivity extends AbsBaseActivity {
     @OnClick(R.id.btn_palette)
     public void btnPalette() {
         startActivity(this, PaletteTestActivity.class);
-    }
-
-    @OnClick(R.id.btn_file_download)
-    public void btnFileDownLoad() {
-        startActivity(this, FileDownloadTestActivity.class);
     }
 
     @OnClick(R.id.btn_retrofit)

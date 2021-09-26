@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.View;
@@ -20,8 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -147,35 +145,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         view.setImageDrawable(drawable);
         return this;
     }
-
-    /**
-     * Will download an image from a URL and put it in an ImageView.<br/>
-     * It uses Square's Picasso library to download the image asynchronously and put the result into the ImageView.<br/>
-     * Picasso manages recycling of views in a ListView.<br/>
-     * If you need more control over the Picasso settings, use {BaseViewHolder#setImageBuilder}.
-     *
-     * @param viewId   The view id.
-     * @param imageUrl The image URL.
-     * @return The BaseViewHolder for chaining.
-     */
-    public BaseViewHolder setImageUrl(int viewId, String imageUrl) {
-        ImageView view = getView(viewId);
-        Glide.with(context).load(imageUrl).crossFade().into(view);
-        return this;
-    }
-
-    public BaseViewHolder setImageUrl(int viewId, String imageUrl, int defResourceId) {
-        ImageView view = getView(viewId);
-        Glide.with(context).load(imageUrl).crossFade().placeholder(defResourceId).into(view);
-        return this;
-    }
-
-    public BaseViewHolder setImageUrl(int viewId, String imageUrl, int defResourceId, BitmapTransformation... transformations) {
-        ImageView view = getView(viewId);
-        Glide.with(context).load(imageUrl).crossFade().placeholder(defResourceId).transform(transformations).into(view);
-        return this;
-    }
-
 
     /**
      * Add an action to set the image of an image view. Can be called multiple times.
