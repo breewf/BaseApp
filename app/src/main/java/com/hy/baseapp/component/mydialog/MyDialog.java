@@ -13,12 +13,10 @@ import android.widget.TextView;
 
 import com.hy.myapp.R;
 
-
 /**
- * Created by GHY on 2016/05/06
+ * Created by hy on 2016/05/06
  */
 public class MyDialog extends Dialog {
-
 
     private Context context;
     /*
@@ -46,9 +44,6 @@ public class MyDialog extends Dialog {
     * */
     private View viewTvPadding;
 
-    /*
-    * 变量String
-    * */
     private String mTitle;
     private String mDes;
     private String mConfirm;
@@ -90,7 +85,7 @@ public class MyDialog extends Dialog {
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics();
-        lp.width = (int) (d.widthPixels * 0.8); // 宽度设置为屏幕的0.8
+        lp.width = (int) (d.widthPixels * 0.8);
         dialogWindow.setAttributes(lp);
     }
 
@@ -107,12 +102,12 @@ public class MyDialog extends Dialog {
         viewTvPadding = contentView.findViewById(R.id.view_tv_padding);
         viewBtnCut = contentView.findViewById(R.id.view_btn_cut);
 
-        if (mTitle != null && !mTitle.equals("")) {
+        if (mTitle != null && !"".equals(mTitle)) {
             mainTitle.setVisibility(View.VISIBLE);
             mainTitle.setText(mTitle);
         }
 
-        if (mDes != null && !mDes.equals("")) {
+        if (mDes != null && !"".equals(mDes)) {
             titleDesc.setVisibility(View.VISIBLE);
             titleDesc.setText(mDes);
         }
@@ -120,16 +115,16 @@ public class MyDialog extends Dialog {
          /*
          * 若不存在title只有des，显示间距view
          * */
-        if ((mTitle == null || mTitle.equals("")) && (mDes != null && !mDes.equals(""))) {
+        if ((mTitle == null || "".equals(mTitle)) && (mDes != null && !"".equals(mDes))) {
             viewTvPadding.setVisibility(View.VISIBLE);
         }
 
-        if (mConfirm != null && !mConfirm.equals("")) {
+        if (mConfirm != null && !"".equals(mConfirm)) {
             btnConfirm.setVisibility(View.VISIBLE);
             btnConfirm.setText(mConfirm);
         }
 
-        if (mCancel != null && !mCancel.equals("")) {
+        if (mCancel != null && !"".equals(mCancel)) {
             btnCancel.setVisibility(View.VISIBLE);
             btnCancel.setText(mCancel);
         }
@@ -137,32 +132,28 @@ public class MyDialog extends Dialog {
         /*
         * 存在两个按钮则按钮之间有间距，显示间隔view
         * */
-        if ((mConfirm != null && !mConfirm.equals("")) && (mCancel != null && !mCancel.equals(""))) {
+        if ((mConfirm != null && !"".equals(mConfirm)) && (mCancel != null && !"".equals(mCancel))) {
             viewBtnCut.setVisibility(View.VISIBLE);
         }
 
     }
 
     public void setOnConfirmClickListener(final OnConfirmClickListener confirmListener) {
-        if (confirmListener != null)
-            btnConfirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    confirmListener.onConfirmClick();
-                    dismiss();
-                }
+        if (confirmListener != null) {
+            btnConfirm.setOnClickListener(v -> {
+                confirmListener.onConfirmClick();
+                dismiss();
             });
+        }
     }
 
     public void setOnCancelClickListener(final OnCancelClickListener cancelListener) {
-        if (cancelListener != null)
-            btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelListener.onCancelClick();
-                    dismiss();
-                }
+        if (cancelListener != null) {
+            btnCancel.setOnClickListener(v -> {
+                cancelListener.onCancelClick();
+                dismiss();
             });
+        }
     }
 
 }

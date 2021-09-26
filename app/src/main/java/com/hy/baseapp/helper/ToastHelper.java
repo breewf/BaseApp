@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.hy.baseapp.BaseApplication;
 
 /**
- * Toast助手类
+ * ToastHelper
  */
 public class ToastHelper {
 

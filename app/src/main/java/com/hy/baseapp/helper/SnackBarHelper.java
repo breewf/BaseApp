@@ -1,7 +1,8 @@
 package com.hy.baseapp.helper;
 
-import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * Created by GHY on 2016/5/9.
@@ -22,11 +23,9 @@ public class SnackBarHelper {
      * @param listener
      */
     public static void showSnackBar(View view, String content, String actionString, final OnSnackBarClickListener listener) {
-
-        Snackbar.make(view, content, Snackbar.LENGTH_SHORT).setAction(actionString, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) listener.onClick();
+        Snackbar.make(view, content, Snackbar.LENGTH_SHORT).setAction(actionString, v -> {
+            if (listener != null) {
+                listener.onClick();
             }
         }).show();
     }
@@ -40,11 +39,9 @@ public class SnackBarHelper {
      * @param listener
      */
     public static void showSnackBarLong(View view, String content, String actionString, final OnSnackBarClickListener listener) {
-
-        Snackbar.make(view, content, Snackbar.LENGTH_LONG).setAction(actionString, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) listener.onClick();
+        Snackbar.make(view, content, Snackbar.LENGTH_LONG).setAction(actionString, v -> {
+            if (listener != null) {
+                listener.onClick();
             }
         }).show();
     }
@@ -59,12 +56,10 @@ public class SnackBarHelper {
      * @param listener
      */
     public static void showSnackBarCustom(View view, String content, String actionString, int color, final OnSnackBarClickListener listener) {
-
         Snackbar.make(view, content, Snackbar.LENGTH_SHORT).setActionTextColor(color)
-                .setAction(actionString, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listener != null) listener.onClick();
+                .setAction(actionString, v -> {
+                    if (listener != null) {
+                        listener.onClick();
                     }
                 }).show();
     }
@@ -80,13 +75,11 @@ public class SnackBarHelper {
      * @param listener
      */
     public static void showSnackBarCustom(View view, String content, String actionString, int duration, int color, final OnSnackBarClickListener listener) {
-
         Snackbar.make(view, content, Snackbar.LENGTH_SHORT).setDuration(duration).setActionTextColor(color)
-                .setAction(actionString, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) listener.onClick();
-            }
-        }).show();
+                .setAction(actionString, v -> {
+                    if (listener != null) {
+                        listener.onClick();
+                    }
+                }).show();
     }
 }

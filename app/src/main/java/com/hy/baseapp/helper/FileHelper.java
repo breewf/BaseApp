@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by GHY on 2016/1/14.
+ * Created by hy on 2016/1/14.
  * 文件助手工具类
  */
 public class FileHelper {

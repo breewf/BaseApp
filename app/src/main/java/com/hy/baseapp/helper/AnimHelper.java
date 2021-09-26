@@ -9,7 +9,7 @@ import android.view.animation.TranslateAnimation;
 
 
 /**
- * Created by HY on 2016/12/26.
+ * Created by hy on 2016/12/26.
  * 动画工具类
  */
 public class AnimHelper {

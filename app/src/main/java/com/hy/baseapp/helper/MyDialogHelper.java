@@ -6,7 +6,7 @@ import com.hy.baseapp.component.mydialog.MyDialog;
 import com.hy.baseapp.global.TitleInfo;
 
 /**
- * Created by GHY on 2016/5/6.
+ * Created by hy on 2016/5/6.
  * 自定义对话框助手类
  */
 public class MyDialogHelper {
@@ -25,8 +25,12 @@ public class MyDialogHelper {
                                          final MyDialog.OnConfirmClickListener confirmListener, final MyDialog.OnCancelClickListener cancelListener) {
         MyDialog myDialog = new MyDialog(context, title, content, TitleInfo.BTN_CONFIRM, TitleInfo.BTN_CANCEL);
         myDialog.show();
-        if (confirmListener != null) myDialog.setOnConfirmClickListener(confirmListener);
-        if (cancelListener != null) myDialog.setOnCancelClickListener(cancelListener);
+        if (confirmListener != null) {
+            myDialog.setOnConfirmClickListener(confirmListener);
+        }
+        if (cancelListener != null) {
+            myDialog.setOnCancelClickListener(cancelListener);
+        }
     }
 
     /**
@@ -44,7 +48,11 @@ public class MyDialogHelper {
                                         final MyDialog.OnConfirmClickListener confirmListener, final MyDialog.OnCancelClickListener cancelListener) {
         MyDialog myDialog = new MyDialog(context, title, content, confirm, cancel);
         myDialog.show();
-        if (confirmListener != null) myDialog.setOnConfirmClickListener(confirmListener);
-        if (cancelListener != null) myDialog.setOnCancelClickListener(cancelListener);
+        if (confirmListener != null) {
+            myDialog.setOnConfirmClickListener(confirmListener);
+        }
+        if (cancelListener != null) {
+            myDialog.setOnCancelClickListener(cancelListener);
+        }
     }
 }

@@ -5,13 +5,10 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.hy.baseapp.component.dialog.animation.BounceEnter.BounceLeftEnter;
 import com.hy.baseapp.component.dialog.animation.SlideExit.SlideRightExit;
 import com.hy.baseapp.component.dialog.entity.DialogMenuItem;
-import com.hy.baseapp.component.dialog.listener.OnBtnClickL;
-import com.hy.baseapp.component.dialog.listener.OnOperItemClickL;
 import com.hy.baseapp.component.dialog.widget.ActionSheetDialog;
 import com.hy.baseapp.component.dialog.widget.MaterialDialog;
 import com.hy.baseapp.component.dialog.widget.NormalDialog;
@@ -22,7 +19,7 @@ import com.hy.baseapp.global.TitleInfo;
 import java.util.ArrayList;
 
 /**
- * Created by GHY on 2016/5/4.
+ * Created by hy on 2016/5/4.
  * Dialog助手类
  */
 public class DialogHelper {
@@ -67,10 +64,14 @@ public class DialogHelper {
      * @param cancelListener  取消按钮监听
      */
     public static void showNormalDialogDefault(Context context, String title, String content, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -78,24 +79,21 @@ public class DialogHelper {
         }
         dialog.content(content)
                 .btnText(TitleInfo.BTN_CONFIRM, TitleInfo.BTN_CANCEL)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -110,10 +108,14 @@ public class DialogHelper {
      * @param cancelListener  取消按钮监听
      */
     public static void showNormalDialogDefault(Context context, String title, String content, String confirm, String cancel, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -121,24 +123,21 @@ public class DialogHelper {
         }
         dialog.content(content)
                 .btnText(confirm, cancel)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -153,10 +152,14 @@ public class DialogHelper {
      * @param cancelListener  取消按钮监听
      */
     public static void showNormalDialogDefaultCenter(Context context, String title, String content, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -165,24 +168,21 @@ public class DialogHelper {
         dialog.content(content)
                 .style(NormalDialog.STYLE_TWO)
                 .btnText(TitleInfo.BTN_CONFIRM, TitleInfo.BTN_CANCEL)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -197,10 +197,14 @@ public class DialogHelper {
      * @param cancelListener  取消按钮监听
      */
     public static void showNormalDialogDefaultCenter(Context context, String title, String content, String confirm, String cancel, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -209,24 +213,21 @@ public class DialogHelper {
         dialog.content(content)
                 .style(NormalDialog.STYLE_TWO)
                 .btnText(confirm, cancel)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -240,10 +241,14 @@ public class DialogHelper {
      * @param continueListener 继续按钮监听
      */
     public static void showNormalDialogOneBtn(Context context, String title, String content, String btnDes, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -252,16 +257,15 @@ public class DialogHelper {
         dialog.content(content)
                 .btnNum(1)
                 .btnText(btnDes)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
+                    dialog.dismiss();
                 });
     }
 
@@ -274,10 +278,14 @@ public class DialogHelper {
      * @param continueListener 继续按钮监听
      */
     public static void showNormalDialogOneBtnCenter(Context context, String title, String content, String btnDes, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -287,16 +295,15 @@ public class DialogHelper {
                 .style(NormalDialog.STYLE_TWO)
                 .btnNum(1)
                 .btnText(btnDes)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
+                    dialog.dismiss();
                 });
     }
 
@@ -312,10 +319,14 @@ public class DialogHelper {
      */
     public static void showNormalDialogThreeBtn(Context context, String title, String content, String confirm, String con, String cancel,
                                                 final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -324,30 +335,27 @@ public class DialogHelper {
         dialog.content(content)
                 .btnNum(3)
                 .btnText(confirm, cancel, con)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
+                    dialog.dismiss();
                 });
     }
 
@@ -363,10 +371,14 @@ public class DialogHelper {
      */
     public static void showNormalDialogThreeBtnCenter(Context context, String title, String content, String confirm, String con, String cancel,
                                                       final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalDialog dialog = new NormalDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -376,30 +388,27 @@ public class DialogHelper {
                 .style(NormalDialog.STYLE_TWO)
                 .btnNum(3)
                 .btnText(confirm, cancel, con)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
+                    dialog.dismiss();
                 });
     }
 
@@ -414,10 +423,14 @@ public class DialogHelper {
      * @param cancelListener
      */
     public static void showMaterialDialogDefault(Context context, String title, String content, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final MaterialDialog dialog = new MaterialDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -425,24 +438,21 @@ public class DialogHelper {
         }
         dialog.content(content)
                 .btnText(TitleInfo.BTN_CANCEL, TitleInfo.BTN_CONFIRM)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -459,10 +469,14 @@ public class DialogHelper {
      * @param cancelListener
      */
     public static void showMaterialDialogDefault(Context context, String title, String content, String confirm, String cancel, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final MaterialDialog dialog = new MaterialDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -470,24 +484,21 @@ public class DialogHelper {
         }
         dialog.content(content)
                 .btnText(cancel, confirm)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -501,10 +512,14 @@ public class DialogHelper {
      * @param continueListener
      */
     public static void showMaterialDialogOntBtn(Context context, String title, String content, String btnDes, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final MaterialDialog dialog = new MaterialDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -513,16 +528,15 @@ public class DialogHelper {
         dialog.content(content)
                 .btnNum(1)
                 .btnText(btnDes)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
+                    dialog.dismiss();
                 });
     }
 
@@ -539,10 +553,14 @@ public class DialogHelper {
      * @param cancelListener
      */
     public static void showMaterialDialogThreeBtn(Context context, String title, String content, String confirm, String con, String cancel, final OnConfirmClickListener confirmListener, final OnCancelClickListener cancelListener, final OnContinueClickListener continueListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final MaterialDialog dialog = new MaterialDialog(context);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -551,31 +569,27 @@ public class DialogHelper {
         dialog.content(content)
                 .btnNum(3)
                 .btnText(cancel, confirm, con)
-//                .showAnim(new FadeEnter())
-//                .dismissAnim(new FadeExit())
+                //.showAnim(new FadeEnter())
+                //.dismissAnim(new FadeExit())
                 .show();
         dialog.setOnBtnClickL(
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (cancelListener != null) cancelListener.onCancelClick();
-                        dialog.dismiss();
+                () -> {
+                    if (cancelListener != null) {
+                        cancelListener.onCancelClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (confirmListener != null) confirmListener.onConfirmClick();
-                        dialog.dismiss();
+                () -> {
+                    if (confirmListener != null) {
+                        confirmListener.onConfirmClick();
                     }
+                    dialog.dismiss();
                 },
-                new OnBtnClickL() {
-                    @Override
-                    public void onBtnClick() {
-                        if (continueListener != null) continueListener.onContinueClick();
-                        dialog.dismiss();
+                () -> {
+                    if (continueListener != null) {
+                        continueListener.onContinueClick();
                     }
-
+                    dialog.dismiss();
                 });
     }
 
@@ -589,10 +603,14 @@ public class DialogHelper {
      * @param itemClickListener
      */
     public static void showNormalListDialog(Context context, String title, ArrayList<DialogMenuItem> menuItems, final OnItemClickListener itemClickListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalListDialog dialog = new NormalListDialog(context, menuItems);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -600,12 +618,11 @@ public class DialogHelper {
         }
         dialog.
                 show();
-        dialog.setOnOperItemClickL(new OnOperItemClickL() {
-            @Override
-            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (itemClickListener != null) itemClickListener.onItemClick(position);
-                dialog.dismiss();
+        dialog.setOnOperItemClickL((parent, view, position, id) -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
             }
+            dialog.dismiss();
         });
     }
 
@@ -618,10 +635,14 @@ public class DialogHelper {
      * @param itemClickListener
      */
     public static void showNormalListDialogCustom(Context context, String title, ArrayList<DialogMenuItem> menuItems, final OnItemClickListener itemClickListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final NormalListDialog dialog = new NormalListDialog(context, menuItems);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -635,12 +656,11 @@ public class DialogHelper {
                 .cornerRadius(10)
                 .widthScale(0.8f)
                 .show();
-        dialog.setOnOperItemClickL(new OnOperItemClickL() {
-            @Override
-            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (itemClickListener != null) itemClickListener.onItemClick(position);
-                dialog.dismiss();
+        dialog.setOnOperItemClickL((parent, view, position, id) -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
             }
+            dialog.dismiss();
         });
     }
 
@@ -653,10 +673,14 @@ public class DialogHelper {
      * @param itemClickListener
      */
     public static void showActionSheetDialog(Context context, String title, String[] stringItems, final OnItemClickListener itemClickListener) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         final ActionSheetDialog dialog = new ActionSheetDialog(context, stringItems, null);
         boolean isTitleShow = true;
-        if (TextUtils.isEmpty(title)) isTitleShow = false;
+        if (TextUtils.isEmpty(title)) {
+            isTitleShow = false;
+        }
         if (!isTitleShow) {
             dialog.isTitleShow(isTitleShow);
         } else {
@@ -664,12 +688,11 @@ public class DialogHelper {
         }
         dialog.titleTextSize_SP(14.5f)
                 .show();
-        dialog.setOnOperItemClickL(new OnOperItemClickL() {
-            @Override
-            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (itemClickListener != null) itemClickListener.onItemClick(position);
-                dialog.dismiss();
+        dialog.setOnOperItemClickL((parent, view, position, id) -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
             }
+            dialog.dismiss();
         });
     }
 
@@ -681,7 +704,9 @@ public class DialogHelper {
      * @param dependView
      */
     public static void showBubblePopup(Context context, int layoutId, View dependView) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         View inflate = View.inflate(context, layoutId, null);
         BubblePopup bubblePopup = new BubblePopup(context, inflate);
         bubblePopup.anchorView(dependView)
@@ -691,6 +716,4 @@ public class DialogHelper {
                 .autoDismiss(true)
                 .show();
     }
-
-
 }

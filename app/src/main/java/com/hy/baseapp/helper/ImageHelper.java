@@ -22,7 +22,7 @@ import com.hy.baseapp.common.iface.IImageLoadCompleteListener;
 import androidx.annotation.Nullable;
 
 /**
- * Created by GHY on 2016/4/29.
+ * Created by hy on 2016/4/29.
  * 图片加载助手类
  */
 public class ImageHelper {

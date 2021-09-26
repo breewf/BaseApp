@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.hy.baseapp.common.logger.Logger;
-import com.hy.baseapp.utils.AnimUtils;
+import com.hy.baseapp.helper.AnimHelper;
 import com.hy.myapp.R;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -257,7 +257,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 }
                 mSonView.setVisibility(View.VISIBLE);
                 //添加淡入动画
-                AnimUtils.fadeIn(mSonView);
+                AnimHelper.fadeIn(mSonView);
                 break;
             case ACTIVITY_STATUS_LOADING:
                 if (noNetLayoutView != null) {
