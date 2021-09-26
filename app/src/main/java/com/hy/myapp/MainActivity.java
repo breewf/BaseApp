@@ -3,9 +3,7 @@ package com.hy.myapp;
 import android.widget.Toast;
 
 import com.hy.baseapp.activity.IndexHomeActivity;
-import com.hy.baseapp.activity.IndexTabActivity;
 import com.hy.baseapp.activity.TabLayoutActivity;
-import com.hy.baseapp.activity.TabLayoutMeActivity;
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.activity.ActivityStatusTestActivity;
@@ -72,7 +70,6 @@ public class MainActivity extends AbsBaseActivity {
 
         //toolBar右侧点击事件
         setRightClickListener();
-
     }
 
     @OnClick(R.id.btn_test1)
@@ -130,19 +127,9 @@ public class MainActivity extends AbsBaseActivity {
         startActivity(this, IndexHomeActivity.class);
     }
 
-    @OnClick(R.id.btn_tab_index)
-    public void btnTabIndex() {
-        startActivity(this, IndexTabActivity.class);
-    }
-
     @OnClick(R.id.btn_tab_layout1)
     public void btnTabLayout1() {
         startActivity(this, TabLayoutActivity.class);
-    }
-
-    @OnClick(R.id.btn_tab_layout2)
-    public void btnTabLayout2() {
-        startActivity(this, TabLayoutMeActivity.class);
     }
 
     @OnClick(R.id.btn_palette)

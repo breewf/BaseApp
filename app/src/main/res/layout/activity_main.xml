@@ -15,14 +15,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BaseApp使用示例"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <Button
                 android:id="@+id/btn_test1"
                 android:layout_width="wrap_content"
@@ -123,25 +115,11 @@
                 android:text="底部Tab颜色可渐变的导航按钮" />
 
             <Button
-                android:id="@+id/btn_tab_index"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="底部Tab使用TabActivity的导航按钮" />
-
-            <Button
                 android:id="@+id/btn_tab_layout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="谷歌TabLayout导航布局" />
-
-            <Button
-                android:id="@+id/btn_tab_layout2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="简单自定义的TabLayout布局" />
 
             <Button
                 android:id="@+id/btn_palette"

@@ -34,13 +34,7 @@
         <activity android:name="com.hy.myapp.activity.SnackBarTestActivity" />
         <activity android:name="com.hy.myapp.activity.BannerTestActivity" />
         <activity android:name="com.hy.baseapp.activity.IndexHomeActivity" />
-        <activity android:name="com.hy.baseapp.activity.IndexTabActivity" />
-        <activity android:name="com.hy.myapp.activity.IndexTestHomeActivity" />
-        <activity android:name="com.hy.myapp.activity.IndexTestCarActivity" />
-        <activity android:name="com.hy.myapp.activity.IndexTestMessageActivity" />
-        <activity android:name="com.hy.myapp.activity.IndexTestMeActivity" />
         <activity android:name="com.hy.baseapp.activity.TabLayoutActivity" />
-        <activity android:name="com.hy.baseapp.activity.TabLayoutMeActivity" />
         <activity android:name="com.hy.myapp.activity.PaletteTestActivity" />
         <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
         <activity android:name="com.hy.myapp.activity.RetrofitTestActivity" />

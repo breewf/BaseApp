@@ -1,20 +1,19 @@
 package com.hy.baseapp.activity;
 
 import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
+import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.myapp.R;
 import com.hy.myapp.fragment.PagerFragment1;
 import com.hy.myapp.fragment.PagerFragment2;
 import com.hy.myapp.fragment.PagerFragment3;
-import com.hy.baseapp.base.AbsBaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.Bind;
 
 public class TabLayoutActivity extends AbsBaseActivity {
@@ -34,7 +33,7 @@ public class TabLayoutActivity extends AbsBaseActivity {
 
     @Override
     protected String getToolBarTitle() {
-        return "谷歌TabLayout使用示例";
+        return "谷歌TabLayout示例";
     }
 
     @Override

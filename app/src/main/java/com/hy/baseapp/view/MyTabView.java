@@ -2,8 +2,6 @@ package com.hy.baseapp.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,13 +13,14 @@ import com.hy.myapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * TabView
  * 底部Tab导航，颜色可渐变
  */
 public class MyTabView extends LinearLayout implements View.OnClickListener {
-
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mOnPageChangeListener;
@@ -46,8 +45,8 @@ public class MyTabView extends LinearLayout implements View.OnClickListener {
     public MyTabView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = getResources().obtainAttributes(attrs, R.styleable.MyTabView);
-        int N = typedArray.getIndexCount();
-        for (int i = 0; i < N; i++) {
+        int index = typedArray.getIndexCount();
+        for (int i = 0; i < index; i++) {
             switch (typedArray.getIndex(i)) {
                 case R.styleable.MyTabView_text_size:
                     mTextSize = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
@@ -62,6 +61,8 @@ public class MyTabView extends LinearLayout implements View.OnClickListener {
                 case R.styleable.MyTabView_item_padding:
                     mPadding = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                             mPadding, getResources().getDisplayMetrics()));
+                    break;
+                default:
                     break;
             }
         }
