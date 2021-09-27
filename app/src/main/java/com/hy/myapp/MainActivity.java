@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.hy.baseapp.activity.IndexHomeActivity;
 import com.hy.baseapp.activity.TabLayoutActivity;
 import com.hy.baseapp.base.AbsBaseActivity;
+import com.hy.myapp.activity.ActivityResultContractActivity;
 import com.hy.myapp.activity.ActivityStatusTestActivity;
 import com.hy.myapp.activity.BannerTestActivity;
 import com.hy.myapp.activity.DialogTestActivity;
@@ -145,9 +146,9 @@ public class MainActivity extends AbsBaseActivity {
         startActivity(this, RetrofitTestActivity.class);
     }
 
-    //@OnClick(R.id.btn_activity_result)
-    //public void btnActivityResult() {
-    //    startActivity(this, ActivityResultContractActivity.class);
-    //}
+    @OnClick(R.id.btn_activity_result)
+    public void btnActivityResult() {
+        startActivity(this, ActivityResultContractActivity.class);
+    }
 
 }

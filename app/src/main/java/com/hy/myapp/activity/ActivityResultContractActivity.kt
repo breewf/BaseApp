@@ -56,15 +56,15 @@ class ActivityResultContractActivity : AppCompatActivity() {
         cameraPermission2 =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
                 var result = ""
-                //it.forEach { gain ->
-                //    result += "获取:${gain.key} 权限 ${if (gain.value) "成功" else "失败"}"
-                //}
-                //Toast.makeText(this, result, Toast.LENGTH_LONG).show()
+                it.forEach { gain ->
+                    result += "获取:${gain.key} 权限 ${if (gain.value) "成功" else "失败"}"
+                }
+                Toast.makeText(this, result, Toast.LENGTH_LONG).show()
             }
 
         binding.tv1.setOnClickListener {
             // 启动activity，参数传intent
-            //startForResult.launch(Intent(this, ActivityResultContract2Activity::class.java))
+            startForResult.launch(Intent(this, ActivityResultContract2Activity::class.java))
         }
 
         binding.tvPick.setOnClickListener {
