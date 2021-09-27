@@ -69,28 +69,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_test_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="滚动控件测试" />
-
-                <Button
-                    android:id="@+id/btn_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="LabelView测试" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
                     android:id="@+id/btn_snack_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,6 +112,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="Retrofit网络请求" />
+
+            <Button
+                android:id="@+id/btn_activity_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="ActivityResult--ViewBinding" />
 
         </LinearLayout>
 

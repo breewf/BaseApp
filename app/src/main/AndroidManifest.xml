@@ -29,8 +29,6 @@
         <activity android:name="com.hy.myapp.activity.LoadingTestActivity" />
         <activity android:name="com.hy.myapp.activity.DialogTestActivity" />
         <activity android:name="com.hy.myapp.activity.MyDialogTestActivity" />
-        <activity android:name="com.hy.myapp.activity.WheelTestActivity" />
-        <activity android:name="com.hy.myapp.activity.LabelViewTestActivity" />
         <activity android:name="com.hy.myapp.activity.SnackBarTestActivity" />
         <activity android:name="com.hy.myapp.activity.BannerTestActivity" />
         <activity android:name="com.hy.baseapp.activity.IndexHomeActivity" />
@@ -38,6 +36,11 @@
         <activity android:name="com.hy.myapp.activity.PaletteTestActivity" />
         <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
         <activity android:name="com.hy.myapp.activity.RetrofitTestActivity" />
+
+        <activity android:name=".activity.ActivityResultContractActivity"
+            android:label="@string/activity_result_contract2"/>
+        <activity android:name=".activity.ActivityResultContract2Activity"
+            android:label="@string/activity_result_contract"/>
     </application>
 
 </manifest>

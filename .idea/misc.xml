@@ -3,8 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/abs_index_tab_activity.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_file_download_test.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_index_test_car.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_index_test_me.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_label_view_test.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_result_contract.xml" value="0.24004085801838612" />
+        <entry key="app/src/main/res/layout/activity_result_contract2.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_tab_layout_me.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_wheel_test.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/layout_province_popup_window.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/pull_to_refresh_load_more.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/pull_zoom_include_header.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/pull_zoom_include_scrollview.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/slidingmenumain.xml" value="0.24479166666666666" />
       </map>
     </option>
   </component>

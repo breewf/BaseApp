@@ -4,7 +4,6 @@
     <string name="default_title">title</string>
 
     <string name="net_error">网络不给力</string>
-
     <string name="pull_to_refresh">下拉刷新</string>
     <string name="release_to_refresh">释放立即刷新</string>
     <string name="refreshing">正在刷新...</string>
@@ -16,5 +15,8 @@
     <string name="loading_no_more">没有更多数据了</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+
+    <string name="activity_result_contract">ActivityResultContract</string>
+    <string name="activity_result_contract2">ActivityResultContract2</string>
 
 </resources>

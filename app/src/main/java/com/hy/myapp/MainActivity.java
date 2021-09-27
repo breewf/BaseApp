@@ -5,19 +5,16 @@ import android.widget.Toast;
 import com.hy.baseapp.activity.IndexHomeActivity;
 import com.hy.baseapp.activity.TabLayoutActivity;
 import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.activity.ActivityStatusTestActivity;
 import com.hy.myapp.activity.BannerTestActivity;
 import com.hy.myapp.activity.DialogTestActivity;
 import com.hy.myapp.activity.FragmentStatusActivity;
-import com.hy.myapp.activity.LabelViewTestActivity;
 import com.hy.myapp.activity.LoadingTestActivity;
 import com.hy.myapp.activity.MyDialogTestActivity;
 import com.hy.myapp.activity.PaletteTestActivity;
 import com.hy.myapp.activity.PictureTestActivity;
 import com.hy.myapp.activity.RetrofitTestActivity;
 import com.hy.myapp.activity.SnackBarTestActivity;
-import com.hy.myapp.activity.WheelTestActivity;
 
 import butterknife.OnClick;
 
@@ -66,10 +63,26 @@ public class MainActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
-        Logger.i("Hello");
-
         //toolBar右侧点击事件
         setRightClickListener();
+    }
+
+    /**
+     * toolBar右侧按钮点击事件
+     */
+    private void setRightClickListener() {
+        setOnToolBarRightItemClickListener(itemId -> {
+            switch (itemId) {
+                case R.id.abs_menu_main_item1:
+                    Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.abs_menu_main_item2:
+                    MainActivity.this.finish();
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     @OnClick(R.id.btn_test1)
@@ -102,16 +115,6 @@ public class MainActivity extends AbsBaseActivity {
         startActivity(this, MyDialogTestActivity.class);
     }
 
-    @OnClick(R.id.btn_test_5)
-    public void btn5Click() {
-        startActivity(this, WheelTestActivity.class);
-    }
-
-    @OnClick(R.id.btn_label)
-    public void btnlabelView() {
-        startActivity(this, LabelViewTestActivity.class);
-    }
-
     @OnClick(R.id.btn_snack_bar)
     public void btnSnackBar() {
         startActivity(this, SnackBarTestActivity.class);
@@ -142,26 +145,9 @@ public class MainActivity extends AbsBaseActivity {
         startActivity(this, RetrofitTestActivity.class);
     }
 
-    /**
-     * toolBar右侧按钮点击事件
-     */
-    private void setRightClickListener() {
-
-        setOnToolBarRightItemClickListener(new ToolBarRightItemClickListener() {
-            @Override
-            public void onToolBarRightItemClick(int itemId) {
-                switch (itemId) {
-                    case R.id.abs_menu_main_item1:
-                        Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.abs_menu_main_item2:
-                        MainActivity.this.finish();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-    }
+    //@OnClick(R.id.btn_activity_result)
+    //public void btnActivityResult() {
+    //    startActivity(this, ActivityResultContractActivity.class);
+    //}
 
 }
