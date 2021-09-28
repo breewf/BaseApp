@@ -1,7 +1,7 @@
 package com.hy.basic.network;
 
 import com.hy.baseapp.common.Toasts;
-import com.hy.basic.AppNetworkUtils;
+import com.hy.basic.utils.AppNetworkUtils;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;

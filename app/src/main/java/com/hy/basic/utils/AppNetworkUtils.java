@@ -1,4 +1,4 @@
-package com.hy.basic;
+package com.hy.basic.utils;
 
 import com.blankj.utilcode.util.NetworkUtils;
 
@@ -15,9 +15,6 @@ public class AppNetworkUtils {
      */
     public static boolean isWifiConnected() {
         try {
-            // if (BuildConfig.DEBUG) {
-            //     return isWifi;
-            // }
             return NetworkUtils.isWifiConnected();
         } catch (Exception e) {
             return false;

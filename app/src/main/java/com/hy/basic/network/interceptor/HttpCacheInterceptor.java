@@ -1,6 +1,6 @@
 package com.hy.basic.network.interceptor;
 
-import com.hy.basic.AppNetworkUtils;
+import com.hy.basic.utils.AppNetworkUtils;
 
 import java.io.IOException;
 
