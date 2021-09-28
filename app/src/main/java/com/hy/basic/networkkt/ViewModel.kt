@@ -31,7 +31,7 @@ suspend fun <T> BaseViewModel.request(
                         vm,
                         it
                     )
-                }// 这里再重新把捕获的异常再次抛出，调用的时候如果有必要可以再次catch 获取异常
+                }// 这里再重新把捕获的异常再次抛出，调用的时候如果有必要可以再次 catch 获取异常
             }
         }
 }

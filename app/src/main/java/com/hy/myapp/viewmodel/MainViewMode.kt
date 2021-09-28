@@ -9,14 +9,14 @@ import com.hy.basic.networkkt.request
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class MainVm : BaseViewModel() {
+class MainViewMode : BaseViewModel() {
 
     val responseText = ObservableField("Kotlin ViewMode")
 
     fun requestData() {
         viewModelScope.launch {
             request {
-                getApiDataTest2("")
+                getApiTest2("")
             }.catch {
                 Log.e("requestData===>", "catch=====>")
             }.next {
@@ -24,5 +24,30 @@ class MainVm : BaseViewModel() {
                 responseText.set(content)
             }
         }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        Log.i("MainVm", "lifecycle==onCreate")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("MainVm", "lifecycle==onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("MainVm", "lifecycle==onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("MainVm", "lifecycle==onPause")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("MainVm", "lifecycle==onDestroy")
     }
 }

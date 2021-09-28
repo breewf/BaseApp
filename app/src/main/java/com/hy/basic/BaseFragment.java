@@ -1,4 +1,4 @@
-package com.hy.baseapp.base;
+package com.hy.basic;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,17 +24,17 @@ import androidx.lifecycle.ViewModelProvider;
  **/
 public abstract class BaseFragment<VDB extends ViewDataBinding, VM extends BaseViewModel> extends Fragment {
 
-    private VM VM;
-    private VDB VDB;
+    private VM vm;
+    private VDB vdb;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        VDB = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
-        if (VDB != null) {
-            VDB.setLifecycleOwner(this);
-            return VDB.getRoot();
+        vdb = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        if (vdb != null) {
+            vdb.setLifecycleOwner(this);
+            return vdb.getRoot();
         } else {
             return inflater.inflate(getLayoutId(), container, false);
         }
@@ -43,41 +43,31 @@ public abstract class BaseFragment<VDB extends ViewDataBinding, VM extends BaseV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handlerVM();
-        receiveLiveData();
+        handlerVm();
     }
 
     @SuppressWarnings("unchecked")
-    private void handlerVM() {
+    private void handlerVm() {
         Class<BaseViewModel> viewModelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             viewModelClass = (Class<BaseViewModel>) ((ParameterizedType) type).getActualTypeArguments()[1];
         } else {
-            //使用父类的类型
             viewModelClass = BaseViewModel.class;
         }
-        VM = (VM) new ViewModelProvider(requireActivity()).get(viewModelClass);
-        if (VM == null) {
-            VM = (VM) new ViewModelProvider(this).get(viewModelClass);
-        }
+        vm = (VM) new ViewModelProvider(this).get(viewModelClass);
         if (getVariableId() > 0) {
-            getLifecycle().addObserver(VM);
-            VDB.setVariable(getVariableId(), VM);
+            getLifecycle().addObserver(vm);
+            vdb.setVariable(getVariableId(), vm);
         }
-
-    }
-
-    private void receiveLiveData() {
-
     }
 
     public VM getViewModel() {
-        return VM;
+        return vm;
     }
 
     public VDB getViewDataBinding() {
-        return VDB;
+        return vdb;
     }
 
     /**
@@ -97,9 +87,9 @@ public abstract class BaseFragment<VDB extends ViewDataBinding, VM extends BaseV
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (VDB != null) {
-            VDB.unbind();
+        if (vdb != null) {
+            vdb.unbind();
         }
-        VDB = null;
+        vdb = null;
     }
 }

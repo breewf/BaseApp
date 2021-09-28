@@ -1,4 +1,4 @@
-package com.hy.baseapp.base;
+package com.hy.basic;
 
 import android.os.Bundle;
 
@@ -7,7 +7,6 @@ import com.hy.basic.networkkt.BaseViewModel;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -21,54 +20,46 @@ import androidx.lifecycle.ViewModelProvider;
  **/
 public abstract class BaseActivity<VDB extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity {
 
-    private VM VM;
-    private VDB VDB;
+    private VM vm;
+    private VDB vdb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handlerVDB();
-        handlerVM();
-        receiveLiveData();
+        handlerVdb();
+        handlerVm();
     }
 
-    private void handlerVDB() {
-        VDB = DataBindingUtil.setContentView(this, getLayoutId());
-        if (VDB == null) {
+    private void handlerVdb() {
+        vdb = DataBindingUtil.setContentView(this, getLayoutId());
+        if (vdb == null) {
             return;
         }
-        VDB.setLifecycleOwner(this);
+        vdb.setLifecycleOwner(this);
     }
 
     @SuppressWarnings("unchecked")
-    private void handlerVM() {
+    private void handlerVm() {
         Class<BaseViewModel> viewModelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             viewModelClass = (Class<BaseViewModel>) ((ParameterizedType) type).getActualTypeArguments()[1];
         } else {
-            //使用父类的类型
             viewModelClass = BaseViewModel.class;
         }
-        VM = (VM) new ViewModelProvider(this).get(viewModelClass);
+        vm = (VM) new ViewModelProvider(this).get(viewModelClass);
         if (getVariableId() > 0) {
-            getLifecycle().addObserver(VM);
-            VDB.setVariable(getVariableId(), VM);
+            getLifecycle().addObserver(vm);
+            vdb.setVariable(getVariableId(), vm);
         }
     }
 
-    private void receiveLiveData() {
-
+    public VM getViewModel() {
+        return vm;
     }
 
-    public @NonNull
-    VM getVM() {
-        return VM;
-    }
-
-    public @NonNull
-    VDB getVDB() {
-        return VDB;
+    public VDB getViewDataBinding() {
+        return vdb;
     }
 
     /**
@@ -88,9 +79,9 @@ public abstract class BaseActivity<VDB extends ViewDataBinding, VM extends BaseV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (VDB != null) {
-            VDB.unbind();
+        if (vdb != null) {
+            vdb.unbind();
         }
-        VDB = null;
+        vdb = null;
     }
 }

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/abs_base_activity.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/abs_base_no_net_layout.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/abs_index_tab_activity.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_file_download_test.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_index_test_car.xml" value="0.24479166666666666" />

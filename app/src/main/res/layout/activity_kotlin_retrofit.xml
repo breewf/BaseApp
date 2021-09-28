@@ -7,7 +7,7 @@
 
         <variable
             name="mainVm"
-            type="com.hy.myapp.viewmodel.MainVm" />
+            type="com.hy.myapp.viewmodel.MainViewMode" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kotlin ViewMode" />
 
         <TextView
             android:id="@+id/tv_2"
@@ -41,7 +42,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_1" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_1"
+            tools:text="Kotlin ViewMode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

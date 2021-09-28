@@ -1,13 +1,13 @@
 package com.hy.myapp.activity
 
 import android.os.Bundle
-import com.hy.baseapp.base.BaseActivity
+import com.hy.basic.BaseActivity
 import com.hy.myapp.BR
 import com.hy.myapp.R
 import com.hy.myapp.databinding.ActivityKotlinRetrofitBinding
-import com.hy.myapp.viewmodel.MainVm
+import com.hy.myapp.viewmodel.MainViewMode
 
-class KotlinRetrofitActivity : BaseActivity<ActivityKotlinRetrofitBinding, MainVm>() {
+class KotlinRetrofitActivity : BaseActivity<ActivityKotlinRetrofitBinding, MainViewMode>() {
 
     //private lateinit var binding: ActivityKotlinRetrofitBinding
 
@@ -30,6 +30,6 @@ class KotlinRetrofitActivity : BaseActivity<ActivityKotlinRetrofitBinding, MainV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm.requestData()
+        viewModel.requestData()
     }
 }
