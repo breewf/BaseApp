@@ -10,6 +10,7 @@ import com.hy.myapp.activity.ActivityStatusTestActivity;
 import com.hy.myapp.activity.BannerTestActivity;
 import com.hy.myapp.activity.DialogTestActivity;
 import com.hy.myapp.activity.FragmentStatusActivity;
+import com.hy.myapp.activity.KotlinRetrofitActivity;
 import com.hy.myapp.activity.LoadingTestActivity;
 import com.hy.myapp.activity.MyDialogTestActivity;
 import com.hy.myapp.activity.PaletteTestActivity;
@@ -144,6 +145,11 @@ public class MainActivity extends AbsBaseActivity {
     @OnClick(R.id.btn_retrofit)
     public void btnRetrofit() {
         startActivity(this, RetrofitTestActivity.class);
+    }
+
+    @OnClick(R.id.btn_kotlin_retrofit)
+    public void btnKotlinRetrofit() {
+        startActivity(this, KotlinRetrofitActivity.class);
     }
 
     @OnClick(R.id.btn_activity_result)

@@ -114,6 +114,13 @@
                 android:text="Retrofit网络请求" />
 
             <Button
+                android:id="@+id/btn_kotlin_retrofit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Kotlin+ViewModel+网络请求" />
+
+            <Button
                 android:id="@+id/btn_activity_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

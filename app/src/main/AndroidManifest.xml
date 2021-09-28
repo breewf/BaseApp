@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hy.myapp">
-
     <!-- 用户权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -15,33 +14,32 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="com.hy.myapp.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name="com.hy.myapp.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hy.myapp.activity.ActivityStatusTestActivity" />
-        <activity android:name="com.hy.myapp.activity.FragmentStatusActivity" />
-        <activity android:name="com.hy.myapp.activity.PictureTestActivity" />
-        <activity android:name="com.hy.myapp.activity.LoadingTestActivity" />
-        <activity android:name="com.hy.myapp.activity.DialogTestActivity" />
-        <activity android:name="com.hy.myapp.activity.MyDialogTestActivity" />
-        <activity android:name="com.hy.myapp.activity.SnackBarTestActivity" />
-        <activity android:name="com.hy.myapp.activity.BannerTestActivity" />
+        <activity android:name=".activity.ActivityStatusTestActivity" />
+        <activity android:name=".activity.FragmentStatusActivity" />
+        <activity android:name=".activity.PictureTestActivity" />
+        <activity android:name=".activity.LoadingTestActivity" />
+        <activity android:name=".activity.DialogTestActivity" />
+        <activity android:name=".activity.MyDialogTestActivity" />
+        <activity android:name=".activity.SnackBarTestActivity" />
+        <activity android:name=".activity.BannerTestActivity" />
         <activity android:name="com.hy.baseapp.activity.IndexHomeActivity" />
         <activity android:name="com.hy.baseapp.activity.TabLayoutActivity" />
-        <activity android:name="com.hy.myapp.activity.PaletteTestActivity" />
-        <activity android:name="com.hy.myapp.activity.PaletteListTestActivity" />
-        <activity android:name="com.hy.myapp.activity.RetrofitTestActivity" />
-
+        <activity android:name=".activity.PaletteTestActivity" />
+        <activity android:name=".activity.PaletteListTestActivity" />
+        <activity android:name=".activity.RetrofitTestActivity" />
         <activity
             android:name=".activity.ActivityResultContractActivity"
             android:label="@string/activity_result_contract"
@@ -51,6 +49,9 @@
             android:label="@string/activity_result_contract2"
             android:theme="@style/AppTheme2" />
 
+        <activity
+            android:name=".activity.KotlinRetrofitActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
