@@ -17,15 +17,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
-import butterknife.Bind;
+import com.hy.myapp.databinding.ActivityPaletteTestBinding;
 
 public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActivity.ToolBarRightTvClickListener,
         ViewPager.OnPageChangeListener {
 
-    @Bind(R.id.tab_layout_palette)
-    TabLayout tabLayoutPalette;
-    @Bind(R.id.tab_palette_viewpager)
-    ViewPager viewPagerPalette;
+    private ActivityPaletteTestBinding binding;
 
     public static PaletteTestActivity mInstance;
 
@@ -55,6 +52,7 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
 
     @Override
     protected void init() {
+        binding = ActivityPaletteTestBinding.bind(getRootView());
         mInstance = this;
 
         setOnToolBarRightTvClickListener(this);
@@ -62,11 +60,11 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
         //页面加载中
         setActivityStatus(ACTIVITY_STATUS_LOADING);
 
-        viewPagerPalette.setAdapter(new MyTabPagerAdapter(getSupportFragmentManager()));
-        viewPagerPalette.setOffscreenPageLimit(3);
-        viewPagerPalette.setOnPageChangeListener(this);
-        tabLayoutPalette.setupWithViewPager(viewPagerPalette);
-        tabLayoutPalette.setTabMode(TabLayout.MODE_FIXED);
+        binding.tabPaletteViewpager.setAdapter(new MyTabPagerAdapter(getSupportFragmentManager()));
+        binding.tabPaletteViewpager.setOffscreenPageLimit(3);
+        binding.tabPaletteViewpager.setOnPageChangeListener(this);
+        binding.tabLayoutPalette.setupWithViewPager(binding.tabPaletteViewpager);
+        binding.tabLayoutPalette.setTabMode(TabLayout.MODE_FIXED);
 
     }
 
@@ -107,7 +105,7 @@ public class PaletteTestActivity extends AbsBaseActivity implements AbsBaseActiv
         if (getToolBar() != null) {
             getToolBar().setBackgroundColor(color);
         }
-        tabLayoutPalette.setBackgroundColor(color);
+        binding.tabLayoutPalette.setBackgroundColor(color);
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             //顶部状态栏颜色加深

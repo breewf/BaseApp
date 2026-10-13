@@ -17,7 +17,6 @@ import com.hy.myapp.R;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
-import butterknife.ButterKnife;
 
 /**
  * Created by GHY on 2016/4/29.
@@ -32,32 +31,28 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     /**
      * toolbar右侧样式
      */
-    public static final int TOOLBAR_RIGHT_TYPE_DEFAULT = 0;//无样式
-    public static final int TOOLBAR_RIGHT_TYPE_ITEM = 1;//item样式
-    public static final int TOOLBAR_RIGHT_TYPE_IV = 2;//图片样式
-    public static final int TOOLBAR_RIGHT_TYPE_TV = 3;//文字样式
+    public static final int TOOLBAR_RIGHT_TYPE_DEFAULT = 0;// 无样式
+    public static final int TOOLBAR_RIGHT_TYPE_ITEM = 1;// item样式
+    public static final int TOOLBAR_RIGHT_TYPE_IV = 2;// 图片样式
+    public static final int TOOLBAR_RIGHT_TYPE_TV = 3;// 文字样式
 
     /**
      * progressBar样式
      */
-    public static final int LOADING_PROGRESS_TYPE_CIRCLE = 0;//居中圆圈样式
-    public static final int LOADING_PROGRESS_TYPE_LINE = 1;//底部线条样式
+    public static final int LOADING_PROGRESS_TYPE_CIRCLE = 0;// 居中圆圈样式
+    public static final int LOADING_PROGRESS_TYPE_LINE = 1;// 底部线条样式
 
     /**
      * activity布局样式
      * 注意：ACTIVITY_STATUS_LOADING状态是把整个页面置为loading布局状态，其它元素不可见
      * loadingProgressShow()方法则只是在默认布局中显示loading，布局中其它元素可见
      */
-    public static final int ACTIVITY_STATUS_SUCCESS = 0;//默认样式（加载默认布局）
-    public static final int ACTIVITY_STATUS_LOADING = 1;//加载中样式（加载加载中布局）
-    public static final int ACTIVITY_STATUS_NO_NET = 2;//无网络样式（加载无网络布局）
-    public static final int ACTIVITY_STATUS_EMPTY = 3;//空页面样式（加载空页面布局）
-    public static final int ACTIVITY_STATUS_ERROR = 4;//错误样式（加载错误布局）
+    public static final int ACTIVITY_STATUS_SUCCESS = 0;// 默认样式（加载默认布局）
+    public static final int ACTIVITY_STATUS_LOADING = 1;// 加载中样式（加载加载中布局）
+    public static final int ACTIVITY_STATUS_NO_NET = 2;// 无网络样式（加载无网络布局）
+    public static final int ACTIVITY_STATUS_EMPTY = 3;// 空页面样式（加载空页面布局）
+    public static final int ACTIVITY_STATUS_ERROR = 4;// 错误样式（加载错误布局）
 
-    /**
-     * 根布局View
-     */
-    private View mRootFrameView;
     /**
      * 根布局FrameLayout
      */
@@ -65,14 +60,20 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     /**
      * 子类添加的View
      */
-    private View mSonView;
+    private View mRootView;
 
     /**
      * 获取布局ID
-     *
-     * @return
      */
     protected abstract int getLayoutID();
+
+    /**
+     * 获取子布局的根 View（由 getLayoutID() 对应布局 inflate 而来）
+     * 子类可在 init() 中通过 XxxBinding.bind(getRootView()) 使用 ViewBinding
+     */
+    protected View getRootView() {
+        return mRootView;
+    }
 
     /**
      * 初始化
@@ -203,28 +204,26 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //保持屏幕竖屏
+        // 保持屏幕竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         int id = getLayoutID();
-        //加载根布局
-        mRootFrameView = getLayoutInflater().inflate(R.layout.abs_base_activity, null);
-        mRootFrameLayout = (FrameLayout) mRootFrameView.findViewById(R.id.abs_base_frame_layout);
-        //设置布局
+        // 根布局View
+        View mRootFrameView = getLayoutInflater().inflate(R.layout.abs_base_activity, null);
+        mRootFrameLayout = mRootFrameView.findViewById(R.id.abs_base_frame_layout);
+        // 设置布局
         setContentView(mRootFrameView);
-        //加载子类布局
+        // 加载子类布局
         if (id != NO_LAYOUT) {
-            mSonView = getLayoutInflater().inflate(id, null);
-            mRootFrameLayout.addView(mSonView);
+            mRootView = getLayoutInflater().inflate(id, null);
+            mRootFrameLayout.addView(mRootView);
         } else {
             Logger.e("mSonView == null");
         }
-        //初始化ToolBar
+        // 初始化ToolBar
         initToolBar();
-        //初始化基础控件
+        // 初始化基础控件
         initBase(mRootFrameView);
-        //初始化ButterKnife
-        ButterKnife.bind(this);
-        //初始化
+        // 初始化
         init();
     }
 
@@ -232,14 +231,14 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
      * 设置activity布局界面状态
      * 备注：这几种布局状态和正常状态每次仅存在一种
      */
-    View loadingLayoutView;//加载中布局
-    View noNetLayoutView;//无网络布局
-    View emptyLayoutView;//空页面布局
-    View errorLayoutView;//错误页面布局
+    View loadingLayoutView;// 加载中布局
+    View noNetLayoutView;// 无网络布局
+    View emptyLayoutView;// 空页面布局
+    View errorLayoutView;// 错误页面布局
 
     public void setActivityStatus(int activityStatus) {
-        //取消加载中loadingProgress
-        //无论加载哪一种布局，都相当于成功加载了界面，取消loadingProgress
+        // 取消加载中loadingProgress
+        // 无论加载哪一种布局，都相当于成功加载了界面，取消loadingProgress
         loadingProgressDismiss();
         switch (activityStatus) {
             case ACTIVITY_STATUS_SUCCESS:
@@ -255,9 +254,9 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 if (errorLayoutView != null) {
                     mRootFrameLayout.removeView(errorLayoutView);
                 }
-                mSonView.setVisibility(View.VISIBLE);
-                //添加淡入动画
-                AnimHelper.fadeIn(mSonView);
+                mRootView.setVisibility(View.VISIBLE);
+                // 添加淡入动画
+                AnimHelper.fadeIn(mRootView);
                 break;
             case ACTIVITY_STATUS_LOADING:
                 if (noNetLayoutView != null) {
@@ -271,7 +270,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 }
                 loadingLayoutView = getLayoutInflater().inflate(R.layout.abs_base_loading_layout, null);
                 mRootFrameLayout.addView(loadingLayoutView);
-                mSonView.setVisibility(View.INVISIBLE);
+                mRootView.setVisibility(View.INVISIBLE);
                 break;
             case ACTIVITY_STATUS_NO_NET:
                 if (loadingLayoutView != null) {
@@ -285,8 +284,8 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 }
                 noNetLayoutView = getLayoutInflater().inflate(R.layout.abs_base_no_net_layout, null);
                 mRootFrameLayout.addView(noNetLayoutView);
-                mSonView.setVisibility(View.INVISIBLE);
-                //无网络布局点击事件
+                mRootView.setVisibility(View.INVISIBLE);
+                // 无网络布局点击事件
                 setNoNetClickListener(noNetLayoutView);
                 break;
             case ACTIVITY_STATUS_EMPTY:
@@ -301,8 +300,8 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 }
                 emptyLayoutView = getLayoutInflater().inflate(R.layout.abs_base_empty_layout, null);
                 mRootFrameLayout.addView(emptyLayoutView);
-                mSonView.setVisibility(View.INVISIBLE);
-                //空页面布局点击事件
+                mRootView.setVisibility(View.INVISIBLE);
+                // 空页面布局点击事件
                 setEmptyClickListener(emptyLayoutView);
                 break;
             case ACTIVITY_STATUS_ERROR:
@@ -317,8 +316,8 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
                 }
                 errorLayoutView = getLayoutInflater().inflate(R.layout.abs_base_error_layout, null);
                 mRootFrameLayout.addView(errorLayoutView);
-                mSonView.setVisibility(View.INVISIBLE);
-                //错误页面布局点击事件
+                mRootView.setVisibility(View.INVISIBLE);
+                // 错误页面布局点击事件
                 setErrorClickListener(errorLayoutView);
                 break;
             default:
@@ -340,7 +339,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     private class NoNetClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (noNetLayoutView != null) {
                 mRootFrameLayout.removeView(noNetLayoutView);
             }
@@ -363,7 +362,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     private class EmptyClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (emptyLayoutView != null) {
                 mRootFrameLayout.removeView(emptyLayoutView);
             }
@@ -386,7 +385,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     private class ErrorClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (errorLayoutView != null) {
                 mRootFrameLayout.removeView(errorLayoutView);
             }
@@ -438,7 +437,7 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
         mToolbar.setSubtitle(getToolBarSubTitle() != null ? getToolBarSubTitle() : "");
         mToolbar.setVisibility(isOpenToolBar() ? View.VISIBLE : View.GONE);
         setSupportActionBar(mToolbar);
-        //是否开启返回箭头按钮
+        // 是否开启返回箭头按钮
         getSupportActionBar().setDisplayHomeAsUpEnabled(isOpenToolBarLeftBack());
     }
 
@@ -490,32 +489,25 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            //左上角返回按钮
-            case android.R.id.home:
-                this.finish();
-                break;
-            case R.id.abs_menu_main_iv:
-                if (rightIvClickListener != null) {
-                    rightIvClickListener.onToolBarRightIvClick();
-                }
-                break;
-            case R.id.abs_menu_main_tv:
-                if (rightTvClickListener != null) {
-                    rightTvClickListener.onToolBarRightTvClick();
-                }
-                break;
-            case R.id.abs_menu_main_item1:
-                if (rightItemClickListener != null) {
-                    rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item1);
-                }
-                break;
-            case R.id.abs_menu_main_item2:
-                if (rightItemClickListener != null) {
-                    rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item2);
-                }
-                break;
-
+        // 左上角返回按钮
+        if (id == android.R.id.home) {
+            this.finish();
+        } else if (id == R.id.abs_menu_main_iv) {
+            if (rightIvClickListener != null) {
+                rightIvClickListener.onToolBarRightIvClick();
+            }
+        } else if (id == R.id.abs_menu_main_tv) {
+            if (rightTvClickListener != null) {
+                rightTvClickListener.onToolBarRightTvClick();
+            }
+        } else if (id == R.id.abs_menu_main_item1) {
+            if (rightItemClickListener != null) {
+                rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item1);
+            }
+        } else if (id == R.id.abs_menu_main_item2) {
+            if (rightItemClickListener != null) {
+                rightItemClickListener.onToolBarRightItemClick(R.id.abs_menu_main_item2);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -551,9 +543,4 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
         void onToolBarRightItemClick(int itemId);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 }

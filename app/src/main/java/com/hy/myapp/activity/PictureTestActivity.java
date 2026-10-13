@@ -1,11 +1,10 @@
 package com.hy.myapp.activity;
 
 import com.hy.myapp.R;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.helper.ImageHelper;
 
-import butterknife.Bind;
+import com.hy.myapp.databinding.ActivityPictureTestBinding;
 
 public class PictureTestActivity extends AbsBaseActivity {
 
@@ -17,20 +16,7 @@ public class PictureTestActivity extends AbsBaseActivity {
 
     String urlGif = "res:// /" + R.mipmap.xiaohuangren;
 
-    @Bind(R.id.iv_test1)
-    SimpleDraweeView ivTest1;
-    @Bind(R.id.iv_test2)
-    SimpleDraweeView ivTest2;
-    @Bind(R.id.iv_test3)
-    SimpleDraweeView ivTest3;
-    @Bind(R.id.iv_test4)
-    SimpleDraweeView ivTest4;
-    @Bind(R.id.iv_circle3)
-    SimpleDraweeView ivCircle;
-    @Bind(R.id.iv_gif1)
-    SimpleDraweeView ivGif1;
-    @Bind(R.id.iv_gif2)
-    SimpleDraweeView ivGif2;
+    private ActivityPictureTestBinding binding;
 
     @Override
     protected int getLayoutID() {
@@ -44,16 +30,17 @@ public class PictureTestActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
+        binding = ActivityPictureTestBinding.bind(getRootView());
 
-        ImageHelper.getInstance().loadImage(ivTest1,url1);
-        ImageHelper.getInstance().loadImage(ivTest2,url2);
-        ImageHelper.getInstance().loadImage(ivTest3,url3);
-        ImageHelper.getInstance().loadImage(ivTest4,url4);
+        ImageHelper.getInstance().loadImage(binding.ivTest1,url1);
+        ImageHelper.getInstance().loadImage(binding.ivTest2,url2);
+        ImageHelper.getInstance().loadImage(binding.ivTest3,url3);
+        ImageHelper.getInstance().loadImage(binding.ivTest4,url4);
 
-        ImageHelper.getInstance().loadImage(ivCircle,urlCircle);
+        ImageHelper.getInstance().loadImage(binding.ivCircle3,urlCircle);
 
-        ImageHelper.getInstance().loadGifImage(ivGif1,urlGif);
-        ImageHelper.getInstance().loadGifImageClickListener(ivGif2,urlGif);
+        ImageHelper.getInstance().loadGifImage(binding.ivGif1,urlGif);
+        ImageHelper.getInstance().loadGifImageClickListener(binding.ivGif2,urlGif);
     }
 
 }

@@ -12,7 +12,6 @@ import com.hy.myapp.R;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import androidx.annotation.Nullable;
-import butterknife.ButterKnife;
 
 /**
  * Created by HY on 2016/4/30.
@@ -23,10 +22,7 @@ public abstract class AbsBaseFragment extends RxFragment {
     private final String TAG = "AbsBaseFragment";
     private static final int NO_FRAGMENT_LAYOUT = 0;
 
-    /**
-     * 根布局view 和 子类添加内容布局view
-     */
-    private View mRootView, mContentView;
+    private View mContentView;
 
     /**
      * fragment根布局FrameLayout
@@ -36,19 +32,19 @@ public abstract class AbsBaseFragment extends RxFragment {
     /**
      * progressBar样式
      */
-    public static final int LOADING_PROGRESS_TYPE_CIRCLE = 0;//居中圆圈样式
-    public static final int LOADING_PROGRESS_TYPE_LINE = 1;//底部线条样式
+    public static final int LOADING_PROGRESS_TYPE_CIRCLE = 0;// 居中圆圈样式
+    public static final int LOADING_PROGRESS_TYPE_LINE = 1;// 底部线条样式
 
     /**
      * activity布局样式
      * 注意：FRAGMENT_STATUS_LOADING状态是把整个页面置为loading布局状态，其它元素不可见
      * loadingProgressShow()方法则只是在默认布局中显示loading，布局中其它元素可见
      */
-    public static final int FRAGMENT_STATUS_SUCCESS = 0;//默认样式（加载默认布局）
-    public static final int FRAGMENT_STATUS_LOADING = 1;//加载中样式（加载加载中布局）
-    public static final int FRAGMENT_STATUS_NO_NET = 2;//无网络样式（加载无网络布局）
-    public static final int FRAGMENT_STATUS_EMPTY = 3;//空页面样式（加载空页面布局）
-    public static final int FRAGMENT_STATUS_ERROR = 4;//错误样式（加载错误布局）
+    public static final int FRAGMENT_STATUS_SUCCESS = 0;// 默认样式（加载默认布局）
+    public static final int FRAGMENT_STATUS_LOADING = 1;// 加载中样式（加载加载中布局）
+    public static final int FRAGMENT_STATUS_NO_NET = 2;// 无网络样式（加载无网络布局）
+    public static final int FRAGMENT_STATUS_EMPTY = 3;// 空页面样式（加载空页面布局）
+    public static final int FRAGMENT_STATUS_ERROR = 4;// 错误样式（加载错误布局）
 
     /**
      * 获取布局ID
@@ -102,18 +98,17 @@ public abstract class AbsBaseFragment extends RxFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int contentLayoutId = getLayoutID();
-        mRootView = inflater.inflate(R.layout.abs_base_fragment, container, false);
-        mRootFrameLayout = (FrameLayout) mRootView.findViewById(R.id.abs_base_frame_layout_fg);
+        // 根布局view 和 子类添加内容布局view
+        View mRootView = inflater.inflate(R.layout.abs_base_fragment, container, false);
+        mRootFrameLayout = mRootView.findViewById(R.id.abs_base_frame_layout_fg);
         if (contentLayoutId != NO_FRAGMENT_LAYOUT) {
             mContentView = inflater.inflate(contentLayoutId, null);
             mRootFrameLayout.addView(mContentView);
         } else {
             Logger.w("fragmentContentView == null");
         }
-        //初始化基础控件
+        // 初始化基础控件
         initBase(mRootView);
-        //初始化ButterKnife
-        ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -129,14 +124,14 @@ public abstract class AbsBaseFragment extends RxFragment {
      * 设置fragment布局界面状态
      * 备注：这几种布局状态和正常状态每次仅存在一种
      */
-    View loadingLayoutView;//加载中布局
-    View noNetLayoutView;//无网络布局
-    View emptyLayoutView;//空页面布局
-    View errorLayoutView;//错误页面布局
+    View loadingLayoutView;// 加载中布局
+    View noNetLayoutView;// 无网络布局
+    View emptyLayoutView;// 空页面布局
+    View errorLayoutView;// 错误页面布局
 
     public void setFragmentStatus(int fragmentStatus) {
-        //取消加载中loadingProgress
-        //无论加载哪一种布局，都相当于成功加载了界面，取消loadingProgress
+        // 取消加载中loadingProgress
+        // 无论加载哪一种布局，都相当于成功加载了界面，取消loadingProgress
         loadingProgressDismiss();
         switch (fragmentStatus) {
             case FRAGMENT_STATUS_SUCCESS:
@@ -168,7 +163,6 @@ public abstract class AbsBaseFragment extends RxFragment {
                 ProgressBar loadingProgress = (ProgressBar) loadingLayoutView.findViewById(R.id.abs_loading_progress);
                 mRootFrameLayout.addView(loadingLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
-                loadingProgressStartDelay(loadingProgress);
                 break;
             case FRAGMENT_STATUS_NO_NET:
                 if (loadingLayoutView != null) {
@@ -183,7 +177,7 @@ public abstract class AbsBaseFragment extends RxFragment {
                 noNetLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_no_net_layout, null);
                 mRootFrameLayout.addView(noNetLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
-                //无网络布局点击事件
+                // 无网络布局点击事件
                 setNoNetClickListener(noNetLayoutView);
                 break;
             case FRAGMENT_STATUS_EMPTY:
@@ -199,7 +193,7 @@ public abstract class AbsBaseFragment extends RxFragment {
                 emptyLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_empty_layout, null);
                 mRootFrameLayout.addView(emptyLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
-                //空页面布局点击事件
+                // 空页面布局点击事件
                 setEmptyClickListener(emptyLayoutView);
                 break;
             case FRAGMENT_STATUS_ERROR:
@@ -215,26 +209,12 @@ public abstract class AbsBaseFragment extends RxFragment {
                 errorLayoutView = getActivity().getLayoutInflater().inflate(R.layout.abs_base_error_layout, null);
                 mRootFrameLayout.addView(errorLayoutView);
                 mContentView.setVisibility(View.INVISIBLE);
-                //错误页面布局点击事件
+                // 错误页面布局点击事件
                 setErrorClickListener(errorLayoutView);
                 break;
             default:
                 break;
         }
-    }
-
-    /**
-     * loadingProgress延迟转动
-     *
-     * @param loadingProgress
-     */
-    private void loadingProgressStartDelay(final ProgressBar loadingProgress) {
-        //new Handler().postDelayed(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //
-        //    }
-        //}, 200);
     }
 
     /**
@@ -251,7 +231,7 @@ public abstract class AbsBaseFragment extends RxFragment {
     private class NoNetClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (noNetLayoutView != null) {
                 mRootFrameLayout.removeView(noNetLayoutView);
             }
@@ -274,7 +254,7 @@ public abstract class AbsBaseFragment extends RxFragment {
     private class EmptyClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (emptyLayoutView != null) {
                 mRootFrameLayout.removeView(emptyLayoutView);
             }
@@ -297,7 +277,7 @@ public abstract class AbsBaseFragment extends RxFragment {
     private class ErrorClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //点击后清除该布局并显示loadingProgress
+            // 点击后清除该布局并显示loadingProgress
             if (errorLayoutView != null) {
                 mRootFrameLayout.removeView(errorLayoutView);
             }

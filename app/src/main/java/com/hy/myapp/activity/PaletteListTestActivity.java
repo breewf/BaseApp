@@ -9,14 +9,13 @@ import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.helper.ImageHelper;
 import com.hy.myapp.R;
+import com.hy.myapp.databinding.ActivityPaletteListTestBinding;
 
 import androidx.palette.graphics.Palette;
-import butterknife.Bind;
 
 public class PaletteListTestActivity extends AbsBaseActivity {
 
@@ -33,8 +32,7 @@ public class PaletteListTestActivity extends AbsBaseActivity {
 
     private Bitmap[] bitmaps = new Bitmap[10];
 
-    @Bind(R.id.lv_palette)
-    ListView listView;
+    private ActivityPaletteListTestBinding binding;
 
     @Override
     protected int getLayoutID() {
@@ -49,10 +47,12 @@ public class PaletteListTestActivity extends AbsBaseActivity {
     @Override
     protected void init() {
 
-        ListViewAdapter adapter = new ListViewAdapter();
-        listView.setAdapter(adapter);
+        binding = ActivityPaletteListTestBinding.bind(getRootView());
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        ListViewAdapter adapter = new ListViewAdapter();
+        binding.lvPalette.setAdapter(adapter);
+
+        binding.lvPalette.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 int position = view.getFirstVisiblePosition();

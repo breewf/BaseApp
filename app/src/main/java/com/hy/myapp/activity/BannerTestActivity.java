@@ -18,8 +18,7 @@ import com.hy.baseapp.helper.ToastHelper;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.hy.myapp.databinding.ActivityBannerTestBinding;
 
 public class BannerTestActivity extends AbsBaseActivity {
 
@@ -28,7 +27,7 @@ public class BannerTestActivity extends AbsBaseActivity {
             "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
             "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
 
-    @Bind(R.id.convenientBanner) ConvenientBanner banner;
+    private ActivityBannerTestBinding binding;
 
     @Override
     protected int getLayoutID() {
@@ -42,8 +41,9 @@ public class BannerTestActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
+        binding = ActivityBannerTestBinding.bind(getRootView());
         List<String> networkImages = Arrays.asList(images);
-        banner.setPages(new CBViewHolderCreator() {
+        binding.convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
                 return new NetworkImageHolderView();
@@ -54,6 +54,15 @@ public class BannerTestActivity extends AbsBaseActivity {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                 .setOnItemClickListener(new OnBannerClickListener());
+
+        binding.tvBannerPage1.setOnClickListener(v -> bannerPage1());
+        binding.tvBannerPage2.setOnClickListener(v -> bannerPage2());
+        binding.tvBannerPage3.setOnClickListener(v -> bannerPage3());
+        binding.tvBannerPage4.setOnClickListener(v -> bannerPage4());
+        binding.tvBannerPage5.setOnClickListener(v -> bannerPage5());
+        binding.tvBannerPage6.setOnClickListener(v -> bannerPage6());
+        binding.tvBannerPage7.setOnClickListener(v -> bannerPage7());
+        binding.tvBannerPage8.setOnClickListener(v -> bannerPage8());
     }
 
     /**
@@ -84,42 +93,34 @@ public class BannerTestActivity extends AbsBaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_banner_page1)
     public void bannerPage1() {
         changeTransforemer(AccordionTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page2)
     public void bannerPage2() {
         changeTransforemer(CubeOutTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page3)
     public void bannerPage3() {
         changeTransforemer(DepthPageTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page4)
     public void bannerPage4() {
         changeTransforemer(ForegroundToBackgroundTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page5)
     public void bannerPage5() {
         changeTransforemer(RotateDownTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page6)
     public void bannerPage6() {
         changeTransforemer(RotateUpTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page7)
     public void bannerPage7() {
         changeTransforemer(StackTransformer.class.getSimpleName());
     }
 
-    @OnClick(R.id.tv_banner_page8)
     public void bannerPage8() {
         changeTransforemer(ZoomOutTranformer.class.getSimpleName());
     }
@@ -133,10 +134,10 @@ public class BannerTestActivity extends AbsBaseActivity {
         try {
             Class cls = Class.forName("com.hy.baseapp.component.banner.transforms." + transforemerName);
             ABaseTransformer transforemer = (ABaseTransformer) cls.newInstance();
-            banner.getViewPager().setPageTransformer(true, transforemer);
+            binding.convenientBanner.getViewPager().setPageTransformer(true, transforemer);
             //部分3D特效需要调整滑动速度
             if (transforemerName.equals("StackTransformer")) {
-                banner.setScrollDuration(1200);
+                binding.convenientBanner.setScrollDuration(1200);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -150,12 +151,12 @@ public class BannerTestActivity extends AbsBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        banner.startTurning(4000);
+        binding.convenientBanner.startTurning(4000);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        banner.stopTurning();
+        binding.convenientBanner.stopTurning();
     }
 }

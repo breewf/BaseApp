@@ -3,15 +3,14 @@ package com.hy.myapp.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.hy.baseapp.base.AbsBaseFragment;
 import com.hy.baseapp.helper.ImageHelper;
 import com.hy.myapp.R;
 import com.hy.myapp.activity.PaletteTestActivity;
+import com.hy.myapp.databinding.FragmentPalettePagerBinding;
 
 import androidx.annotation.Nullable;
-import butterknife.Bind;
 
 /**
  * Created by GHY on 2016/5/12.
@@ -26,7 +25,7 @@ public class PalettePageFragment extends AbsBaseFragment {
             "https://img1.baidu.com/it/u=3189143085,2808291968&fm=26&fmt=auto&gp=0.jpg",
             "https://img0.baidu.com/it/u=3388914057,1541350825&fm=26&fmt=auto&gp=0.jpg"};
 
-    @Bind(R.id.iv_palette_fg1) ImageView imageView;
+    private FragmentPalettePagerBinding binding;
 
     public static Bitmap[] bitmaps = new Bitmap[4];
 
@@ -52,14 +51,16 @@ public class PalettePageFragment extends AbsBaseFragment {
     @Override
     protected void init(Bundle savedInstanceState, View contentView) {
 
-        ImageHelper.getInstance().loadImage(imageView, imageUrl[mPage],
+        binding = FragmentPalettePagerBinding.bind(contentView);
+
+        ImageHelper.getInstance().loadImage(binding.ivPaletteFg1, imageUrl[mPage],
                 b -> {
                     if (b != null) {
                         bitmaps[mPage] = b;
                         //首次进入设置第一页的图片的颜色
                         PaletteTestActivity.mInstance.getColor(bitmaps[0]);
 
-                        imageView.setImageBitmap(b);
+                        binding.ivPaletteFg1.setImageBitmap(b);
                     }
                 });
     }

@@ -47,23 +47,17 @@ public class MyTabView extends LinearLayout implements View.OnClickListener {
         TypedArray typedArray = getResources().obtainAttributes(attrs, R.styleable.MyTabView);
         int index = typedArray.getIndexCount();
         for (int i = 0; i < index; i++) {
-            switch (typedArray.getIndex(i)) {
-                case R.styleable.MyTabView_text_size:
-                    mTextSize = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                            mTextSize, getResources().getDisplayMetrics()));
-                    break;
-                case R.styleable.MyTabView_text_normal_color:
-                    mTextColorNormal = typedArray.getColor(i, mTextColorNormal);
-                    break;
-                case R.styleable.MyTabView_text_select_color:
-                    mTextColorSelect = typedArray.getColor(i, mTextColorSelect);
-                    break;
-                case R.styleable.MyTabView_item_padding:
-                    mPadding = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                            mPadding, getResources().getDisplayMetrics()));
-                    break;
-                default:
-                    break;
+            int attr = typedArray.getIndex(i);
+            if (attr == R.styleable.MyTabView_text_size) {
+                mTextSize = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                        mTextSize, getResources().getDisplayMetrics()));
+            } else if (attr == R.styleable.MyTabView_text_normal_color) {
+                mTextColorNormal = typedArray.getColor(i, mTextColorNormal);
+            } else if (attr == R.styleable.MyTabView_text_select_color) {
+                mTextColorSelect = typedArray.getColor(i, mTextColorSelect);
+            } else if (attr == R.styleable.MyTabView_item_padding) {
+                mPadding = (int) typedArray.getDimension(i, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        mPadding, getResources().getDisplayMetrics()));
             }
         }
         typedArray.recycle();

@@ -13,15 +13,12 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.Bind;
+
+import com.hy.myapp.databinding.ActivityTabLayoutBinding;
 
 public class TabLayoutActivity extends AbsBaseActivity {
 
-    @Bind(R.id.tab_layout)
-    TabLayout tabLayout;
-    @Bind(R.id.tab_layout_viewpager)
-    ViewPager viewPager;
+    private ActivityTabLayoutBinding binding;
 
     private String tabTitles[] = new String[]{"tab1","tab2","tab3"};
     private List<Fragment> fragments;
@@ -38,13 +35,14 @@ public class TabLayoutActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
+        binding = ActivityTabLayoutBinding.bind(getRootView());
 
         initFragment();
 
-        viewPager.setAdapter(new MyTabPagerAdapter(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
+        binding.tabLayoutViewpager.setAdapter(new MyTabPagerAdapter(getSupportFragmentManager()));
+        binding.tabLayout.setupWithViewPager(binding.tabLayoutViewpager);
         //MODE_FIXED是占满布局，MODE_SCROLLABLE是适应可滑动
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
     }
 

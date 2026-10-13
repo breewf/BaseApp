@@ -1,20 +1,20 @@
 package com.hy.myapp.adapter;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.hy.myapp.R;
 import com.hy.baseapp.base.AbsAdapterItem;
 
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import com.hy.myapp.databinding.ItemListViewItemTypeLetterBinding;
 
 /**
  * Created by GHY on 2016/5/10.
  */
 public class ListViewItemTypeLetterAdapter extends AbsAdapterItem<Map<String,String>> {
+
+    private ItemListViewItemTypeLetterBinding binding;
 
     @Override
     public int getItemLayout() {
@@ -24,16 +24,13 @@ public class ListViewItemTypeLetterAdapter extends AbsAdapterItem<Map<String,Str
     @Override
     public void init(View contentView) {
 
-        ButterKnife.bind(this,contentView);
+        binding = ItemListViewItemTypeLetterBinding.bind(contentView);
 
     }
 
-    @Bind(R.id.item_tv_letter)
-    TextView itemTvLetter;
-
     @Override
     public void bindData(Map<String,String> map) {
-        itemTvLetter.setText(map.get("key"));
+        binding.itemTvLetter.setText(map.get("key"));
     }
 
 }

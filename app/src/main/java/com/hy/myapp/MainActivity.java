@@ -10,7 +10,6 @@ import com.hy.myapp.activity.ActivityStatusTestActivity;
 import com.hy.myapp.activity.BannerTestActivity;
 import com.hy.myapp.activity.DialogTestActivity;
 import com.hy.myapp.activity.FragmentStatusActivity;
-import com.hy.myapp.activity.KotlinRetrofitActivity;
 import com.hy.myapp.activity.LoadingTestActivity;
 import com.hy.myapp.activity.MyDialogTestActivity;
 import com.hy.myapp.activity.PaletteTestActivity;
@@ -18,9 +17,11 @@ import com.hy.myapp.activity.PictureTestActivity;
 import com.hy.myapp.activity.RetrofitTestActivity;
 import com.hy.myapp.activity.SnackBarTestActivity;
 
-import butterknife.OnClick;
+import com.hy.myapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AbsBaseActivity {
+
+    private ActivityMainBinding binding;
 
 
     @Override
@@ -65,8 +66,23 @@ public class MainActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
+        binding = ActivityMainBinding.bind(getRootView());
         //toolBar右侧点击事件
         setRightClickListener();
+        //按钮点击事件
+        binding.btnTest1.setOnClickListener(v -> btn1Click());
+        binding.btnTest2.setOnClickListener(v -> btn2Click());
+        binding.btnTest3.setOnClickListener(v -> btn3Click());
+        binding.btnPicTest.setOnClickListener(v -> picTestClick());
+        binding.btnDialogTest.setOnClickListener(v -> dialogTest());
+        binding.btnDialogTest2.setOnClickListener(v -> dialogTest2());
+        binding.btnSnackBar.setOnClickListener(v -> btnSnackBar());
+        binding.btnBanner.setOnClickListener(v -> btnBanner());
+        binding.btnTabChangeColor.setOnClickListener(v -> btnTabChange());
+        binding.btnTabLayout1.setOnClickListener(v -> btnTabLayout1());
+        binding.btnPalette.setOnClickListener(v -> btnPalette());
+        binding.btnRetrofit.setOnClickListener(v -> btnRetrofit());
+        binding.btnActivityResult.setOnClickListener(v -> btnActivityResult());
     }
 
     /**
@@ -74,85 +90,62 @@ public class MainActivity extends AbsBaseActivity {
      */
     private void setRightClickListener() {
         setOnToolBarRightItemClickListener(itemId -> {
-            switch (itemId) {
-                case R.id.abs_menu_main_item1:
-                    Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.abs_menu_main_item2:
-                    MainActivity.this.finish();
-                    break;
-                default:
-                    break;
+            if (itemId == R.id.abs_menu_main_item1) {
+                Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
+            } else if (itemId == R.id.abs_menu_main_item2) {
+                MainActivity.this.finish();
             }
         });
     }
 
-    @OnClick(R.id.btn_test1)
     public void btn1Click() {
         startActivity(this, ActivityStatusTestActivity.class);
     }
 
-    @OnClick(R.id.btn_test2)
     public void btn2Click() {
         startActivity(this, LoadingTestActivity.class);
     }
 
-    @OnClick(R.id.btn_test3)
     public void btn3Click() {
         startActivity(this, FragmentStatusActivity.class);
     }
 
-    @OnClick(R.id.btn_pic_test)
     public void picTestClick() {
         startActivity(this, PictureTestActivity.class);
     }
 
-    @OnClick(R.id.btn_dialog_test)
     public void dialogTest() {
         startActivity(this, DialogTestActivity.class);
     }
 
-    @OnClick(R.id.btn_dialog_test2)
     public void dialogTest2() {
         startActivity(this, MyDialogTestActivity.class);
     }
 
-    @OnClick(R.id.btn_snack_bar)
     public void btnSnackBar() {
         startActivity(this, SnackBarTestActivity.class);
     }
 
-    @OnClick(R.id.btn_banner)
     public void btnBanner() {
         startActivity(this, BannerTestActivity.class);
     }
 
-    @OnClick(R.id.btn_tab_change_color)
     public void btnTabChange() {
         startActivity(this, IndexHomeActivity.class);
     }
 
-    @OnClick(R.id.btn_tab_layout1)
     public void btnTabLayout1() {
         startActivity(this, TabLayoutActivity.class);
     }
 
-    @OnClick(R.id.btn_palette)
     public void btnPalette() {
         startActivity(this, PaletteTestActivity.class);
     }
 
-    @OnClick(R.id.btn_retrofit)
     public void btnRetrofit() {
         startActivity(this, RetrofitTestActivity.class);
     }
 
-    @OnClick(R.id.btn_kotlin_retrofit)
-    public void btnKotlinRetrofit() {
-        startActivity(this, KotlinRetrofitActivity.class);
-    }
-
-    @OnClick(R.id.btn_activity_result)
     public void btnActivityResult() {
         startActivity(this, ActivityResultContractActivity.class);
     }

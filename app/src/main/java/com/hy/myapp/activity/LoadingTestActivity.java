@@ -5,9 +5,11 @@ import android.os.Handler;
 import com.hy.myapp.R;
 import com.hy.baseapp.base.AbsBaseActivity;
 
-import butterknife.OnClick;
+import com.hy.myapp.databinding.ActivityLoadingTestBinding;
 
 public class LoadingTestActivity extends AbsBaseActivity {
+
+    private ActivityLoadingTestBinding binding;
 
     @Override
     protected int getLayoutID() {
@@ -21,9 +23,11 @@ public class LoadingTestActivity extends AbsBaseActivity {
 
     @Override
     protected void init() {
+        binding = ActivityLoadingTestBinding.bind(getRootView());
+        binding.btnLoading1.setOnClickListener(v -> btnLoading1());
+        binding.btnLoading2.setOnClickListener(v -> btnLoading2());
     }
 
-    @OnClick(R.id.btn_loading1)
     public void btnLoading1(){
         loadingProgressShow();
 
@@ -35,7 +39,6 @@ public class LoadingTestActivity extends AbsBaseActivity {
         },2000);
     }
 
-    @OnClick(R.id.btn_loading2)
     public void btnLoading2(){
 
         setActivityStatus(ACTIVITY_STATUS_LOADING);

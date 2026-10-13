@@ -1,16 +1,15 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "28.0.3"
+    namespace 'com.hy.myapp'
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.hy.baseapp"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
     }
@@ -18,24 +17,27 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     lintOptions {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-    kapt {
-        generateStubs = true
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+        // AGP 9 默认不再生成 BuildConfig，需显式开启
+        buildConfig true
     }
-    viewBinding {
-        enabled = true
-    }
-    dataBinding {
-        enabled = true
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
@@ -83,8 +85,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'commons-io:commons-io:2.6'
 
-    implementation 'com.jakewharton:butterknife:7.0.1'
-    annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     implementation 'de.greenrobot:eventbus:2.4.0'
 
     // 图片加载
