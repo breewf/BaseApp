@@ -18,7 +18,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("https://api.uomg.com/api/rand.qinghua?format=json")
-    suspend fun getApiTest2(
+    suspend fun getApiTest(
         @Field("id") id: String?
     ): BaseHttpResponse<String?>
 }

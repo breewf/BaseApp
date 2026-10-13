@@ -18,7 +18,7 @@ class MainViewMode : BaseViewModel() {
     val responseText = _responseText.asStateFlow()
 
     fun requestData() = viewModelScope.launch {
-        launchRequest(block = { getApiTest2("") }) { content ->
+        launchRequest(block = { getApiTest("") }) { content ->
             _responseText.value = content.orEmpty()
         }
     }

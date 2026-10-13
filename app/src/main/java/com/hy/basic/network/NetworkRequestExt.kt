@@ -17,29 +17,27 @@ import kotlinx.coroutines.flow.flowOn
  * - [launchRequest]:推荐入口。在 viewModelScope 中收集,自动维护 loading 与全局异常上报,
  *   业务侧 [launchRequest.onResult] 只需处理成功数据
  *
- * 用法:
- * ```
- * fun loadData() = viewModelScope.launch {
- *     launchRequest(block = { getApiTest2("") }) { content ->
- *         _responseText.value = content.orEmpty()
- *     }
- * }
- * ```
  * 需要精细处理单项异常/多接口合并时,直接使用 [request] 返回的 Flow 自行组合操作符。
  */
 
 /**
  * 基础请求流:执行 [block] 并解包业务数据。
+ * [block] 的接收者就是 [ApiService],直接写接口方法名即可(不要写 Api.xxx 前缀)。
  * 空响应视为异常;所有异常经 [ApiExceptionHandler.toApiException] 归一化后向上抛出,
  * 由下游([launchRequest] 或调用方自定义 catch)决定最终处理方式。
  */
 fun <T> BaseViewModel.request(
     block: suspend ApiService.() -> BaseHttpResponse<T>?
 ): Flow<T> = flow {
-    val response = block(Api.get())
+    val response = block(Api.apiService)
         ?: throw ApiException(ApiExceptionHandler.CODE_EMPTY_DATA, "接口未返回数据")
     response.throwApiException()
-    emit(response.unwrap() ?: throw ApiException(ApiExceptionHandler.CODE_EMPTY_DATA, "接口数据为空"))
+    emit(
+        response.unwrap() ?: throw ApiException(
+            ApiExceptionHandler.CODE_EMPTY_DATA,
+            "接口数据为空"
+        )
+    )
 }.flowOn(Dispatchers.IO)
     .catch { e ->
         // 协程取消(页面销毁/主动取消)必须原样抛出,否则破坏结构化并发
