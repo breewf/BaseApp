@@ -5,14 +5,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.hy.myapp.R;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.component.banner.ConvenientBanner;
 import com.hy.baseapp.component.banner.holder.CBViewHolderCreator;
 import com.hy.baseapp.component.banner.holder.Holder;
 import com.hy.baseapp.component.banner.listener.OnItemClickListener;
 import com.hy.baseapp.component.banner.transforms.*;
-import com.hy.baseapp.helper.ImageHelper;
+import com.hy.baseapp.helper.ImageLoader;
 import com.hy.baseapp.helper.ToastHelper;
 
 import java.util.Arrays;
@@ -44,14 +43,14 @@ public class BannerTestActivity extends AbsBaseActivity {
         binding = ActivityBannerTestBinding.bind(getRootView());
         List<String> networkImages = Arrays.asList(images);
         binding.convenientBanner.setPages(new CBViewHolderCreator() {
-            @Override
-            public Object createHolder() {
-                return new NetworkImageHolderView();
-            }
-        }, networkImages)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                    @Override
+                    public Object createHolder() {
+                        return new NetworkImageHolderView();
+                    }
+                }, networkImages)
+                // 设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
-                //设置指示器的方向
+                // 设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                 .setOnItemClickListener(new OnBannerClickListener());
 
@@ -69,23 +68,23 @@ public class BannerTestActivity extends AbsBaseActivity {
      * 网络图片加载例子
      */
     private class NetworkImageHolderView implements Holder<String> {
-        private SimpleDraweeView imageView;
+        private ImageView imageView;
 
         @Override
         public View createView(Context context) {
-            //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
-            imageView = new SimpleDraweeView(context);
+            // 你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
+            imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             return imageView;
         }
 
         @Override
         public void UpdateUI(Context context, int position, String data) {
-            ImageHelper.getInstance().loadImage(imageView, images[position]);
+            ImageLoader.loadImage(imageView, images[position]);
         }
     }
 
-    private class OnBannerClickListener implements OnItemClickListener {
+    private static class OnBannerClickListener implements OnItemClickListener {
 
         @Override
         public void onItemClick(int position) {
@@ -135,7 +134,7 @@ public class BannerTestActivity extends AbsBaseActivity {
             Class cls = Class.forName("com.hy.baseapp.component.banner.transforms." + transforemerName);
             ABaseTransformer transforemer = (ABaseTransformer) cls.newInstance();
             binding.convenientBanner.getViewPager().setPageTransformer(true, transforemer);
-            //部分3D特效需要调整滑动速度
+            // 部分3D特效需要调整滑动速度
             if (transforemerName.equals("StackTransformer")) {
                 binding.convenientBanner.setScrollDuration(1200);
             }

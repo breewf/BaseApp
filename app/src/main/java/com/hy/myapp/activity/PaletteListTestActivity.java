@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.helper.ImageHelper;
+import com.hy.baseapp.helper.ImageLoader;
 import com.hy.myapp.R;
 import com.hy.myapp.databinding.ActivityPaletteListTestBinding;
 
@@ -146,7 +146,7 @@ public class PaletteListTestActivity extends AbsBaseActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            ImageHelper.getInstance().loadImage(holder.imageView, urls[position],
+            ImageLoader.loadImage(holder.imageView, urls[position],
                     bitmap -> {
                         bitmaps[position] = bitmap;
                         holder.imageView.setImageBitmap(bitmap);

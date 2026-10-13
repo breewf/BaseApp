@@ -3,9 +3,9 @@ package com.hy.baseapp.component.dialog.animation;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.view.ViewHelper;
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+
 
 public abstract class BaseAnimatorSet {
     /**
@@ -63,14 +63,14 @@ public abstract class BaseAnimatorSet {
     }
 
     public static void reset(View view) {
-        ViewHelper.setAlpha(view, 1);
-        ViewHelper.setScaleX(view, 1);
-        ViewHelper.setScaleY(view, 1);
-        ViewHelper.setTranslationX(view, 0);
-        ViewHelper.setTranslationY(view, 0);
-        ViewHelper.setRotation(view, 0);
-        ViewHelper.setRotationY(view, 0);
-        ViewHelper.setRotationX(view, 0);
+        view.setAlpha(1f);
+        view.setScaleX(1f);
+        view.setScaleY(1f);
+        view.setTranslationX(0f);
+        view.setTranslationY(0f);
+        view.setRotation(0f);
+        view.setRotationY(0f);
+        view.setRotationX(0f);
     }
 
     /**

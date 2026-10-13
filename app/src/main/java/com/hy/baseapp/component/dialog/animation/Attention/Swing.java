@@ -3,7 +3,7 @@ package com.hy.baseapp.component.dialog.animation.Attention;
 import android.view.View;
 
 import com.hy.baseapp.component.dialog.animation.BaseAnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+import android.animation.ObjectAnimator;
 
 
 public class Swing extends BaseAnimatorSet {

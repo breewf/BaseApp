@@ -2,7 +2,7 @@ package com.hy.baseapp.component.dialog.animation;
 
 import android.view.View;
 
-import com.nineoldandroids.animation.ObjectAnimator;
+import android.animation.ObjectAnimator;
 
 public class Jelly extends BaseAnimatorSet {
 

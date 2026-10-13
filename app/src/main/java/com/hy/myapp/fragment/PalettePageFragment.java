@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hy.baseapp.base.AbsBaseFragment;
-import com.hy.baseapp.helper.ImageHelper;
+import com.hy.baseapp.helper.ImageLoader;
 import com.hy.myapp.R;
 import com.hy.myapp.activity.PaletteTestActivity;
 import com.hy.myapp.databinding.FragmentPalettePagerBinding;
@@ -53,7 +53,7 @@ public class PalettePageFragment extends AbsBaseFragment {
 
         binding = FragmentPalettePagerBinding.bind(contentView);
 
-        ImageHelper.getInstance().loadImage(binding.ivPaletteFg1, imageUrl[mPage],
+        ImageLoader.loadImage(binding.ivPaletteFg1, imageUrl[mPage],
                 b -> {
                     if (b != null) {
                         bitmaps[mPage] = b;

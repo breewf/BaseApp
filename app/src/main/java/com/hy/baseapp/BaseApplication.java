@@ -2,7 +2,6 @@ package com.hy.baseapp;
 
 import android.app.Application;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hy.baseapp.common.logger.LogLevel;
 import com.hy.baseapp.common.logger.Logger;
 import com.hy.myapp.BuildConfig;
@@ -27,16 +26,6 @@ public class BaseApplication extends Application {
 
         //初始化logger
         initLogger();
-        //初始化Fresco
-        initFresco();
-    }
-
-    /**
-     * 初始化图片加载Fresco
-     * 文档地址：http://fresco-cn.org/
-     */
-    private void initFresco() {
-        Fresco.initialize(this);
     }
 
     /**

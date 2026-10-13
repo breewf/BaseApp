@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 
 import com.hy.baseapp.component.dialog.animation.BaseAnimatorSet;
 import com.hy.baseapp.component.dialog.utils.StatusBarUtils;
-import com.nineoldandroids.animation.Animator;
+import android.animation.Animator;
 
 public abstract class BaseDialog<T extends BaseDialog<T>> extends Dialog {
     /**

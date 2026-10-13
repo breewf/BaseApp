@@ -8,7 +8,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 import com.hy.baseapp.component.dialog.animation.BaseAnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+import android.animation.ObjectAnimator;
 
 public abstract class TopBaseDialog<T extends TopBaseDialog<T>> extends BottomTopBaseDialog<T> {
     public TopBaseDialog(Context context, View animateView) {
