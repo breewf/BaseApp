@@ -19,4 +19,25 @@
     <string name="activity_result_contract">ActivityResultContract</string>
     <string name="activity_result_contract2">ActivityResultContract2</string>
 
+    <!-- demo 能力验证总入口 -->
+    <string name="demo_hub_title">能力验证</string>
+    <string name="demo_hub_subtitle">Kotlin MVVM 基类 · ViewBinding + 协程 + Flow</string>
+    <string name="demo_entry_arrow">›</string>
+
+    <!-- demo 网络请求测试 -->
+    <string name="demo_network_title">网络请求测试</string>
+    <string name="demo_network_subtitle">公共接口取数 → 解析 → 上屏,含 loading 与异常兜底</string>
+    <string name="demo_network_subtitle_mock">本地 Mock 数据源 → Gson 解析 → 上屏,流程与线上完全一致</string>
+    <string name="demo_network_city_hint">输入城市名,如:郑州</string>
+    <string name="demo_network_city_default">郑州</string>
+    <string name="demo_network_search">查询</string>
+    <string name="demo_network_daily_title">未来几天</string>
+    <string name="demo_network_daily_empty">暂无逐日预报数据</string>
+    <string name="demo_network_envelope_title">信封接口 / 异常兜底</string>
+    <string name="demo_network_result_default">点击下方按钮,分别验证信封接口(data / content)与异常兜底</string>
+    <string name="demo_network_btn_envelope">data 字段</string>
+    <string name="demo_network_btn_content">content 字段</string>
+    <string name="demo_network_btn_fault">触发异常(404)</string>
+    <string name="demo_network_btn_fault_mock">触发异常(本地模拟)</string>
+
 </resources>

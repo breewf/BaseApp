@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 次要按钮:描边空心,按下时淡色填充 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/demo_outline_pressed" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/colorPrimary" />
+            <corners android:radius="@dimen/dimen_10" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/transparent" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/colorPrimary" />
+            <corners android:radius="@dimen/dimen_10" />
+        </shape>
+    </item>
+
+</selector>

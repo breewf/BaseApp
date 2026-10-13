@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 输入框底:浅灰圆角,替代 EditText 默认下划线 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/demo_input_bg" />
+    <corners android:radius="@dimen/dimen_10" />
+
+</shape>

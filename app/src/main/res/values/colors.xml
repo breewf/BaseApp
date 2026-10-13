@@ -31,6 +31,12 @@
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
 
+    <!-- demo 测试页专用 -->
+    <color name="demo_input_bg">#F2F3F5</color>
+    <color name="demo_outline_pressed">#1A3F51B5</color>
+    <color name="demo_white_alpha_70">#B3FFFFFF</color>
+    <color name="demo_white_alpha_60">#99FFFFFF</color>
+
     <color name="slid_menu_grey">#EDEDEB</color>
 
     <!-- 颜色色值-->

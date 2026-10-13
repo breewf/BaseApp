@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dimen_2"
+    android:paddingTop="@dimen/dimen_10"
+    android:paddingEnd="@dimen/dimen_2"
+    android:paddingBottom="@dimen/dimen_10">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="@dimen/dimen_48"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_333333"
+        android:textSize="14sp"
+        tools:text="10-13" />
+
+    <TextView
+        android:id="@+id/tvWeekday"
+        android:layout_width="@dimen/dimen_40"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_999999"
+        android:textSize="13sp"
+        tools:text="周二" />
+
+    <TextView
+        android:id="@+id/tvIcon"
+        android:layout_width="@dimen/dimen_28"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        tools:text="☀️" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_4"
+        android:layout_weight="1"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp"
+        tools:text="晴" />
+
+    <TextView
+        android:id="@+id/tvRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="28.5°C / 18.2°C" />
+
+</LinearLayout>
