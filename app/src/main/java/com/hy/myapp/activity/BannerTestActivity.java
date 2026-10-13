@@ -11,7 +11,7 @@ import com.hy.baseapp.component.banner.holder.CBViewHolderCreator;
 import com.hy.baseapp.component.banner.holder.Holder;
 import com.hy.baseapp.component.banner.listener.OnItemClickListener;
 import com.hy.baseapp.component.banner.transforms.*;
-import com.hy.baseapp.helper.ImageLoader;
+import com.hy.basic.utils.ImageLoader;
 import com.hy.baseapp.helper.ToastHelper;
 
 import java.util.Arrays;

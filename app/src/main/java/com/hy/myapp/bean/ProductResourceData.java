@@ -1,6 +1,5 @@
 package com.hy.myapp.bean;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.hy.basic.BaseModel;
 
 /**
@@ -8,7 +7,7 @@ import com.hy.basic.BaseModel;
  * @date 2021/3/17
  * desc: 评测 预告图片/视频 数据实体
  **/
-public class ProductResourceData extends BaseModel implements MultiItemEntity {
+public class ProductResourceData extends BaseModel {
 
     public static final int TYPE_PIC = 1;
     public static final int TYPE_VIDEO = 2;
@@ -91,7 +90,10 @@ public class ProductResourceData extends BaseModel implements MultiItemEntity {
 
     }
 
-    @Override
+    /**
+     * BRVAH 4.x 已移除 MultiItemEntity 接口（多类型改由 BaseMultiItemAdapter 的 itemType 回调决定），
+     * 此处保留 getItemType() 作为普通方法，供业务判断图片/视频类型使用。
+     */
     public int getItemType() {
         if (isVideo()) {
             return TYPE_VIDEO;

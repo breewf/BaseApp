@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.helper.ImageLoader;
+import com.hy.basic.utils.ImageLoader;
 import com.hy.myapp.R;
 import com.hy.myapp.databinding.ActivityPaletteListTestBinding;
 

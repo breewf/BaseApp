@@ -1,7 +1,6 @@
-package com.hy.baseapp.helper
+package com.hy.basic.utils
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide

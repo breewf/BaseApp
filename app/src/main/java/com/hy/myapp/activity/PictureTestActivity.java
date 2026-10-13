@@ -2,17 +2,17 @@ package com.hy.myapp.activity;
 
 import com.hy.myapp.R;
 import com.hy.baseapp.base.AbsBaseActivity;
-import com.hy.baseapp.helper.ImageLoader;
+import com.hy.basic.utils.ImageLoader;
 
 import com.hy.myapp.databinding.ActivityPictureTestBinding;
 
 public class PictureTestActivity extends AbsBaseActivity {
 
-    private String url1 = "http://p3.so.qhimg.com/sdr/1365_768_/t01a3fd2d6254bb2b73.jpg";
-    private String url2 = "http://p2.so.qhimg.com/t016426c21639a6943c.jpg";
-    private String url3 = "http://p0.so.qhimg.com/sdr/1365_768_/t010c80d149995c2acf.jpg";
-    private String url4 = "http://p4.so.qhimg.com/sdr/1228_768_/t01185f568f2f064f39.jpg";
-    private String urlCircle = "http://img4.duitang.com/uploads/item/201501-20-20150120180628_Uy5in.jpeg";
+    private String url1 = "https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/3253a3c3bf7843d283447e0fc001d689~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP6JmOQUnnlJ_mtLs=:q75.awebp?rk3s=f64ab15b&x-expires=1792393528&x-signature=D9do7NDYNnehXfRU3%2BmvEYlWNNc%3D";
+    private String url2 = "https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/1ab2b9794a8e4d66958cc0d7eadde778~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP6JmOQUnnlJ_mtLs=:q75.awebp?rk3s=f64ab15b&x-expires=1792393528&x-signature=Fx5Fzhh3F0HnHA%2BFL7UoMtchj98%3D";
+    private String url3 = "https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/7f92ed573e8d44a9bc2a50552f65f888~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP6JmOQUnnlJ_mtLs=:q75.awebp?rk3s=f64ab15b&x-expires=1792393528&x-signature=0mBz3IH46aswQeebr%2BV%2FyvtoAJw%3D";
+    private String url4 = "https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/8eaedd01d9cf406c879fcc6156044aaf~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP6JmOQUnnlJ_mtLs=:q75.awebp?rk3s=f64ab15b&x-expires=1792393528&x-signature=WrDW1NDIVSHBWyCI9h1ObgO6csQ%3D";
+    private String urlCircle = "https://p26-passport.byteacctimg.com/img/user-avatar/d3bdbf5ab5ab329a6fbf2f88b0cd2adf~90x90.awebp";
     
     private int gifRes = R.mipmap.xiaohuangren;
 

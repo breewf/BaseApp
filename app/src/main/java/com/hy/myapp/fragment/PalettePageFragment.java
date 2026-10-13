@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hy.baseapp.base.AbsBaseFragment;
-import com.hy.baseapp.helper.ImageLoader;
+import com.hy.basic.utils.ImageLoader;
 import com.hy.myapp.R;
 import com.hy.myapp.activity.PaletteTestActivity;
 import com.hy.myapp.databinding.FragmentPalettePagerBinding;
