@@ -28,8 +28,8 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
+        // 架构已切换为 ViewBinding + 协程,不再使用 DataBinding(2026-10)
         viewBinding true
-        dataBinding true
         // AGP 9 默认不再生成 BuildConfig，需显式开启
         buildConfig true
     }
@@ -42,6 +42,7 @@ kotlin {
 }
 
 dependencies {
+    implementation 'androidx.activity:activity-ktx:1.8.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -72,6 +73,7 @@ dependencies {
 
     implementation 'javax.inject:javax.inject:1'
     // kotlin
+    // noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.18.0'
     // kotlin 协程

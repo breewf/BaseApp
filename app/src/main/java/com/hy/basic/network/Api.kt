@@ -1,4 +1,4 @@
-package com.hy.basic.networkkt
+package com.hy.basic.network
 
 import com.hy.myapp.BuildConfig
 import okhttp3.OkHttpClient
@@ -28,6 +28,8 @@ object Api {
             .readTimeout(NetConstants.DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(NetConstants.DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(NetConstants.DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            // 连接失败时自动重试(幂等请求)
+            .retryOnConnectionFailure(true)
 
         if (BuildConfig.DEBUG) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -36,9 +38,11 @@ object Api {
             })
         }
 
+        // 统一头信息(如需鉴权 header/Cookie 管理,在此追加 Interceptor)
         return builder.build()
     }
 
+    /** 获取接口实例;后续多域名时可按模块拆分为多个 lazy Retrofit */
     fun get(): ApiService {
         return api
     }

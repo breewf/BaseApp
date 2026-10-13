@@ -1,9 +1,9 @@
 package com.hy.myapp.api;
 
-import com.hy.basic.network.ApiResponse;
-import com.hy.basic.network.IServiceApi;
-import com.hy.basic.network.RetrofitClient;
-import com.hy.basic.network.TransformerUtils;
+import com.hy.basic.net.ApiResponse;
+import com.hy.basic.net.IServiceApi;
+import com.hy.basic.net.RetrofitClient;
+import com.hy.basic.net.TransformerUtils;
 import com.hy.myapp.bean.ReviewProductData;
 import com.hy.myapp.bean.TestResultData;
 

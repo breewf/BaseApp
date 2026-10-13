@@ -1,12 +1,12 @@
-package com.hy.basic.network;
+package com.hy.basic.net;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-import com.hy.basic.network.interceptor.CommonParamsInterceptor;
-import com.hy.basic.network.interceptor.HttpCacheInterceptor;
-import com.hy.basic.network.interceptor.HttpHeaderInterceptor;
-import com.hy.basic.network.interceptor.HttpLoggingInterceptor;
+import com.hy.basic.net.interceptor.CommonParamsInterceptor;
+import com.hy.basic.net.interceptor.HttpCacheInterceptor;
+import com.hy.basic.net.interceptor.HttpHeaderInterceptor;
+import com.hy.basic.net.interceptor.HttpLoggingInterceptor;
 import com.hy.myapp.App;
 
 import java.io.File;

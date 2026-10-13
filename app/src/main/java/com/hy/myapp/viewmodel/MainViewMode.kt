@@ -1,53 +1,25 @@
 package com.hy.myapp.viewmodel
 
-import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.viewModelScope
-import com.hy.basic.networkkt.BaseViewModel
-import com.hy.basic.networkkt.next
-import com.hy.basic.networkkt.request
-import kotlinx.coroutines.flow.catch
+import com.hy.basic.BaseViewModel
+import com.hy.basic.network.launchRequest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * desc: Demo ViewModel(ViewBinding + 协程版)
+ * 原 ObservableField(DataBinding 可观察字段)已替换为 StateFlow,
+ * 异常/loading 由 BaseViewModel + 页面基类统一处理
+ */
 class MainViewMode : BaseViewModel() {
 
-    val responseText = ObservableField("Kotlin ViewMode")
+    private val _responseText = MutableStateFlow("Kotlin ViewMode")
+    val responseText = _responseText.asStateFlow()
 
-    fun requestData() {
-        viewModelScope.launch {
-            request {
-                getApiTest2("")
-            }.catch {
-                Log.e("requestData===>", "catch=====>")
-            }.next {
-                Log.i("requestData", "==collect=---------------=next==>${this}")
-                responseText.set(content)
-            }
+    fun requestData() = viewModelScope.launch {
+        launchRequest(block = { getApiTest2("") }) { content ->
+            _responseText.value = content.orEmpty()
         }
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        Log.i("MainVm", "lifecycle==onCreate")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.i("MainVm", "lifecycle==onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i("MainVm", "lifecycle==onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i("MainVm", "lifecycle==onPause")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("MainVm", "lifecycle==onDestroy")
     }
 }

@@ -1,4 +1,4 @@
-package com.hy.basic.network;
+package com.hy.basic.net;
 
 import com.hy.baseapp.common.Toasts;
 import com.hy.basic.utils.AppNetworkUtils;

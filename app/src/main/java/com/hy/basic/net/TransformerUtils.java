@@ -1,4 +1,4 @@
-package com.hy.basic.network;
+package com.hy.basic.net;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

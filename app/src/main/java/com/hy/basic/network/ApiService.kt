@@ -1,4 +1,4 @@
-package com.hy.basic.networkkt
+package com.hy.basic.network
 
 import com.hy.myapp.bean.TestResultDataKt
 import retrofit2.http.*

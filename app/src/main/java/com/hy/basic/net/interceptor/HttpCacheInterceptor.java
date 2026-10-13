@@ -1,4 +1,4 @@
-package com.hy.basic.network.interceptor;
+package com.hy.basic.net.interceptor;
 
 import com.hy.basic.utils.AppNetworkUtils;
 
