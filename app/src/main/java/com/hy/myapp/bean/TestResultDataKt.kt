@@ -1,6 +1,6 @@
 package com.hy.myapp.bean
 
-import com.hy.basic.BaseModeKt
+import com.hy.basic.BaseModel
 
 
 /**
@@ -8,7 +8,7 @@ import com.hy.basic.BaseModeKt
  * @date 2021/9/27
  * desc:
  **/
-class TestResultDataKt : BaseModeKt() {
+class TestResultDataKt : BaseModel() {
     var sid: String? = null
     var text: String? = null
     var video: String? = null

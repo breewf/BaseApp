@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Tab1「标准状态」Fragment 的内容区:没有任何 loading/empty/error 视图,
+    整页状态由 BaseFragment 把本根 View 包进 PageStateLayout 后驱动。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tab1 · 默认状态布局(懒加载 + 整页重试)"
+        android:textColor="@color/black_alpha"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/black_alpha"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnReload"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="加载下一个状态"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

@@ -5,11 +5,8 @@ import com.hy.baseapp.activity.TabLayoutActivity
 import com.hy.myapp.MainActivity
 import com.hy.myapp.activity.ActivityResultContract2Activity
 import com.hy.myapp.activity.ActivityResultContractActivity
-import com.hy.myapp.activity.ActivityStatusTestActivity
 import com.hy.myapp.activity.BannerTestActivity
 import com.hy.myapp.activity.DialogTestActivity
-import com.hy.myapp.activity.FragmentStatusActivity
-import com.hy.myapp.activity.LoadingTestActivity
 import com.hy.myapp.activity.MyDialogTestActivity
 import com.hy.myapp.activity.PaletteListTestActivity
 import com.hy.myapp.activity.PaletteTestActivity
@@ -18,6 +15,7 @@ import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.activity.SnackBarTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
+import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
 
 /**
@@ -47,10 +45,12 @@ object DemoMenu {
         DemoGroup(
             "基类能力验证",
             listOf(
-                DemoEntry("Activity 生命周期", "模板方法执行顺序与状态回调", ActivityStatusTestActivity::class.java),
-                DemoEntry("Fragment 生命周期", "viewLifecycleOwner 绑定 + isLazyLoad 懒加载", FragmentStatusActivity::class.java),
-                DemoEntry("Loading 状态", "isLoading 引用计数驱动 showLoading", LoadingTestActivity::class.java),
-                DemoEntry("多状态页面", "PageStateLayout 零 XML 侵入,pageState 驱动加载/空/错误/无网络", PageStateDemoActivity::class.java),
+                DemoEntry("多状态页面测试", "PageStateLayout 零 XML 侵入,pageState 驱动加载/空/错误/无网络", PageStateDemoActivity::class.java),
+                DemoEntry(
+                    "Fragment多状态页面测试",
+                    "ViewPager + 两个 Fragment 各自 enablePageState,状态层只覆盖页面内容",
+                    FragmentPageStateActivity::class.java,
+                ),
             ),
         ),
         DemoGroup(

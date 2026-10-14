@@ -72,6 +72,10 @@
         <activity
             android:name=".demo.state.PageStateDemoActivity"
             android:exported="false" />
+        <!-- Fragment(ViewPager)多状态页面测试页 -->
+        <activity
+            android:name=".demo.state.FragmentPageStateActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
