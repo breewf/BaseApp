@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
-import com.blankj.utilcode.util.ToastUtils
+import com.hy.basic.hint.ToastKit
 import com.hy.basic.network.ApiException
 import com.hy.basic.page.PageStateConfig
 import com.hy.basic.page.PageStateLayout
@@ -180,9 +180,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         super.onDestroyView()
     }
 
-    /** 轻提示 */
+    /** 轻提示:统一走 [ToastKit],要换实现/改样式只动那个入口 */
     protected fun showToast(msg: CharSequence?) {
-        if (!msg.isNullOrBlank()) ToastUtils.showShort(msg)
+        ToastKit.show(msg)
     }
 
     /** 便捷启动目标 Activity:startActivity<TargetActivity> { putExtra(...) } */

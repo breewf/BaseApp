@@ -87,6 +87,14 @@
         <activity
             android:name=".demo.permission.PermissionDemoActivity"
             android:exported="false" />
+        <!-- Dialog 弹窗演示页 -->
+        <activity
+            android:name=".demo.dialog.DialogDemoActivity"
+            android:exported="false" />
+        <!-- Toast + Snackbar 提示演示页 -->
+        <activity
+            android:name=".demo.hint.HintDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

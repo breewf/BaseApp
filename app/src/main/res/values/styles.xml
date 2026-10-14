@@ -43,6 +43,19 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <!--
+        新基类自定义弹框皮肤(com.hy.basic.dialog.CustomDialog / dialog_custom.xml)。
+        窗口背景透明 + 无标题 + 悬浮,圆角与底色由布局自己的 dialog_bg 负责;
+        用 AppCompat 的 Dialog 主题做父级,布局里的 ?attr 才能解析。
+    -->
+    <style name="DialogCustom" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
     <style name="LoadingDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>

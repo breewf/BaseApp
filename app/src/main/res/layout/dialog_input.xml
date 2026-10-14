@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    showInput / 自定义弹框内容插槽用的输入框。
+    根节点就是 EditText(com.hy.basic.dialog.DialogExt 里 inflate 后直接强转)。
+-->
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/etDialogInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_input_bg"
+    android:hint="请输入"
+    android:inputType="text"
+    android:maxLines="2"
+    android:padding="10dp"
+    android:textColor="@color/color_333333"
+    android:textColorHint="@color/color_999999"
+    android:textSize="15sp" />

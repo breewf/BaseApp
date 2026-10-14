@@ -4,14 +4,13 @@ import com.hy.baseapp.activity.IndexHomeActivity
 import com.hy.baseapp.activity.TabLayoutActivity
 import com.hy.myapp.MainActivity
 import com.hy.myapp.activity.BannerTestActivity
-import com.hy.myapp.activity.DialogTestActivity
-import com.hy.myapp.activity.MyDialogTestActivity
 import com.hy.myapp.activity.PaletteListTestActivity
 import com.hy.myapp.activity.PaletteTestActivity
 import com.hy.myapp.activity.PictureTestActivity
 import com.hy.myapp.activity.RetrofitTestActivity
-import com.hy.myapp.activity.SnackBarTestActivity
 import com.hy.myapp.demo.DemoActivity
+import com.hy.myapp.demo.dialog.DialogDemoActivity
+import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
@@ -65,9 +64,16 @@ object DemoMenu {
         DemoGroup(
             "弹窗与提示",
             listOf(
-                DemoEntry("系统 Dialog", "AlertDialog / 多选 / 日期时间", DialogTestActivity::class.java),
-                DemoEntry("自定义 Dialog", "MyDialog 样式与回调", MyDialogTestActivity::class.java),
-                DemoEntry("Snackbar / Toast", "基础提示能力", SnackBarTestActivity::class.java),
+                DemoEntry(
+                    "Dialog 弹窗",
+                    "showDialog / showCustomDialog 一份配置两种样式，tip/confirm/items/input 一行版",
+                    DialogDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "Toast + Snackbar",
+                    "toast(…) / snackbar(…, “撤销”) { } 一行调用，样式在 ToastKit/SnackbarKit 收口",
+                    HintDemoActivity::class.java,
+                ),
             ),
         ),
         DemoGroup(

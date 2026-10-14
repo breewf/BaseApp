@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Dialog 弹窗演示页(com.hy.basic.dialog)。
+    Toolbar 由 BaseActivity 壳布局提供,本页只写内容区。
+    实心按钮 = 系统样式,描边按钮 = 自定义样式,两者用的是同一份 DialogOptions。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="弹窗封装（一份配置 · 两种样式）"
+            android:textColor="@color/black_alpha"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:text="实心按钮走系统 AlertDialog，描边按钮走自研圆角弹框，两者的配置完全一样：showDialog { } 换成 showCustomDialog { } 就是换样式。\n列表 / 单选 / 多选 / 输入框这些常用形态都有对应的一行版，弹框会随页面销毁自动关闭。"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="1. 系统样式 · 二次确认（两个按钮）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnTip"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="2. 系统样式 · 单按钮提示（showTip）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnCustom"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="3. 自定义样式 · 和第 1 条同一份配置（换皮不换代码）"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnForce"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="4. 自定义样式 · 强制更新（左对齐 + 不可取消 + 单按钮）"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnItems"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="5. 系统样式 · 列表选择（showItems）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSingle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="6. 系统样式 · 单选（点一下就收）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnMulti"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="7. 系统样式 · 多选（点确定才提交）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="8. 系统样式 · 输入框（校验不过不关闭）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnCustomInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="9. 自定义样式 · 内容插槽 + 点了不关（autoClose=false）"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnConfirmRow"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="10. 行版二次确认（showConfirm，不写 DSL）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnClearLog"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="清空日志"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_input"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="140dp"
+            android:padding="12dp"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>
