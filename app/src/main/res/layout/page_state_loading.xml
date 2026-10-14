@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    整页 Loading 状态默认布局(由 PageStateLayout inflate,不在任何页面 XML 中出现)。
+    自定义约定:tvPageStateMessage 可选,用于展示加载文案;无重试按钮。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <ProgressBar
+        android:id="@+id/pbPageStateLoading"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:id="@+id/tvPageStateMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="加载中…"
+        android:textColor="@color/black_alpha"
+        android:textSize="16sp" />
+
+</LinearLayout>

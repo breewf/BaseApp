@@ -68,6 +68,10 @@
             android:name=".demo.network.NetworkTestActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <!-- 整页多状态示例页 -->
+        <activity
+            android:name=".demo.state.PageStateDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

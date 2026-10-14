@@ -4,7 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +18,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ToastUtils
 import com.hy.basic.network.ApiException
+import com.hy.basic.page.PageStateConfig
+import com.hy.basic.page.PageStateLayout
+import com.hy.myapp.databinding.AbsActivityToolbarBinding
+import com.hy.myapp.R
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import kotlinx.coroutines.launch
@@ -27,6 +37,12 @@ import kotlinx.coroutines.launch
  * - 全局收集 ViewModel 事件:
  *   [BaseViewModel.apiExceptionEvent] -> [onApiException](默认 Toast,401 等可重写处理),
  *   [BaseViewModel.isLoading] -> [showLoading]/[hideLoading]
+ * - 整页多状态(可选):[enablePageState] 为 true 时,基类会把 [binding] 根 View 程序化包裹进
+ *   [PageStateLayout],并收集 [BaseViewModel.pageState] 驱动 加载/内容/空/错误/无网络 切换,
+ *   页面 XML 无需写任何状态视图,也无需手动切换 visibility;
+ *   状态层只覆盖内容区(在 [toolbar] 之下),不会遮住标题栏
+ * - 通用 Toolbar(可选):[showToolBar] 为 true 时,基类用壳布局(Toolbar + 内容容器)装配页面,
+ *   标题取 [toolbarTitle]、返回键行为取 [showToolBarBack],菜单/自定义视图在 [onToolBarInitialized] 里加
  *
  * 泛型:
  * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
@@ -53,15 +69,115 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     /** 子类直接返回 XxxBinding.inflate(layoutInflater) */
     protected abstract fun createBinding(inflater: LayoutInflater): VB
 
+    /**
+     * 是否启用整页多状态。为 true 时页面根 View 会被包裹进 [PageStateLayout],
+     * 整页状态由 [BaseViewModel.pageState] 驱动。默认 false(行为与旧页面一致)。
+     */
+    protected open val enablePageState: Boolean get() = false
+
+    /** 是否显示基类统一 Toolbar。默认 false(页面保留自己的头部布局方式)。 */
+    protected open val showToolBar: Boolean get() = false
+
+    /** Toolbar 标题,默认取 Activity 的 label(manifest android:label),可重写 */
+    protected open val toolbarTitle: CharSequence? get() = title
+
+    /** Toolbar 是否显示返回键(点击走返回分发,无上级时 finish),默认显示 */
+    protected open val showToolBarBack: Boolean get() = true
+
+    /** 状态层外观/布局配置,页面重写返回自定义 [PageStateConfig](如整体替换某个状态的 XML) */
+    protected open fun createPageStateConfig(): PageStateConfig = PageStateConfig()
+
+    /** Toolbar 初始化完成后回调:在此 inflateMenu / 加自定义视图;未启用 Toolbar 时不触发 */
+    protected open fun onToolBarInitialized(toolbar: Toolbar) {}
+
+    private var pageStateLayout: PageStateLayout? = null
+
+    /** 基类 Toolbar;未启用(showToolBar/enablePageState 均为 false)时为 null */
+    protected var toolbar: Toolbar? = null
+        private set
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = createBinding(layoutInflater)
-        setContentView(binding.root)
+        setupContentView()
         viewModel = createViewModel()
         observeGlobalEvents()
         initView(savedInstanceState)
         observeViewModel()
         initData()
+    }
+
+    /**
+     * 装配页面根布局:
+     * - 需要 Toolbar 或多状态时,套用壳布局(Toolbar 在上,内容在下),
+     *   [PageStateLayout] 只包住内容区,状态层不覆盖 Toolbar;
+     * - 两者都不需要时保持旧行为,直接 setContentView(binding.root)。
+     */
+    private fun setupContentView() {
+        if (!showToolBar && !enablePageState) {
+            setContentView(binding.root)
+            return
+        }
+        val shell = AbsActivityToolbarBinding.inflate(layoutInflater)
+        toolbar = shell.toolbar
+        setupToolBar(shell.toolbar)
+        val content: View = if (enablePageState) {
+            PageStateLayout(this, createPageStateConfig()).apply {
+                attachContent(binding.root)
+                pageStateLayout = this
+            }
+        } else {
+            binding.root
+        }
+        shell.flPageContent.addView(content)
+        setContentView(shell.root)
+        applyEdgeToEdgeInsets(shell)
+    }
+
+    /**
+     * edge-to-edge 适配(targetSdk 35+ 在 Android 15+ 上强制内容侵透系统栏,被动等待不行,
+     * 低版本也主动 opt-in 保证行为一致):
+     * - 显示 Toolbar 时,状态栏高度并入 Toolbar 顶部 padding 并加高自身 —— 背景色延伸到
+     *   状态栏底下(经典彩色状态栏观感),标题/导航图标落在状态栏之下;
+     * - 未显示 Toolbar 时,顶部 inset 由内容容器根兼 bottom/left/right 一并 padding 兑现;
+     * - bottom/left/right(导航栏/刘海)始终补在壳根上,页面内容不会被遮挡。
+     */
+    private fun applyEdgeToEdgeInsets(shell: AbsActivityToolbarBinding) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val toolbarContentHeight = shell.toolbar.layoutParams.height
+        ViewCompat.setOnApplyWindowInsetsListener(shell.root) { root, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
+            )
+            if (showToolBar) {
+                shell.toolbar.apply {
+                    setPadding(0, bars.top, 0, 0)
+                    if (layoutParams.height != toolbarContentHeight + bars.top) {
+                        layoutParams.height = toolbarContentHeight + bars.top
+                        requestLayout()
+                    }
+                }
+                root.setPadding(bars.left, 0, bars.right, bars.bottom)
+            } else {
+                root.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            }
+            insets
+        }
+        if (showToolBar) {
+            // Toolbar 背景为深色 colorPrimary,状态栏图标用浅色(白)
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
+        }
+    }
+
+    private fun setupToolBar(toolbar: Toolbar) {
+        if (!showToolBar) return
+        toolbar.visibility = View.VISIBLE
+        toolbar.title = toolbarTitle
+        if (showToolBarBack) {
+            toolbar.setNavigationIcon(R.drawable.abs_ic_arrow_back)
+            toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
+        onToolBarInitialized(toolbar)
     }
 
     /**
@@ -95,11 +211,21 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     /** 加载态钩子:子类实现(显示/隐藏 ProgressBar、骨架屏等) */
     protected open fun showLoading(show: Boolean) {}
 
+    /** 整页状态下的重试回调,默认重新走一遍 [initData] */
+    protected open fun onPageRetry() {
+        initData()
+    }
+
     private fun observeGlobalEvents() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { viewModel.isLoading.collect(::showLoading) }
                 launch { viewModel.apiExceptionEvent.collect(::onApiException) }
+                launch {
+                    viewModel.pageState.collect {
+                        pageStateLayout?.bind(it) { onPageRetry() }
+                    }
+                }
             }
         }
     }

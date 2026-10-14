@@ -18,6 +18,7 @@ import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.activity.SnackBarTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
+import com.hy.myapp.demo.state.PageStateDemoActivity
 
 /**
  * desc: 测试总入口数据源
@@ -49,6 +50,7 @@ object DemoMenu {
                 DemoEntry("Activity 生命周期", "模板方法执行顺序与状态回调", ActivityStatusTestActivity::class.java),
                 DemoEntry("Fragment 生命周期", "viewLifecycleOwner 绑定 + isLazyLoad 懒加载", FragmentStatusActivity::class.java),
                 DemoEntry("Loading 状态", "isLoading 引用计数驱动 showLoading", LoadingTestActivity::class.java),
+                DemoEntry("多状态页面", "PageStateLayout 零 XML 侵入,pageState 驱动加载/空/错误/无网络", PageStateDemoActivity::class.java),
             ),
         ),
         DemoGroup(

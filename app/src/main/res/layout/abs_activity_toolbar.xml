@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    BaseActivity 通用壳布局:顶部 Toolbar + 下方内容容器。
+    - 页面开启 showToolBar 时基类显示 Toolbar;页面 XML 自身不含 Toolbar;
+    - 开启 enablePageState 时,页面根 View 先包进 PageStateLayout 再放入 flPageContent,
+      因此整页 loading/error 状态层只覆盖内容区,**不会覆盖 Toolbar**。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        app:titleTextColor="@color/white"
+        tools:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/flPageContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

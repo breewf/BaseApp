@@ -14,6 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ToastUtils
 import com.hy.basic.network.ApiException
+import com.hy.basic.page.PageStateConfig
+import com.hy.basic.page.PageStateLayout
 import kotlinx.coroutines.launch
 
 /**
@@ -29,6 +31,8 @@ import kotlinx.coroutines.launch
  * - 全局收集 ViewModel 事件(基于 viewLifecycleOwner,随 View 销毁自动停止):
  *   [BaseViewModel.apiExceptionEvent] -> [onApiException](默认 Toast),
  *   [BaseViewModel.isLoading] -> [showLoading]
+ * - 整页多状态(可选):[enablePageState] 为 true 时,[binding] 根 View 被包裹进 [PageStateLayout],
+ *   整页状态由 [BaseViewModel.pageState] 驱动,页面 XML 零状态视图
  *
  * 泛型:
  * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
@@ -54,6 +58,18 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     /** true:首次对用户可见时才执行 [initData](ViewPager/ViewPager2 场景的懒加载) */
     open val isLazyLoad: Boolean get() = false
 
+    /**
+     * 是否启用整页多状态。为 true 时 [binding] 根 View 会被包裹进 [PageStateLayout],
+     * 整页状态由 [BaseViewModel.pageState] 驱动。默认 false。
+     * Toolbar 由宿主 Activity 统一提供,状态层只覆盖 Fragment 自身内容。
+     */
+    protected open val enablePageState: Boolean get() = false
+
+    /** 状态层外观/布局配置,页面重写返回自定义 [PageStateConfig](如整体替换某个状态的 XML) */
+    protected open fun createPageStateConfig(): PageStateConfig = PageStateConfig()
+
+    private var pageStateLayout: PageStateLayout? = null
+
     private var isDataInit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +84,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     ): View {
         val vbd: VB = createBinding(inflater, container)
         _binding = vbd
-        return vbd.root
+        return if (enablePageState) {
+            PageStateLayout(requireContext(), createPageStateConfig()).apply {
+                attachContent(vbd.root)
+                pageStateLayout = this
+            }
+        } else {
+            vbd.root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,10 +138,20 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     /** 加载态钩子:子类实现,内部只能使用 [viewLifecycleOwner] */
     protected open fun showLoading(show: Boolean) {}
 
+    /** 整页状态下的重试回调,默认重新走一遍 [initData] */
+    protected open fun onPageRetry() {
+        initData()
+    }
+
     private fun observeGlobalEvents() = viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             launch { viewModel.isLoading.collect(::showLoading) }
             launch { viewModel.apiExceptionEvent.collect(::onApiException) }
+            launch {
+                viewModel.pageState.collect {
+                    pageStateLayout?.bind(it) { onPageRetry() }
+                }
+            }
         }
     }
 
@@ -143,6 +176,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     /** View 销毁时必须置空 binding,否则异步回调会泄漏已销毁的 View */
     override fun onDestroyView() {
         _binding = null
+        pageStateLayout = null
         super.onDestroyView()
     }
 

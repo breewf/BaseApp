@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    页面自身 XML 里没有任何 loading / empty / error / no-net 视图:
+    整页状态由基类把本根 View 包裹进 PageStateLayout 后,由 ViewModel.pageState 驱动叠加层。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="多状态页面 Demo（内容区）"
+        android:textColor="@color/black_alpha"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/black_alpha"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnReload"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="加载下一个状态"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>
