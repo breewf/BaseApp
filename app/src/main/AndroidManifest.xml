@@ -11,11 +11,21 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 权限演示页用到:麦克风 / 通知(33+ 才是运行时权限) / 相册(33+ 分类媒体权限,以下回退存储) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="PhotoAndVideoPolicy" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".App"
@@ -72,6 +82,10 @@
         <!-- Fragment(ViewPager)多状态页面测试页 -->
         <activity
             android:name=".demo.state.FragmentPageStateActivity"
+            android:exported="false" />
+        <!-- 运行时权限演示页 -->
+        <activity
+            android:name=".demo.permission.PermissionDemoActivity"
             android:exported="false" />
     </application>
 

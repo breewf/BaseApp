@@ -3,8 +3,6 @@ package com.hy.myapp.demo.model
 import com.hy.baseapp.activity.IndexHomeActivity
 import com.hy.baseapp.activity.TabLayoutActivity
 import com.hy.myapp.MainActivity
-import com.hy.myapp.activity.ActivityResultContract2Activity
-import com.hy.myapp.activity.ActivityResultContractActivity
 import com.hy.myapp.activity.BannerTestActivity
 import com.hy.myapp.activity.DialogTestActivity
 import com.hy.myapp.activity.MyDialogTestActivity
@@ -15,6 +13,7 @@ import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.activity.SnackBarTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
+import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
 
@@ -73,8 +72,11 @@ object DemoMenu {
         DemoGroup(
             "系统能力",
             listOf(
-                DemoEntry("ActivityResultContract", "新版本结果回调注册方式", ActivityResultContractActivity::class.java),
-                DemoEntry("ActivityResultContract2", "自定义 Contract", ActivityResultContract2Activity::class.java),
+                DemoEntry(
+                    "系统权限申请",
+                    "awaitPermissions 一次拿到 已授予/可再申请/已永久拒绝/未声明 四种结论",
+                    PermissionDemoActivity::class.java,
+                ),
             ),
         ),
         DemoGroup(

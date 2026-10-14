@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    系统权限申请演示页。
+    Toolbar 由 BaseActivity 壳布局统一提供,本页只写内容区。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运行时权限（registerForActivityResult 封装）"
+            android:textColor="@color/black_alpha"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:text="下面的状态由 Permission.states() 只读查询得到,每次回到本页自动刷新。\n重点看每个权限是「可再次申请」还是「已永久拒绝」—— 这决定了弹说明还是跳设置。"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_input"
+            android:lineSpacingExtra="4dp"
+            android:minHeight="120dp"
+            android:padding="12dp"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnCamera"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="1. 相机权限（完整流程：说明 → 申请 → 分支）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnMedia"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="2. 相册权限（版本自适应：33+ 照片 / 以下存储）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnMulti"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="3. 麦克风 + 通知（一次申请，看部分授予）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnShoot"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="4. 先要相机权限，拿到后立刻拍照"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnPicker"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="5. 免权限选图（系统照片选择器，不要任何权限）"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_input"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="3dp"
+            android:text="结果日志：点上面任意按钮后，这里会打印申请到的结果与给出的下一步建议。"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>
