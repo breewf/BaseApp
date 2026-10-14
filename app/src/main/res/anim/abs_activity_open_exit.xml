@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Activity 转场专用动画:打开时当前页面(被盖住的底层页面)轻微向左偏移,形成视差层次。
+    对应 windowAnimationStyle 的 android:activityOpenExitAnimation。
+    只偏移 10%p:位移量小于新页面已覆盖的区域,不会在右侧露出空白;动画结束后
+    底层窗口被完全遮挡,复位无感知。
+-->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="270"
+    android:fromXDelta="0%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="-10%p" />

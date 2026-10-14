@@ -26,6 +26,12 @@ import kotlinx.coroutines.launch
  */
 class NetworkTestActivity : BaseActivity<ActivityNetworkTestBinding, NetworkTestViewModel>() {
 
+    override val showToolBar: Boolean get() = true
+
+    override val toolbarTitle: CharSequence get() = "网络请求测试"
+
+    override val enablePageState: Boolean get() = false
+
     private val forecastAdapter = ForecastAdapter()
 
     override fun createBinding(inflater: LayoutInflater) = ActivityNetworkTestBinding.inflate(inflater)

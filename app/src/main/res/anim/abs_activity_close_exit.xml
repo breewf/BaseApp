@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Activity 转场专用动画:关闭时当前页面向右侧滑出。
+    对应 windowAnimationStyle 的 android:activityCloseExitAnimation,与 open_enter 成对。
+-->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="270"
+    android:fromXDelta="0%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="100%p" />

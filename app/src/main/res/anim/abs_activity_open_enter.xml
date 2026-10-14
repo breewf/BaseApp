@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Activity 转场专用动画:打开时新页面从右侧滑入(纯位移,不叠加淡入淡出)。
+    对应 windowAnimationStyle 的 android:activityOpenEnterAnimation。
+    %p 相对父窗口宽度,300ms 接近系统默认节奏。
+-->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="270"
+    android:fromXDelta="100%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="0%p" />

@@ -49,9 +49,6 @@
             android:name=".activity.ActivityResultContract2Activity"
             android:label="@string/activity_result_contract2"
             android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".activity.KotlinRetrofitActivity"
-            android:exported="false" />
         <!-- 能力验证总入口:启动页 -->
         <activity
             android:name=".demo.DemoActivity"

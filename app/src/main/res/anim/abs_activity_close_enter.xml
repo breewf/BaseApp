@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Activity 转场专用动画:关闭时下层页面从左侧偏移位回到正中(向右轻微归位)。
+    对应 windowAnimationStyle 的 android:activityCloseEnterAnimation,与 open_exit 成对。
+-->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="270"
+    android:fromXDelta="-10%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="0%p" />

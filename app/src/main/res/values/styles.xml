@@ -15,6 +15,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- 个别页面单独指定了本主题,同样走统一的右滑转场 -->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimTheme</item>
     </style>
 
     <!-- 自定义主题样式 -->
@@ -23,12 +25,17 @@
         <item name="android:windowAnimationStyle">@style/ActivityAnimTheme</item>
     </style>
 
-    <!-- 自定义activity进入退出动画-->
+    <!--
+        自定义 activity 进入退出动画:水平右滑转场(替代原先的淡入淡出)。
+        - 打开:新页面从右侧滑入,底层页面同时轻微向左偏移(视差)
+        - 关闭:当前页面向右滑出,下层页面同时向右归位
+        偏移量取 10%p,足够形成层次感又不会在屏幕边缘露出空白。
+    -->
     <style name="ActivityAnimTheme" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/anim_alpha_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/anim_alpha_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/anim_alpha_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/anim_alpha_out</item>
+        <item name="android:activityOpenEnterAnimation">@anim/abs_activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/abs_activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/abs_activity_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/abs_activity_close_exit</item>
     </style>
 
     <style name="MyDialog" parent="android:style/Theme.Dialog">
@@ -81,17 +88,6 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="textAllCaps">true</item>
-    </style>
-
-    <!-- 自定义TabLayout样式2-->
-    <style name="MyCustomTabLayout2" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/white</item>
-        <item name="tabBackground">@color/colorPrimary</item>
-        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabPaddingStart">12dp</item>
-        <item name="tabPaddingEnd">12dp</item>
     </style>
 
 </resources>
