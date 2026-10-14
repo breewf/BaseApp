@@ -34,11 +34,11 @@ object DemoMenu {
                     "裸 JSON 公共接口 / 信封接口 / 异常兜底 / loading 计数",
                     NetworkTestActivity::class.java,
                 ),
-                DemoEntry(
-                    "全局异常通道",
-                    "仅 postApiException,由基类统一提示,页面零 Toast 代码",
-                    action = { host.showGlobalExceptionDemo() },
-                ),
+                // DemoEntry(
+                //     "全局异常通道",
+                //     "仅 postApiException,由基类统一提示,页面零 Toast 代码",
+                //     action = { host.showGlobalExceptionDemo() },
+                // ),
             ),
         ),
         DemoGroup(
@@ -49,6 +49,16 @@ object DemoMenu {
                     "Fragment多状态页面测试",
                     "ViewPager + 两个 Fragment 各自 enablePageState,状态层只覆盖页面内容",
                     FragmentPageStateActivity::class.java,
+                ),
+            ),
+        ),
+        DemoGroup(
+            "系统能力",
+            listOf(
+                DemoEntry(
+                    "系统权限申请",
+                    "awaitPermissions 一次拿到 已授予/可再申请/已永久拒绝/未声明 四种结论",
+                    PermissionDemoActivity::class.java,
                 ),
             ),
         ),
@@ -70,22 +80,10 @@ object DemoMenu {
             ),
         ),
         DemoGroup(
-            "系统能力",
-            listOf(
-                DemoEntry(
-                    "系统权限申请",
-                    "awaitPermissions 一次拿到 已授予/可再申请/已永久拒绝/未声明 四种结论",
-                    PermissionDemoActivity::class.java,
-                ),
-            ),
-        ),
-        DemoGroup(
             "旧方案对照(Java / baseapp)",
             listOf(
                 DemoEntry("Retrofit + RxJava", "basic/network Java 封装", RetrofitTestActivity::class.java),
-                DemoEntry("旧测试总入口", "baseapp AbsBaseActivity + 硬编码按钮", MainActivity::class.java),
-                DemoEntry("IndexHome", "baseapp 首页 Tab 框架", IndexHomeActivity::class.java),
-                DemoEntry("TabLayout", "baseapp TabLayout 示例", TabLayoutActivity::class.java),
+                DemoEntry("旧测试总入口", "Java BaseApp AbsBaseActivity", MainActivity::class.java),
             ),
         ),
     )

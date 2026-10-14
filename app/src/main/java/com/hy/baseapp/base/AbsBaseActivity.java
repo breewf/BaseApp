@@ -17,6 +17,12 @@ import com.hy.myapp.R;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 /**
  * Created by GHY on 2016/4/29.
@@ -221,10 +227,52 @@ public abstract class AbsBaseActivity extends RxAppCompatActivity {
         }
         // 初始化ToolBar
         initToolBar();
+        // edge-to-edge 适配:状态栏区域由 ToolBar 背景铺满
+        applyEdgeToEdgeInsets(mRootFrameView);
         // 初始化基础控件
         initBase(mRootFrameView);
         // 初始化
         init();
+    }
+
+    /**
+     * edge-to-edge 适配(targetSdk 35+ 在 Android 15+ 上强制内容侵透系统栏,被动等待不行,
+     * 低版本也主动 opt-in 保证观感一致),做法与 Kotlin 基类 com.hy.basic.BaseActivity 相同:
+     * - 开启 ToolBar 时,状态栏高度并入 ToolBar 顶部 padding 并加高自身,让 colorPrimary 背景
+     *   延伸到状态栏底下(经典彩色状态栏观感),标题、返回箭头、溢出菜单落在状态栏之下;
+     * - 未开启 ToolBar 时,顶部 inset 由根布局兜住,状态栏底下是白色窗口背景;
+     * - left/right/bottom(刘海/导航栏)始终补在根布局上,页面内容不会被遮挡。
+     *
+     * @param root abs_base_activity.xml 的根布局
+     */
+    private void applyEdgeToEdgeInsets(View root) {
+        final boolean toolBarShown = isOpenToolBar();
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        // ToolBar 背景是深色 colorPrimary,状态栏图标用浅色;无 ToolBar 时状态栏下是白底,图标用深色
+        new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(!toolBarShown);
+        if (mToolbar == null) {
+            return;
+        }
+        final int toolBarContentHeight = mToolbar.getLayoutParams().height;
+        ViewCompat.setOnApplyWindowInsetsListener(root, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                Insets bars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+                if (toolBarShown) {
+                    mToolbar.setPadding(0, bars.top, 0, 0);
+                    if (mToolbar.getLayoutParams().height != toolBarContentHeight + bars.top) {
+                        mToolbar.getLayoutParams().height = toolBarContentHeight + bars.top;
+                        mToolbar.requestLayout();
+                    }
+                    v.setPadding(bars.left, 0, bars.right, bars.bottom);
+                } else {
+                    v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+                }
+                return insets;
+            }
+        });
     }
 
     /**
