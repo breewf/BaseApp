@@ -43,10 +43,6 @@ public interface IServiceApi {
     Observable<HttpResponse<ReviewProductData>> getReviewProductDetail(
             @Field("review_product_id") String reviewProductId);
 
-
-    @POST("review/product")
-    Observable<HttpResponse<ReviewProductData>> getReviewProductDetail2(@Body JSONObject parmas);
-
     /**
      * Json格式的Post请求（application/json）
      */

@@ -165,7 +165,8 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         }
         if (showToolBar) {
             // Toolbar 背景为深色 colorPrimary,状态栏图标用浅色(白)
-            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars =
+                false
         }
     }
 
@@ -205,7 +206,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
      * `if (exception.code == ApiExceptionHandler.CODE_AUTH_INVALID) { 跳登录 } else super.onApiException(exception)`
      */
     protected open fun onApiException(exception: ApiException) {
-        showToast(exception.message)
+        showLongToast(exception.message)
     }
 
     /** 加载态钩子:子类实现(显示/隐藏 ProgressBar、骨架屏等) */
@@ -233,6 +234,10 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     /** 轻提示:统一走 [ToastKit],要换实现/改样式只动那个入口 */
     protected fun showToast(msg: CharSequence?) {
         ToastKit.show(msg)
+    }
+
+    protected fun showLongToast(msg: CharSequence?) {
+        ToastKit.show(msg, true)
     }
 
     /** 便捷启动目标 Activity:startActivity<TargetActivity> { putExtra(...) } */

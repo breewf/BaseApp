@@ -7,7 +7,6 @@ import com.hy.basic.network.ApiExceptionExt
 import com.hy.basic.network.awaitRawRequest
 import com.hy.basic.network.launchRawRequest
 import com.hy.basic.network.launchRequest
-import com.hy.myapp.bean.TestResultDataKt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -79,15 +78,16 @@ class NetworkTestViewModel : BaseViewModel() {
 
     /** 信封接口(data 字段):基类 request 负责 unwrap 解包与业务码校验 */
     fun loadEnvelopeData() = viewModelScope.launch {
-        launchRequest(block = { getTestResult("28654780") }) { data: TestResultDataKt? ->
-            _resultText.value = "信封接口(data 字段)返回成功\nsid = ${data?.sid}\n${data?.text.orEmpty()}"
+        launchRequest(block = { getTestResult() }) { data: TestResultDataKt? ->
+            _resultText.value =
+                "信封接口(data 字段)返回成功\ncode = ${data?.from}\n${data?.name.orEmpty()}"
         }
     }
 
     /** 信封接口(content 字段):验证 unwrap 的 data -> result -> content 优先级 */
     fun loadContentData() = viewModelScope.launch {
-        launchRequest(block = { getApiTest("") }) { content ->
-            _resultText.value = "信封接口(content 字段)解包结果:\n${content.orEmpty()}"
+        launchRequest(block = { getApiTest(16, "mixed", true) }) { content ->
+            _resultText.value = "信封接口(content 字段)解包结果:\n${content?.string}"
         }
     }
 

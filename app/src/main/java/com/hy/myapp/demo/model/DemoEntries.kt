@@ -55,7 +55,7 @@ object DemoMenu {
             listOf(
                 DemoEntry(
                     "系统权限申请",
-                    "awaitPermissions 一次拿到 已授予/可再申请/已永久拒绝/未声明 四种结论",
+                    "运行时权限用法示例，基于官方 registerForActivityResult",
                     PermissionDemoActivity::class.java,
                 ),
             ),
@@ -65,12 +65,12 @@ object DemoMenu {
             listOf(
                 DemoEntry(
                     "Dialog 弹窗",
-                    "showDialog / showCustomDialog 一份配置两种样式，tip/confirm/items/input 一行版",
+                    "showDialog / showCustomDialog 一份配置两种样式",
                     DialogDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "Toast + Snackbar",
-                    "toast(…) / snackbar(…, “撤销”) { } 一行调用，样式在 ToastKit/SnackbarKit 收口",
+                    "Toast + Snackbar 封装，样式在 ToastKit/SnackbarKit 收口",
                     HintDemoActivity::class.java,
                 ),
             ),

@@ -17,6 +17,9 @@ class BaseHttpResponse<T> {
     @SerializedName("msg")
     var msg: String? = null
 
+    @SerializedName("message")
+    var message: String? = null
+
     @SerializedName("data")
     var data: T? = null
 

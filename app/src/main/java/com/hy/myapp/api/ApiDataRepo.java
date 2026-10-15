@@ -4,7 +4,6 @@ import com.hy.baseapp.base.net.ApiResponse;
 import com.hy.baseapp.base.net.IServiceApi;
 import com.hy.baseapp.base.net.RetrofitClient;
 import com.hy.baseapp.base.net.TransformerUtils;
-import com.hy.myapp.bean.ReviewProductData;
 import com.hy.myapp.bean.TestResultData;
 
 import rx.Observable;
@@ -18,12 +17,6 @@ public class ApiDataRepo {
 
     private IServiceApi getServiceApi() {
         return RetrofitClient.getInstance().getServiceApi();
-    }
-
-    public Observable<ReviewProductData> getReviewProductDetail(String reviewProductId) {
-        return getServiceApi().getReviewProductDetail(reviewProductId)
-                .compose(TransformerUtils.ioToMainThread())
-                .map(ApiResponse.handleApiResponse());
     }
 
     public Observable<TestResultData> getApiDataTest(String sid) {

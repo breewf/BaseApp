@@ -349,12 +349,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 六、协程取 Bitmap / 预加载 -->
+        <!-- 五、协程取 Bitmap / 预加载 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="六、协程取 Bitmap / 预加载"
+            android:text="五、协程取 Bitmap / 预加载"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             android:textStyle="bold" />
