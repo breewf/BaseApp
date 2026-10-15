@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import com.hy.baseapp.BaseApplication;
 import com.hy.baseapp.common.Toasts;
-import com.hy.basic.net.RetrofitClient;
+import com.hy.baseapp.base.net.RetrofitClient;
 
 /**
  * Created by GHY on 2016/4/29.

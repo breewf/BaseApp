@@ -2,7 +2,7 @@ package com.hy.myapp.activity;
 
 import com.hy.baseapp.base.AbsBaseActivity;
 import com.hy.baseapp.common.Toasts;
-import com.hy.basic.net.ResponseSubscriber;
+import com.hy.baseapp.base.net.ResponseSubscriber;
 import com.hy.myapp.R;
 import com.hy.myapp.api.ApiDataRepo;
 import com.hy.myapp.bean.TestResultData;

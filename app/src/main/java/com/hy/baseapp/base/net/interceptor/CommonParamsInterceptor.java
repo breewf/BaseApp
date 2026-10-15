@@ -1,4 +1,4 @@
-package com.hy.basic.net.interceptor;
+package com.hy.baseapp.base.net.interceptor;
 
 import com.hy.baseapp.common.SHA1;
 

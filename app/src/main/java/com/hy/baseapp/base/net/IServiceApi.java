@@ -1,4 +1,4 @@
-package com.hy.basic.net;
+package com.hy.baseapp.base.net;
 
 import com.hy.myapp.bean.ReviewProductData;
 import com.hy.myapp.bean.TestResultData;

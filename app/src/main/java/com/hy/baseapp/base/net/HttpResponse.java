@@ -1,4 +1,4 @@
-package com.hy.basic.net;
+package com.hy.baseapp.base.net;
 
 import com.google.gson.annotations.SerializedName;
 import com.hy.basic.BaseModel;

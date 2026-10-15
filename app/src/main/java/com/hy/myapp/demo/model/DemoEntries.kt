@@ -76,7 +76,7 @@ object DemoMenu {
             ),
         ),
         DemoGroup(
-            "列表 · 图片 · 取色",
+            "UI · 控件 · 列表",
             listOf(
                 DemoEntry("图片加载", "Glide 封装 ImageLoader", PictureTestActivity::class.java),
                 DemoEntry(
