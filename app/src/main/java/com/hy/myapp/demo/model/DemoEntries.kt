@@ -4,12 +4,12 @@ import com.hy.myapp.MainActivity
 import com.hy.myapp.activity.BannerTestActivity
 import com.hy.myapp.activity.PaletteListTestActivity
 import com.hy.myapp.activity.PaletteTestActivity
-import com.hy.myapp.activity.PictureTestActivity
 import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.banner.BannerDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
+import com.hy.myapp.demo.image.ImageLoaderDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
@@ -78,7 +78,11 @@ object DemoMenu {
         DemoGroup(
             "UI · 控件 · 列表",
             listOf(
-                DemoEntry("图片加载", "Glide 封装 ImageLoader", PictureTestActivity::class.java),
+                DemoEntry(
+                    "图片加载",
+                    "ImageLoader 封装:圆形/圆角/特殊圆角 · 占位错误图 · 监听回调 · 缩略图 · GIF · 协程取图 · 预加载",
+                    ImageLoaderDemoActivity::class.java,
+                ),
                 DemoEntry(
                     "Banner 轮播",
                     "ViewPager2 封装：循环 / 自动轮播 / 18 种切换动画 / 4 种指示器 / 露边 / 自定义页",

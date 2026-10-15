@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    图片加载失败占位图(error)。
+    与 img_placeholder 完全同风格(浅灰底 + #BDBDBD 山/太阳、无边框、无描边线),
+    但把整幅图沿中部一道锯齿缝"裂成两块":右半(含太阳)整体下坠,与左半错开留缝,是真正断开的裂图,不是在图上画线。
+    内容内缩到中心(x≈4~20、y≈8~17.5),宽矮格子 centerCrop 裁上下时不被切掉。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 底色 -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M0,0h24v24H0z" />
+    <!-- 左半:主峰(右边缘为锯齿断裂面) -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M4.5,16.5L9.5,9.5L13,13.5L12.3,14.6L13.1,16.5Z" />
+    <!-- 右半:太阳(随右块下坠) -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M15,9.5m-1.5,0a1.5,1.5 0,1 0,3 0a1.5,1.5 0,1 0,-3 0" />
+    <!-- 右半:副峰(左边缘为锯齿断裂面,整体下移与左块错开) -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M13,14.5L16,11.5L19.5,17.5L13.4,17.5L14,16Z" />
+</vector>

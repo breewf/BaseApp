@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    图片加载占位图(加载中显示)。
+    浅灰底 + 山/太阳图形,类似常见的"图片占位"观感,自绘矢量、不依赖三方资源。
+    元素统一内缩到中心区域(x≈4~20、y≈7~17):放在宽矮格子被 centerCrop 裁上下时也不会被切掉。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 底色 -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M0,0h24v24H0z" />
+    <!-- 太阳 -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M15,8.5m-1.5,0a1.5,1.5 0,1 0,3 0a1.5,1.5 0,1 0,-3 0" />
+    <!-- 远山 -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M4.5,16.5L9.5,9.5L13,13.5L16,10.5L19.5,16.5Z" />
+</vector>

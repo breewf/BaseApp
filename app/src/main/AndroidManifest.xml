@@ -99,6 +99,10 @@
         <activity
             android:name=".demo.banner.BannerDemoActivity"
             android:exported="false" />
+        <!-- 图片加载演示页 -->
+        <activity
+            android:name=".demo.image.ImageLoaderDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
