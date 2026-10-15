@@ -3,7 +3,7 @@ package com.hy.myapp.demo.network
 import androidx.lifecycle.viewModelScope
 import com.hy.basic.BaseViewModel
 import com.hy.basic.network.ApiException
-import com.hy.basic.network.ApiExceptionHandler
+import com.hy.basic.network.ApiExceptionExt
 import com.hy.basic.network.awaitRawRequest
 import com.hy.basic.network.launchRawRequest
 import com.hy.basic.network.launchRequest
@@ -65,7 +65,7 @@ class NetworkTestViewModel : BaseViewModel() {
         val target = geoResponse?.firstCity()
         if (target == null) {
             // 只有在"请求成功但没匹配到城市"时才是真的城市不存在
-            postApiException(ApiException(ApiExceptionHandler.CODE_EMPTY_DATA, "未找到城市「$city」"))
+            postApiException(ApiException(ApiExceptionExt.CODE_EMPTY_DATA, "未找到城市「$city」"))
             return@launch
         }
         val forecast = awaitRawRequest(showLoading) {

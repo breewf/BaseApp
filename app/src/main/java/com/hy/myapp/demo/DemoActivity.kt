@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import com.hy.basic.BaseActivity
 import com.hy.basic.BaseViewModel
 import com.hy.basic.network.ApiException
-import com.hy.basic.network.ApiExceptionHandler
+import com.hy.basic.network.ApiExceptionExt
 import com.hy.myapp.databinding.ActivityDemoBinding
 import com.hy.myapp.demo.adapter.DemoMenuAdapter
 import com.hy.myapp.demo.model.DemoEntry
@@ -42,7 +42,7 @@ class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
      */
     fun showGlobalExceptionDemo() {
         viewModel.postApiException(
-            ApiException(ApiExceptionHandler.CODE_NET_ERROR, "这是一条走全局通道的模拟异常")
+            ApiException(ApiExceptionExt.CODE_NET_ERROR, "这是一条走全局通道的模拟异常")
         )
     }
 

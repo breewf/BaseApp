@@ -57,7 +57,7 @@ interface WeatherService {
 
     /**
      * 异常兜底验证:不存在的接口路径,服务端返回 4xx,
-     * 由 [com.hy.basic.network.ApiExceptionHandler] 归一化为 ApiException 并走全局提示。
+     * 由 [com.hy.basic.network.ApiExceptionExt] 归一化为 ApiException 并走全局提示。
      */
     @GET("v1/endpoint-does-not-exist")
     suspend fun brokenEndpoint(): WeatherResponse

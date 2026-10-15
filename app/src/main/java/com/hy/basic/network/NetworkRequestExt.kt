@@ -24,17 +24,17 @@ import kotlinx.coroutines.flow.flowOn
 
 /**
  * 信封接口基础请求流:执行 [block]、校验业务码、按优先级解包数据。
- * 空响应/空数据视为异常;所有异常经 [ApiExceptionHandler.toApiException] 归一化后抛给下游。
+ * 空响应/空数据视为异常;所有异常经 [ApiExceptionExt.toApiException] 归一化后抛给下游。
  */
 fun <T> BaseViewModel.request(
     block: suspend ApiService.() -> BaseHttpResponse<T>?
 ): Flow<T> = flow {
     val response = block(Api.apiService)
-        ?: throw ApiException(ApiExceptionHandler.CODE_EMPTY_DATA, "接口未返回数据")
+        ?: throw ApiException(ApiExceptionExt.CODE_EMPTY_DATA, "接口未返回数据")
     response.throwApiException()
     emit(
         response.unwrap() ?: throw ApiException(
-            ApiExceptionHandler.CODE_EMPTY_DATA,
+            ApiExceptionExt.CODE_EMPTY_DATA,
             "接口数据为空"
         )
     )
@@ -54,7 +54,7 @@ private fun <T> Flow<T>.execute(): Flow<T> = this
     .flowOn(Dispatchers.IO)
     .catch { e ->
         if (e is CancellationException) throw e
-        throw ApiExceptionHandler.toApiException(e)
+        throw ApiExceptionExt.toApiException(e)
     }
 
 /**
@@ -111,7 +111,7 @@ private suspend fun <T> BaseViewModel.launchFlow(
     } catch (e: CancellationException) {
         throw e
     } catch (e: Throwable) {
-        postApiException(ApiExceptionHandler.toApiException(e))
+        postApiException(ApiExceptionExt.toApiException(e))
     } finally {
         if (showLoading) stopLoading()
     }

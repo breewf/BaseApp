@@ -1,7 +1,7 @@
 package com.hy.basic.page
 
 import com.hy.basic.network.ApiException
-import com.hy.basic.network.ApiExceptionHandler
+import com.hy.basic.network.ApiExceptionExt
 
 /**
  * desc: 全页面级加载状态。
@@ -34,8 +34,8 @@ sealed class PageState {
 
         /** 被视为"无网络"的错误码集合,可按后端约定调整 */
         private val NO_NETWORK_CODES = setOf(
-            ApiExceptionHandler.CODE_NET_ERROR,
-            ApiExceptionHandler.CODE_TIMEOUT,
+            ApiExceptionExt.CODE_NET_ERROR,
+            ApiExceptionExt.CODE_TIMEOUT,
         )
 
         /**

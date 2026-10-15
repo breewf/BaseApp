@@ -12,7 +12,7 @@ import java.net.UnknownHostException
  * desc: 异常归一化处理。将各类网络/解析异常统一转为 [ApiException],
  * 业务侧只需面向 code/message 处理,无需感知底层异常类型
  **/
-object ApiExceptionHandler {
+object ApiExceptionExt {
 
     // 通用错误码
     const val CODE_UNKNOWN = 4999            // 未知错误
