@@ -108,6 +108,10 @@
             android:name=".demo.oilprice.OilPriceActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <!-- 图片吸色主题演示页(Palette 取色 + 主题联动) -->
+        <activity
+            android:name=".demo.palette.PaletteThemeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

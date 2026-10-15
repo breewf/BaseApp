@@ -19,16 +19,14 @@ import androidx.palette.graphics.Palette;
 
 public class PaletteListTestActivity extends AbsBaseActivity {
 
-    private String[] urls = {"https://img1.baidu.com/it/u=3021819484,2455139200&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=1093577051,512997137&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=3189143085,2808291968&fm=26&fmt=auto&gp=0.jpg",
-            "https://img0.baidu.com/it/u=3388914057,1541350825&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=2673390958,3377558716&fm=26&fmt=auto&gp=0.jpg",
-            "https://img0.baidu.com/it/u=372055851,3186859110&fm=26&fmt=auto&gp=0.jpg",
-            "https://img2.baidu.com/it/u=3561514531,2170659185&fm=26&fmt=auto&gp=0.jpg",
-            "https://img2.baidu.com/it/u=3307484942,1189254751&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
-            "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
+    private String[] urls = {"https://www.gstatic.com/webp/gallery/1.jpg",
+            "https://www.gstatic.com/webp/gallery/2.jpg",
+            "https://www.gstatic.com/webp/gallery/4.jpg",
+            "https://www.gstatic.com/webp/gallery/5.jpg",
+            "https://www.gstatic.com/webp/gallery/1.jpg",
+            "https://www.gstatic.com/webp/gallery/2.jpg",
+            "https://www.gstatic.com/webp/gallery/4.jpg",
+            "https://www.gstatic.com/webp/gallery/5.jpg"};
 
     private Bitmap[] bitmaps = new Bitmap[10];
 

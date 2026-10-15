@@ -20,10 +20,10 @@ public class PalettePageFragment extends AbsBaseFragment {
     public static final String PAGE_NUMBER = "PAGE_NUMBER";
     private int mPage;
 
-    private String[] imageUrl = {"https://img1.baidu.com/it/u=3021819484,2455139200&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=1093577051,512997137&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=3189143085,2808291968&fm=26&fmt=auto&gp=0.jpg",
-            "https://img0.baidu.com/it/u=3388914057,1541350825&fm=26&fmt=auto&gp=0.jpg"};
+    private String[] imageUrl = {"https://www.gstatic.com/webp/gallery/1.jpg",
+            "https://www.gstatic.com/webp/gallery/2.jpg",
+            "https://www.gstatic.com/webp/gallery/4.jpg",
+            "https://www.gstatic.com/webp/gallery/5.jpg"};
 
     private FragmentPalettePagerBinding binding;
 

@@ -12,6 +12,7 @@ import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
 import com.hy.myapp.demo.oilprice.OilPriceActivity
+import com.hy.myapp.demo.palette.PaletteThemeActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
@@ -94,7 +95,11 @@ object DemoMenu {
                     "ViewPager2 封装：循环 / 自动轮播 / 18 种切换动画 / 4 种指示器 / 露边 / 自定义页",
                     BannerDemoActivity::class.java,
                 ),
-                DemoEntry("Palette 取色", "图片主色调提取", PaletteTestActivity::class.java),
+                DemoEntry(
+                    "图片吸色主题",
+                    "ImagePalette 封装:协程取色·主题色吸顶联动·状态栏自适应·过渡动画",
+                    PaletteThemeActivity::class.java,
+                ),
             ),
         ),
         DemoGroup(
@@ -102,6 +107,7 @@ object DemoMenu {
             listOf(
                 DemoEntry("Retrofit + RxJava", "basic/network Java 封装", RetrofitTestActivity::class.java),
                 DemoEntry("Banner 轮播（旧 ConvenientBanner）", "三方库写法对照", BannerTestActivity::class.java),
+                DemoEntry("Palette 取色", "图片主色调提取", PaletteTestActivity::class.java),
                 DemoEntry("旧测试总入口", "Java BaseApp AbsBaseActivity", MainActivity::class.java),
             ),
         ),

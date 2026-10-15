@@ -54,4 +54,11 @@
     <string name="demo_oil_col_98">98号</string>
     <string name="demo_oil_col_0">0号</string>
 
+    <!-- demo 图片吸色主题 -->
+    <string name="demo_palette_title">图片吸色主题</string>
+    <string name="demo_palette_cover_desc">封面图</string>
+    <string name="demo_palette_header_tip">点击下方封面,顶部与状态栏随主题色联动</string>
+    <string name="demo_palette_swatches">命名色板</string>
+    <string name="demo_palette_covers">选择封面</string>
+
 </resources>
