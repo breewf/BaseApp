@@ -11,6 +11,7 @@ import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
+import com.hy.myapp.demo.oilprice.OilPriceActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
@@ -31,6 +32,11 @@ object DemoMenu {
                     "网络请求测试",
                     "裸 JSON 公共接口 / 信封接口 / 异常兜底 / loading 计数",
                     NetworkTestActivity::class.java,
+                ),
+                DemoEntry(
+                    "油价查询测试",
+                    "第三方裸 JSON 接口:status 手动校验 + 同域名两种返回结构",
+                    OilPriceActivity::class.java,
                 ),
                 // DemoEntry(
                 //     "全局异常通道",

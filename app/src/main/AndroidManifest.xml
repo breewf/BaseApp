@@ -103,6 +103,11 @@
         <activity
             android:name=".demo.image.ImageLoaderDemoActivity"
             android:exported="false" />
+        <!-- 油价查询演示页(第三方裸 JSON 接口示例) -->
+        <activity
+            android:name=".demo.oilprice.OilPriceActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

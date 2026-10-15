@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dimen_2"
+    android:paddingTop="@dimen/dimen_10"
+    android:paddingEnd="@dimen/dimen_2"
+    android:paddingBottom="@dimen/dimen_10">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/dimen_55"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="北京" />
+
+    <TextView
+        android:id="@+id/tvP92"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp"
+        tools:text="8.61" />
+
+    <TextView
+        android:id="@+id/tvP95"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp"
+        tools:text="9.17" />
+
+    <TextView
+        android:id="@+id/tvP98"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp"
+        tools:text="10.67" />
+
+    <TextView
+        android:id="@+id/tvP0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp"
+        tools:text="8.36" />
+
+</LinearLayout>

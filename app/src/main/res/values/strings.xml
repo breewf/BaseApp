@@ -40,4 +40,18 @@
     <string name="demo_network_btn_fault">触发异常(404)</string>
     <string name="demo_network_btn_fault_mock">触发异常(本地模拟)</string>
 
+    <!-- demo 油价查询 -->
+    <string name="demo_oil_title">油价查询</string>
+    <string name="demo_oil_subtitle">第三方裸 JSON 公共接口 · status 手动校验 · Repository 数据源切换</string>
+    <string name="demo_oil_area_hint">输入地区名,如:北京</string>
+    <string name="demo_oil_query">查询</string>
+    <string name="demo_oil_all">全部</string>
+    <string name="demo_oil_scope_default">点击下方"全部"加载所有地区油价</string>
+    <string name="demo_oil_empty">暂无油价数据</string>
+    <string name="demo_oil_col_name">地区</string>
+    <string name="demo_oil_col_92">92号</string>
+    <string name="demo_oil_col_95">95号</string>
+    <string name="demo_oil_col_98">98号</string>
+    <string name="demo_oil_col_0">0号</string>
+
 </resources>
