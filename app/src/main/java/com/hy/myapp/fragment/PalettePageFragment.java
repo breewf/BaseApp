@@ -55,13 +55,12 @@ public class PalettePageFragment extends AbsBaseFragment {
 
         ImageLoader.loadImage(binding.ivPaletteFg1, imageUrl[mPage],
                 b -> {
-                    if (b != null) {
-                        bitmaps[mPage] = b;
-                        //首次进入设置第一页的图片的颜色
-                        PaletteTestActivity.mInstance.getColor(bitmaps[0]);
+                    bitmaps[mPage] = b;
+                    //首次进入设置第一页的图片的颜色
+                    PaletteTestActivity.mInstance.getColor(bitmaps[0]);
 
-                        binding.ivPaletteFg1.setImageBitmap(b);
-                    }
+                    binding.ivPaletteFg1.setImageBitmap(b);
+                    return kotlin.Unit.INSTANCE;
                 });
     }
 

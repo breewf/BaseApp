@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.hy.baseapp.common.iface.IImageLoadCompleteListener
 import java.io.File
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -56,13 +55,13 @@ object ImageLoader {
      *
      * @param imageView 目标 ImageView（用于绑定生命周期）
      * @param model     图片地址（String）或资源 id（Int）等
-     * @param listener  加载完成回调
+     * @param listener  加载完成回调，回调解码后的 [Bitmap]；不需要则传 null
      */
     @JvmStatic
-    fun loadImage(imageView: ImageView, model: Any?, listener: IImageLoadCompleteListener?) {
+    fun loadImage(imageView: ImageView, model: Any?, listener: ((Bitmap) -> Unit)?) {
         Glide.with(imageView).asBitmap().load(model).into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                listener?.loadComplete(resource)
+                listener?.invoke(resource)
             }
 
             override fun onLoadCleared(placeholder: Drawable?) {

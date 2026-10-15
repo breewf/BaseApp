@@ -150,12 +150,13 @@ public class PaletteListTestActivity extends AbsBaseActivity {
                     bitmap -> {
                         bitmaps[position] = bitmap;
                         holder.imageView.setImageBitmap(bitmap);
+                        return kotlin.Unit.INSTANCE;
                     });
 
             return convertView;
         }
 
-        class ViewHolder {
+        static class ViewHolder {
             ImageView imageView;
         }
     }
