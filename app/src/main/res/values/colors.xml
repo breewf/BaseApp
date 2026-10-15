@@ -37,6 +37,12 @@
     <color name="demo_white_alpha_70">#B3FFFFFF</color>
     <color name="demo_white_alpha_60">#99FFFFFF</color>
 
+    <!-- Banner 轮播:指示器默认色(半透白,图片/纯色背景上都看得见) -->
+    <color name="banner_indicator_dot">#66FFFFFF</color>
+    <color name="banner_indicator_selected">#FFFFFFFF</color>
+    <!-- Banner 演示页自定义页的标题底板 -->
+    <color name="banner_item_title_scrim">#66000000</color>
+
     <color name="slid_menu_grey">#EDEDEB</color>
 
     <!-- 颜色色值-->

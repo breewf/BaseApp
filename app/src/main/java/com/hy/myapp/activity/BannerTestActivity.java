@@ -21,10 +21,10 @@ import com.hy.myapp.databinding.ActivityBannerTestBinding;
 
 public class BannerTestActivity extends AbsBaseActivity {
 
-    private String[] images = {"https://img2.baidu.com/it/u=3561514531,2170659185&fm=26&fmt=auto&gp=0.jpg",
-            "https://img2.baidu.com/it/u=3307484942,1189254751&fm=26&fmt=auto&gp=0.jpg",
-            "https://img1.baidu.com/it/u=4004991081,1096065104&fm=26&fmt=auto&gp=0.jpg",
-            "https://img2.baidu.com/it/u=1033754621,2908807803&fm=26&fmt=auto&gp=0.jpg"};
+    private String[] images = {"https://www.gstatic.com/webp/gallery/1.jpg",
+            "https://www.gstatic.com/webp/gallery/2.jpg",
+            "https://www.gstatic.com/webp/gallery/3.jpg",
+            "https://www.gstatic.com/webp/gallery/4.jpg"};
 
     private ActivityBannerTestBinding binding;
 

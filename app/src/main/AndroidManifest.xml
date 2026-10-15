@@ -95,6 +95,10 @@
         <activity
             android:name=".demo.hint.HintDemoActivity"
             android:exported="false" />
+        <!-- Banner 轮播演示页 -->
+        <activity
+            android:name=".demo.banner.BannerDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

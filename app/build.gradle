@@ -47,6 +47,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    // ViewPager2:Banner 轮播控件的翻页载体。显式声明而不是只依赖 material 的传递依赖,
+    // 版本与 material 1.13.0 传递依赖对齐(1.0.0),避免依赖解冲突。
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.13.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'

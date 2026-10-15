@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Banner 轮播演示页(com.hy.basic.banner,ViewPager2 + RecyclerView 实现,不依赖三方 Banner 库)。
+    上半部分:XML 里一次性写完默认配置的纯图片轮播;
+    下半部分:代码里换配置(动画 / 循环 / 指示器 / 露边)与自定义页(图 + 标题)的卡片轮播。
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Banner 轮播（ViewPager2 版）"
+                android:textColor="@color/black_alpha"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="3dp"
+                android:text="下面这个 Banner 的全部行为都写在 XML 里（loop / autoScroll / interval / scrollDuration / transformer / indicator），页面只调了一句 banner.setData(urls)。\n自动轮播会看状态自己起停：页面切走、被隐藏、手指正在拖动时自动暂停，回来自动恢复。"
+                android:textColor="@color/black_alpha"
+                android:textSize="13sp" />
+
+            <!-- 1. 最简用法：XML 配好样式，代码只喂数据 -->
+            <com.hy.basic.banner.Banner
+                android:id="@+id/bannerMain"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="12dp"
+                app:banner_autoScroll="true"
+                app:banner_indicator="dotsSlider"
+                app:banner_indicatorColor="@color/banner_indicator_dot"
+                app:banner_indicatorGravity="bottomEnd"
+                app:banner_indicatorMargin="12dp"
+                app:banner_indicatorSelectedColor="@color/banner_indicator_selected"
+                app:banner_interval="3000"
+                app:banner_loop="true"
+                app:banner_scaleType="centerCrop"
+                app:banner_scrollDuration="600"
+                app:banner_transformer="depth"
+                app:banner_userScrollEnabled="true" />
+
+            <TextView
+                android:id="@+id/tvBannerInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black_alpha"
+                android:textSize="13sp" />
+
+            <!-- 2. 翻页控制：都是 Banner 上的公开方法 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="上一张"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="下一张"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnToggleAuto"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="暂停轮播"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnJump"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="跳第 3 页"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <!-- 3. 配置开关：循环 / 指示器 / 露边 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnToggleLoop"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="循环：开"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnToggleIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="指示器：滑块"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnToggleData"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:text="换本地图"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="切换动画（BannerTransformer，逐个试）"
+                android:textColor="@color/black_alpha"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- 按钮由代码按 BannerTransformer.entries 生成,加一种动画这里不用改布局。
+                 用 FlexboxLayout 平铺(而不是一行横滑):所有选项一开始就全部可见 -->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flTransformers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:alignItems="center"
+                app:flexWrap="wrap" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="自定义页（图 + 标题）+ 露边 + 卡片流动画"
+                android:textColor="@color/black_alpha"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- 4. 自定义页模式:每页 inflate banner_item_title,onBind 里回填 -->
+            <com.hy.basic.banner.Banner
+                android:id="@+id/bannerCard"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                app:banner_autoScroll="false"
+                app:banner_indicator="text"
+                app:banner_indicatorColor="@color/gray_cc"
+                app:banner_indicatorGravity="topEnd"
+                app:banner_indicatorSelectedColor="@color/colorPrimary"
+                app:banner_loop="true"
+                app:banner_pageMargin="28dp"
+                app:banner_transformer="flow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="3dp"
+                android:text="banner.setData(items, R.layout.banner_item_title) { page, item, position -> … }\n数据可以是 url、也可以是 @DrawableRes 资源 id，甚至任意对象；点击某一页走 onPageClick。"
+                android:textColor="@color/black_alpha"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnClearLog"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/demo_bg_button_outline"
+                android:text="清空日志"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/demo_bg_input"
+                android:lineSpacingExtra="3dp"
+                android:minHeight="120dp"
+                android:padding="12dp"
+                android:textColor="@color/black_alpha"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

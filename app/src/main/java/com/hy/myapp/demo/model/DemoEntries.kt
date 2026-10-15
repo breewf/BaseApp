@@ -1,7 +1,5 @@
 package com.hy.myapp.demo.model
 
-import com.hy.baseapp.activity.IndexHomeActivity
-import com.hy.baseapp.activity.TabLayoutActivity
 import com.hy.myapp.MainActivity
 import com.hy.myapp.activity.BannerTestActivity
 import com.hy.myapp.activity.PaletteListTestActivity
@@ -9,6 +7,7 @@ import com.hy.myapp.activity.PaletteTestActivity
 import com.hy.myapp.activity.PictureTestActivity
 import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
+import com.hy.myapp.demo.banner.BannerDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
@@ -80,7 +79,11 @@ object DemoMenu {
             "列表 · 图片 · 取色",
             listOf(
                 DemoEntry("图片加载", "Glide 封装 ImageLoader", PictureTestActivity::class.java),
-                DemoEntry("Banner 轮播", "自动滚动与手势", BannerTestActivity::class.java),
+                DemoEntry(
+                    "Banner 轮播",
+                    "ViewPager2 封装：循环 / 自动轮播 / 18 种切换动画 / 4 种指示器 / 露边 / 自定义页",
+                    BannerDemoActivity::class.java,
+                ),
                 DemoEntry("Palette 取色", "图片主色调提取", PaletteTestActivity::class.java),
                 DemoEntry("Palette 列表取色", "列表中的批量取色", PaletteListTestActivity::class.java),
             ),
@@ -89,6 +92,7 @@ object DemoMenu {
             "旧方案对照(Java / baseapp)",
             listOf(
                 DemoEntry("Retrofit + RxJava", "basic/network Java 封装", RetrofitTestActivity::class.java),
+                DemoEntry("Banner 轮播（旧 ConvenientBanner）", "三方库写法对照", BannerTestActivity::class.java),
                 DemoEntry("旧测试总入口", "Java BaseApp AbsBaseActivity", MainActivity::class.java),
             ),
         ),
