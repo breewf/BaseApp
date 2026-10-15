@@ -27,16 +27,21 @@ public interface IServiceApi {
     String BASE_URL_REVIEW = NetConstants.BASE_URL_REVIEW;
 
     /**
-     * sid=28654780
+     * <a href="https://api.apiopen.top/docs">...</a>
+     * <p>
+     * {
+     * "code": 200,
+     * "data": {
+     * "from": "朱敦儒《鹧鸪天·西都作》",
+     * "name": "玉楼金阙慵归去，且插梅花醉洛阳。"
+     * },
+     * "message": "成功"
+     * }
+     * <p>
+     * 返回：{"code":200,"message":"成功","data":{"name":"万户千门成野草，只缘一曲后庭花。","from":"刘禹锡《台城》"}}
      */
-    @GET("https://api.apiopen.top/getSingleJoke")
-    Observable<HttpResponse<TestResultData>> getApiDataTest(
-            @Query("sid") String sid);
-
-    @FormUrlEncoded
-    @POST("https://api.uomg.com/api/rand.qinghua?format=json")
-    Observable<HttpResponse<String>> getApiDataTest2(
-            @Field("id") String id);
+    @GET("https://api.apiopen.top/api/tools/famous-sentence")
+    Observable<HttpResponse<TestResultData>> getApiDataTest();
 
     @FormUrlEncoded
     @POST(BASE_URL_REVIEW + "review/product")

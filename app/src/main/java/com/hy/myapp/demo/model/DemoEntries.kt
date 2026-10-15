@@ -95,7 +95,6 @@ object DemoMenu {
                     BannerDemoActivity::class.java,
                 ),
                 DemoEntry("Palette 取色", "图片主色调提取", PaletteTestActivity::class.java),
-                DemoEntry("Palette 列表取色", "列表中的批量取色", PaletteListTestActivity::class.java),
             ),
         ),
         DemoGroup(

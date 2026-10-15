@@ -19,6 +19,9 @@ public class HttpResponse<T> extends BaseModel {
     @SerializedName("msg")
     public String msg;
 
+    @SerializedName("message")
+    public String message;
+
     @SerializedName("success")
     public boolean success;
 

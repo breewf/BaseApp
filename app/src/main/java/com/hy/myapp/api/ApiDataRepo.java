@@ -19,16 +19,10 @@ public class ApiDataRepo {
         return RetrofitClient.getInstance().getServiceApi();
     }
 
-    public Observable<TestResultData> getApiDataTest(String sid) {
-        return getServiceApi().getApiDataTest(sid)
+    public Observable<TestResultData> getApiDataTest(String id) {
+        return getServiceApi().getApiDataTest()
                 .compose(TransformerUtils.ioToMainThread())
-                .map(ApiResponse.handleApiResponseResult());
-    }
-
-    public Observable<String> getApiDataTest2() {
-        return getServiceApi().getApiDataTest2("")
-                .compose(TransformerUtils.ioToMainThread())
-                .map(ApiResponse.handleApiResponseContent());
+                .map(ApiResponse.handleApiResponse());
     }
 
 }

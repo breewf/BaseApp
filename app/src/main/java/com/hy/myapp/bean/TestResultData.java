@@ -1,5 +1,7 @@
 package com.hy.myapp.bean;
 
+import androidx.annotation.NonNull;
+
 import com.hy.basic.BaseModel;
 
 /**
@@ -9,21 +11,14 @@ import com.hy.basic.BaseModel;
  **/
 public class TestResultData extends BaseModel {
 
-    public String sid;
-    public String text;
-    public String video;
-    public String header;
-    public String uid;
+    public String from;
     public String name;
 
+    @NonNull
     @Override
     public String toString() {
         return "TestResultData{" +
-                "sid='" + sid + '\'' +
-                ", text='" + text + '\'' +
-                ", video='" + video + '\'' +
-                ", header='" + header + '\'' +
-                ", uid='" + uid + '\'' +
+                "from='" + from + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

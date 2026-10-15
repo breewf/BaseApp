@@ -33,12 +33,16 @@ public class RetrofitTestActivity extends AbsBaseActivity {
 
         binding = ActivityRetrofitTestBinding.bind(getRootView());
 
-        new ApiDataRepo().getApiDataTest2()
+        new ApiDataRepo().getApiDataTest("")
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new ResponseSubscriber<String>() {
+                .subscribe(new ResponseSubscriber<>() {
                     @Override
-                    public void onNext(String string) {
-                        binding.tv1.setText(string);
+                    public void onNext(TestResultData resultData) {
+                        if (resultData == null) {
+                            Toasts.showShort("获取数据为空");
+                            return;
+                        }
+                        binding.tv1.setText(resultData.toString());
                     }
 
                     @Override
@@ -49,9 +53,9 @@ public class RetrofitTestActivity extends AbsBaseActivity {
                     }
                 });
 
-        new ApiDataRepo().getApiDataTest("28654780")
+        new ApiDataRepo().getApiDataTest("")
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new ResponseSubscriber<TestResultData>() {
+                .subscribe(new ResponseSubscriber<>() {
                     @Override
                     public void onNext(TestResultData resultData) {
                         if (resultData == null) {
@@ -68,7 +72,6 @@ public class RetrofitTestActivity extends AbsBaseActivity {
                         binding.tv2.setText(throwable.getMessage());
                     }
                 });
-
     }
 
 }
