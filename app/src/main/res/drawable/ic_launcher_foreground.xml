@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 启动图标前景层:Android 机器人头扁平化重绘(白)——
+     穹顶 + 圆角底边 + 两根圆头天线,眼睛用 evenOdd 镂空透出背景渐变。
+     内容控制在 108dp 画布中心 ~54dp 安全区内,适配系统圆/方/水滴等各种遮罩 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 天线:圆头描边,先从穹顶里伸出 -->
+    <path
+        android:pathData="M40,38 L34.8,27.6"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3.4" />
+    <path
+        android:pathData="M68,38 L73.2,27.6"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3.4" />
+
+    <!-- 头:穹顶 + 小圆角底边,子路径画两个眼睛圆,evenOdd 形成镂空 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="
+            M30,58
+            C30,44.7 40.7,34 54,34
+            C67.3,34 78,44.7 78,58
+            L78,61
+            C78,64.3 75.3,67 72,67
+            L36,67
+            C32.7,67 30,64.3 30,61
+            Z
+            M45,44.5 A3.2,3.2 0 1 0 45,50.9 A3.2,3.2 0 1 0 45,44.5 Z
+            M63,44.5 A3.2,3.2 0 1 0 63,50.9 A3.2,3.2 0 1 0 63,44.5 Z" />
+
+    <!-- 底部一道悬浮"基座"胶囊:点题 BaseApp 的底座/框架语义,也平衡构图 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9"
+        android:pathData="
+            M38,74
+            L70,74
+            A3.5,3.5 0 0 1 70,81
+            L38,81
+            A3.5,3.5 0 0 1 38,74
+            Z" />
+
+</vector>

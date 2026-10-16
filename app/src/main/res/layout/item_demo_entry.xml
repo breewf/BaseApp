@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 两列网格里的入口卡片:半屏宽,无箭头(点击反馈靠 selectableItemBackground 水波纹),
+     标题/描述都按窄卡片设计:标题单行截断,描述固定两行(min/max=2,绑定时按内容调 minLines 等高) -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dimen_12"
+    android:layout_marginStart="@dimen/dimen_6"
     android:layout_marginTop="@dimen/dimen_4"
-    android:layout_marginEnd="@dimen/dimen_12"
+    android:layout_marginEnd="@dimen/dimen_6"
     android:layout_marginBottom="@dimen/dimen_4"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
@@ -15,43 +17,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/dimen_14">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvEntryTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvEntryDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_2"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/color_999999"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_12">
 
         <TextView
-            android:id="@+id/tvEntryArrow"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvEntryTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_8"
-            android:text="@string/demo_entry_arrow"
-            android:textColor="@color/gray_cc"
-            android:textSize="20sp" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEntryDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

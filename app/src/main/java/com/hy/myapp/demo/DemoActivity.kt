@@ -3,6 +3,7 @@ package com.hy.myapp.demo
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hy.basic.BaseActivity
 import com.hy.basic.BaseViewModel
 import com.hy.basic.network.ApiException
@@ -18,6 +19,9 @@ import com.hy.myapp.demo.model.DemoMenu
  * 组织方式:分类(分组标题)+ 入口(卡片),全部由 [DemoMenu] 数据驱动,
  * 新增测试页只加一行登记,不改本类与布局。
  *
+ * 首页条目多,列表用两列网格提密度:分组标题跨满整行,卡片半屏宽,
+ * 描述在模型里就按"一行核心信息"撰写(展示端 maxLines=1 截断)。
+ *
  * 本页同样走 BaseActivity 规范:ViewBinding + ViewModel + 模板方法。
  */
 class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
@@ -29,6 +33,12 @@ class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding.rvMenu.adapter = menuAdapter
         menuAdapter.submitList(DemoMenu.rows(this))
+        // XML 声明的 GridLayoutManager(spanCount=2)在此补跨列规则:标题占整行,入口各占一列
+        (binding.rvMenu.layoutManager as? GridLayoutManager)?.spanSizeLookup =
+            object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int) =
+                    if (menuAdapter.isHeaderAt(position)) 2 else 1
+            }
     }
 
     private fun onEntrySelected(entry: DemoEntry) {

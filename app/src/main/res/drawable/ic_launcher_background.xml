@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 启动图标背景层:蓝→青→Android 绿的 45° 渐变 + 中心柔光,
+     对标 Google Play / Gmail 新视觉(大胆渐变、通透),满幅铺开后由系统遮罩裁形 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:centerColor="#12B3A6"
+                android:endColor="#3DDC84"
+                android:startColor="#4285F4"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- 中心高光:径向渐变叠一层,渐变化开不死板 -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerColor="#22FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:gradientRadius="72%"
+                android:startColor="#00FFFFFF"
+                android:type="radial" />
+        </shape>
+    </item>
+
+</layer-list>

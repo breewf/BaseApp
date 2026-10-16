@@ -2,7 +2,6 @@ package com.hy.myapp.demo.model
 
 import com.hy.myapp.MainActivity
 import com.hy.myapp.activity.BannerTestActivity
-import com.hy.myapp.activity.PaletteListTestActivity
 import com.hy.myapp.activity.PaletteTestActivity
 import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
@@ -25,6 +24,9 @@ import com.hy.myapp.demo.state.PageStateDemoActivity
  *
  * 约定:新页面写在 `demo/` 下对应子包,然后在这里登记一行即可出现在首页,
  * 不需要改动 [DemoActivity] 与任何布局文件。
+ *
+ * 首页是两列网格,卡片只有半屏宽:[DemoEntry.desc] 按"一行核心信息"撰写
+ * (展示端截断到两行),不要把功能清单整个塞进描述。
  */
 object DemoMenu {
 
@@ -34,12 +36,12 @@ object DemoMenu {
             listOf(
                 DemoEntry(
                     "网络请求测试",
-                    "裸 JSON 公共接口 / 信封接口 / 异常兜底 / loading 计数",
+                    "裸 JSON / 信封接口 / 异常兜底 / loading 计数",
                     NetworkTestActivity::class.java,
                 ),
                 DemoEntry(
                     "油价查询测试",
-                    "第三方裸 JSON 接口:status 手动校验 + 同域名两种返回结构",
+                    "第三方裸 JSON:status 手动校验",
                     OilPriceActivity::class.java,
                 ),
                 // DemoEntry(
@@ -52,10 +54,14 @@ object DemoMenu {
         DemoGroup(
             "基类能力验证",
             listOf(
-                DemoEntry("多状态页面测试", "PageStateLayout 零 XML 侵入,pageState 驱动加载/空/错误/无网络", PageStateDemoActivity::class.java),
+                DemoEntry(
+                    "多状态页面测试",
+                    "PageStateLayout 零 XML 侵入,四种状态驱动",
+                    PageStateDemoActivity::class.java,
+                ),
                 DemoEntry(
                     "Fragment多状态页面测试",
-                    "ViewPager + 两个 Fragment 各自 enablePageState,状态层只覆盖页面内容",
+                    "ViewPager + 双 Fragment 各自 enablePageState",
                     FragmentPageStateActivity::class.java,
                 ),
             ),
@@ -65,7 +71,7 @@ object DemoMenu {
             listOf(
                 DemoEntry(
                     "系统权限申请",
-                    "运行时权限用法示例，基于官方 registerForActivityResult",
+                    "运行时权限,基于 registerForActivityResult",
                     PermissionDemoActivity::class.java,
                 ),
             ),
@@ -80,7 +86,7 @@ object DemoMenu {
                 ),
                 DemoEntry(
                     "Toast + Snackbar",
-                    "Toast + Snackbar 封装，样式在 ToastKit/SnackbarKit 收口",
+                    "样式在 ToastKit / SnackbarKit 收口",
                     HintDemoActivity::class.java,
                 ),
             ),
@@ -90,32 +96,32 @@ object DemoMenu {
             listOf(
                 DemoEntry(
                     "图片加载",
-                    "ImageLoader 封装:圆形/圆角/特殊圆角 · 占位错误图 · 监听回调 · 缩略图 · GIF · 协程取图 · 预加载",
+                    "ImageLoader 封装:圆形 / 圆角 / 占位 / GIF / 预加载",
                     ImageLoaderDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "Banner 轮播",
-                    "ViewPager2 封装：循环 / 自动轮播 / 18 种切换动画 / 4 种指示器 / 露边 / 自定义页",
+                    "自研 ViewPager2 封装:18 种动画 · 4 种指示器",
                     BannerDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "图片吸色主题",
-                    "ImagePalette 封装:协程取色·主题色吸顶联动·状态栏自适应·过渡动画",
+                    "ImagePalette 协程取色 · 主题吸顶联动",
                     PaletteThemeActivity::class.java,
                 ),
                 DemoEntry(
                     "列表组件演示",
-                    "BRVAH4 适配器 · 竖向/横向/网格/瀑布流/多类型 · SmartRefresh 下拉上拉 · 整页多状态",
+                    "BRVAH4 五种形态 + SmartRefresh 下拉上拉",
                     ListDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "富文本演示",
-                    "SpanExt 封装 · Spannable 字号/粗体/下划线/颜色/上下标/高亮/链接 · 展开折叠",
+                    "SpanExt 链式拼接 · 展开折叠",
                     RichTextDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "详情页折叠吸顶",
-                    "CollapsingToolbarLayout · 视差头图/标题缩放/contentScrim渐变/状态栏适配 · Tab吸顶联动",
+                    "CollapsingToolbarLayout 视差 / 渐变 / Tab 吸顶",
                     ProfileDemoActivity::class.java,
                 ),
             ),
@@ -124,8 +130,8 @@ object DemoMenu {
             "旧方案对照(Java / baseapp)",
             listOf(
                 DemoEntry("Retrofit + RxJava", "basic/network Java 封装", RetrofitTestActivity::class.java),
-                DemoEntry("Banner 轮播（旧 ConvenientBanner）", "三方库写法对照", BannerTestActivity::class.java),
-                DemoEntry("Palette 取色", "图片主色调提取", PaletteTestActivity::class.java),
+                DemoEntry("Banner 轮播(旧 ConvenientBanner)", "三方库写法对照", BannerTestActivity::class.java),
+                DemoEntry("Palette 取色", "官方 Palette 图片主色调提取", PaletteTestActivity::class.java),
                 DemoEntry("旧测试总入口", "Java BaseApp AbsBaseActivity", MainActivity::class.java),
             ),
         ),

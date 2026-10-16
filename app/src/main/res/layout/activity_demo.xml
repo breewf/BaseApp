@@ -30,6 +30,8 @@
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+    <!-- 两列网格:分组标题在 DemoActivity 里经 SpanSizeLookup 跨满整行,
+         入口卡片半屏宽;不用瀑布流 SGLM —— 单个跨列 View 会落进短列导致错位 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMenu"
         android:layout_width="0dp"
@@ -42,6 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
