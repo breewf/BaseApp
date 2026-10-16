@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    多类型 · 类型二:图文卡片(左封面 + 右标题/摘要)。id 对应绑定:ivArticle / tvArticleTitle / tvArticleSummary。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dimen_12">
+
+    <ImageView
+        android:id="@+id/ivArticle"
+        android:layout_width="@dimen/dimen_90"
+        android:layout_height="@dimen/dimen_65"
+        android:layout_marginEnd="@dimen/dimen_12"
+        android:background="@color/common_background_grey"
+        android:contentDescription="@string/demo_palette_cover_desc"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvArticleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvArticleSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/color_666666"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</LinearLayout>

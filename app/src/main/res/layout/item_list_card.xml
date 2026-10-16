@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    瀑布流卡片项:顶部主题色块(高度在 WaterfallAdapter 里按数据微调) + 标题 + 长短不一正文。
+    错落高度来自"色块高度 + 正文行数"两者共同作用,交给 StaggeredGridLayoutManager 摆放。
+    外边距形成卡片间隙,根 layout_width 会被瀑布流列宽覆盖,故 match_parent 即可。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_4"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/vBlock"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_80" />
+
+    <TextView
+        android:id="@+id/tvCardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingEnd="@dimen/dimen_10"
+        android:textColor="@color/color_333333"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_6"
+        android:paddingEnd="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_12"
+        android:lineSpacingExtra="@dimen/dimen_2"
+        android:textColor="@color/color_666666"
+        android:textSize="13sp" />
+
+</LinearLayout>

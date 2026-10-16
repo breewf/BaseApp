@@ -10,6 +10,7 @@ import com.hy.myapp.demo.banner.BannerDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
+import com.hy.myapp.demo.list.ListDemoActivity
 import com.hy.myapp.demo.network.NetworkTestActivity
 import com.hy.myapp.demo.oilprice.OilPriceActivity
 import com.hy.myapp.demo.palette.PaletteThemeActivity
@@ -99,6 +100,11 @@ object DemoMenu {
                     "图片吸色主题",
                     "ImagePalette 封装:协程取色·主题色吸顶联动·状态栏自适应·过渡动画",
                     PaletteThemeActivity::class.java,
+                ),
+                DemoEntry(
+                    "列表组件演示",
+                    "BRVAH4 适配器 · 竖向/横向/网格/瀑布流/多类型 · SmartRefresh 下拉上拉 · 整页多状态",
+                    ListDemoActivity::class.java,
                 ),
             ),
         ),

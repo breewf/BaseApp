@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    竖向列表页:顶部状态演示控制条 + SmartRefreshLayout 包裹 RecyclerView。
+    本页 enablePageState=true,整页 Loading/空/错误/无网络由基类 PageStateLayout 叠加,
+    因此这里不写任何状态视图,只有"内容层"(控制条 + 刷新容器 + 列表)。
+    控制条会被状态层一起盖住,属正常:点空/错误后用状态层「重试」回到内容即可继续下拉/上拉。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_12"
+        android:text="@string/demo_list_vertical_tip"
+        android:textColor="@color/color_666666"
+        android:textSize="13sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_8">
+
+            <TextView
+                android:id="@+id/btnStateLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:background="@drawable/demo_bg_button"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_6"
+                android:paddingEnd="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_6"
+                android:text="@string/demo_list_btn_loading"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btnStateEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:background="@drawable/demo_bg_button"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_6"
+                android:paddingEnd="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_6"
+                android:text="@string/demo_list_btn_empty"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btnStateError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:background="@drawable/demo_bg_button"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_6"
+                android:paddingEnd="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_6"
+                android:text="@string/demo_list_btn_error"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btnStateNoNetwork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:background="@drawable/demo_bg_button"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_6"
+                android:paddingEnd="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_6"
+                android:text="@string/demo_list_btn_no_network"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btnRefreshFail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/demo_bg_button"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_6"
+                android:paddingEnd="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_6"
+                android:text="@string/demo_list_btn_refresh_fail"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srlFeed"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFeed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:overScrollMode="never" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

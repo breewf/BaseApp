@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    多类型 · 类型一:分组标题(整行,左侧强调条 + 标题)。id 对应 MultiTypeAdapter 绑定:tvSectionTitle。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dimen_8"
+    android:paddingTop="@dimen/dimen_12"
+    android:paddingEnd="@dimen/dimen_16"
+    android:paddingBottom="@dimen/dimen_8">
+
+    <View
+        android:layout_width="@dimen/dimen_4"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_marginEnd="@dimen/dimen_8"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvSectionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_333333"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

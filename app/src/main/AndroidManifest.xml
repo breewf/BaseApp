@@ -112,6 +112,10 @@
         <activity
             android:name=".demo.palette.PaletteThemeActivity"
             android:exported="false" />
+        <!-- 列表组件演示页(竖向/横向/网格/瀑布流 + 下拉刷新 + 整页多状态) -->
+        <activity
+            android:name=".demo.list.ListDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

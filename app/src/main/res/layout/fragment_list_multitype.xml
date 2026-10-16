@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    多类型适配器演示页:单个竖向 RecyclerView,三种 item 布局由 MultiTypeAdapter 按类型分发。
+-->
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rvMulti"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:overScrollMode="never" />

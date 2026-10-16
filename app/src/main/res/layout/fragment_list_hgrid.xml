@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    横向列表 + 网格列表页:同一份数据、同一 CellAdapter,分别挂 LinearManager(横向)/GridManager(3 列)。
+    上半区横向单行滑动(wrap_content 高度),下半区竖向网格(占剩余空间、自身可滚动)。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dimen_16"
+        android:paddingTop="@dimen/dimen_12"
+        android:paddingEnd="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_8"
+        android:text="@string/demo_list_hgrid_horizontal"
+        android:textColor="@color/color_333333"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/dimen_8"
+        android:paddingEnd="@dimen/dimen_8" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:paddingStart="@dimen/dimen_16"
+        android:paddingTop="@dimen/dimen_12"
+        android:paddingEnd="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_8"
+        android:text="@string/demo_list_hgrid_grid"
+        android:textColor="@color/color_333333"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:padding="@dimen/dimen_8" />
+
+</LinearLayout>

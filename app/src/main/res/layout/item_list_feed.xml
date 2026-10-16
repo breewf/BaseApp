@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    竖向列表项:左侧封面 + 右侧(标题 / 摘要 / 标签+作者)。
+    id 与 FeedAdapter 绑定一一对应:ivCover / tvTitle / tvSummary / tvTag / tvAuthor。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dimen_12">
+
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="@dimen/dimen_100"
+        android:layout_height="@dimen/dimen_75"
+        android:layout_marginEnd="@dimen/dimen_12"
+        android:background="@color/common_background_grey"
+        android:contentDescription="@string/demo_palette_cover_desc"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/color_666666"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/demo_bg_button_outline"
+                android:paddingStart="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_2"
+                android:paddingEnd="@dimen/dimen_8"
+                android:paddingBottom="@dimen/dimen_2"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    多类型 · 类型三:纯文本便签(整块浅色圆角背景 + 一段文字)。id 对应绑定:tvNote。
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/dimen_12">
+
+    <TextView
+        android:id="@+id/tvNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/floralwhite"
+        android:lineSpacingExtra="@dimen/dimen_2"
+        android:padding="@dimen/dimen_12"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp" />
+
+</FrameLayout>

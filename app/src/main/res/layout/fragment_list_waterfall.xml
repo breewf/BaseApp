@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    瀑布流列表页:单个 RecyclerView,StaggeredGridLayoutManager 2 列。
+    item 高度由内容(色块 + 正文行数)自然形成错落,背景用灰色衬托卡片间距。
+-->
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rvWaterfall"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:clipToPadding="false"
+    android:overScrollMode="never"
+    android:padding="@dimen/dimen_4" />
