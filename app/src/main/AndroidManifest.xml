@@ -120,6 +120,10 @@
         <activity
             android:name=".demo.richtext.RichTextDemoActivity"
             android:exported="false" />
+        <!-- 个人详情页(CollapsingToolbarLayout 折叠吸顶 + 视差头图 + Tab 吸顶联动) -->
+        <activity
+            android:name=".demo.profile.ProfileDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

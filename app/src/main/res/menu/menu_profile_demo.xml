@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    个人主页 Toolbar 菜单:分享/收藏常驻图标位(代码里统一染白),
+    "更多"收进溢出菜单,演示 pin 住后的 Toolbar 完整能力。
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/ic_winstyle_share"
+        android:title="分享"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_favor"
+        android:icon="@mipmap/ic_winstyle_favor"
+        android:title="收藏"
+        app:showAsAction="ifRoom" />
+</menu>

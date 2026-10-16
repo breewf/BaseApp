@@ -15,6 +15,7 @@ import com.hy.myapp.demo.network.NetworkTestActivity
 import com.hy.myapp.demo.oilprice.OilPriceActivity
 import com.hy.myapp.demo.palette.PaletteThemeActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
+import com.hy.myapp.demo.profile.ProfileDemoActivity
 import com.hy.myapp.demo.richtext.RichTextDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
@@ -111,6 +112,11 @@ object DemoMenu {
                     "富文本演示",
                     "SpanExt 封装 · Spannable 字号/粗体/下划线/颜色/上下标/高亮/链接 · 展开折叠",
                     RichTextDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "详情页折叠吸顶",
+                    "CollapsingToolbarLayout · 视差头图/标题缩放/contentScrim渐变/状态栏适配 · Tab吸顶联动",
+                    ProfileDemoActivity::class.java,
                 ),
             ),
         ),

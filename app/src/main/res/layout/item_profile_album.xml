@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 相册 item:网格等宽,固定高度 + centerCrop,小圆角由 ImageLoader 处理 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_2">
+
+    <ImageView
+        android:id="@+id/ivAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_120"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+</FrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Tab③「相册」:3 列网格,同样走嵌套滚动驱动头部折叠。
+-->
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rvAlbum"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:overScrollMode="never" />

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    个人详情页 —— CollapsingToolbarLayout(CTL)折叠吸顶标准结构:
+
+    CoordinatorLayout(嵌套滚动调度中心)
+      └─ AppBarLayout(可折叠头部容器)
+           ├─ CollapsingToolbarLayout(展开/收缩动画 + 标题渐变缩放 + 遮罩渐变)
+           │    ├─ 头图 ImageView     collapseMode=parallax 视差收缩(图比容器走得慢,产生纵深)
+           │    ├─ 压暗渐变 View      随图视差,保证叠字可读
+           │    ├─ 头像/签名/关注     parallax,折叠过程中代码控制 alpha 渐隐,交给 CTL 大标题
+           │    └─ Toolbar            collapseMode=pin 收缩后钉在顶部(标题/菜单都在它上面)
+           └─ TabLayout               AppBarLayout 的固定子 View:推上去后自然吸顶
+      └─ ViewPager2(layout_behavior=appbar_scrolling_view_behavior)
+           内容页必须是 NestedScrollView / RecyclerView 等嵌套滚动容器才能驱动折叠。
+
+    inset 策略(edge-to-edge):刻意不用 fitsSystemWindows 链 —— CTL/AppBar 会把顶部 inset
+    变成自己的 margin/padding,头图被顶下状态栏高度:展开态露出白带、内容整体下移底部被裁。
+    改由 Activity 的 OnApplyWindowInsetsListener 手动分配:Toolbar paddingTop=状态栏,
+    ViewPager2 paddingBottom=导航栏;头图从 y=0 自然伸进状态栏,收缩后由 Toolbar(含状态栏带)
+    的 contentScrim 无缝接管。
+
+    scrollFlags 能力速览(本页头图用 scroll|exitUntilCollapsed):
+      - scroll            可随内容滚出屏幕(不加则始终固定吸顶)
+      - exitUntilCollapsed 收缩到最小(留下 pin 的 Toolbar)后才开始向上滑出
+      - enterAlways        一上滚立即露出头部(适合小头部;大头部会遮挡内容,慎用)
+      - enterAlwaysCollapsed 以 minHeight 先露出,滚到顶部再展开
+      - pin                钉住不动(给 Toolbar 用)
+      - neverScroll        内容滚动时头部完全不动
+      - 子 View 的 layout_collapseMode: pin(钉住) / parallax(视差) / none(普通缩放)
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_240"
+            app:collapsedTitleGravity="left"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleGravity="bottom|left"
+            app:expandedTitleMarginBottom="98dp"
+            app:expandedTitleMarginStart="@dimen/dimen_16"
+            app:expandedTitleMarginEnd="@dimen/dimen_20"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:expandedTitleTextColor="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="300"
+            app:scrimVisibleHeightTrigger="120dp"
+            app:statusBarScrim="@color/colorPrimaryDark"
+            app:title="@string/demo_profile_title"
+            app:titleCollapseMode="scale">
+
+            <!-- 头图:parallax 视差收缩;src 用本地资源保证离线可看,
+                 网络图可换 ImageLoader.loadImage(binding.ivHeader, url) -->
+            <ImageView
+                android:id="@+id/ivHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_img_profile_bg"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.55" />
+
+            <!-- 底部压暗渐变:与头图同视差,叠字永远清晰 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/profile_header_scrim"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.55" />
+
+            <!-- 头像 + 职位/签名 + 关注:折叠一半时由代码渐隐,把主角交给 CTL 大标题 -->
+            <LinearLayout
+                android:id="@+id/headerInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16"
+                app:layout_collapseMode="parallax">
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/dimen_60"
+                    android:layout_height="@dimen/dimen_60"
+                    android:contentDescription="@null"
+                    android:src="@mipmap/user_head_icon_normal" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/demo_profile_role"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_2"
+                        android:text="@string/demo_profile_sign"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/demo_bg_button"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingTop="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:paddingBottom="@dimen/dimen_6"
+                    android:text="@string/demo_profile_follow"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- pin:收缩后钉在顶部;背景透明让 contentScrim 的渐变当背景。
+                 状态栏高度由代码补成 paddingTop 并同步加高自身(同基类壳 Toolbar 的做法) -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!-- AppBarLayout 的固定子 View:不配 scrollFlags 即"推上去吸顶" -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/color_666666" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 内容必须挂 scrolling behavior;ViewPager2 左右滑切页 + 页内竖向滚动互不抢事件。
+         底部导航栏 inset 由 Activity 的 inset 监听补 paddingBottom,不再挂 fitsSystemWindows -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_background_grey"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

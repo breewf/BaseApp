@@ -81,6 +81,19 @@
     <string name="demo_richtext_btn_lines5">折叠 5 行</string>
     <string name="demo_richtext_btn_toggle">展开 / 收起</string>
 
+    <!-- demo 详情页折叠吸顶(CollapsingToolbarLayout) -->
+    <string name="demo_profile_title">张三</string>
+    <string name="demo_profile_role">产品经理 · Android 开发</string>
+    <string name="demo_profile_sign">记录每一次迭代与灵感</string>
+    <string name="demo_profile_follow">＋ 关注</string>
+    <string name="demo_profile_info_tip">本页由 CoordinatorLayout + AppBarLayout + CollapsingToolbarLayout 联动实现:头图视差收缩、标题缩放渐变换背景、Tab 推起后吸顶。当前页是 NestedScrollView,靠嵌套滚动驱动折叠;若换成普通 ScrollView 将无法联动(经典坑)。</string>
+    <string name="demo_profile_num_follow">128</string>
+    <string name="demo_profile_num_fans">1024</string>
+    <string name="demo_profile_num_like">3.6万</string>
+    <string name="demo_profile_label_follow">关注</string>
+    <string name="demo_profile_label_fans">粉丝</string>
+    <string name="demo_profile_label_like">获赞</string>
+
     <!-- 覆盖 SmartRefreshLayout 库自带 srl_* 文案:app 同名资源优先,
          无论设备 locale 是否为中文,下拉刷新头/上拉加载尾都固定展示中文。 -->
     <string name="srl_header_pulling">下拉可以刷新</string>

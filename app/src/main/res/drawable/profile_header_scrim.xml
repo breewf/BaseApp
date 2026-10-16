@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    头图底部压暗渐变:自下而上由半黑过渡到全透明,
+    保证叠在图片上的昵称/签名/关注按钮在任何图片上都清晰可读。
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:startColor="#66000000"
+        android:centerColor="#22000000"
+        android:endColor="#00000000"
+        android:type="linear" />
+</shape>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Tab②「动态」:RecyclerView 本身是嵌套滚动容器,竖向滚动可直接驱动头部折叠;
+    与外层横向 ViewPager2 的方向冲突由 resolvePagerConflict() 处理。
+-->
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rvFeed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:overScrollMode="never" />
