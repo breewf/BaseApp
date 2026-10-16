@@ -73,6 +73,14 @@
     <string name="demo_list_hgrid_horizontal">横向列表(Linear · Horizontal)</string>
     <string name="demo_list_hgrid_grid">网格列表(Grid · 4 列)</string>
 
+    <!-- demo 富文本演示 -->
+    <string name="demo_richtext_basic_tip">SpannableString 常见用法:字号 / 粗斜体 / 下划线 / 删除线 / 颜色 / 背景 / 上下标 / 关键词高亮 / 可点击链接,全部由 SpanExt 链式拼装。</string>
+    <string name="demo_richtext_collapse_tip">长正文按最大行数自动折叠:切换下面按钮可动态改变折叠行数或手动展开/收起;评论区演示正文内的 @用户 / #话题 / 网址链接。</string>
+    <string name="demo_richtext_btn_lines2">折叠 2 行</string>
+    <string name="demo_richtext_btn_lines3">折叠 3 行</string>
+    <string name="demo_richtext_btn_lines5">折叠 5 行</string>
+    <string name="demo_richtext_btn_toggle">展开 / 收起</string>
+
     <!-- 覆盖 SmartRefreshLayout 库自带 srl_* 文案:app 同名资源优先,
          无论设备 locale 是否为中文,下拉刷新头/上拉加载尾都固定展示中文。 -->
     <string name="srl_header_pulling">下拉可以刷新</string>

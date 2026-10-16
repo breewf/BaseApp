@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    展开 / 折叠 + 链接演示页:
+    - 控制条:动态切换折叠行数(2/3/5 行)与手动展开 / 收起;
+    - tvArticle:长正文,交给 CollapsibleText 按当前最大行数折叠;
+    - tvComment:富文本正文内的可点击链接(@用户、话题、网址)。
+    样式属性内联,不引 style。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/demo_richtext_collapse_tip"
+            android:textColor="@color/color_666666"
+            android:textSize="13sp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnLines2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:background="@drawable/demo_bg_button"
+                    android:paddingStart="@dimen/dimen_12"
+                    android:paddingTop="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_12"
+                    android:paddingBottom="@dimen/dimen_6"
+                    android:text="@string/demo_richtext_btn_lines2"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnLines3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:background="@drawable/demo_bg_button"
+                    android:paddingStart="@dimen/dimen_12"
+                    android:paddingTop="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_12"
+                    android:paddingBottom="@dimen/dimen_6"
+                    android:text="@string/demo_richtext_btn_lines3"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnLines5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:background="@drawable/demo_bg_button"
+                    android:paddingStart="@dimen/dimen_12"
+                    android:paddingTop="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_12"
+                    android:paddingBottom="@dimen/dimen_6"
+                    android:text="@string/demo_richtext_btn_lines5"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/demo_bg_button_outline"
+                    android:paddingStart="@dimen/dimen_12"
+                    android:paddingTop="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_12"
+                    android:paddingBottom="@dimen/dimen_6"
+                    android:text="@string/demo_richtext_btn_toggle"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/tvArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:lineSpacingExtra="@dimen/dimen_4"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:background="@color/common_background_grey" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:lineSpacingExtra="@dimen/dimen_4"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</ScrollView>

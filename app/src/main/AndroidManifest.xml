@@ -116,6 +116,10 @@
         <activity
             android:name=".demo.list.ListDemoActivity"
             android:exported="false" />
+        <!-- 富文本演示页(Spannable 常见用法 + 展开折叠/链接) -->
+        <activity
+            android:name=".demo.richtext.RichTextDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
