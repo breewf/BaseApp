@@ -1,7 +1,8 @@
 package com.hy.baseapp.base.net;
 
+import com.blankj.utilcode.util.Utils;
 import com.hy.baseapp.common.Toasts;
-import com.hy.basic.utils.AppNetworkUtils;
+import com.hy.basic.utils.NetworkExt;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -32,7 +33,7 @@ public abstract class ResponseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onStart() {
         super.onStart();
-        if (!AppNetworkUtils.isConnected()) {
+        if (!NetworkExt.isNetworkConnected(Utils.getApp())) {
             if (!mNotDisplayErrorToast) {
                 Toasts.showShort("网络不给力");
             }

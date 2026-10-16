@@ -1,6 +1,7 @@
 package com.hy.baseapp.base.net.interceptor;
 
-import com.hy.basic.utils.AppNetworkUtils;
+import com.blankj.utilcode.util.Utils;
+import com.hy.basic.utils.NetworkExt;
 
 import java.io.IOException;
 
@@ -21,14 +22,14 @@ public class HttpCacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         // 无网络时，始终使用本地Cache
-        if (!AppNetworkUtils.isConnected()) {
+        if (!NetworkExt.isNetworkConnected(Utils.getApp())) {
             request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
                     .build();
         }
 
         Response response = chain.proceed(request);
-        if (AppNetworkUtils.isConnected()) {
+        if (NetworkExt.isNetworkConnected(Utils.getApp())) {
             // 有网络时，设置缓存过期时间0个小时
             int maxAge = 0;
             response.newBuilder()
