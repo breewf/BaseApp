@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
  * - 基类泛型反射自动创建 [NetworkTestViewModel],无需手动 new
  * - 模板方法顺序:initView -> observeViewModel -> initData
  * - [showLoading]:由 BaseViewModel.isLoading 引用计数驱动,业务侧不写 loading 逻辑
- * - 全局异常:失败请求由基类 [onApiException] 统一提示,页面不崩溃
+ * - 全局异常:失败请求走统一事件通道由基类 [onShowError] 统一提示,页面不崩溃
  */
 class NetworkTestActivity : BaseActivity<ActivityNetworkTestBinding, NetworkTestViewModel>() {
 

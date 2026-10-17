@@ -16,6 +16,7 @@ import com.hy.myapp.demo.palette.PaletteThemeActivity
 import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.profile.ProfileDemoActivity
 import com.hy.myapp.demo.richtext.RichTextDemoActivity
+import com.hy.myapp.demo.result.ActivityResultDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
 
@@ -63,6 +64,11 @@ object DemoMenu {
                     "Fragment多状态页面测试",
                     "ViewPager + 双 Fragment 各自 enablePageState",
                     FragmentPageStateActivity::class.java,
+                ),
+                DemoEntry(
+                    "页面结果回传",
+                    "awaitResult 一行拿结果 · UiEvent 统一事件通道",
+                    ActivityResultDemoActivity::class.java,
                 ),
             ),
         ),

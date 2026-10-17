@@ -16,6 +16,7 @@ import com.hy.basic.hint.ToastKit
 import com.hy.basic.network.ApiException
 import com.hy.basic.page.PageStateConfig
 import com.hy.basic.page.PageStateLayout
+import com.hy.basic.page.UiEvent
 import kotlinx.coroutines.launch
 
 /**
@@ -29,10 +30,13 @@ import kotlinx.coroutines.launch
  * - 模板方法固定初始化顺序:[initView] -> [observeViewModel] -> [initData]
  * - 懒加载:[isLazyLoad] 为 true 时,首次对用户可见才执行 [initData]
  * - 全局收集 ViewModel 事件(基于 viewLifecycleOwner,随 View 销毁自动停止):
- *   [BaseViewModel.apiExceptionEvent] -> [onApiException](默认 Toast),
+ *   [BaseViewModel.uiEvent] 统一事件通道 -> [onUiEvent] 分发到 onShowToast/onShowError/
+ *   onNavigate/onGoBack 等钩子(与 BaseActivity 同一套语义),
  *   [BaseViewModel.isLoading] -> [showLoading]
  * - 整页多状态(可选):[enablePageState] 为 true 时,[binding] 根 View 被包裹进 [PageStateLayout],
  *   整页状态由 [BaseViewModel.pageState] 驱动,页面 XML 零状态视图
+ * - ActivityResult:推荐直接在点击里用 [awaitResult]/[awaitResultBundle]
+ *   (无 UI 宿主挂在 childFragmentManager 上代持注册,见 LauncherSpec)
  *
  * 泛型:
  * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
@@ -127,12 +131,59 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected open fun initData() {}
 
     /**
-     * 统一处理网络异常,默认 Toast 提示。
-     * 登录态失效等场景可重写:
-     * `if (exception.code == ApiExceptionHandler.CODE_AUTH_INVALID) { 跳登录 } else super.onApiException(exception)`
+     * 统一处理一次性 UI 事件:默认按类型分发到各 open 钩子(与 [BaseActivity] 同一套语义)。
+     * 导航/关页作用于宿主 Activity;回传结果([UiEvent.ShowResult])仅对
+     * 以 ActivityResult 方式被拉起的场景有意义。
      */
-    protected open fun onApiException(exception: ApiException) {
-        showToast(exception.message)
+    protected open fun onUiEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.ShowToast -> onShowToast(event.message, event.long)
+            is UiEvent.ShowError -> onShowError(event.exception)
+            is UiEvent.Navigate -> onNavigate(event)
+            UiEvent.GoBack -> onGoBack()
+            is UiEvent.Finish -> requireActivity().finish(event.resultCode, event.data)
+            is UiEvent.ShowResult -> {
+                val host = requireActivity()
+                host.setResult(event.resultCode, resultIntentOf(event.values))
+                host.finish()
+            }
+            is UiEvent.Custom -> onCustomEvent(event.tag, event.data)
+        }
+    }
+
+    /** Toast 钩子:默认走 [ToastKit] */
+    protected open fun onShowToast(message: CharSequence?, long: Boolean) {
+        ToastKit.show(message, long)
+    }
+
+    /**
+     * 错误提示钩子(默认 Toast)。登录态失效等场景可重写:
+     * `if (exception.code == ApiExceptionExt.CODE_AUTH_INVALID) { 跳登录 } else super.onShowError(exception)`
+     */
+    protected open fun onShowError(exception: ApiException) {
+        showLongToast(exception.message)
+    }
+
+    /** 导航钩子:默认组装 Intent(显式 Class / 任意 Intent)后启动 */
+    protected open fun onNavigate(event: UiEvent.Navigate) {
+        val intent = when (val target = event.target) {
+            is com.hy.basic.page.NavigationTarget.Explicit -> Intent(requireContext(), target.activityClass)
+            is com.hy.basic.page.NavigationTarget.ByIntent -> Intent(target.intent)
+        }
+        event.extras?.let { intent.putExtras(it) }
+        if (event.flags != 0) intent.flags = event.flags
+        runCatching { startActivity(intent) }
+            .onFailure { showLongToast("无法打开目标页面:${it.message}") }
+    }
+
+    /** 返回钩子:默认交还宿主 Activity 的返回分发器 */
+    protected open fun onGoBack() {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+
+    /** 自定义事件钩子([UiEvent.Custom]):业务专属动作,默认仅提示未处理 */
+    protected open fun onCustomEvent(tag: String, data: Any?) {
+        showLongToast("[$tag] 未处理的自定义事件")
     }
 
     /** 加载态钩子:子类实现,内部只能使用 [viewLifecycleOwner] */
@@ -146,7 +197,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     private fun observeGlobalEvents() = viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             launch { viewModel.isLoading.collect(::showLoading) }
-            launch { viewModel.apiExceptionEvent.collect(::onApiException) }
+            launch { viewModel.uiEvent.collect(::onUiEvent) }
             launch {
                 viewModel.pageState.collect {
                     pageStateLayout?.bind(it) { onPageRetry() }
@@ -185,8 +236,18 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         ToastKit.show(msg)
     }
 
+    protected fun showLongToast(msg: CharSequence?) {
+        ToastKit.show(msg, true)
+    }
+
     /** 便捷启动目标 Activity:startActivity<TargetActivity> { putExtra(...) } */
     protected inline fun <reified A : Activity> startActivity(block: Intent.() -> Unit = {}) {
         requireActivity().startActivity(Intent(requireContext(), A::class.java).apply(block))
     }
+}
+
+/** Activity.finish(resultCode, data) 的中转(minSdk 23 上 Activity#finish(Intent) 仅 API 30+,改用 setResult+finish 等价实现) */
+private fun Activity.finish(resultCode: Int, data: android.content.Intent?) {
+    if (data != null) setResult(resultCode, data) else setResult(resultCode)
+    finish()
 }

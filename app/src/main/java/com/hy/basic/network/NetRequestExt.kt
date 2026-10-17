@@ -60,7 +60,7 @@ private fun <T> Flow<T>.execute(): Flow<T> = this
 /**
  * 收集请求:loading 与全局异常统一处理,[onResult] 只接收成功解包后的数据。
  *
- * @return 请求是否成功(便于串行编排时决定是否继续;异常已通过 [BaseViewModel.apiExceptionEvent] 上报)
+ * @return 请求是否成功(便于串行编排时决定是否继续;异常已走统一事件通道 [BaseViewModel.uiEvent] 上报)
  */
 suspend fun <T> BaseViewModel.launchRequest(
     showLoading: Boolean = true,

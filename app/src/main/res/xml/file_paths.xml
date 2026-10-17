@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FileProvider 共享路径:authority 为「包名.fileprovider」(与 AndroidManifest 中声明一致)。
+     camera-files 覆盖相机直拍的缓存目录输出,cache-path 子目录名与 LauncherSpec.TakePicture 落盘位置对应 -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path
+        name="camera-files"
+        path="." />
+    <external-cache-path
+        name="ext-camera-files"
+        path="." />
+</paths>

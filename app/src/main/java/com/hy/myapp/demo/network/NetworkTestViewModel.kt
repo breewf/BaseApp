@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * 三种请求形态的验证:
  * - 裸 JSON + 多域名 + 串行依赖:见 [loadWeather]
  * - 信封响应(code/msg/data)+ unwrap 解包:见 [loadEnvelopeData]
- * - 异常兜底(4xx/超时/无数据)统一走 [BaseViewModel.apiExceptionEvent]:见 [loadBrokenEndpoint]
+ * - 异常兜底(4xx/超时/无数据)统一走 [BaseViewModel.uiEvent] 的 ShowError 分支:见 [loadBrokenEndpoint]
  */
 class NetworkTestViewModel : BaseViewModel() {
 
@@ -91,7 +91,7 @@ class NetworkTestViewModel : BaseViewModel() {
         }
     }
 
-    /** 异常兜底:异常 -> 归一化 ApiException -> 基类 onApiException 统一提示,不会崩溃、也不叠加其他提示 */
+    /** 异常兜底:异常 -> 归一化 ApiException -> 基类 onShowError 统一提示,不会崩溃、也不叠加其他提示 */
     fun loadBrokenEndpoint() = viewModelScope.launch {
         launchRawRequest(block = { repository.brokenEndpoint() }) {
             _resultText.value = "接口居然可用(预期失败并触发全局异常提示)"

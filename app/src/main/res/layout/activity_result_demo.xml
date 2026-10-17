@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    ActivityResult + 统一事件通道演示主页。
+    所有动作都在点击回调里一行 awaitResult 搞定:注册时机由无 UI 宿主代持,页面零样板。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拉起页面 / 系统页面,统一拿结果"
+        android:textColor="@color/black_alpha"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnForm"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="拉起表单页并等待回传(awaitResultBundle)"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnPickImage"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="从相册选一张图(awaitImagePicker,免权限)"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="相机直拍(TakePicture + FileProvider)"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="打开系统分享面板(ShareText)"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnEventNav"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/demo_bg_button_outline"
+        android:text="走 UiEvent.Navigate 事件跳转表单页"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/black_alpha"
+        android:textSize="15sp" />
+
+</LinearLayout>

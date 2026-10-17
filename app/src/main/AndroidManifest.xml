@@ -34,6 +34,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+        <!-- FileProvider:供相机直拍(LauncherSpec.TakePicture)把缓存文件转成可授权 Uri,
+             authority 用 applicationId + .fileprovider,与代码里拼接规则一致 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.hy.baseapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <!-- 旧测试总入口(baseapp 基类),已不再作为启动页 -->
         <activity
             android:name=".MainActivity"
@@ -124,6 +135,15 @@
         <activity
             android:name=".demo.profile.ProfileDemoActivity"
             android:exported="false" />
+        <!-- ActivityResult 封装 + 统一事件通道演示页 -->
+        <activity
+            android:name=".demo.result.ActivityResultDemoActivity"
+            android:exported="false" />
+        <!-- 表单回传页(被 awaitResult 拉起,提交时发 ShowResult 事件) -->
+        <activity
+            android:name=".demo.result.ActivityResultFormActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

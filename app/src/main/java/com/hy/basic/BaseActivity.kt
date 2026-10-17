@@ -18,8 +18,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.hy.basic.hint.ToastKit
 import com.hy.basic.network.ApiException
+import com.hy.basic.network.ApiExceptionExt
 import com.hy.basic.page.PageStateConfig
 import com.hy.basic.page.PageStateLayout
+import com.hy.basic.page.UiEvent
 import com.hy.myapp.databinding.AbsActivityToolbarBinding
 import com.hy.myapp.R
 import java.lang.reflect.ParameterizedType
@@ -35,7 +37,8 @@ import kotlinx.coroutines.launch
  * - [viewModel]:泛型反射自动创建,作用域为当前页面,配置变更后复用
  * - 模板方法固定初始化顺序:[initView] -> [observeViewModel] -> [initData]
  * - 全局收集 ViewModel 事件:
- *   [BaseViewModel.apiExceptionEvent] -> [onApiException](默认 Toast,401 等可重写处理),
+ *   [BaseViewModel.uiEvent] 统一事件通道 -> [onUiEvent] 分发到 onShowToast/onShowError/
+ *   onNavigate/onGoBack 等钩子(页面按需重写单个钩子,如 401 跳登录只重写 [onShowError]);
  *   [BaseViewModel.isLoading] -> [showLoading]/[hideLoading]
  * - 整页多状态(可选):[enablePageState] 为 true 时,基类会把 [binding] 根 View 程序化包裹进
  *   [PageStateLayout],并收集 [BaseViewModel.pageState] 驱动 加载/内容/空/错误/无网络 切换,
@@ -43,6 +46,8 @@ import kotlinx.coroutines.launch
  *   状态层只覆盖内容区(在 [toolbar] 之下),不会遮住标题栏
  * - 通用 Toolbar(可选):[showToolBar] 为 true 时,基类用壳布局(Toolbar + 内容容器)装配页面,
  *   标题取 [toolbarTitle]、返回键行为取 [showToolBarBack],菜单/自定义视图在 [onToolBarInitialized] 里加
+ * - ActivityResult:[resultLauncher] 字段级注册可用;任意 contract/飞页等结果更推荐
+ *   直接在点击里用 [awaitResult]/[awaitResultBundle](无 UI 宿主代持注册,见 LauncherSpec)
  *
  * 泛型:
  * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
@@ -201,12 +206,58 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     protected open fun initData() {}
 
     /**
-     * 统一处理网络异常,默认 Toast 提示。
-     * 登录态失效等场景可重写:
-     * `if (exception.code == ApiExceptionHandler.CODE_AUTH_INVALID) { 跳登录 } else super.onApiException(exception)`
+     * 统一处理一次性 UI 事件:默认按类型分发到各 open 钩子。
+     * 需要拦截全部事件(如埋点)时重写本方法,记得调 `super.onUiEvent(event)`。
      */
-    protected open fun onApiException(exception: ApiException) {
+    protected open fun onUiEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.ShowToast -> onShowToast(event.message, event.long)
+            is UiEvent.ShowError -> onShowError(event.exception)
+            is UiEvent.Navigate -> onNavigate(event)
+            UiEvent.GoBack -> onGoBack()
+            is UiEvent.Finish -> finishActivity(event.resultCode, event.data)
+            is UiEvent.ShowResult -> {
+                // 注意:此处不能再走 finishActivity —— 它内部会再 setResult(code) 一次,
+                // 而 setResult(int) 等价于 data 传 null,会把刚放入的回传数据清空
+                setResult(event.resultCode, resultIntentOf(event.values))
+                if (!isFinishing) finish()
+            }
+            is UiEvent.Custom -> onCustomEvent(event.tag, event.data)
+        }
+    }
+
+    /** Toast 钩子:默认走 [ToastKit] */
+    protected open fun onShowToast(message: CharSequence?, long: Boolean) {
+        ToastKit.show(message, long)
+    }
+
+    /**
+     * 错误提示钩子(默认 Toast)。登录态失效等场景可重写:
+     * `if (exception.code == ApiExceptionExt.CODE_AUTH_INVALID) { 跳登录 } else super.onShowError(exception)`
+     */
+    protected open fun onShowError(exception: ApiException) {
         showLongToast(exception.message)
+    }
+
+    /** 导航钩子:默认组装 Intent(显式 Class / 任意 Intent)后启动;可重写做转场动画等定制 */
+    protected open fun onNavigate(event: UiEvent.Navigate) {
+        val intent = when (val target = event.target) {
+            is com.hy.basic.page.NavigationTarget.Explicit -> Intent(this, target.activityClass)
+            is com.hy.basic.page.NavigationTarget.ByIntent -> Intent(target.intent)
+        }
+        event.extras?.let { intent.putExtras(it) }
+        if (event.flags != 0) intent.flags = event.flags
+        runCatching { startActivity(intent) }.onFailure { showLongToast("无法打开目标页面:${it.message}") }
+    }
+
+    /** 返回钩子:默认走返回分发器(popup 关闭/折叠头拦截等回调仍生效),无人接管时 finish */
+    protected open fun onGoBack() {
+        onBackPressedDispatcher.onBackPressed()
+    }
+
+    /** 自定义事件钩子([UiEvent.Custom]):业务专属动作,默认仅打日志 */
+    protected open fun onCustomEvent(tag: String, data: Any?) {
+        showLongToast("[$tag] 未处理的自定义事件")
     }
 
     /** 加载态钩子:子类实现(显示/隐藏 ProgressBar、骨架屏等) */
@@ -221,7 +272,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { viewModel.isLoading.collect(::showLoading) }
-                launch { viewModel.apiExceptionEvent.collect(::onApiException) }
+                launch { viewModel.uiEvent.collect(::onUiEvent) }
                 launch {
                     viewModel.pageState.collect {
                         pageStateLayout?.bind(it) { onPageRetry() }
@@ -240,9 +291,31 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         ToastKit.show(msg, true)
     }
 
+    /** 关闭当前页:抽成方法供 [onUiEvent] 的 Finish/ShowResult 分支复用 */
+    private fun finishActivity(resultCode: Int, data: Intent? = null) {
+        if (data != null) setResult(resultCode, data) else setResult(resultCode)
+        finish()
+    }
+
     /** 便捷启动目标 Activity:startActivity<TargetActivity> { putExtra(...) } */
     protected inline fun <reified A : Activity> startActivity(block: Intent.() -> Unit = {}) {
         startActivity(Intent(this, A::class.java).apply(block))
+    }
+}
+
+/** Map 负载 -> Intent extras([UiEvent.ShowResult] 回传用,放在顶层供 Activity/Fragment 共用) */
+internal fun resultIntentOf(values: Map<String, Any?>): Intent = Intent().apply {
+    values.forEach { (key, value) ->
+        when (value) {
+            null -> putExtra(key, null as String?)
+            is CharSequence -> putExtra(key, value)
+            is Int -> putExtra(key, value)
+            is Long -> putExtra(key, value)
+            is Boolean -> putExtra(key, value)
+            is Float -> putExtra(key, value)
+            is Double -> putExtra(key, value)
+            else -> putExtra(key, value.toString())
+        }
     }
 }
 

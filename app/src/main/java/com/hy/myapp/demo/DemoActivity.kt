@@ -47,8 +47,8 @@ class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
     }
 
     /**
-     * 演示统一异常通道:业务只上报,提示由基类 [onApiException] 完成。
-     * 由 [DemoMenu] 中的"全局异常通道"入口调用。
+     * 演示统一事件通道:业务只发 [com.hy.basic.page.UiEvent.ShowError],
+     * 提示由基类 [onShowError] 完成。由 [DemoMenu] 中的"全局异常通道"入口调用。
      */
     fun showGlobalExceptionDemo() {
         viewModel.postApiException(
@@ -56,8 +56,8 @@ class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
         )
     }
 
-    /** 重写基类钩子:验证"自定义全局异常处理"能力(默认实现是裸 Toast) */
-    override fun onApiException(exception: ApiException) {
+    /** 重写基类钩子:验证"自定义错误提示"能力(默认实现是裸 Toast) */
+    override fun onShowError(exception: ApiException) {
         showToast("全局异常通道[code=${exception.code}] → ${exception.message}")
     }
 
