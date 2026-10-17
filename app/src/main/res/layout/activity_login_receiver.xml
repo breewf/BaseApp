@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    粘性事件补收演示页:本页在主页发出 LoginEvent 之后才被创建,
+    用 observeStickyEvent 订阅仍能立即拿到最近一次登录,验证"发送在前、接收在后"的全局状态广播。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="子页 · 晚创建也能补收粘性事件"
+        android:textColor="@color/black_alpha"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="若主页已发登录(粘性),进入本页会立刻补收到登录;否则显示等待提示。"
+        android:textColor="@color/color_999999"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:background="@color/demo_input_bg"
+        android:gravity="top"
+        android:lineSpacingExtra="3dp"
+        android:padding="12dp"
+        android:textColor="@color/black_alpha"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="消费并清除粘性登录"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

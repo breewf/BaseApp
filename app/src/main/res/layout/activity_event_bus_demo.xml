@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    全局事件总线演示主页。
+    顶部三个动作:从页面顶部发加购 / 发粘性登录 / 打开子页(验证晚创建的页面也能补收粘性)。
+    中部两栏各嵌一个 BusLogFragment,共同订阅同一加购事件,演示 Fragment 间/父子全局通信。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EventBus 全局事件总线"
+        android:textColor="@color/black_alpha"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvHostLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/demo_input_bg"
+        android:lineSpacingExtra="2dp"
+        android:padding="10dp"
+        android:text="宿主 Activity 也订阅了加购事件,任意来源发送都会在这里留痕。"
+        android:textColor="@color/color_666666"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPostTop"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button"
+            android:text="顶部发加购"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="发登录(粘性)"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnOpen"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="打开子页补收"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/flLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@color/common_view_grey" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/flRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

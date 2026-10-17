@@ -144,6 +144,14 @@
             android:name=".demo.result.ActivityResultFormActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <!-- 全局事件总线演示页(EventBus:一对多广播 + Fragment 间通信 + 粘性跨页) -->
+        <activity
+            android:name=".demo.event.EventBusDemoActivity"
+            android:exported="false" />
+        <!-- 粘性补收子页(晚创建仍能补收最近一次登录事件) -->
+        <activity
+            android:name=".demo.event.LoginReceiverActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

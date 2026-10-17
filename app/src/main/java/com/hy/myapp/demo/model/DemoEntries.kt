@@ -7,6 +7,7 @@ import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.banner.BannerDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
+import com.hy.myapp.demo.event.EventBusDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
 import com.hy.myapp.demo.list.ListDemoActivity
@@ -69,6 +70,11 @@ object DemoMenu {
                     "页面结果回传",
                     "awaitResult 一行拿结果 · UiEvent 统一事件通道",
                     ActivityResultDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "全局事件总线",
+                    "EventBus 一对多广播 · Fragment 间通信 · 粘性补收",
+                    EventBusDemoActivity::class.java,
                 ),
             ),
         ),

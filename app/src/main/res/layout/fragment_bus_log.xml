@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    事件总线演示:单侧订阅窗口。左右两个 BusLogFragment 复用本布局,
+    各自订阅同一 CartEvent —— 一侧点"发加购",另一侧与宿主 Activity 会同时打印收到,
+    直观体现"一处发送、多处接收"的全局广播。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_grey"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragment"
+        android:textColor="@color/black_alpha"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/demo_bg_button"
+        android:text="从这里发加购事件"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/color_666666"
+            android:textSize="13sp" />
+
+    </ScrollView>
+
+</LinearLayout>
