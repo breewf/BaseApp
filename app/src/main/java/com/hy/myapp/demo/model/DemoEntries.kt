@@ -19,6 +19,7 @@ import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.profile.ProfileDemoActivity
 import com.hy.myapp.demo.richtext.RichTextDemoActivity
 import com.hy.myapp.demo.result.ActivityResultDemoActivity
+import com.hy.myapp.demo.storage.StorageDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
 
@@ -86,6 +87,11 @@ object DemoMenu {
                     "系统权限申请",
                     "运行时权限,基于 registerForActivityResult",
                     PermissionDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "本地持久化",
+                    "MMKV 属性委托 + SP 扩展备用,JSON 对象存取",
+                    StorageDemoActivity::class.java,
                 ),
             ),
         ),

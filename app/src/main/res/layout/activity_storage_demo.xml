@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    本地持久化演示页(com.hy.basic.storage)。
+    实心按钮 = MMKV 路径(属性委托),描边按钮 = 官方 SP 备用路径(扩展函数)。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本地持久化（MMKV + SP）"
+            android:textColor="@color/black_alpha"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:text="键值配置首选 MMKV：mmap + Protobuf，写入即时落盘、无需 apply/sync，比 SP 快数十倍。"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_input"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="120dp"
+            android:padding="12dp"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnWriteBasic"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="1. MMKV 写基础类型（昵称/年龄/VIP）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnWriteObject"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="2. MMKV 存 JSON 对象（档案升级）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnAddTag"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="3. MMKV 存 StringSet（追加标签）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnBumpCounter"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="4. MMKV increase 自增计数"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnReload"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="5. 从磁盘重读校验"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnClearMmkv"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="6. 清空 MMKV 演示键"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="备用方案：官方 SharedPreferences（扩展函数收口 edit）"
+            android:textColor="@color/black_alpha"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSpSave"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="7. SP 写一份同样的数据"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSpRead"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="8. SP 读回对照"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSpClear"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="9. 清空 SP 文件"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_input"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="140dp"
+            android:padding="12dp"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

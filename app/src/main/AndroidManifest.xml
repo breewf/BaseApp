@@ -98,6 +98,10 @@
         <activity
             android:name=".demo.permission.PermissionDemoActivity"
             android:exported="false" />
+        <!-- 本地持久化演示页(MMKV 属性委托 + SP 扩展备用) -->
+        <activity
+            android:name=".demo.storage.StorageDemoActivity"
+            android:exported="false" />
         <!-- Dialog 弹窗演示页 -->
         <activity
             android:name=".demo.dialog.DialogDemoActivity"
