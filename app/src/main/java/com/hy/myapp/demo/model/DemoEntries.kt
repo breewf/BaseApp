@@ -6,6 +6,7 @@ import com.hy.myapp.activity.PaletteTestActivity
 import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.banner.BannerDemoActivity
+import com.hy.myapp.demo.db.DbDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.dialog.DialogFragmentDemoActivity
 import com.hy.myapp.demo.event.EventBusDemoActivity
@@ -92,6 +93,11 @@ object DemoMenu {
                     "本地持久化",
                     "MMKV 属性委托 + SP 扩展备用,JSON 对象存取",
                     StorageDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "Room 数据库",
+                    "BaseDao + Flow 查询，增删改后 observeAll() 自动重发",
+                    DbDemoActivity::class.java,
                 ),
             ),
         ),

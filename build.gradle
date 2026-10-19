@@ -13,6 +13,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:9.4.1'
+        // Room 注解处理器需要 KSP;KSP 2.3 起用独立版本号,取与 Kotlin 2.3.x 匹配的 2.3.12
+        classpath 'com.google.devtools.ksp:symbol-processing-gradle-plugin:2.3.12'
         // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

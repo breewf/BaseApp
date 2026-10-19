@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
     namespace 'com.hy.myapp'
@@ -39,6 +40,11 @@ kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
     }
+}
+
+// Room 导出 schema 到 app/schemas,供迁移与 androidTest 校验使用
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas".toString())
 }
 
 dependencies {
@@ -91,6 +97,11 @@ dependencies {
 
     // 本地键值存储:MMKV
     implementation 'com.tencent:mmkv:2.4.3'
+
+    // Room 关系数据库:runtime + ktx(Flow/协程),编译期由 KSP 生成 DAO 实现
+    implementation 'androidx.room:room-runtime:2.8.5'
+    implementation 'androidx.room:room-ktx:2.8.5'
+    ksp 'androidx.room:room-compiler:2.8.5'
 
     // 图片加载
     implementation 'com.github.bumptech.glide:glide:4.16.0'

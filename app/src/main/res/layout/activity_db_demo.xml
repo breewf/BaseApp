@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Room 数据库演示页(com.hy.basic.db + demo.db)。
+    上半区(录入/统计)固定,下半区便签列表单独滚动;列表由 Flow 驱动,增删改后 observeAll() 自动重发。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room 数据库（Flow 驱动）"
+        android:textColor="@color/black_alpha"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="3dp"
+        android:text="BaseDao 收口增删改，查询返回 Flow 自动刷新；枚举/日期/集合列靠 TypeConverter 转换；改表 + 升 version + 注册 sqlMigration 完成迁移。杀进程重进，便签仍在。"
+        android:textColor="@color/black_alpha"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_input"
+            android:hint="标题"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/black_alpha"
+            android:textColorHint="@color/color_999999"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:paddingHorizontal="20dp"
+            android:text="新增"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/demo_bg_input"
+        android:hint="内容（可选）"
+        android:inputType="text"
+        android:minHeight="44dp"
+        android:paddingHorizontal="12dp"
+        android:textColor="@color/black_alpha"
+        android:textColorHint="@color/color_999999"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPriority"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="优先级：中"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnEditCancel"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="取消编辑"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="清空全部"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="共 0 条"
+        android:textColor="@color/black_alpha"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="（点行切换完成，「编辑」改内容，「删除」移除）"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp" />
+
+    <!-- 列表单独滚动:weight=1 吃掉剩余高度,上方录入/统计区固定不动 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/llNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+</LinearLayout>

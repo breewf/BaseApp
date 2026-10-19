@@ -102,6 +102,10 @@
         <activity
             android:name=".demo.storage.StorageDemoActivity"
             android:exported="false" />
+        <!-- Room 数据库演示页(BaseDao + Flow 查询 + 版本迁移) -->
+        <activity
+            android:name=".demo.db.DbDemoActivity"
+            android:exported="false" />
         <!-- Dialog 弹窗演示页 -->
         <activity
             android:name=".demo.dialog.DialogDemoActivity"
