@@ -10,14 +10,8 @@ import com.hy.basic.event.observeEvent
 import com.hy.myapp.databinding.FragmentBusLogBinding
 
 /**
- * desc: 事件总线演示的"订阅侧"窗口 —— 左右各一个实例,复用同一套逻辑。
- *
- * 演示要点:
- * - 用 [com.hy.basic.event.observeEvent] 扩展订阅 [CartEvent],随 View 销毁自动取消,
- *   不写任何 unregister;
- * - 本侧点 [FragmentBusLogBinding.btnSend] 发事件,另一侧 + 宿主 Activity 会同时打印收到,
- *   体现"一处发送、多处接收"的全局广播,天然打通 Fragment ↔ Fragment / Fragment ↔ Activity 通信;
- * - 订阅挂在 viewLifecycleOwner 上(View 存活期),避免 View 销毁后仍回调更新 binding。
+ * desc: 事件总线演示的“订阅侧”窗口,左右各一个实例,复用同一套逻辑。
+ * 用 observeEvent 订阅 CartEvent,随 View 销毁自动取消。
  */
 class BusLogFragment : BaseFragment<FragmentBusLogBinding, BusDemoViewModel>() {
 

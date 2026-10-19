@@ -30,28 +30,14 @@ import kotlinx.coroutines.launch
 
 /**
  * @author hy
- * desc: Activity 基类(ViewBinding + ViewModel + 协程/Flow)
+ * desc: Activity 基类(ViewBinding + ViewModel + 协程/Flow)。
  *
- * 通用能力:
- * - [binding]:类型安全的 ViewBinding,由子类 [createBinding] 提供,无反射、无 BR、布局无需 <layout> 根
- * - [viewModel]:泛型反射自动创建,作用域为当前页面,配置变更后复用
- * - 模板方法固定初始化顺序:[initView] -> [observeViewModel] -> [initData]
- * - 全局收集 ViewModel 事件:
- *   [BaseViewModel.uiEvent] 统一事件通道 -> [onUiEvent] 分发到 onShowToast/onShowError/
- *   onNavigate/onGoBack 等钩子(页面按需重写单个钩子,如 401 跳登录只重写 [onShowError]);
- *   [BaseViewModel.isLoading] -> [showLoading]/[hideLoading]
- * - 整页多状态(可选):[enablePageState] 为 true 时,基类会把 [binding] 根 View 程序化包裹进
- *   [PageStateLayout],并收集 [BaseViewModel.pageState] 驱动 加载/内容/空/错误/无网络 切换,
- *   页面 XML 无需写任何状态视图,也无需手动切换 visibility;
- *   状态层只覆盖内容区(在 [toolbar] 之下),不会遮住标题栏
- * - 通用 Toolbar(可选):[showToolBar] 为 true 时,基类用壳布局(Toolbar + 内容容器)装配页面,
- *   标题取 [toolbarTitle]、返回键行为取 [showToolBarBack],菜单/自定义视图在 [onToolBarInitialized] 里加
- * - ActivityResult:[resultLauncher] 字段级注册可用;任意 contract/飞页等结果更推荐
- *   直接在点击里用 [awaitResult]/[awaitResultBundle](无 UI 宿主代持注册,见 LauncherSpec)
+ * 模板方法:initView -> observeViewModel -> initData。
+ * 通用能力:ViewBinding / 泛型反射 ViewModel / UiEvent 统一事件分发(Toast/错误/导航/回传等)
+ * / 可选 Toolbar / 可选整页多状态(PageStateLayout)。
  *
- * 泛型:
- * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
- * 若 VM 泛型在中间层被二次转发(子类仍是泛型类),请重写 [createViewModel] 手动提供实例。
+ * 泛型:VB = 布局 Binding;VM = BaseViewModel 子类。
+ * 中间层二次转发泛型时重写 [createViewModel] 手动提供实例。
  *
  * 用法:
  * ```
@@ -112,12 +98,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         initData()
     }
 
-    /**
-     * 装配页面根布局:
-     * - 需要 Toolbar 或多状态时,套用壳布局(Toolbar 在上,内容在下),
-     *   [PageStateLayout] 只包住内容区,状态层不覆盖 Toolbar;
-     * - 两者都不需要时保持旧行为,直接 setContentView(binding.root)。
-     */
+    /** 装配页面根布局:需要 Toolbar 或多状态时套壳布局,否则直接 setContentView */
     private fun setupContentView() {
         if (!showToolBar && !enablePageState) {
             setContentView(binding.root)
@@ -139,14 +120,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         applyEdgeToEdgeInsets(shell)
     }
 
-    /**
-     * edge-to-edge 适配(targetSdk 35+ 在 Android 15+ 上强制内容侵透系统栏,被动等待不行,
-     * 低版本也主动 opt-in 保证行为一致):
-     * - 显示 Toolbar 时,状态栏高度并入 Toolbar 顶部 padding 并加高自身 —— 背景色延伸到
-     *   状态栏底下(经典彩色状态栏观感),标题/导航图标落在状态栏之下;
-     * - 未显示 Toolbar 时,顶部 inset 由内容容器根兼 bottom/left/right 一并 padding 兑现;
-     * - bottom/left/right(导航栏/刘海)始终补在壳根上,页面内容不会被遮挡。
-     */
+    /** edge-to-edge 适配:Toolbar 时状态栏高度并入 Toolbar;否则四边 inset 补在壳根上 */
     private fun applyEdgeToEdgeInsets(shell: AbsActivityToolbarBinding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val toolbarContentHeight = shell.toolbar.layoutParams.height
@@ -186,10 +160,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         onToolBarInitialized(toolbar)
     }
 
-    /**
-     * 创建 ViewModel,默认通过泛型反射解析 VM 类型并挂载到 Activity。
-     * 泛型无法解析时回退 [BaseViewModel],子类可重写本方法。
-     */
+    /** 创建 ViewModel,默认泛型反射;泛型无法解析时回退 BaseViewModel,子类可重写 */
     @Suppress("UNCHECKED_CAST")
     protected open fun createViewModel(): VM {
         val vmClass = resolveViewModelClass(javaClass) as Class<VM>
@@ -217,8 +188,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
             UiEvent.GoBack -> onGoBack()
             is UiEvent.Finish -> finishActivity(event.resultCode, event.data)
             is UiEvent.ShowResult -> {
-                // 注意:此处不能再走 finishActivity —— 它内部会再 setResult(code) 一次,
-                // 而 setResult(int) 等价于 data 传 null,会把刚放入的回传数据清空
+                // 不能再走 finishActivity —— 它内部会再 setResult(null) 把回传数据清空
                 setResult(event.resultCode, resultIntentOf(event.values))
                 if (!isFinishing) finish()
             }

@@ -7,16 +7,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * desc: 竖向列表页 ViewModel —— 整页多状态 + 下拉/上拉分页的完整状态机
- *
- * 三条关注点正交,正好覆盖"刷新 + 多状态"完整流程:
- * - 业务数据流 [items]:列表内容,Fragment 收集后一行 submitList;
- * - 整页状态 [BaseViewModel.pageState]:首次进入 Loading、无数据 Empty、失败 Error/NoNetwork,
- *   由基类 PageStateLayout 收集驱动,页面 XML 零状态视图;
- * - 下拉/上拉:[pullRefresh] / [loadMore] 是挂起函数,由 Fragment 在 SmartRefresh 手势回调里 launch,
- *   拿到 Boolean 结果后交给 SmartRefreshExt 收尾动画(refreshDone/refreshFailed/loadMoreDone)。
- *
- * 数据来自 [ListFakeData.feedPage](本地假数据 + 模拟网络延迟)。
+ * desc: 竖向列表页 ViewModel。整页多状态 + 下拉/上拉分页的完整状态机。
+ * 三条关注点正交:业务数据流 items / 整页状态 pageState / 下拉上拉 pullRefresh+loadMore。
+ * 数据来自 ListFakeData(本地假数据 + 模拟延迟)。
  */
 class ListFeedViewModel : BaseViewModel() {
 
@@ -58,12 +51,7 @@ class ListFeedViewModel : BaseViewModel() {
         return true
     }
 
-    /**
-     * 上拉加载更多(挂起):追加下一页。
-     * 自动预加载视为"快速返回",[LOAD_MORE_LATENCY] 故意很短,数据回来直接插入、不闪加载态;
-     * 想演示"网络慢只显示转圈",把 [LOAD_MORE_LATENCY] 调大(如 1500)即可。
-     * @return 加载后是否还有更多;到达 [ListFakeData.TOTAL_PAGE] 返回 false,触发"没有更多"收尾
-     */
+    /** 上拉加载更多(挂起):追加下一页。到达最后一页返回 false */
     suspend fun loadMore(): Boolean {
         if (page >= ListFakeData.TOTAL_PAGE) return false
         val next = ListFakeData.feedPage(page + 1, latencyMs = LOAD_MORE_LATENCY)

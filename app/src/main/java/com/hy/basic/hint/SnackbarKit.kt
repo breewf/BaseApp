@@ -15,21 +15,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.hy.myapp.R
 
 /**
- * desc: Snackbar 统一入口 —— 贴在内容底部、**可以带一个操作**的提示。
+ * desc: Snackbar 统一入口,贴在内容底部、可带操作的提示。
  *
- * 与 Toast 的分工:
- * - Toast:说完就走、不打断操作(保存成功、请求失败);
- * - Snackbar:用户要"能立刻反悔"或"必须看一眼"的场景(删除后撤销、离线后重试)。
- *
- * ```
- * snackbar("已删除 1 条记录", "撤销") { restore() }                       // Activity / Fragment 里一行
- * binding.root.snackbar("网络已断开", "重试", duration = Snackbar.LENGTH_INDEFINITE) { reload() }
- * ```
- *
- * 为什么每次显示都显式上色:宿主主题是 `Theme.AppCompat`,里面没有 Material 的
- * `colorSurface` / `colorOnSurface` 这类属性,Snackbar 自带样式在这些主题下可能把文字解析成透明。
- * 这里统一按"覆盖值 -> 主题属性 -> 兜底色"取色,保证任何主题下都看得见、观感一致。
- * 要换全站风格,改 [backgroundColor] / [textColor] / [actionColor] 三个字段即可。
+ * 与 Toast 分工:Toast 说完就走;Snackbar 用于“能反悔”或“必须看一眼”的场景。
+ * 每次显式上色:宿主 AppCompat 主题没有 Material 的 colorSurface/colorOnSurface,
+ * 不显式设置文字可能透明。
  */
 object SnackbarKit {
 
@@ -45,15 +35,7 @@ object SnackbarKit {
     @ColorInt
     var actionColor: Int? = null
 
-    /**
-     * 弹一条 Snackbar。
-     *
-     * @param anchor 挂在哪个视图层级上(决定 Snackbar 贴在哪、能不能被滑动关闭)
-     * @param actionText 操作按钮文案,为 null 就不带按钮
-     * @param duration [Snackbar.LENGTH_SHORT] / [Snackbar.LENGTH_LONG] / [Snackbar.LENGTH_INDEFINITE];
-     *                 用 INDEFINITE 时务必给 [actionText],否则用户没法关掉它
-     * @param onAction 点操作按钮时回调,点完自动收起
-     */
+    /** 弹一条 Snackbar。INDEFINITE 时务必给 actionText,否则用户关不掉 */
     fun show(
         anchor: View,
         message: CharSequence,

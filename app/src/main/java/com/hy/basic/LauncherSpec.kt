@@ -22,22 +22,13 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 /**
  * desc: ActivityResult 启动谱 —— 把「注册时机」问题一次性解决的声明式描述。
  *
- * 官方约束:`registerForActivityResult` 必须在宿主进入 STARTED 之前调用,而业务发起
- * 跳转/选图几乎都在点击回调里,页面自己注册要么写一堆字段级注册样板,要么直接抛
- * IllegalStateException。本方案与权限包同一思路:launcher 由无 UI 的
- * [ResultHostFragment] 代持 —— 新版 fragment 严禁 created 后注册,故每个谱键
- * 专属一个宿主,在官方允许的 onAttach 时机注册,之后 launch 全部复用;
- * 页面只在点击里写一行:
+ * 官方约束:`registerForActivityResult` 必须在 STARTED 之前调用,而业务跳转几乎都在点击回调里。
+ * 本方案由无 UI 的 [ResultHostFragment] 代持 launcher,每个谱键专属一个宿主,
+ * 在 onAttach 时机注册,之后 launch 全部复用。页面只在点击里写一行:
  * ```
- * // 拉起飞页并等返回(与旧 startActivityForResult 直接对应的形态)
  * val (code, extras) = awaitResultBundle(intentOf(EditActivity::class.java)) ?: return@launch
- * // 系统照片选择器(免存储权限)
  * val uri = awaitImagePicker()
- * // 任意自定义 contract
- * val uri = awaitResult(LauncherSpec.GetContent("application/pdf")) as? Uri
  * ```
- * 高频场景另有 [awaitResultBundle] / [awaitImagePicker] / [awaitTypedResult] 等
- * typed 帮助函数,返回值直接是业务类型,不用强转。
  */
 sealed class LauncherSpec {
 
@@ -133,12 +124,10 @@ sealed class LauncherSpec {
     }
 
     /**
-     * 系统相机直拍:产出照片 [Uri](自动经 FileProvider 落到本应用缓存目录,
-     * 免外部存储权限;Manifest 需声明 authority 为 `包名.fileprovider` 的 FileProvider,
-     * 本项目已在 AndroidManifest 配好)。拍摄取消返回 null。
-     * [outputFile] 可指定输出文件,缺省在 cacheDir 生成唯一 jpg。
-     * 注意:部分机型/ROM 拉起系统相机要求本应用已持有 CAMERA 权限,缺权限会直接抛
-     * SecurityException(而非优雅取消),发起前务必先 `awaitPermissions(Permission.CAMERA)`。
+     * 系统相机直拍:产出照片 [Uri](自动经 FileProvider 落到缓存目录,免存储权限)。
+     * Manifest 需声明 authority 为 `包名.fileprovider` 的 FileProvider。
+     * 注意:部分机型拉起系统相机要求已持有 CAMERA 权限,缺权限会抛 SecurityException,
+     * 发起前务必先 `awaitPermissions(Permission.CAMERA)`。
      */
     class TakePicture(val outputFile: File? = null) : LauncherSpec() {
         override fun wrappedContract(app: Context): ActivityResultContract<Any?, Any?> =
@@ -202,12 +191,8 @@ fun intentOf(
 ): Intent = Intent(context, activityClass).apply(block)
 
 /**
- * 无 UI 的 ActivityResult 宿主 —— 与 PermissionHostFragment 同一思路,挂在宿主的
- * FragmentManager 上代持 launcher。新版 fragment 禁止 created 之后再注册,因此
- * 「每个谱键一个宿主」:[bind] 在 add 前注入 key 与 contract,[onAttach] 时机完成
- * 注册(官方允许的窗口:initialization / onAttach / onCreate),之后该谱所有
- * launch 复用同一 launcher;回调统一路由给该键当前等待中的续体
- * (同谱并发时后来者覆盖,与系统行为一致:一次只等一个结果)。
+ * 无 UI 的 ActivityResult 宿主,代持 launcher。新版 fragment 禁止 created 后注册,
+ * 因此每个谱键一个宿主,在 onAttach 时机注册,之后复用。
  */
 internal class ResultHostFragment : Fragment() {
 
@@ -222,7 +207,7 @@ internal class ResultHostFragment : Fragment() {
         boundContract = contract
     }
 
-    /** 返回 false 说明这是进程重建恢复的实例(恢复时没有注入信息),调用侧需换建 */
+    /** 返回 false 说明这是进程重建恢复的实例,调用侧需换建 */
     fun handles(key: String): Boolean = launchers.containsKey(key)
 
     override fun onAttach(context: Context) {
@@ -241,10 +226,7 @@ internal class ResultHostFragment : Fragment() {
         }
     }
 
-    /**
-     * 发起并挂起等待结果;launcher 已在 attach 时机注册好。
-     * 宿主状态已保存(切后台/销毁中)时不拉起,直接回 null(见 attachResultHost)。
-     */
+    /** 发起并挂起等待结果;宿主状态已保存时返回 null */
     suspend fun launch(spec: LauncherSpec, explicitInput: Any? = null): Any? {
         val app = requireContext().applicationContext
         val key = keyOf(spec)

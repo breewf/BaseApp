@@ -10,19 +10,8 @@ import com.hy.myapp.databinding.DialogReaderFullscreenBinding
 import com.hy.myapp.demo.model.DemoLogViewModel
 
 /**
- * desc: 弹框示例
- *
- * 演示三件函数式弹窗([com.hy.basic.dialog.showCustomDialog])做不到的事:
- * 1. **占满整屏**:窗口不悬浮,标题栏/正文/底部按钮全由本布局排版,还带 edge-to-edge 系统栏适配;
- * 2. **返回键拦截**:[BaseDialogFragment.onBackPressed] 在"没读到底"时返回 true,弹框不关,
- *    并给 Toast + 宿主日志各一条(同一条路可以拿去做"再按一次退出");
- * 3. **内部交互 + 与宿主共享数据**:ScrollView 滚动监听解禁「同意」按钮,
- *    操作结果写进宿主的 [DemoLogViewModel](Activity 作用域,弹框和外页看同一份日志)。
- *
- * 进出场动画用基类缺省那套(整页从底部推上来,放在**窗口层**):
- * 全屏弹框想要淡入淡出时,过渡期露出来的是底下的浅色页面,看着就像“先闪一下白底再出内容”。
- * 真需要淡入淡出,重写 [BaseDialogFragment.animStyleRes] = R.style.AbsDialogAnimFade 即可;
- * 关闭走 [BaseDialogFragment.dismissWithAnimation],退场动画由系统在移除窗口时播完。
+ * desc: 弹框示例。演示函数式弹窗做不到的事:占满整屏 + 返回键拦截 + 内部交互与宿主共享数据。
+ * 没读到底按返回键会拦截,读到底后解禁「同意」按钮。
  */
 class ReaderDialogFragment : BaseDialogFragment<DialogReaderFullscreenBinding>() {
 
@@ -31,7 +20,7 @@ class ReaderDialogFragment : BaseDialogFragment<DialogReaderFullscreenBinding>()
     /** 强制阅读:点外部/返回键都不能直接关掉,只能走按钮 */
     override val cancelOnTouchOutside: Boolean get() = false
 
-    /** 与宿主 Activity 共享同一个 DemoLogViewModel(ViewModelStore 按类名取,拿到的是同一实例) */
+    /** 与宿主 Activity 共享同一个 DemoLogViewModel */
     private val hostLog: DemoLogViewModel by lazy {
         ViewModelProvider(requireActivity())[DemoLogViewModel::class.java]
     }
@@ -65,10 +54,7 @@ class ReaderDialogFragment : BaseDialogFragment<DialogReaderFullscreenBinding>()
         hostLog.log("全屏弹框 · 已弹出(试着按返回键)")
     }
 
-    /**
-     * 没读到底就按返回键 -> 返回 true 消费掉这次返回,弹框保持打开;
-     * 读到底之后返回 false,交回基类按 cancelable 走带退场动画的关闭。
-     */
+    /** 没读到底按返回键拦截,读到底后交回基类正常关闭 */
     override fun onBackPressed(): Boolean {
         if (readFinished) return false
         ToastKit.show("请先阅读到底部")
@@ -100,7 +86,7 @@ class ReaderDialogFragment : BaseDialogFragment<DialogReaderFullscreenBinding>()
     companion object {
         private const val ARG_TITLE = "arg_title"
 
-        /** 参数一律走 arguments:进程被杀重建后还能还原出标题 */
+        /** 参数走 arguments:进程被杀重建后还能还原 */
         fun newInstance(title: String = "用户协议"): ReaderDialogFragment =
             ReaderDialogFragment().apply {
                 arguments = Bundle().apply { putString(ARG_TITLE, title) }

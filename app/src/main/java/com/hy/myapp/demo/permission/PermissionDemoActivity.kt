@@ -25,16 +25,9 @@ import com.hy.myapp.databinding.ActivityPermissionDemoBinding
 import kotlinx.coroutines.launch
 
 /**
- * desc: 运行时权限用法示例(基于官方 `registerForActivityResult` 的自研封装,见 com.hy.basic.permission)。
- *
- * 全页没有一行"权限注册"模板代码,只有"申请 → 看结果 → 走分支":
- * - 单个权限:`awaitPermissions(Manifest.permission.CAMERA)`,协程挂起式拿 [PermissionResult];
- * - 一组权限:`awaitPermissions(Permission.MEDIA)`,权限组自带版本自适应;
- * - 不爱协程:`requestPermissions(Permission.MICROPHONE) { result -> ... }` 回调式;
- * - 做事之前的判断:`permissionState(...)`,四态里直接看出该弹说明、该跳设置还是该补 manifest。
- *
- * 另外两个按钮演示"权限之外的路":拿到相机权限后立刻接业务(拍照),
- * 以及用系统照片选择器**免权限**取图 —— 能少要一个权限就少要一个。
+ * desc: 运行时权限用法示例。全页没有一行注册模板代码,只有“申请→看结果→走分支”。
+ * 单个权限用 awaitPermissions,一组权限用权限组自带版本自适应,
+ * 不爱协程用 requestPermissions 回调式。另外演示拍照接业务和系统照片选择器免权限。
  */
 class PermissionDemoActivity :
     BaseActivity<ActivityPermissionDemoBinding, PermissionDemoViewModel>() {
@@ -93,11 +86,7 @@ class PermissionDemoActivity :
         viewModel.refreshStatus(this)
     }
 
-    /**
-     * 场景 1:标准的"先判断、再说明、后申请"。
-     * 四个状态各对应一种 UI:已授予直接开工;可再申请先弹用途说明;
-     * 永久拒绝只能引导去设置;manifest 未声明属开发期配置问题,弹多少次都会被秒拒。
-     */
+    /** 场景 1:标准的“先判断、再说明、后申请”。四个状态各对应一种 UI */
     private fun askCameraStepByStep() {
         val camera = Manifest.permission.CAMERA
         val label = permissionLabel(camera)
@@ -117,19 +106,12 @@ class PermissionDemoActivity :
         }
     }
 
-    /**
-     * 场景 2:版本自适应权限组。
-     * 业务只写"我要相册":33+ 走 READ_MEDIA_IMAGES,更低版本自动回退存储权限,
-     * 页面里不再出现 `if (SDK_INT >= 33)`。
-     */
+    /** 场景 2:版本自适应权限组。业务只写“我要相册”,33+ 走媒体权限,更低版本自动回退存储权限 */
     private fun askMedia() = lifecycleScope.launch {
         log(awaitPermissions(Permission.MEDIA), "相册")
     }
 
-    /**
-     * 场景 3:一次问多个权限,重点看"部分授予"。
-     * 通知权限在 33 以下不是运行时权限,封装按"已满足"处理,不会因此把结果判成失败。
-     */
+    /** 场景 3:一次问多个权限,重点看“部分授予”。通知权限在 33 以下不是运行时权限 */
     private fun askMicrophoneAndNotification() = requestPermissions(
         Permission.MICROPHONE + Permission.NOTIFICATION,
     ) { result ->

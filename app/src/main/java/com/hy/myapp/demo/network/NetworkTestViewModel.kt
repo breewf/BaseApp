@@ -12,16 +12,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * desc: 网络请求测试页 ViewModel
- * 原 demo/DemoActivity 中的 DemoViewModel 迁移至此并按测试项细分。
- *
- * 只依赖 [WeatherRepository] 接口,不关心数据来自线上还是本地 Mock
- * (切换见 [WeatherApi.USE_MOCK_DATA])。
- *
- * 三种请求形态的验证:
- * - 裸 JSON + 多域名 + 串行依赖:见 [loadWeather]
- * - 信封响应(code/msg/data)+ unwrap 解包:见 [loadEnvelopeData]
- * - 异常兜底(4xx/超时/无数据)统一走 [BaseViewModel.uiEvent] 的 ShowError 分支:见 [loadBrokenEndpoint]
+ * desc: 网络请求测试页 ViewModel。只依赖 WeatherRepository 接口,不关心数据来自线上还是本地 Mock。
+ * 验证三种请求形态:裸 JSON 串行依赖 / 信封响应解包 / 异常兆底。
  */
 class NetworkTestViewModel : BaseViewModel() {
 
@@ -39,14 +31,8 @@ class NetworkTestViewModel : BaseViewModel() {
 
     /**
      * 城市 -> 经纬度 -> 天气,两个域名的串行请求。
-     *
-     * 注意两步用了不同 API,这是本方法的关键示范:
-     * - 第一步用 [launchRawRequest]:它的返回值是"请求是否成功",能把"请求失败"和"数据为空"分开。
-     *   若用 [awaitRawRequest](失败也返回 null),断网时会先提示"网络连接失败"、
-     *   紧接着再补一条"未找到城市「xx」",两条提示互相矛盾且都是重复弹窗。
-     * - 第二步没有额外的业务判断,用 [awaitRawRequest] 更短:失败即中断,原因已由全局异常通道提示。
-     *
-     * @param showLoading false 为静默刷新(下拉刷新等场景),验证 loading 引用计数能力
+     * 第一步用 launchRawRequest(能区分请求失败和数据为空),
+     * 第二步用 awaitRawRequest(失败即中断,原因已由全局异常通道提示)。
      */
     fun loadWeather(cityName: String, showLoading: Boolean = true) = viewModelScope.launch {
         val city = cityName.trim()

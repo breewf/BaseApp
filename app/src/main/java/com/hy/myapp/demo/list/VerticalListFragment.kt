@@ -21,15 +21,8 @@ import com.hy.myapp.demo.list.adapter.FeedAdapter
 import kotlinx.coroutines.launch
 
 /**
- * desc: 竖向列表页 —— SmartRefreshLayout 下拉/上拉 + 整页多状态(pageState)的完整参考流程。
- *
- * 装配全部走 com.hy.basic.utils 的扩展,页面代码只表达"意图":
- * - 列表:`rv.setupLinear().addDivider().attachAdapter(adapter)`;
- * - 刷新:`srl.applyDefaults().bindPaging(...)`,手势回调里 launch ViewModel 挂起方法,拿到结果再收尾动画;
- * - 多状态:`enablePageState = true` 后,整页 Loading/Empty/Error/NoNetwork 由基类 PageStateLayout 消费
- *   [com.hy.basic.BaseViewModel.pageState] 驱动,本页 XML 无任何状态视图;状态层「重试」默认回调 → [initData]。
- *
- * 顶部控制条按钮用于主动演示各终态(点空态/错误后,点状态层「重试」回到内容,即可继续下拉/上拉)。
+ * desc: 竖向列表页。SmartRefreshLayout 下拉/上拉 + 整页多状态(pageState)的完整参考流程。
+ * 装配全走 com.hy.basic.utils 扩展,页面代码只表达意图。
  */
 class VerticalListFragment :
     BaseFragment<FragmentListVerticalBinding, ListFeedViewModel>() {

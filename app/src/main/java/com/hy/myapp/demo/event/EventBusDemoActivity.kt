@@ -9,14 +9,7 @@ import com.hy.basic.event.observeEvent
 import com.hy.myapp.databinding.ActivityEventBusDemoBinding
 
 /**
- * desc: 全局事件总线演示主页 —— 与 [BusLogFragment] 联动,演示三类典型通信场景。
- *
- * 覆盖:
- * 1. **一对多广播**:顶部/任一 Fragment 发 [CartEvent],另一 Fragment + 本 Activity 同时收到
- *    (替代 EventBus 那种"散落的注册/反注册",订阅随生命周期自动收放);
- * 2. **Fragment 间 / 父子通信**:左右两个 Fragment 无直接引用,靠总线解耦;
- * 3. **粘性跨页**:[EventBus.postSticky] 发 [LoginEvent] 后,再打开 [LoginReceiverActivity],
- *    晚创建的页面订阅时仍能立即补收到最近一次登录(发送在前、接收在后也不怕)。
+ * desc: 全局事件总线演示主页。演示三类场景:一对多广播、Fragment 间通信、粘性跨页。
  */
 class EventBusDemoActivity :
     BaseActivity<ActivityEventBusDemoBinding, BusDemoViewModel>() {

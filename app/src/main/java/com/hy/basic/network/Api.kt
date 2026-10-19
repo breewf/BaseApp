@@ -10,16 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * @author hy
- * desc: 网络层唯一入口。OkHttpClient / Retrofit / 接口实例的构建与持有全部收敛在这里,
- * 业务侧不感知这些细节。
+ * desc: 网络层唯一入口。OkHttpClient / Retrofit / 接口实例的构建与持有全部收敛在这里。
  *
- * 使用优先级(从上到下,能用上一级就不要用下一级):
- * 1. ViewModel 内用 [launchRequest] / [request]:它们的 lambda 已以 [ApiService] 为接收者,
- *    直接写接口方法名即可,**调用处不需要出现本对象**
- *    `launchRequest(block = { getApiTest("") }) { data -> ... }`
- * 2. 自建 Repository 等确需接口实例时:`Api.apiService.getApiTest("")`
- * 3. 多域名:`Api.create<ReviewService>(NetConstants.BASE_URL_REVIEW)`(复用同一份 OkHttp)
- * 4. 全局定制(Cookie、公共头、代理、证书):[registerInterceptor] 一处注册,全项目生效
+ * 使用优先级:能用上一级就不要用下一级:
+ * 1. ViewModel 内用 launchRequest / request(调用处不需要出现本对象)
+ * 2. 自建 Repository 等确需接口实例时:`Api.apiService.xxx`
+ * 3. 多域名:`Api.create<ReviewService>(NetConstants.BASE_URL_REVIEW)`
+ * 4. 全局定制:[registerInterceptor] 一处注册,全项目生效
  */
 object Api {
 
@@ -44,12 +41,7 @@ object Api {
         customInterceptors += interceptor
     }
 
-    /**
-     * 创建接口实现。默认单域名;多域名时传入各自 baseUrl,共用同一份 [okHttpClient]。
-     *
-     * Gson 如需全局配置(日期格式、字段命名策略等),统一在此处的 [GsonConverterFactory] 上改,
-     * 一处生效,不要在各个 Repository 里散落。
-     */
+    /** 创建接口实现。多域名时传入各自 baseUrl,共用同一份 OkHttp */
     inline fun <reified S : Any> create(baseUrl: String = NetConstants.BASE_URL): S =
         Retrofit.Builder()
             .baseUrl(baseUrl)

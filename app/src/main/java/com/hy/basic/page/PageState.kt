@@ -4,14 +4,9 @@ import com.hy.basic.network.ApiException
 import com.hy.basic.network.ApiExceptionExt
 
 /**
- * desc: 全页面级加载状态。
- *
- * 与业务数据流(StateFlow<T>)**正交、互不耦合**:
- * - 数据流负责"内容是什么";
- * - [PageState] 只负责"内容区当前该显示哪一层"(加载中 / 内容 / 空 / 错误 / 无网络)。
- *
- * 因此把整页状态放进 ViewModel 并不会和数据耦合:它是独立的一条 UI 关注点流,
- * 由 [com.hy.basic.page.PageStateLayout] 收集后驱动叠加层,页面 XML 完全无感。
+ * desc: 全页面级加载状态,与业务数据流正交。
+ * 数据流负责“内容是什么”,PageState 负责“内容区当前该显示哪一层”,
+ * 由 PageStateLayout 收集后驱动叠加层。
  */
 sealed class PageState {
 

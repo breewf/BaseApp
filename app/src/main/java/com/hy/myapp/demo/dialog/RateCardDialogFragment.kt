@@ -14,22 +14,9 @@ import com.hy.myapp.databinding.DialogRateCardBinding
 import com.hy.myapp.demo.model.DemoLogViewModel
 
 /**
- * desc: 贴底卡片示例 —— [BaseDialogFragment] 的非全屏形态,重点是**窗口配置**。
- *
- * [gravity] = BOTTOM + [BaseDialogFragment.widthRatio] = 1f:宽度铺满、高度随内容、贴在屏幕底部。
- * 要让根布局真能量到屏幕宽,两件事缺一不可:卡片皮肤(styles.xml 里的 AbsDialogCard)
- * 把 windowIsFloating 关成 false(悬浮窗口的内容会被主题的 windowMinWidthMajor/Minor 限住,
- * match_parent 只能量到 75% 屏宽,两侧各剩一条透明层),再加上基类在比例为 1f 时直接给窗口
- * MATCH_PARENT(不悬浮时它是可靠的;按 displayMetrics.widthPixels 换算反而会在刘海、
- * 横屏三键导航、分屏这些情况下偏小,两侧留缝)。
- *
- * 进出场用基类缺省的 [BaseDialogFragment.animStyleRes] = AbsDialogAnimBottom
- * (abs_dialog_enter/exit_from_bottom 挂在**窗口层**):整块卡片连它自己的圆角白底一起滑入滑出,
- * 不会“内容先滑走、剩个白框”,也不会“白框先弹一下内容才跟着来”——
- * 相当于不用 Material 也能有一个从底部滑入滑出的卡片。
- *
- * 返回键拦截的第二种用法:没选星级时不放行([BaseDialogFragment.onBackPressed] 返回 true),
- * 免得用户想关掉却误提交/白弹一次;选了之后返回 false 交回基类正常关闭。
+ * desc: 贴底卡片示例。gravity=BOTTOM + widthRatio=1f:宽度铺满、高度随内容、贴在屏幕底部。
+ * 卡片皮肤把 windowIsFloating 关成 false,基类在比例为 1f 时直接给窗口 MATCH_PARENT,
+ * 两侧不会留缝。返回键拦截:没选星级不放行,选了交回基类正常关闭。
  */
 class RateCardDialogFragment : BaseDialogFragment<DialogRateCardBinding>() {
 
@@ -45,7 +32,7 @@ class RateCardDialogFragment : BaseDialogFragment<DialogRateCardBinding>() {
 
     private var stars = 0
 
-    // 不用 by lazy:lazy 会把旧 View 缓存下来,转屏后仍指向已销毁的那套控件
+    // 不用 by lazy:lazy 会把旧 View 缓存下来,转屏后仍指向已销毁的控件
     private val starViews: List<TextView>
         get() = listOf(binding.star1, binding.star2, binding.star3, binding.star4, binding.star5)
 

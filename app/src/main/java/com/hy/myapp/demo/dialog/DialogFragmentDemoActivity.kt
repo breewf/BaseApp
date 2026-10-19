@@ -12,16 +12,11 @@ import com.hy.myapp.demo.model.DemoLogViewModel
 import kotlinx.coroutines.launch
 
 /**
- * desc: DialogFragment 弹框基类用法示例(com.hy.basic.dialog.BaseDialogFragment /
- * BaseBottomSheetDialogFragment)。
- *
- * 与 [DialogDemoActivity](函数式弹窗)的分工:
- * - 一句话提示、确认框、列表选择这种"问完就走"的用 `showDialog` / `showCustomDialog`;
- * - 内容是一整页(协议阅读、结果分享)、要退场动画、要拦返回键的继承 `BaseDialogFragment`,
- *   见本页的 [ReaderDialogFragment] / [RateCardDialogFragment];
- * - 内容是一叠选项、要从底部滑出且可拖拽的继承 `BaseBottomSheetDialogFragment`,见 [ShareSheetDialogFragment]。
- *
- * 弹出统一走 [showOn] 扩展:已经在弹 / 状态已保存(切后台时才弹)都不会崩,也不会叠两层。
+ * desc: DialogFragment 弹框基类用法示例。
+ * 与 DialogDemoActivity(函数式弹窗)的分工:“问完就走”用 showDialog/showCustomDialog;
+ * 内容复杂/要退场动画/要拦返回键继承 BaseDialogFragment;
+ * 底部滑出可拖拽继承 BaseBottomSheetDialogFragment。
+ * 弹出统一走 showOn 扩展,已经在弹/状态已保存都不会崩。
  */
 class DialogFragmentDemoActivity : BaseActivity<ActivityDialogFragmentDemoBinding, DemoLogViewModel>() {
 
@@ -67,12 +62,7 @@ class DialogFragmentDemoActivity : BaseActivity<ActivityDialogFragmentDemoBindin
         RateCardDialogFragment().showOn(this)
     }
 
-    /**
-     * 3、4. 同一个底部面板类,靠 arguments 摆出两套 behavior:
-     * 半屏可拖拽 + 拖到底关闭 / 直接满屏 + 钉住(draggable=false)关不掉。
-     * 第 4 条的 peekRatio 传 0f:钉在满屏不会回到收起态,peek 高度没意义;
-     * fillHeight 传 true:面板容器是 wrap_content,内容再矮也要把白底铺到屏幕底。
-     */
+    /** 3、4. 同一个底部面板类,靠 arguments 摆出两套 behavior:半屏可拖 / 满屏钉住 */
     private fun showShareSheet(
         peekRatio: Float,
         expanded: Boolean,

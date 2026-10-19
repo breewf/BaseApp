@@ -12,7 +12,6 @@ import com.hy.basic.dialog.DialogOptions
 import com.hy.basic.dialog.showConfirm
 import com.hy.basic.dialog.showCustomDialog
 import com.hy.basic.dialog.showDialog
-import com.hy.basic.dialog.showInput
 import com.hy.basic.dialog.showItems
 import com.hy.basic.dialog.showMultiChoice
 import com.hy.basic.dialog.showSingleChoice
@@ -23,16 +22,8 @@ import com.hy.myapp.demo.model.DemoLogViewModel
 import kotlinx.coroutines.launch
 
 /**
- * desc: 弹框封装用法示例(com.hy.basic.dialog)。
- *
- * 页面里没有任何 `AlertDialog.Builder`、没有按钮 id 的拆包、也没有"关掉再回调"的样板:
- * - [showDialog] / [showCustomDialog] 吃同一份 [DialogOptions],换个函数就是换皮(见第 1、3 条);
- * - 常用形态有一行版:[showTip] 提示、[showConfirm] 确认、[showItems] 列表、
- *   [showSingleChoice] 单选、[showMultiChoice] 多选、[showInput] 带校验的输入框;
- * - 自定义皮还留了内容插槽([DialogOptions.customView])与"点了不关"
- *   ([DialogOptions.autoClose] = false 时用 [DialogOptions.dismissDialog] 自己关),第 9 条两个一起用。
- *
- * 弹框都挂在宿主 Activity 上,页面销毁时会被自动关闭(不会 WindowLeaked)。
+ * desc: 弹框封装用法示例。showDialog/showCustomDialog 吃同一份 DialogOptions,换函数就是换皮。
+ * 常用形态有一行版:showTip/showConfirm/showItems/showSingleChoice/showMultiChoice。
  */
 class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewModel>() {
 
@@ -62,7 +53,6 @@ class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewMo
         binding.btnItems.setOnClickListener { showPayWayList() }
         binding.btnSingle.setOnClickListener { showSingleChoiceDemo() }
         binding.btnMulti.setOnClickListener { showMultiChoiceDemo() }
-        binding.btnInput.setOnClickListener { showInputDemo() }
         binding.btnCustomInput.setOnClickListener { showCustomInputDemo() }
         binding.btnConfirmRow.setOnClickListener { showConfirmRowDemo() }
         binding.btnClearLog.setOnClickListener { viewModel.clear() }
@@ -76,10 +66,7 @@ class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewMo
         }
     }
 
-    /**
-     * 一份配置抽成 DSL lambda,系统样式和自定义样式都能吃 ——
-     * 第 1、3 条按钮弹的是同一个 [exitLoginConfig],只是换了入口函数。
-     */
+    /** 一份配置抽成 DSL lambda,系统样式和自定义样式都能吃,第 1、3 条按钮弹的是同一个配置 */
     private val exitLoginConfig: DialogOptions.() -> Unit = {
         title = "退出登录"
         message = "退出后需要重新输入账号密码，当前页面未保存的内容会丢失。"
@@ -110,7 +97,8 @@ class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewMo
     private fun showForceUpdateDialog() {
         showCustomDialog {
             title = "发现新版本 v2.3.0"
-            message = "· 重构弹窗与提示封装\n· 修复状态栏适配问题\n· 提升冷启动速度\n\n本次更新后才能继续使用。"
+            message =
+                "· 重构弹窗与提示封装\n· 修复状态栏适配问题\n· 提升冷启动速度\n\n本次更新后才能继续使用。"
             contentGravity = Gravity.START
             cancelable = false
             cancelOnTouchOutside = false
@@ -141,35 +129,20 @@ class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewMo
 
     /** 7. 多选:点确定才提交,勾中的下标存起来供下次默认勾选 */
     private fun showMultiChoiceDemo() {
-        showMultiChoice(title = "筛选标签（多选）", items = tags, checked = checkedTags) { indices, selected ->
+        showMultiChoice(
+            title = "筛选标签（多选）",
+            items = tags,
+            checked = checkedTags
+        ) { indices, selected ->
             checkedTags = indices.toSet()
             viewModel.log("系统 · 多选 -> ${selected.joinToString("、")}")
         }
     }
 
-    /** 8. 输入框:validator 返回文案就报错且不关闭弹框,返回 null 才提交 */
-    private fun showInputDemo() {
-        showInput(
-            title = "填写昵称",
-            hint = "2-10 个字符",
-            maxLength = 10,
-            validator = { text ->
-                when {
-                    text.isEmpty() -> "昵称不能为空"
-                    text.length < 2 -> "至少 2 个字符"
-                    else -> null
-                }
-            },
-        ) { text -> viewModel.log("系统 · 昵称提交 -> $text") }
-    }
-
-    /**
-     * 9. 自定义样式的两个扩展位一起用:
-     * [DialogOptions.customView] 往弹框里塞自己的 View,[DialogOptions.autoClose] = false
-     * 让"点确定但校验不过"时留在弹框里,校验过了再 [DialogOptions.dismissDialog]。
-     */
+    /** 8. 自定义样式的扩展位一起用:customView 塞自己的 View,autoClose=false 校验不过留在弹框里 */
     private fun showCustomInputDemo() {
-        val input = LayoutInflater.from(this).inflate(R.layout.dialog_input, null, false) as EditText
+        val input =
+            LayoutInflater.from(this).inflate(R.layout.dialog_input, null, false) as EditText
         input.hint = "请输入 11 位手机号"
         showCustomDialog {
             title = "绑定手机号"
@@ -193,9 +166,7 @@ class DialogDemoActivity : BaseActivity<ActivityDialogDemoBinding, DemoLogViewMo
         }
     }
 
-    /**
-     * 10. 不写 DSL 的行版:参数命名清清楚楚,`showTip`/`showConfirm`/`showItems` 都是这一路。
-     */
+    /** 9. 不写 DSL 的行版:参数命名清楚,showTip/showConfirm/showItems 都是这一路 */
     private fun showConfirmRowDemo() {
         showConfirm(
             message = "删除后不可恢复。",

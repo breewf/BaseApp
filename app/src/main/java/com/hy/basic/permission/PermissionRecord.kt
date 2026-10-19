@@ -5,14 +5,9 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 
 /**
- * desc: 记录"某个权限有没有向用户发起过申请、上一次是什么结果"。
- *
- * 为什么需要它:系统只给两个信号 —— `checkSelfPermission` 和
- * `shouldShowRequestPermissionRationale`,后者在**刚安装还没问过**与**勾了不再询问**时
- * 都返回 false,单靠系统 API 无法区分"还能弹"和"只能去设置"。三方权限库(XXPermissions 等)
- * 本质上就是在补这一段状态记录,这里用一份 3 个 key 的 SharedPreferences 自己补齐。
- *
- * 只存权限名与布尔标记,不涉及任何用户数据。
+ * desc: 记录“某个权限有没有向用户发起过申请、上一次是什么结果”。
+ * 系统只给两个信号,单靠系统 API 无法区分“还能弹”和“只能去设置”,
+ * 这里用 SharedPreferences 补齐这段状态记录。
  */
 internal object PermissionRecord {
 

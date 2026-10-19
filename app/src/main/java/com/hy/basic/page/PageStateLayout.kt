@@ -13,23 +13,16 @@ import androidx.core.content.ContextCompat
 import com.hy.myapp.R
 
 /**
- * desc: 全页面多状态容器 —— 在页面内容之上叠加 加载/空/错误/无网络 状态层。
+ * desc: 全页面多状态容器,在页面内容之上叠加 加载/空/错误/无网络 状态层。
  *
- * 解耦点(零外部依赖、零页面 XML 侵入):
- * - 状态层布局来自**独立 XML**(page_state_loading/empty/error/no_network.xml),
- *   业务页面 XML 里不需要写任何 loading/empty/error 视图;
- *   基类在 setContentView 时把页面根 View 作为内容 child 塞进本容器,
- *   且容器只包裹 Toolbar 之下的内容区 —— 状态层不会覆盖 Toolbar。
- * - 只有一个入口 [bind]:状态由 ViewModel 的 `Flow<PageState>` 驱动,页面不手写 visibility 切换。
- * - 想完全自定义某个状态:在 [PageStateConfig] 里换成自己的 layoutRes 即可。
- *   运行时按约定 id 回填数据,布局里没有对应 id 的 view 就跳过(不崩溃):
- *   - `ivPageStateIcon`    提示图标([PageStateConfig.iconResOverride] 非 0 时覆盖 src)
- *   - `tvPageStateMessage` 文案(状态携带 message 或配置文案非空时覆盖)
- *   - `btnPageStateRetry`  重试入口(绑定点击回调;Loading 状态隐藏)
- * - [attachContent] 会**同步预置 Loading 叠加层**,保证首帧就是"加载中"而不是
- *   未回填数据的裸内容,消除进页/切页时内容先闪一下再被覆盖的问题。
- *   切入状态层时**瞬时不透明覆盖**(不做淡入),避免半透明期间透出底部内容造成闪烁;
- *   仅回到 [PageState.Content] 时让状态层淡出揭示内容。
+ * 零页面 XML 侵入:状态层布局来自独立 XML,基类在 setContentView 时把内容 View 塞进本容器,
+ * 只包裹 Toolbar 之下的内容区。唯一入口 [bind]:状态由 ViewModel 的 Flow<PageState> 驱动。
+ *
+ * 自定义某个状态:在 PageStateConfig 里换成自己的 layoutRes,运行时按约定 id 回填数据,
+ * 布局里没有对应 id 的 view 就跳过(不崩溃):
+ * - ivPageStateIcon / tvPageStateMessage / btnPageStateRetry
+ *
+ * attachContent 同步预置 Loading 防首帧闪烁;切入状态层瞬时不透明覆盖,仅回到 Content 时淡出。
  */
 class PageStateLayout(
     context: Context,
@@ -159,12 +152,8 @@ class PageStateLayout(
 }
 
 /**
- * 状态层外观配置:纯数据,全部以资源 id / 文案提供,解析在 [PageStateLayout] 侧完成,
- * 因此配置对象可跨页面/跨 Context 复用。
- *
- * - 换某个状态的整套布局:改对应 `xxxLayoutRes`(页面重写
- *   `createPageStateConfig()` 传自己的即可);
- * - 只改文案/颜色/图标:动对应字段,0 / 空字符串表示"沿用布局里的默认值"。
+ * 状态层外观配置:纯数据,全部以资源 id / 文案提供。可跨页面/跨 Context 复用。
+ * 换某个状态的整套布局改对应 xxxLayoutRes;只改文案/颜色/图标动对应字段,0/空表示沿用布局默认值。
  */
 data class PageStateConfig(
     var loadingText: CharSequence = "",

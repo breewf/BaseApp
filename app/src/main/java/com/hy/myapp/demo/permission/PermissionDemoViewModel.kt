@@ -9,11 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * desc: 权限演示页的 ViewModel —— 只负责**展示状态与结果**,申请动作留在页面里。
- *
- * 边界说明:发起申请必须绑到一个 `ActivityResultCaller`(Activity/Fragment)上,VM 拿不到也不该拿;
- * 而"读状态"只依赖 Context,是无副作用查询,放 VM 里没有任何生命周期风险。
- * 所以这里只做状态渲染,VM 里不出现任何请求逻辑,与项目现有 MVVM 分层一致。
+ * desc: 权限演示页 ViewModel。只负责展示状态与结果,申请动作留在页面里。
+ * 发起申请必须绑到 ActivityResultCaller,VM 拿不到也不该拿;
+ * 读状态只依赖 Context,放 VM 里没有生命周期风险。
  */
 class PermissionDemoViewModel : BaseViewModel() {
 

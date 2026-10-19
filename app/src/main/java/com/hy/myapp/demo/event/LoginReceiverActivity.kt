@@ -8,12 +8,9 @@ import com.hy.basic.event.observeStickyEvent
 import com.hy.myapp.databinding.ActivityLoginReceiverBinding
 
 /**
- * desc: 粘性事件补收演示页 —— 在主页 [EventBus.postSticky] 发 [LoginEvent] **之后**才被创建,
- * 用 [com.hy.basic.event.observeStickyEvent] 订阅仍能立即拿到最近一次登录事件。
- *
- * 这正是粘性通道相对实时通道(`observeEvent`)的价值:实时通道错过不补,
- * 而"进入任意页都应知道的全局状态"(登录态/主题/配置)用粘性可保证晚到的订阅者也拿得到。
- * 消费完点底部按钮 [EventBus.clearSticky] 结束这次粘性,避免后续页面重复补收。
+ * desc: 粘性事件补收演示页。在主页 postSticky 发 LoginEvent 之后才被创建,
+ * 用 observeStickyEvent 订阅仍能立即拿到最近一次登录事件。
+ * 消费完点底部按钮 clearSticky 结束这次粘性。
  */
 class LoginReceiverActivity :
     BaseActivity<ActivityLoginReceiverBinding, BusDemoViewModel>() {

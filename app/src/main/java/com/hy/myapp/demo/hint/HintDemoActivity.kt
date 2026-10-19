@@ -17,13 +17,8 @@ import com.hy.myapp.demo.model.DemoLogViewModel
 import kotlinx.coroutines.launch
 
 /**
- * desc: 轻量提示用法示例(com.hy.basic.hint)。
- *
- * 调用处只有两个动词:
- * - [toast] / [toastLong]:说完就走、不打断操作,底层复用 BlankJ 的 ToastUtils(见 [ToastKit]);
- * - [snackbar]:贴在内容底部、**能带一个操作**(撤销 / 重试),锚点由封装自己找。
- *
- * 全局样式(位置 / 颜色 / 字号)在 [ToastKit.style] 与 SnackbarKit 的三个颜色字段里改一次即可
+ * desc: 轻量提示用法示例。两个动词:toast/toastLong(说完就走) + snackbar(能带操作)。
+ * 全局样式在 ToastKit.style 与 SnackbarKit 颜色字段改一次即可。
  */
 class HintDemoActivity : BaseActivity<ActivityHintDemoBinding, DemoLogViewModel>() {
 
@@ -76,12 +71,7 @@ class HintDemoActivity : BaseActivity<ActivityHintDemoBinding, DemoLogViewModel>
         viewModel.log("toastLong(…) 已弹出")
     }
 
-    /**
-     * 3. 连续触发:**只会看到最后一条**。
-     *
-     * ToastUtils 每弹一条之前都先 `cancel()` 掉上一条(库有意的覆盖式设计),
-     * 所以这里不是"排队",而是"覆盖"。需要同时说多条时,正确做法是合并成一条文案。
-     */
+    /** 3. 连续触发:只会看到最后一条,ToastUtils 每弹一条前先 cancel 掉上一条 */
     private fun showBurstToast() {
         repeat(3) { toast("连弹测试 ${it + 1}/3") }
         viewModel.log("连弹 3 条 → 前两条立即被顶掉,屏幕上只剩「3/3」")
@@ -115,10 +105,7 @@ class HintDemoActivity : BaseActivity<ActivityHintDemoBinding, DemoLogViewModel>
         snackbar("已同步 12 条数据")
     }
 
-    /**
-     * 7. 撤销型提示 —— Snackbar 的主场:
-     * 先真删(数据立刻变),再给用户几秒反悔;点了「撤销」就回滚。
-     */
+    /** 7. 撤销型提示:先真删,再给用户反悔机会,点撤销回滚 */
     private fun deleteWithUndo() {
         if (inbox.isEmpty()) {
             toast("已经清空了，没什么可删的")

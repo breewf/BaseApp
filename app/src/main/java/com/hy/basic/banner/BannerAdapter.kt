@@ -10,15 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hy.basic.utils.ImageLoader
 
 /**
- * desc: Banner 的页适配器 —— 把"数据 / 循环 / 复用"这三件事收在一处,页面侧不用碰 RecyclerView。
+ * desc: Banner 页适配器。循环做法:itemCount = 数据量 × LOOP_SPAN,初始落在中间,
+ * 左右都能无限翻,对外统一用 realPosition 折算回真实下标。
  *
- * 循环的做法:`itemCount = 数据量 × [LOOP_SPAN]`,初始落在中间那一格,
- * 于是左右都能无限翻,翻到头也只是换到"同一张图的另一个虚拟下标",
- * 对外统一用 [realPosition] 折算回真实下标(0 until itemCount of data)。
- *
- * 两种页内容模式([Banner] 内部按是否传布局资源自动选择):
- * - 图片模式:每页一个铺满的 ImageView,数据直接是 url 字符串或 drawable/mipmap 资源 id;
- * - 自定义模式:每页 inflate 一个 [itemLayoutRes],在 [onBind] 里回填 —— 图 + 标题、纯文字、视频封面的轮播都能走这条路。
+ * 两种页内容模式(Banner 内部按是否传布局资源自动选择):
+ * - 图片模式:每页一个 ImageView,数据是 url 或资源 id
+ * - 自定义模式:每页 inflate 一个 itemLayoutRes,在 onBind 里回填
  */
 internal class BannerAdapter internal constructor() : RecyclerView.Adapter<BannerAdapter.PageHolder>() {
 
@@ -57,11 +54,8 @@ internal class BannerAdapter internal constructor() : RecyclerView.Adapter<Banne
     var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.CENTER_CROP
 
     /**
-     * 每页内容左右内缩(px) —— [Banner.pageMargin] 的落地处。
-     *
-     * 页本身仍是满宽(保证 snap 对齐不变),只是内容往里收,
-     * 露出来的那一段由相邻页平移填上,于是得到「两边也能看到卡片」的效果。
-     * 改这个值不会刷新数据:新建页在 [onCreateViewHolder] 里取,已 attach 的页由 [Banner] 直接改 padding。
+     * 每页内容左右内缩(px)。页本身仍是满宽(保证 snap 对齐不变),
+     * 露出来的那一段由相邻页平移填上,得到“两边也能看到卡片”的效果。
      */
     var pagePadding: Int = 0
 
@@ -116,12 +110,7 @@ internal class BannerAdapter internal constructor() : RecyclerView.Adapter<Banne
         holder.itemView.setOnClickListener { onPageClick?.invoke(real, item) }
     }
 
-    /**
-     * 页容器。
-     *
-     * [imageView] 只在图片模式下非空 —— 它在 onCreateViewHolder 里一次性加好,
-     * bind 阶段只换图不重建,所以自定义模式下不会有"重复 addView 叠层"的问题。
-     */
+    /** 页容器。imageView 只在图片模式下非空,bind 阶段只换图不重建 */
     class PageHolder internal constructor(
         container: FrameLayout,
         val imageView: ImageView?,

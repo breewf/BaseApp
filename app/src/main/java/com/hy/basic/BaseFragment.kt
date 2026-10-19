@@ -21,26 +21,15 @@ import kotlinx.coroutines.launch
 
 /**
  * @author hy
- * desc: Fragment 基类(ViewBinding + ViewModel + 协程/Flow)
+ * desc: Fragment 基类(ViewBinding + ViewModel + 协程/Flow)。
  *
- * 通用能力:
- * - [binding]:类型安全的 ViewBinding,由子类 [createBinding] 提供;
- *   在 onDestroyView 时自动置空,杜绝 View 泄漏
- * - [viewModel]:泛型反射自动创建;作用域为 Fragment,View 重建(如 ViewPager2 回滑)时数据不丢
- * - 模板方法固定初始化顺序:[initView] -> [observeViewModel] -> [initData]
- * - 懒加载:[isLazyLoad] 为 true 时,首次对用户可见才执行 [initData]
- * - 全局收集 ViewModel 事件(基于 viewLifecycleOwner,随 View 销毁自动停止):
- *   [BaseViewModel.uiEvent] 统一事件通道 -> [onUiEvent] 分发到 onShowToast/onShowError/
- *   onNavigate/onGoBack 等钩子(与 BaseActivity 同一套语义),
- *   [BaseViewModel.isLoading] -> [showLoading]
- * - 整页多状态(可选):[enablePageState] 为 true 时,[binding] 根 View 被包裹进 [PageStateLayout],
- *   整页状态由 [BaseViewModel.pageState] 驱动,页面 XML 零状态视图
- * - ActivityResult:推荐直接在点击里用 [awaitResult]/[awaitResultBundle]
- *   (无 UI 宿主挂在 childFragmentManager 上代持注册,见 LauncherSpec)
+ * 模板方法:initView -> observeViewModel -> initData。
+ * 通用能力:ViewBinding(onDestroyView 自动置空) / 泛型反射 ViewModel / 懒加载([isLazyLoad])
+ * / UiEvent 统一事件分发 / 可选整页多状态。
+ * binding 在 onDestroyView 自动置空,杜绝 View 泄漏。
  *
- * 泛型:
- * - VB:布局生成的 Binding 类;VM:[BaseViewModel] 子类。
- * 若 VM 泛型在中间层被二次转发,请重写 [createViewModel] 手动提供实例。
+ * 泛型:VB = 布局 Binding;VM = BaseViewModel 子类。
+ * 中间层二次转发泛型时重写 [createViewModel] 手动提供实例。
  */
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
@@ -112,8 +101,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 
     /**
-     * 创建 ViewModel,默认通过泛型反射解析 VM 类型并挂载到 Fragment,
-     * 需要与 Activity 或其他 Fragment 共享时重写本方法,使用 `requireActivity()` 作为 owner。
+     * 创建 ViewModel,默认泛型反射。需要与 Activity/其他 Fragment 共享时重写,
+     * 使用 `ViewModelProvider(requireActivity())[vmClass]`。
      */
     @Suppress("UNCHECKED_CAST")
     protected open fun createViewModel(): VM {
@@ -130,11 +119,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     /** 加载数据:发起网络请求(launchRequest)、读取缓存等 */
     protected open fun initData() {}
 
-    /**
-     * 统一处理一次性 UI 事件:默认按类型分发到各 open 钩子(与 [BaseActivity] 同一套语义)。
-     * 导航/关页作用于宿主 Activity;回传结果([UiEvent.ShowResult])仅对
-     * 以 ActivityResult 方式被拉起的场景有意义。
-     */
+    /** 统一处理一次性 UI 事件,默认分发到各 open 钩子(与 BaseActivity 同一套语义) */
     protected open fun onUiEvent(event: UiEvent) {
         when (event) {
             is UiEvent.ShowToast -> onShowToast(event.message, event.long)
@@ -246,7 +231,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 }
 
-/** Activity.finish(resultCode, data) 的中转(minSdk 23 上 Activity#finish(Intent) 仅 API 30+,改用 setResult+finish 等价实现) */
+/** Activity.finish(resultCode, data) 中转:minSdk 23 上 finish(Intent) 仅 API 30+,改用 setResult+finish 等价 */
 private fun Activity.finish(resultCode: Int, data: android.content.Intent?) {
     if (data != null) setResult(resultCode, data) else setResult(resultCode)
     finish()

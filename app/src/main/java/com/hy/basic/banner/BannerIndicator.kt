@@ -17,24 +17,12 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 /**
- * desc: 页码指示器 —— 自己绘制,跟着手指走,不复用"两张图片切换"的老写法。
+ * desc: 页码指示器,自己绘制,跟着手指走。Banner 内部已自动联动,
+ * 引导页/轮播卡片想要独立指示器时可以直接摆进布局。
  *
- * [Banner] 内部已自带并自动联动,通常不需要单独使用;
- * 引导页 / 轮播卡片想要独立指示器时可以直接把这个控件摆进布局:
- * ```
- * <com.hy.basic.banner.BannerIndicator
- *     app:indicator_style="dotsSlider"
- *     app:indicator_count="4" />
- * indicator.selection = position + offset   // 唯一要喂的数据:可以是小数,还能越出两端
- * ```
- *
- * 关键设计:只暴露 [selection](`当前页 + 滑动百分比`),不暴露"第几页选中"。
- * 因此选中态是**插值**出来的 —— 手指拖到一半,圆点/滑块也就走一半,
- * 不会出现"松手后指示器才啪地跳过去"的割裂感。
- *
- * 第二个设计:[selection] 允许越出端点一格(= count 或 = -1),代表"正在首尾之间绕回"。
- * 循环轮播从最后一页滑向第一页时,这个值天然会跑到 count 上去;指示器把它当成环形坐标,
- * 滑块滑出右边缘的同时从左边缘滑回,而不是卡在最右格然后瞬移。
+ * 关键设计:只暴露 selection(当前页+滑动百分比),选中态是插值出来的,
+ * 手指拖到一半圆点/滑块也就走一半。selection 允许越出端点一格,
+ * 循环轮播时滑块滑出右边缘的同时从左边缘滑回,而不是瞬移。
  */
 class BannerIndicator @JvmOverloads constructor(
     context: Context,
@@ -73,10 +61,8 @@ class BannerIndicator @JvmOverloads constructor(
         }
 
     /**
-     * 当前位置:`真实页下标 + 滑动百分比`,允许小数(0.5 = 第一页往右拖了一半)。
-     *
-     * 循环轮播在最后一页与第一页之间翻页时,这个值会越出端点一格
-     * (往第一页走是 `count`,往最后一页回头是 `-1`),绘制时按环形处理。
+     * 当前位置:真实页下标+滑动百分比,允许小数。
+     * 循环轮播在最后一页与第一页之间翻页时会越出端点一格,绘制时按环形处理。
      */
     var selection: Float = 0f
         set(value) {
@@ -328,10 +314,8 @@ class BannerIndicator @JvmOverloads constructor(
     }
 
     /**
-     * 第 [index] 页的"被选中程度":1 = 完全在这一页,0 = 完全不在这页。
-     *
-     * selection 越出端点(首尾绕回)时改用环形就近距离,
-     * 这样最后一页变暗的同时第一页就在变亮,是交叉渐变而不是先全灭再全亮。
+     * 第 index 页的“被选中程度”:1=完全在这一页,0=完全不在这页。
+     * selection 越出端点时改用环形就近距离,实现交叉渐变。
      */
     private fun weightOf(index: Int): Float {
         val distance = abs(selection - index)
@@ -351,10 +335,8 @@ class BannerIndicator @JvmOverloads constructor(
         get() = if (count <= 0) 0f else count * dotRadius * 2f + (count - 1) * dotGap
 
     /**
-     * 需要画到圆点行之外的量(单侧):
-     * 圆点样式是选中放大后多出来的那一圈,滑块样式是首尾绕回时越出端点的半格。
-     * 测量时把它算进宽度,绘制时先让出它,两端就不会被切掉 ——
-     * Banner 内部是用代码 new 出来的指示器,连默认内边距都吃不到,只能靠这里留余量。
+     * 需要画到圆点行之外的量(单侧):圆点样式是选中放大后多出来的那一圈,
+     * 滑块样式是首尾绕回时越出端点的半格。测量时算进宽度,绘制时先让出它。
      */
     private val sideBleed: Float
         get() = when {

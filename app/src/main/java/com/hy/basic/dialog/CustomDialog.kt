@@ -74,6 +74,10 @@ open class CustomDialog(
         if (cancelText != null) cancel?.text = cancelText
         findViewById<View>(R.id.viewDialogButtonDivider)?.visibility =
             if (cancelText == null) View.GONE else View.VISIBLE
+        // 单按钮时铺满整行,左下也要圆角,否则按压态贴着卡片圆角处会露出直角缺口
+        if (cancelText == null) {
+            confirm?.setBackgroundResource(R.drawable.dialog_btn_single_bg)
+        }
 
         confirm?.setOnClickListener {
             options.onConfirm?.invoke()

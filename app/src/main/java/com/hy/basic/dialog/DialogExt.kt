@@ -29,7 +29,7 @@ import com.hy.myapp.R
  * ```
  *
  * 常用场景还有更短的一行版:[showTip] 单按钮提示、[showConfirm] 二次确认、
- * [showItems] 列表选择、[showSingleChoice] 单选、[showMultiChoice] 多选、[showInput] 带校验的输入框。
+ * [showItems] 列表选择、[showSingleChoice] 单选、[showMultiChoice] 多选
  *
  * 约束:必须从 Activity / Fragment(`requireContext()`)调用 —— 弹框要有窗口令牌,
  * 用 Application context 时拿不到 Activity,直接返回 null(不抛异常)。
@@ -178,55 +178,6 @@ fun Context.showMultiChoice(
     }
 }
 
-/**
- * 输入框:内容插槽 + 提交校验。
- * [validator] 返回非空 = 校验不通过,错误直接挂在输入框上且弹框不关闭;返回 null 才走 [onConfirm]。
- */
-fun Context.showInput(
-    title: CharSequence? = null,
-    hint: CharSequence? = null,
-    defaultValue: CharSequence? = null,
-    inputType: Int = InputType.TYPE_CLASS_TEXT,
-    maxLength: Int = 0,
-    confirmText: CharSequence = DialogOptions.defaultConfirmText,
-    cancelText: CharSequence = DialogOptions.defaultCancelText ?: "取消",
-    validator: ((String) -> CharSequence?)? = null,
-    onConfirm: (String) -> Unit,
-): AlertDialog? {
-    val host = findActivity() ?: return null
-    if (host.isFinishing || host.isDestroyed) return null
-    val input = (LayoutInflater.from(host).inflate(R.layout.dialog_input, null, false) as EditText).apply {
-        this.inputType = inputType
-        this.hint = hint
-        setText(defaultValue)
-        setSelection(text?.length ?: 0)
-        if (maxLength > 0) filters = arrayOf(InputFilter.LengthFilter(maxLength))
-    }
-    val dialog = AlertDialog.Builder(host)
-        .setTitle(title)
-        .setView(input)
-        .setNegativeButton(cancelText, null)
-        .setPositiveButton(confirmText, null)
-        .create()
-    host.attachAndAutoDismiss(dialog)
-    dialog.setOnShowListener {
-        // 接管确定按钮:校验不过就不关
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-            val text = input.text?.toString()?.trim().orEmpty()
-            val error = validator?.invoke(text)
-            if (error != null) {
-                input.error = error
-            } else {
-                dialog.dismissSafely()
-                onConfirm(text)
-            }
-        }
-    }
-    dialog.showKeyboardAndResize()
-    dialog.show()
-    return dialog
-}
-
 // ==== Fragment 侧同一套 API(窗口仍挂在宿主 Activity 上) ====
 
 fun Fragment.showDialog(block: DialogOptions.() -> Unit): AlertDialog? =
@@ -255,20 +206,6 @@ fun Fragment.showItems(
     items: List<CharSequence>,
     onSelect: (index: Int, item: CharSequence) -> Unit,
 ): AlertDialog? = requireContext().showItems(title, items, onSelect)
-
-fun Fragment.showInput(
-    title: CharSequence? = null,
-    hint: CharSequence? = null,
-    defaultValue: CharSequence? = null,
-    inputType: Int = InputType.TYPE_CLASS_TEXT,
-    maxLength: Int = 0,
-    confirmText: CharSequence = DialogOptions.defaultConfirmText,
-    cancelText: CharSequence = DialogOptions.defaultCancelText ?: "取消",
-    validator: ((String) -> CharSequence?)? = null,
-    onConfirm: (String) -> Unit,
-): AlertDialog? = requireContext().showInput(
-    title, hint, defaultValue, inputType, maxLength, confirmText, cancelText, validator, onConfirm,
-)
 
 // ==== 通用小工具 ====
 

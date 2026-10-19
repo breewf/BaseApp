@@ -14,16 +14,8 @@ import com.hy.myapp.demo.model.DemoLogViewModel
 import kotlinx.coroutines.launch
 
 /**
- * desc: 图片加载用法示例(com.hy.basic.utils.ImageLoader)。
- *
- * 一个页面里把 Android 常见的图片加载姿势各走一遍,每格都对着 [ImageLoader] 里的一个公开方法:
- * - 形状变换:圆形 [ImageLoader.loadCircleImage]、四角圆角 [ImageLoader.loadRoundImage]、
- *   四角独立圆角 [ImageLoader.loadCustomRoundImage](内置做不到,靠 [com.hy.basic.utils.CornerTransformation]);
- * - 带监听回调 [ImageLoader.loadWithCallback](成功拿解码尺寸 / 失败提示);
- * - 缩略图过渡 [ImageLoader.loadWithThumbnail]、GIF [ImageLoader.loadGifImage];
- * - 协程取 Bitmap [ImageLoader.loadBitmap]、预加载 [ImageLoader.preload]。
- *
- * 网络图用 gstatic 示例图(可访问),错误演示用一个必然失败的地址。底部日志与 Banner/Hint 页同一写法。
+ * desc: 图片加载用法示例。一个页面把 ImageLoader 的常用姿势各走一遍:
+ * 圆形/圆角/四角独立圆角/带回调/缩略图过渡/GIF/协程取 Bitmap/预加载。
  */
 class ImageLoaderDemoActivity : BaseActivity<ActivityImageLoaderDemoBinding, DemoLogViewModel>() {
 

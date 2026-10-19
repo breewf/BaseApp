@@ -7,32 +7,20 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 /**
- * desc: 权限申请对外 API。整体思路是**把注册时机、并发、版本差异全部吃掉,页面只写结果分支**。
+ * desc: 权限申请对外 API。把注册时机、并发、版本差异全部吃掉,页面只写结果分支。
  *
- * 为什么不用三方权限库:官方 `registerForActivityResult` 已是 Google 推荐路径,三方库
- * (PermissionX / XXPermissions)额外提供的只是"拒绝语义判定 + 引导设置页 + 版本适配"这几件事,
- * 而这几件事在本包里各只有一小段代码,自研可以直接贴合项目自己的 MVVM 基类与协程风格,
- * 也不用为一个转场语义背一个 SDK。
- *
- * 两种用法(按场景挑一种,别混着用):
+ * 两种用法:
  * ```
- * // 1) 协程式(推荐,和项目现有 launchRequest 风格一致,能把"申请→成功→请求接口"写成一串)
- * lifecycleScope.launch {
- *     val result = awaitPermissions(Manifest.permission.CAMERA)
- *     when {
- *         result.allGranted -> openCamera()
- *         result.needsSettings -> showGoSettingsDialog()   // 勾了"不再询问",只能跳设置
- *         else -> showToast("已拒绝,下次进入还可以再申请")
- *     }
+ * // 协程式(推荐)
+ * val result = awaitPermissions(Manifest.permission.CAMERA)
+ * when {
+ *     result.allGranted -> openCamera()
+ *     result.needsSettings -> showGoSettingsDialog()
+ *     else -> showToast("已拒绝")
  * }
  *
- * // 2) 回调式(不关心拒绝细节、只想要"拿到了就干活")
+ * // 回调式
  * requestPermissions(*Permission.MEDIA) { result -> if (result.allGranted) pickImage() }
- * ```
- *
- * 事前判断不需要申请(用于决定是否先弹"用途说明"):
- * ```
- * if (permissionState(Manifest.permission.RECORD_AUDIO) == PermissionState.DENIED) showRationale()
  * ```
  */
 
@@ -59,10 +47,7 @@ suspend fun Fragment.awaitPermissions(permissions: Collection<String>): Permissi
     permissionHost()?.request(permissions)
         ?: PermissionResult.current(requireContext(), permissions)
 
-/**
- * 回调式申请:内部用宿主的 [lifecycleScope] 发起,页面销毁时自动停止,不会把回调打到已死的 View 上。
- * 注意扩展名与 Activity 自带的 `requestPermissions(String[], int)` 重载不冲突(参数不同)。
- */
+/** 回调式申请:内部用宿主 lifecycleScope 发起,页面销毁时自动停止 */
 fun FragmentActivity.requestPermissions(
     vararg permissions: String,
     onResult: (PermissionResult) -> Unit,

@@ -15,14 +15,8 @@ import com.hy.myapp.demo.network.adapter.ForecastAdapter
 import kotlinx.coroutines.launch
 
 /**
- * desc: 网络请求测试页(MVVM 基类能力验证)
- *
- * 覆盖能力:
- * - [createBinding]:ViewBinding 绑定入口
- * - 基类泛型反射自动创建 [NetworkTestViewModel],无需手动 new
- * - 模板方法顺序:initView -> observeViewModel -> initData
- * - [showLoading]:由 BaseViewModel.isLoading 引用计数驱动,业务侧不写 loading 逻辑
- * - 全局异常:失败请求走统一事件通道由基类 [onShowError] 统一提示,页面不崩溃
+ * desc: 网络请求测试页。验证基类 MVVM 能力:ViewBinding / 泛型反射 ViewModel /
+ * 模板方法 / loading 引用计数 / 全局异常统一提示。
  */
 class NetworkTestActivity : BaseActivity<ActivityNetworkTestBinding, NetworkTestViewModel>() {
 
@@ -76,10 +70,7 @@ class NetworkTestActivity : BaseActivity<ActivityNetworkTestBinding, NetworkTest
         }
     }
 
-    /**
-     * 转屏后 ViewModel 仍存活,StateFlow 保留上一次结果且会被重新收集,
-     * 因此只在无数据时发起请求,避免重复的网络开销。
-     */
+    /** 转屏后 ViewModel 仍存活,StateFlow 保留上次结果且会被重新收集,只在无数据时发起请求 */
     override fun initData() {
         if (viewModel.weather.value == null) {
             viewModel.loadWeather(NetworkTestViewModel.DEFAULT_CITY)
@@ -101,10 +92,7 @@ class NetworkTestActivity : BaseActivity<ActivityNetworkTestBinding, NetworkTest
         }
     }
 
-    /**
-     * loading 由基类收集 isLoading 后回调:
-     * 引用计数保证"并发请求中最后一个结束才隐藏",业务无需判断。
-     */
+    /** loading 由基类收集 isLoading 后回调,引用计数保证并发请求中最后一个结束才隐藏 */
     override fun showLoading(show: Boolean) {
         binding.pbLoading.visibility = if (show) View.VISIBLE else View.GONE
     }

@@ -7,24 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
 /**
- * desc: Banner 内置翻页动画 —— 覆盖移动端常见的切换效果
+ * desc: Banner 内置翻页动画。每个效果的 block 都跑在同一套“每帧前置复位”之上,
+ * 先把旋转/缩放/透明度/轴心全部还原,再按 keepSlide 决定要不要抵消原生平移。
+ * 因为每帧都从干净状态开始,连续换动画也不会留下脏状态。
  *
- * 用法三选一:
- * ```
- * banner.transformer = BannerTransformer.CUBE                          // 代码里换
- * banner.setCustomTransformer { page, position -> page.rotation =  }  // 自己的动画
- * ```
- * ```xml
- * <com.hy.basic.banner.Banner app:banner_transformer="cube" />          <!-- XML 里换 -->
- * ```
- *
- * 关于 `position`:当前页相对**屏幕中心**的偏移,`-1` = 完全在左边界外,`0` = 正居中,`1` = 完全在右边界外。
- *
- * 每个效果的 [block] 都跑在同一套"每帧前置复位"之上(见 [resetForTransform])
- * 先把旋转/缩放/透明度/轴心全部还原,再把 [keepSlide] 决定要不要抵消原生平移
- * —— `true` = 页面跟着手势滑(立方体、深度这类要保留滑动感);
- * `false` = 平移抵消掉,效果原地播放(淡入淡出、翻转、缩放这类)。
- * 因为每一帧都从干净状态开始,连续换动画也不会留下"某页一直半透明""某页被从左边角缩放"的脏状态。
+ * position:当前页相对屏幕中心的偏移,-1=完全在左,0=正居中,1=完全在右。
  */
 enum class BannerTransformer(
     /** 中文名称,给演示页与日志用 */
@@ -289,10 +276,8 @@ private const val ROT_MOD = -15f
 private fun minOf2(value: Float, floor: Float): Float = if (value < floor) floor else value
 
 /**
- * 把一页恢复成「完全没有被变换过」的状态。
- *
- * 换动画、改露边之后用一次(见 [Banner] 内的 resetPages),作用跟每帧的 [resetForTransform] 一样:
- * RecyclerView 会复用页 View,上一次留下的 alpha / scale / rotation 不清零就会跟着页跑。
+ * 把一页恢复成完全没有被变换过的状态。换动画、改露边之后用一次,
+ * RecyclerView 会复用页 View,上一次留下的 alpha/scale/rotation 不清零就会跟着页跑。
  */
 internal fun View.resetFlat() {
     rotationX = 0f
@@ -313,12 +298,8 @@ internal fun View.resetFlat() {
 internal fun RecyclerView.resetChild(index: Int) = getChildAt(index).resetFlat()
 
 /**
- * 每帧的前置复位:对应旧 ABaseTransformer.onPreTransform。
- *
- * 为什么要每帧都做:transformer 会作用在**所有被 attach 的页**上,而 RecyclerView 会复用这些页 View。
- * 上一次留下的 alpha / scale / rotation / pivot 不清零,换动画或快速滑动时就会出现
- * "某页一直半透明""某页被从左上角缩放"这类脏状态;
- * 更麻烦的是 pivot —— 缩放默认绕 (0,0) 就会看起来"图片变形"。
+ * 每帧前置复位:transformer 会作用在所有被 attach 的页上,RecyclerView 会复用页 View,
+ * 上一次留下的 alpha/scale/rotation 不清零就会出现脏状态。
  */
 internal fun View.resetForTransform(position: Float, keepSlide: Boolean) {
     rotationX = 0f
@@ -351,13 +332,8 @@ private const val PEEK_GAP_RATIO = 0.5f
 
 /**
  * 露边:把整页往屏幕中心靠拢,让相邻页的内容填进本页内缩让出来的那一段。
- *
- * 靠拢量与 position 成正比 —— 居中的那页(position = 0)不动,所以它依旧正居中,
- * 拖动过程中两侧页也是连续地滑进滑出,不会跳。
- *
- * 如果效果把页缩小了(缩放绕页中心),还要再多补一段:缩小会让「朝着中心那条边」往外退,
- * 不补的话相邻页反而被推出屏幕 —— 卡片流动画 + 露边下「两边看不到卡片」就是这么来的。
- * 只在轴心还是默认(居中)时补,因为改了 pivot 的效果(立方体、手风琴)自己已经贴边了。
+ * 靠拢量与 position 成正比,居中页不动,拖动过程中两侧页连续滑进滑出。
+ * 如果效果把页缩小了还要再多补一段,缩小会让朝着中心那条边往外退。
  */
 internal fun View.shiftForPeek(position: Float, peek: Int) {
     if (position == 0f || peek <= 0) return

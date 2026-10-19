@@ -10,16 +10,15 @@ import kotlinx.coroutines.flow.flowOn
 
 /**
  * @author hy
- * desc: Retrofit + 协程统一请求封装
+ * desc: Retrofit + 协程统一请求封装。
  *
- * 按响应格式分两类:
- * - 信封接口([BaseHttpResponse],含 code/msg/data):[request] / [launchRequest] / [awaitRequest]
- * - 裸 JSON 接口(第三方/公共接口,无信封):[requestRaw] / [launchRawRequest] / [awaitRawRequest]
+ * 信封接口(BaseHttpResponse):request / launchRequest / awaitRequest
+ * 裸 JSON 接口:requestRaw / launchRawRequest / awaitRawRequest
  *
- * 按场景选用法:
- * 1. 单接口、只关心成功数据 -> [launchRequest](loading 与异常全自动,[onResult] 里只写业务)
- * 2. 同一方法内串行多个接口、需要判断上一步是否成功 -> [awaitRequest](失败返回 null,异常已上报)
- * 3. 需要精细组合操作符(节流/合并/分页/多值流) -> 直接用 [request] 返回的 Flow
+ * 场景选用:
+ * 1. 只关心成功数据 -> launchRequest(loading 与异常全自动)
+ * 2. 串行多个接口需判断上一步是否成功 -> awaitRequest(失败返回 null)
+ * 3. 需要精细组合操作符 -> 直接用 request 返回的 Flow
  */
 
 /**
@@ -57,11 +56,7 @@ private fun <T> Flow<T>.execute(): Flow<T> = this
         throw ApiExceptionExt.toApiException(e)
     }
 
-/**
- * 收集请求:loading 与全局异常统一处理,[onResult] 只接收成功解包后的数据。
- *
- * @return 请求是否成功(便于串行编排时决定是否继续;异常已走统一事件通道 [BaseViewModel.uiEvent] 上报)
- */
+/** 收集请求:loading 与全局异常统一处理,onResult 只接收成功解包后的数据。返回是否成功 */
 suspend fun <T> BaseViewModel.launchRequest(
     showLoading: Boolean = true,
     block: suspend ApiService.() -> BaseHttpResponse<T>?,
@@ -75,10 +70,7 @@ suspend fun <T> BaseViewModel.launchRawRequest(
     onResult: (T) -> Unit
 ): Boolean = launchFlow(requestRaw(block), showLoading, onResult)
 
-/**
- * 挂起等待信封结果:成功返回数据,失败返回 null(异常已上报,无需再写 try/catch)。
- * 适合"先查列表再查详情"这类串行依赖场景。
- */
+/** 挂起等待信封结果:成功返回数据,失败返回 null(异常已上报)。适合串行依赖场景 */
 suspend fun <T> BaseViewModel.awaitRequest(
     showLoading: Boolean = true,
     block: suspend ApiService.() -> BaseHttpResponse<T>?

@@ -12,15 +12,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 /**
- * desc: 权限**只读**能力与常量集合,不弹窗、不依赖生命周期,任何地方都能调。
+ * desc: 权限只读能力与常量集合,不弹窗、不依赖生命周期。
  *
- * 设计取向:
- * - [state] / [states] 把"能不能用"收敛成 4 个枚举值,页面不再自己拼
- *   `checkSelfPermission` + `shouldShowRequestPermissionRationale` 的语义;
- * - 内部用 [PermissionRecord] 记录了"这个权限有没有问过用户",从而能正确区分
- *   **首次拒绝(还能弹)** 与 **永久拒绝(只能去设置)** —— 这正是三方权限库的主要价值,
- *   纯靠系统 API 判断会把"刚装还没问过"误判成永久拒绝;
- * - [normalize] 做版本自适应(如 33+ 的媒体权限 vs 旧存储权限),业务只写语义组。
+ * state/states 把“能不能用”收敛成 4 个枚举值;内部用 PermissionRecord 记录“有没有问过”,
+ * 从而区分首次拒绝与永久拒绝;normalize 做版本自适应,业务只写语义组。
  */
 object Permission {
 
@@ -157,11 +152,7 @@ object Permission {
         else -> permission.substringAfterLast('.')
     }
 
-    /**
-     * 打开本应用的权限设置页。
-     * 走 [Settings.ACTION_APPLICATION_DETAILS_SETTINGS] 是唯一稳妥的入口:
-     * 各 ROM 的"权限管理"页面没有公开 Intent 常量,直达子页面容易闪退。
-     */
+    /** 打开本应用的权限设置页。各 ROM 无公开 Intent 常量,直达子页面容易闪退,走 ACTION_APPLICATION_DETAILS_SETTINGS 最稳 */
     fun openAppSettings(context: Context) {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             data = Uri.fromParts("package", context.packageName, null)

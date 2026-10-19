@@ -12,16 +12,9 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 /**
- * desc: 无 UI 的权限宿主 Fragment —— 把 `registerForActivityResult` 的注册时机问题一次性解决。
- *
- * 为什么走宿主 Fragment 而不是直接给 Activity 加扩展:
- * `registerForActivityResult` **必须在宿主进入 STARTED 之前调用**,而业务发起申请几乎都在点击
- * 回调里(那时 Activity 早就 STARTED 了),懒注册会直接抛 IllegalStateException。
- * 本类在自己的字段初始化里完成注册(官方推荐的写法),由 [permissionHost] 按需挂到宿主的
- * FragmentManager 上,于是:
- * - 页面代码一行注册都不用写,点击里直接 `awaitPermissions(...)`;
- * - 不要求页面继承任何基类,老的 Java Activity 也能用;
- * - 用协程把"弹窗 -> 回调"拉平成顺序代码,免掉层层嵌套的 callback。
+ * desc: 无 UI 的权限宿主 Fragment,解决 registerForActivityResult 的注册时机问题。
+ * 业务发起申请几乎都在点击回调里(已 STARTED),懒注册会抛 IllegalStateException,
+ * 本类在字段初始化里完成注册,由 permissionHost 按需挂到宿主 FragmentManager 上。
  */
 internal class PermissionHostFragment : Fragment() {
 

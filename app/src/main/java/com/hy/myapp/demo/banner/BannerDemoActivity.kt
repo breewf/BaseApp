@@ -25,15 +25,9 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
 
 /**
- * desc: Banner 轮播用法示例(com.hy.basic.banner)。
- *
- * 页面里两种写法都走一遍:
- * 1. [Banner] 纯图片轮播 —— 样式全写在 XML(循环 / 间隔 / 动画 / 指示器),代码只有一句 `setData(urls)`;
- *    下面的按钮就是在改 Banner 的公开属性,等价于在 XML 里换值,不需要重建控件。
- * 2. [Banner] 自定义页轮播 —— `setData(items, itemLayoutRes) { page, item, position -> }`,
- *    数据可以是任意对象(这里放"图 + 标题"),再配合 `pageMargin` 露边 + `FLOW` 动画就是卡片流。
- *
- * 图片默认用网络图(gstatic webp 示例图,可正常访问),网络不通时一键切到本地图 bg_home_*。
+ * desc: Banner 轮播用法示例。两种写法都走一遍:
+ * 1. 纯图片轮播:样式全在 XML,代码只有一句 setData(urls)
+ * 2. 自定义页轮播:data 是任意对象,配合 pageMargin 露边 + FLOW 动画就是卡片流
  */
 class BannerDemoActivity : BaseActivity<ActivityBannerDemoBinding, DemoLogViewModel>() {
 

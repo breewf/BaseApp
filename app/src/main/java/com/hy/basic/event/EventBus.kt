@@ -15,25 +15,13 @@ import kotlinx.coroutines.launch
 
 /**
  * @author hy
- * desc: 全局事件总线 —— 基于 [MutableSharedFlow] 的极轻封装,解决"无直接引用关系"的
- * 组件间通信(Fragment ↔ Fragment、父子页、Activity ↔ 非 UI 代码、跨页面广播)。
+ * desc: 全局事件总线,基于 MutableSharedFlow,解决无直接引用关系的组件间通信。
  *
- * 为什么选 EventBus 而不是共享 ViewModel:
- * - 共享 ViewModel 只在"同一 Activity 作用域"内有效,跨页面(如详情页操作 → 列表页返回刷新)、
- *   Service/仓库层发事件就无能为力,且每个场景都要单独定义一个 ViewModel 类,页面一多就碎片化;
- * - 本总线是**全局单例 + 一条 SharedFlow**,一处订阅到处可达;类型即事件,订阅/发送都靠泛型,
- *   没有字符串 tag 注册表,IDE 可直接跳转,排查时 `logEnabled=true` 就能看到全部收发流水。
+ * 与 UiEvent 的分工:UiEvent 是单页内 ViewModel→View 的一次性事件;
+ * EventBus 是跨页面/跨组件的全局广播,任何地方都能 post / observe。
  *
- * 与基类 [com.hy.basic.page.UiEvent] 的分工(两条通道互不替代):
- * - `UiEvent` 是**单页内** ViewModel→View 的一次性事件(Toast/导航/回传),随页面 ViewModel 存亡;
- * - `EventBus` 是**跨页面/跨组件**的全局广播,任何地方都能 post / observe。
- *
- * 生命周期安全:推荐用扩展 [observeEvent] / [observeStickyEvent],订阅随宿主
- * (Activity/Fragment)销毁自动取消,无需手写 unregister,杜绝泄漏;handler 固定在主线程回调
- * (lifecycleScope 是 Dispatchers.Main.immediate),post 可在任意线程。
- *
- * 事件即类型:直接用 `data class` 描述事件即可(无需继承任何基类),同类型即同一条流。
- * 事件多参时用一个 data class 承载,别用一对多参数重载。
+ * 生命周期安全:observeEvent / observeStickyEvent 随宿主销毁自动取消。
+ * 事件即类型:直接用 data class 描述事件,同类型即同一条流。
  */
 object EventBus {
 
@@ -42,10 +30,7 @@ object EventBus {
     /** 无订阅者时的短时缓冲上限;瞬时堆积超限会丢弃最旧(与 BaseViewModel.uiEvent 同策略) */
     private const val BUFFER = 64
 
-    /**
-     * 调试开关:置 true 后每笔 post/订阅命中都打 Logcat(tag=[TAG]),
-     * 排查"事件到底发没发、谁收了"时打开,定位完记得关掉。默认关闭零开销。
-     */
+    /** 调试开关:置 true 后每笔 post/订阅命中都打 Logcat,定位完记得关 */
     @Volatile
     var logEnabled: Boolean = false
 
@@ -115,17 +100,8 @@ object EventBus {
 }
 
 /**
- * 订阅事件(推荐):跟随宿主 [LifecycleOwner] 生命周期,从创建起收集、销毁时自动取消,
- * 无需手动 unregister。[handler] 固定在主线程执行。
- *
- * 用法(在 Activity/Fragment 里):
- * ```
- * // Fragment A 发的"刷新列表"事件,Fragment B / Activity 都能收到
- * observeEvent<RefreshEvent> { binding.tvLog.append("收到刷新:${it.reason}") }
- * ```
- *
- * 说明:收集贯穿整个存活期(created~destroyed),期间在后台也会接收(适合纯逻辑/文本追加);
- * 若只想在前台接收并避免后台更新 UI,可自行改用 `flow<T>()` 配 `repeatOnLifecycle(STARTED)`。
+ * 订阅事件(推荐):跟随宿主 LifecycleOwner 生命周期,销毁时自动取消。
+ * 收集贯穿整个存活期,若只想在前台接收可自行用 flow<T>() 配 repeatOnLifecycle(STARTED)。
  */
 inline fun <reified T : Any> LifecycleOwner.observeEvent(
     crossinline handler: (T) -> Unit,

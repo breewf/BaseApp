@@ -110,23 +110,12 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/btnInput"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/demo_bg_button"
-            android:text="8. 系统样式 · 输入框（校验不过不关闭）"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <Button
             android:id="@+id/btnCustomInput"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/demo_bg_button_outline"
-            android:text="9. 自定义样式 · 内容插槽 + 点了不关（autoClose=false）"
+            android:text="8. 自定义样式 · 内容插槽 + 点了不关（autoClose=false）"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
@@ -137,7 +126,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/demo_bg_button"
-            android:text="10. 行版二次确认（showConfirm，不写 DSL）"
+            android:text="9. 行版二次确认（showConfirm，不写 DSL）"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
