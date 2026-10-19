@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    DialogFragment 弹框基类演示页(com.hy.basic.dialog.BaseDialogFragment / BaseBottomSheetDialogFragment)。
+    Toolbar 由 BaseActivity 壳布局提供,本页只写内容区。
+    前三条演示"函数式弹窗做不了"的三类形态,最后两条对比同一个底部面板的两套 behavior 配置。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DialogFragment 弹框基类"
+            android:textColor="@color/black_alpha"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:text="函数式弹窗(showDialog)只给一个内容插槽,内容一复杂、要占满整屏或要退场动画时,就换成这两个基类：全屏/卡片弹框继承 BaseDialogFragment，底部面板继承 BaseBottomSheetDialogFragment，写法与 Fragment 页面一致（createBinding + initView/observeViewModel/initData）。"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnFullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="1. 全屏弹框 · 返回键拦截（没读完不让关）"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnBottomCard"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="2. 贴底卡片 · 自定义尺寸 + 退场动画"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSheetHalf"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="3. 底部面板 · peekHeight 半屏，可拖拽，拖到底关闭"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSheetFull"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="4. 底部面板 · 直接展开满屏，钉住不让下滑关闭"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnClearLog"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="清空日志"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_input"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="160dp"
+            android:padding="12dp"
+            android:textColor="@color/black_alpha"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

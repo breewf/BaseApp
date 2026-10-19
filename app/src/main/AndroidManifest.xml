@@ -102,6 +102,10 @@
         <activity
             android:name=".demo.dialog.DialogDemoActivity"
             android:exported="false" />
+        <!-- DialogFragment 弹框基类演示页(全屏/卡片弹框 + Material 底部面板) -->
+        <activity
+            android:name=".demo.dialog.DialogFragmentDemoActivity"
+            android:exported="false" />
         <!-- Toast + Snackbar 提示演示页 -->
         <activity
             android:name=".demo.hint.HintDemoActivity"

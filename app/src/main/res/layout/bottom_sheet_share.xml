@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    底部面板演示布局(BaseBottomSheetDialogFragment)。
+    白底与顶部圆角由 Material 的面板容器(AbsBottomSheet 皮肤)提供,本布局只写内容;
+    导航栏/状态栏那一条留给容器补 padding(皮肤里的 enableEdgeToEdge + padding*SystemWindowInsets),
+    所以这里不再自己补 bottom padding(补了就是双倍留白)。
+
+    布局采用三段式:顶部标题 / 底部按钮固定,中间选项区可滚动——
+    - 根 LinearLayout 的头部(拖拽条 + "分享到"标题)和尾部(分割线 + "取消"按钮)不跟随滚动;
+    - 中间的 NestedScrollView 承载选项列表与长正文,内容超高时只在面板内部滚;
+    - NestedScrollView 是 behavior 唯一认可的嵌套滑动容器,普通 ScrollView 会被面板抢走手势。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- ═══ 固定头部:拖拽条 + 标题 ═══ -->
+
+    <View
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_c7c7c7" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="分享到"
+        android:textColor="@color/black_alpha"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvSlide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="拖动面板看这里的进度与状态"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp" />
+
+    <!-- ═══ 可滚动中间区:选项列表 + 长正文 ═══ -->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/opt1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="微信好友"
+                android:textColor="@color/black_alpha"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/opt2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="朋友圈"
+                android:textColor="@color/black_alpha"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/opt3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="复制链接"
+                android:textColor="@color/black_alpha"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/opt4"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="更多…"
+                android:textColor="@color/black_alpha"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvExtra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/color_666666"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ═══ 固定底部:分割线 + 取消按钮 ═══ -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/common_background_grey" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/demo_bg_button_outline"
+        android:text="取消"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+</LinearLayout>

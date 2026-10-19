@@ -7,6 +7,7 @@ import com.hy.myapp.activity.RetrofitTestActivity
 import com.hy.myapp.demo.DemoActivity
 import com.hy.myapp.demo.banner.BannerDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
+import com.hy.myapp.demo.dialog.DialogFragmentDemoActivity
 import com.hy.myapp.demo.event.EventBusDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
@@ -95,6 +96,11 @@ object DemoMenu {
                     "Dialog 弹窗",
                     "showDialog / showCustomDialog 一份配置两种样式",
                     DialogDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "DialogFragment 弹框基类",
+                    "全屏弹框 · 返回键拦截 · 底部面板 behavior",
+                    DialogFragmentDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "Toast + Snackbar",

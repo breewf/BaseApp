@@ -102,4 +102,112 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <!--
+        DialogFragment 全屏皮肤(com.hy.basic.dialog.BaseDialogFragment,isFullscreen = true)。
+        窗口不悬浮 + 背景透明:整屏空间交给弹框布局自己填,
+        系统栏高度由基类补成 padding(targetSdk 35+ 强制 edge-to-edge,不等不靠)。
+    -->
+    <style name="AbsDialogFullscreen" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 系统栏颜色必须显式清掉:AppCompat Dialog 主题里 statusBarColor 缺省取 colorPrimaryDark,
+             窗口不悬浮时它会把整条状态栏区域刷成一块实色底——弹框刚出现时看到的“先闪一下”就是它。
+             内容侵透系统栏由基类的 inset 适配接手,这里不留任何底色 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- 进出场动画改由基类 Window.setWindowAnimations 按弹框逐个指定(animStyleRes),
+             这里置 null 只是关掉主题缺省的那套,避免两套动画叠着跑 -->
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!--
+        DialogFragment 卡片皮肤(默认)。窗口背景透明 + 带蒙层,
+        圆角与底色由布局负责(沿用现成的 @drawable/dialog_bg),蒙层浓度在基类 dimAmount 里调。
+        windowIsFloating 必须是 false:悬浮窗口的内容会被主题的 windowMinWidthMajor/Minor
+        (缺省 75% / 60% 屏宽)量住,根布局写 match_parent 也铺不到屏幕两边,两侧各剩一条透明层;
+        不悬浮后窗口框就是整屏,宽高与位置完全由基类的 Window.setLayout/setGravity 决定。
+    -->
+    <style name="AbsDialogCard" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 窗口不悬浮时会自己画系统栏底色,这里不留色,免得卡片上方多出一块实色条
+             (Android 15+ 已经忽略这两个属性,低版本上靠它们兜住) -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!--
+        弹框进出场动画样式(给 Window.setWindowAnimations 用,不是布局动画)。
+        为什么不用 View 层动画:动画放在内容根 View 上时,窗口是“先整块出现、内容再动”的,
+        于是入场会先露一层窗口底色、退场会看到“内容滑走了底色还挂在屏上”;放到窗口层
+        就是整块 surface 一起进/出,不会脱节。
+    -->
+    <style name="AbsDialogAnimBottom">
+        <item name="android:windowEnterAnimation">@anim/abs_dialog_enter_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/abs_dialog_exit_to_bottom</item>
+    </style>
+
+    <style name="AbsDialogAnimFade">
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_out</item>
+    </style>
+
+    <!--
+        Material 底部面板皮肤(com.hy.basic.dialog.BaseBottomSheetDialogFragment)。
+        本 App 主题是 Theme.AppCompat,而 BottomSheetDialog 必须是 Material 系主题,
+        否则运行期直接抛 "requires your app theme to be Theme.MaterialComponents"。
+        基类重写 getTheme 把这套皮肤显式塞给弹框,页面不需要改自己的主题。
+    -->
+    <style name="AbsBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AbsBottomSheet</item>
+        <!-- 关键(两个条件缺一不可,material 1.13.0 字节码实测):
+             BottomSheetDialog#onAttachedToWindow 里判定的是
+             `edgeToEdgeEnabled && Color.alpha(window.navigationBarColor) < 255`,
+             只有成立时它才把 container/coordinator 的 fitsSystemWindows 置 false。
+             而 design_bottom_sheet_dialog 里这两层缺省都是 fitsSystemWindows=true,
+             不满足条件时面板的“世界”到导航栏上沿就停了——展开后底部永远差一条导航栏高度。
+             父主题 Theme.MaterialComponents.*.BottomSheetDialog 两样都不满足(既没开开关,
+             导航栏色又取自 colorPrimaryDark 是不透明的),所以这里必须成对写死。 -->
+        <item name="enableEdgeToEdge">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--
+        面板本体:白底 + 顶部左右 16dp 圆角(底部保持直角,贴住屏幕边)。
+        shouldRemoveExpandedCorners:false = 拉满时顶部圆角不抽掉(material 1.13 缺省 true,
+        面板接近顶部时会把顶部圆角动画成 0,看着像“拖到上边圆角没了”)。
+        paddingBottom/Left/RightSystemWindowInsets:true = 由 Material 给面板容器补系统栏留白
+        (内容不被导航栏压住,背景仍能铺到屏幕底),基类不再自己补 padding(补了就是双倍留白)。
+        paddingTopSystemWindowInsets 关成 false 与上面那个圆角开关是一套的:material 1.13 里
+        抽圆角的判定是 `state == EXPANDED && (shouldRemoveExpandedCorners || 面板顶边 y == 0)`,
+        开关关了但面板拉到屏幕最上沿(y=0)时圆角照样会被抽掉;而这个开关为 false 时
+        getExpandedOffset() = max(expandedOffset, 状态栏高度),展开态停在状态栏下方(y 不为 0),
+        圆角才真的留得住(同时内容也不会被状态栏压住,不需要再叠一层 top padding)。
+    -->
+    <style name="AbsBottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">@style/AbsBottomSheetShape</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="shouldRemoveExpandedCorners">false</item>
+        <item name="paddingTopSystemWindowInsets">false</item>
+        <item name="paddingBottomSystemWindowInsets">true</item>
+        <item name="paddingLeftSystemWindowInsets">true</item>
+        <item name="paddingRightSystemWindowInsets">true</item>
+    </style>
+
+    <style name="AbsBottomSheetShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
 </resources>

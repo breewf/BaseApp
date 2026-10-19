@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    贴底卡片弹框背景:白底,只圆上面两个角(贴在屏幕底部时下面两角是直角才自然)。
+    悬浮卡片想四角都圆,用 @drawable/dialog_bg。
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp"
+        android:topLeftRadius="16dp"
+        android:topRightRadius="16dp" />
+
+    <solid android:color="@color/white" />
+
+</shape>

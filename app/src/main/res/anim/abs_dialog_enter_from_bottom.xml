@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    弹框入场:从屏幕底部滑入 + 淡入(BaseDialogFragment 的 enterAnimRes 缺省值)。
+    250ms 是"够看清方向、又不显拖沓"的经验值;%p 相对父容器高度,整屏与卡片都能贴底起步。
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:shareInterpolator="true">
+
+    <translate
+        android:duration="250"
+        android:fromYDelta="100%p"
+        android:toYDelta="0" />
+
+    <alpha
+        android:duration="180"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0" />
+
+</set>
