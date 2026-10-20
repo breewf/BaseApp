@@ -210,4 +210,22 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
+    <!--
+        共享元素转场专用主题(com.hy.basic.transition.SharedTransitionKit)。
+        windowActivityTransitions 必须开:关着 makeSceneTransitionAnimation 根本不放共享元素动画。
+        这里不写 windowEnter/ExitTransition —— 主题缺省给它们挂了 Fade,会在共享元素形变之外
+        叠一层整窗淡入淡出(闪一下的根因),由 SharedTransitionKit 在代码里统一置 null 关掉。
+        沿用"页面各自指定皮肤、不动宿主 AppTheme"的既定做法,只在清单里给转场页挂这套主题。
+    -->
+    <style name="Theme.MaterialTransition" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <!-- 转场由共享元素接管,别再叠一层右滑 windowAnimation,否则两套动画打架 -->
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
 </resources>

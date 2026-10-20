@@ -23,6 +23,8 @@ import com.hy.myapp.demo.result.ActivityResultDemoActivity
 import com.hy.myapp.demo.storage.StorageDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
+import com.hy.myapp.demo.transition.SharedGridDemoActivity
+import com.hy.myapp.demo.transition.SharedImageDemoActivity
 
 /**
  * desc: 测试总入口数据源
@@ -98,6 +100,21 @@ object DemoMenu {
                     "Room 数据库",
                     "BaseDao + Flow 查询，增删改后 observeAll() 自动重发",
                     DbDemoActivity::class.java,
+                ),
+            ),
+        ),
+        DemoGroup(
+            "转场 · 共享元素",
+            listOf(
+                DemoEntry(
+                    "图片转场大图",
+                    "Activity→Activity 容器变换 + Glide 首帧等待",
+                    SharedImageDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "列表转场详情",
+                    "网格图→大图,每个 item 唯一 transitionName",
+                    SharedGridDemoActivity::class.java,
                 ),
             ),
         ),

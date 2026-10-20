@@ -106,6 +106,19 @@
         <activity
             android:name=".demo.db.DbDemoActivity"
             android:exported="false" />
+        <!-- 共享元素转场 demo:单图入口 / 大图详情 / 列表网格(均需转场主题) -->
+        <activity
+            android:name=".demo.transition.SharedImageDemoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialTransition" />
+        <activity
+            android:name=".demo.transition.SharedImageDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialTransition" />
+        <activity
+            android:name=".demo.transition.SharedGridDemoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialTransition" />
         <!-- Dialog 弹窗演示页 -->
         <activity
             android:name=".demo.dialog.DialogDemoActivity"

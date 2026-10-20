@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    网格项。transitionName 运行时按 url 生成唯一值(列表复用视图,不能用静态同名,否则共享元素配对错乱)。
+-->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ivThumb"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="6dp"
+    android:background="@color/common_background_grey"
+    android:clickable="true"
+    android:contentDescription="缩略图"
+    android:focusable="true"
+    android:scaleType="centerCrop" />

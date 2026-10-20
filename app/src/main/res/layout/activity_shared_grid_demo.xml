@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    共享元素转场 · 列表页(SharedGridDemoActivity)。两列网格,点任意图 → 带该 item 的共享元素进大图页。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:lineSpacingExtra="3dp"
+        android:text="列表 → 详情:每个 item 的缩略图各自生成唯一 transitionName,点哪张哪张飞进去。返回时反向动画回到原格子。"
+        android:textColor="@color/black_alpha"
+        android:textSize="13sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingHorizontal="14dp"
+        android:paddingBottom="14dp" />
+
+</LinearLayout>

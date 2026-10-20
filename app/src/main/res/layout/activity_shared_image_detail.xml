@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    共享元素大图页(SharedImageDetailActivity)。ivBigImage 是共享元素,运行时按传入 transitionName 配对。
+    scaleType 用 fitCenter:形变按目标实际边界,centerCrop 会在过渡中持续裁切跳动。
+    页内进出场淡变由 SharedTransitionKit.bindContainerTarget 统一关掉,只留图形的形变。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivBigImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:contentDescription="大图"
+        android:focusable="true"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="20dp"
+        android:text="点图片或左上角返回收起"
+        android:textColor="@color/color_999999"
+        android:textSize="14sp" />
+
+</LinearLayout>
