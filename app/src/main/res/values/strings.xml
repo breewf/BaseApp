@@ -94,6 +94,22 @@
     <string name="demo_profile_label_fans">粉丝</string>
     <string name="demo_profile_label_like">获赞</string>
 
+    <!-- demo 拖拽排序 / 侧滑操作 -->
+    <string name="demo_touch_drag_horizontal">横向列表 · 拖拽排序</string>
+    <string name="demo_touch_drag_horizontal_tip">长按色块拖动,松手落位;拖到边缘列表会自动滚动。</string>
+    <string name="demo_touch_drag_grid">九宫格图片 · 拖拽排序</string>
+    <string name="demo_touch_drag_grid_tip">长按图片拖动;× 删除、＋ 添加。末尾「＋」被锁定,拖不走也拖不进。</string>
+    <string name="demo_touch_swipe_tip">左滑露出操作区并固定，操作项由外部配置（最多三项）；删除后可撤销。未展开时长按整行可拖动排序。</string>
+    <string name="demo_touch_swipe_note">备注</string>
+    <string name="demo_touch_swipe_delete">删除</string>
+    <string name="demo_touch_btn_reset">恢复默认</string>
+    <string name="demo_touch_btn_drag_on">拖拽：开</string>
+    <string name="demo_touch_btn_swipe_on">侧滑：开</string>
+    <string name="demo_touch_add">＋</string>
+    <string name="demo_touch_delete">×</string>
+    <string name="demo_touch_drag_handle">≡</string>
+    <string name="demo_touch_image_desc">九宫格图片</string>
+
     <!-- 覆盖 SmartRefreshLayout 库自带 srl_* 文案:app 同名资源优先,
          无论设备 locale 是否为中文,下拉刷新头/上拉加载尾都固定展示中文。 -->
     <string name="srl_header_pulling">下拉可以刷新</string>

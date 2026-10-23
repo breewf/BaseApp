@@ -23,6 +23,7 @@ import com.hy.myapp.demo.result.ActivityResultDemoActivity
 import com.hy.myapp.demo.storage.StorageDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
+import com.hy.myapp.demo.touch.ItemTouchDemoActivity
 import com.hy.myapp.demo.transition.SharedGridDemoActivity
 import com.hy.myapp.demo.transition.SharedImageDemoActivity
 
@@ -160,6 +161,11 @@ object DemoMenu {
                     "列表组件演示",
                     "BRVAH4 五种形态 + SmartRefresh 下拉上拉",
                     ListDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "拖拽与侧滑",
+                    "ItemTouchHelper:横向/九宫格拖拽 · 侧滑操作 + 撤销",
+                    ItemTouchDemoActivity::class.java,
                 ),
                 DemoEntry(
                     "富文本演示",

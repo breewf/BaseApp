@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    横向拖拽块:圆角底是 XML,颜色由 adapter 用 backgroundTintList 换。
+    左右 margin 必须留在 item 根上,ItemTouchHelper 按 itemView 的实际占位算落位。
+-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvTile"
+    android:layout_width="@dimen/dimen_100"
+    android:layout_height="@dimen/dimen_65"
+    android:layout_marginEnd="@dimen/dimen_8"
+    android:background="@drawable/demo_bg_tile"
+    android:gravity="center"
+    android:textColor="@color/white"
+    android:textSize="15sp"
+    android:textStyle="bold" />

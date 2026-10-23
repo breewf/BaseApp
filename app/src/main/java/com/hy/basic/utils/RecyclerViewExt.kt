@@ -82,31 +82,38 @@ fun RecyclerView.disableInnerScroll(): RecyclerView = apply {
  *
  * pager 在每次触摸时沿父链查找,不依赖 View 是否已挂到 pager 上;找不到 pager 则不做任何处理。
  * 需在 `setupXxx()` 设好 LayoutManager 之后调用(方向在触摸时才读,故调用时机不敏感)。
+ *
+ * @param blockPagerOnDown true = 手指一落到列表就关掉 pager 手势。列表里有横向侧滑删除、
+ *   或网格支持四向拖拽时必须打开:这两种手势和 pager 同轴,等方向判定来不及,pager 会先抢走。
  */
 @SuppressLint("ClickableViewAccessibility")
-fun RecyclerView.resolvePagerConflict(): RecyclerView = apply {
+fun RecyclerView.resolvePagerConflict(blockPagerOnDown: Boolean = false): RecyclerView = apply {
     val slop = ViewConfiguration.get(context).scaledTouchSlop
     var downX = 0f
     var downY = 0f
     var decided = false
-    setOnTouchListener { _, e ->
-        // 只读不消费:返回 false 交给 RecyclerView 正常滚动/点击
+
+    fun handle(e: MotionEvent) {
         when (e.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 downX = e.rawX
                 downY = e.rawY
                 decided = false
-                if (isHorizontalOnly()) findParentPager()?.isUserInputEnabled = false
+                if (blockPagerOnDown || isHorizontalOnly()) {
+                    findParentPager()?.isUserInputEnabled = false
+                }
             }
 
             MotionEvent.ACTION_MOVE -> {
-                if (!decided) {
+                if (!blockPagerOnDown && !decided) {
                     val dx = abs(e.rawX - downX)
                     val dy = abs(e.rawY - downY)
                     if (dx > slop || dy > slop) {
                         decided = true
                         // 竖向为主(含斜滑)才禁用;纯横向保留 pager 切页
-                        if (!isHorizontalOnly() && dy >= dx) findParentPager()?.isUserInputEnabled = false
+                        if (!isHorizontalOnly() && dy >= dx) {
+                            findParentPager()?.isUserInputEnabled = false
+                        }
                     }
                 }
             }
@@ -114,6 +121,24 @@ fun RecyclerView.resolvePagerConflict(): RecyclerView = apply {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->
                 findParentPager()?.isUserInputEnabled = true
         }
+    }
+
+    // 拦截链路:item 可点击时也能收到 DOWN,起手就禁用 pager
+    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            handle(e)
+            // 只读不消费,让列表/子 View 正常滚动和点击
+            return false
+        }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) = Unit
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) = Unit
+    })
+
+    // 收尾通道:ItemTouchHelper 接管后拦截链路收不到 UP,由这里恢复 pager
+    setOnTouchListener { _, e ->
+        handle(e)
         false
     }
 }

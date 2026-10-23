@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 九宫格删除角标:半透明黑圆,压在图片右上角 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <solid android:color="@color/demo_grid_delete_badge" />
+
+</shape>

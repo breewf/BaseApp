@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    拖拽排序页:横向色块列表 + 九宫格图片,整页交给 NestedScrollView 滚动。
+    两个 RecyclerView 都是 wrap_content;网格必须配合代码里的 disableInnerScroll(),
+    否则内层自己滚,外层既滚不动也接不到拖拽的边缘滚动。
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingTop="@dimen/dimen_14"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingBottom="@dimen/dimen_4"
+            android:text="@string/demo_touch_drag_horizontal"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingBottom="@dimen/dimen_4"
+            android:text="@string/demo_touch_drag_horizontal_tip"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingBottom="@dimen/dimen_10" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_8"
+            android:background="@color/common_background_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingTop="@dimen/dimen_14"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingBottom="@dimen/dimen_4"
+            android:text="@string/demo_touch_drag_grid"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingBottom="@dimen/dimen_4"
+            android:text="@string/demo_touch_drag_grid_tip"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/dimen_12"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_12"
+            android:paddingBottom="@dimen/dimen_10" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
