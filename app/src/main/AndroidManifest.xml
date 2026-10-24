@@ -181,6 +181,12 @@
         <activity
             android:name=".demo.event.LoginReceiverActivity"
             android:exported="false" />
+        <!-- WebView 基类演示页(JS Bridge / 进度条 / SSL 容错 / 返回键拦截) -->
+        <activity
+            android:name=".demo.web.WebViewDemoActivity"
+            android:exported="false"
+            android:label="WebView 封装"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

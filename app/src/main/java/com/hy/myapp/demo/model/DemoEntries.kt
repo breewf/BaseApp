@@ -26,6 +26,7 @@ import com.hy.myapp.demo.state.PageStateDemoActivity
 import com.hy.myapp.demo.touch.ItemTouchDemoActivity
 import com.hy.myapp.demo.transition.SharedGridDemoActivity
 import com.hy.myapp.demo.transition.SharedImageDemoActivity
+import com.hy.myapp.demo.web.WebViewDemoActivity
 
 /**
  * desc: 测试总入口数据源
@@ -101,6 +102,11 @@ object DemoMenu {
                     "Room 数据库",
                     "BaseDao + Flow 查询，增删改后 observeAll() 自动重发",
                     DbDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "WebView 封装",
+                    "JS Bridge · 进度条 · SSL 容错 · 返回键拦截",
+                    WebViewDemoActivity::class.java,
                 ),
             ),
         ),

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!-- WebView 演示页菜单,全部放溢出菜单,不配图标 -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_reload"
+        android:title="重新加载"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_push_event"
+        android:title="原生推事件"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_call_js"
+        android:title="调用 JS 函数"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_clear_cache"
+        android:title="清缓存"
+        app:showAsAction="never" />
+
+</menu>

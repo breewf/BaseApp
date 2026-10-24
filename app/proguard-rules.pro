@@ -16,6 +16,11 @@
 #   public *;
 #}
 
+# WebView JS Bridge:保留 @JavascriptInterface 方法,否则 JS 里调用是 undefined
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
 # glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep class * extends com.bumptech.glide.module.AppGlideModule {

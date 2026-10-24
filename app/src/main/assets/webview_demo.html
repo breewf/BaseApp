@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <title>WebView 能力演示</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            margin: 0;
+            padding: 16px 16px 32px;
+            background: #f4f5f7;
+            color: #333;
+            font: 14px/1.6 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        h1 { margin: 0 0 4px; font-size: 20px; }
+        h2 { margin: 0 0 2px; font-size: 15px; }
+        p { margin: 0; }
+        .sub { margin-top: 2px; color: #8a8f99; font-size: 12px; }
+        .card {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+        }
+        .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        button {
+            border: 0;
+            border-radius: 8px;
+            padding: 9px 12px;
+            background: #3f51b5;
+            color: #fff;
+            font-size: 13px;
+        }
+        button.ghost { background: #eceefb; color: #3f51b5; }
+        button:active { opacity: .7; }
+        .item {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px 12px;
+            border: 1px solid #e7e9ee;
+            border-radius: 10px;
+            background: #fff;
+            color: #333;
+            font-size: 13px;
+            text-align: left;
+            text-decoration: none;
+        }
+        .item:active { background: #f2f4f8; }
+        .item small { display: block; margin-top: 2px; color: #9aa0aa; font-size: 11px; }
+        .pill {
+            display: inline-block;
+            margin-left: 4px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #fdecea;
+            color: #c0392b;
+            font-size: 11px;
+            vertical-align: 1px;
+        }
+        .pill.ok { background: #e7f7ee; color: #1e8e3e; }
+        pre {
+            margin: 10px 0 0;
+            padding: 10px;
+            min-height: 72px;
+            max-height: 150px;
+            overflow: auto;
+            border-radius: 8px;
+            background: #22242b;
+            color: #d9e2ff;
+            font-size: 11px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .file {
+            display: block;
+            margin-top: 8px;
+            padding: 10px 12px;
+            border: 1px dashed #ccd1da;
+            border-radius: 10px;
+            color: #666;
+            font-size: 13px;
+        }
+        .file small { display: block; margin-top: 4px; color: #9aa0aa; font-size: 11px; line-height: 1.6; }
+        .file input { display: block; margin-top: 6px; font-size: 12px; }
+        .tip { margin-top: 10px; color: #8a8f99; font-size: 12px; line-height: 1.7; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+<main id="home">
+    <h1>WebView 能力演示</h1>
+    <p class="sub">assets 本地页 · 不联网也能跑 <span id="bridgeState" class="pill">Bridge 注入中</span></p>
+
+    <section class="card">
+        <h2>JS → 原生</h2>
+        <p class="sub">WebBridge.call(action, params) 返回 Promise,原生 result.success/fail 回调</p>
+        <div class="row">
+            <button onclick="toastNative()">弹 Toast</button>
+            <button onclick="deviceInfo()">读设备信息</button>
+            <button class="ghost" onclick="confirmNative()">确认框</button>
+        </div>
+        <pre id="out">点按钮试试,原生返回的结果会打在这里。</pre>
+    </section>
+
+    <section class="card">
+        <h2>容器能力</h2>
+        <p class="sub">进度条 / 返回键 / 错误页 / SSL 都由基类接管</p>
+        <a class="item" href="https://www.baidu.com/">加载网络页 <small>看顶部 2dp 进度条,需要联网</small></a>
+        <button class="item" onclick="openDetail()">页面内跳转 <small>按系统返回键:先回这一屏,没有历史才退出页面</small></button>
+        <a class="item" href="https://self-signed.badssl.com/">自签名证书 <small>demo 里配了 sslTolerantHosts,所以能放行</small></a>
+        <a class="item" href="https://not-exist.invalid/">打不开的域名 <small>只有主 frame 失败才盖原生错误页,可点重试</small></a>
+        <a class="item" href="tel:10086">tel:10086 <small>非 http(s) 链接交给系统 Intent</small></a>
+    </section>
+
+    <section class="card">
+        <h2>常见坑位</h2>
+        <p class="sub">下面这些能力都不在 WebView 本身,而是靠 WebChromeClient 回调,客户端没接好就会点了没反应</p>
+        <div class="row">
+            <button class="ghost" onclick="jsAlert()">JS alert</button>
+            <button class="ghost" onclick="jsConfirm()">JS confirm</button>
+            <button class="ghost" onclick="jsPrompt()">JS prompt</button>
+        </div>
+        <p class="tip">
+            alert / confirm / prompt 分别走 onJsAlert / onJsConfirm / onJsPrompt。
+            基类设置了 webChromeClient 但没重写这三个方法,所以弹的是系统默认对话框。
+            自己接管时方法返回 true 却忘了调 result.confirm(),JS 会一直等,表现就是点了没反应;
+            prompt 还常被老桥用来截 jsbridge:// 这类协议,无脑 return true 会把页面的 prompt 一起吞掉。
+        </p>
+        <label class="file">选择图片(onShowFileChooser)
+            <small>返回 false 或没调 onReceiveValue,这次点击就没反应;上一次的回调不置空,第二次点击也没反应。</small>
+            <input type="file" accept="image/*" onchange="filePicked(this)"/>
+        </label>
+        <p class="tip">
+            console.log 默认不进 Logcat。基类在 onConsoleMessage 里把它转成日志,过滤 BaseWebView 就能看到;
+            没有这个回调时,只能连 chrome://inspect 看页面控制台。
+        </p>
+    </section>
+</main>
+
+<main id="detail" class="hidden">
+    <h1>第二屏</h1>
+    <p class="sub">history 里的一条记录</p>
+    <section class="card">
+        <p>现在按系统返回键或 Toolbar 返回键:先 goBack 回首页,只有没有历史时才退出。</p>
+        <div class="row">
+            <button onclick="history.back()">history.back()</button>
+            <button class="ghost" onclick="closeDetail()">直接回首页</button>
+        </div>
+    </section>
+</main>
+
+<script>
+    var out = document.getElementById('out');
+    var state = document.getElementById('bridgeState');
+    var home = document.getElementById('home');
+    var detail = document.getElementById('detail');
+
+    function log(msg) {
+        out.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg + '\n' + out.textContent;
+        console.log(msg);
+    }
+
+    // 等原生注入 helper 后再注册事件
+    window.addEventListener('WebBridgeReady', function () {
+        state.textContent = 'Bridge 已就绪';
+        state.className = 'pill ok';
+        WebBridge.on('nativePush', function (data) {
+            log('收到原生推送:' + data);
+        });
+        log('WebBridge 注入完成');
+    });
+
+    function callNative(action, params) {
+        if (!window.WebBridge) return Promise.reject(new Error('Bridge 还没就绪'));
+        return WebBridge.call(action, params || {});
+    }
+
+    function toastNative() {
+        callNative('toast', { text: '来自 JS 的 Toast' })
+            .then(function () { log('toast 调用成功'); })
+            .catch(function (e) { log('toast 失败:' + e.message); });
+    }
+
+    function deviceInfo() {
+        callNative('deviceInfo')
+            .then(function (data) { log('设备信息:' + JSON.stringify(data)); })
+            .catch(function (e) { log('读设备信息失败:' + e.message); });
+    }
+
+    function confirmNative() {
+        callNative('confirm', { title: '来自 JS 的确认', message: '选一个吧,结果会回到页面' })
+            .then(function (ok) { log('确认框结果:' + ok); })
+            .catch(function (e) { log('确认框失败:' + e.message); });
+    }
+
+    // 原生菜单"调用 JS 函数"会打到这里
+    window.showNativeCall = function (text) {
+        log('原生调用 showNativeCall:' + text);
+    };
+
+    // 三个弹窗都靠 WebChromeClient 接管。先记一条再弹,方便区分按钮没点到和弹窗被客户端拦了
+    function jsAlert() {
+        log('触发 alert');
+        alert('JS alert 由 WebChromeClient 接管');
+    }
+
+    function jsConfirm() {
+        log('触发 confirm');
+        log('confirm 返回:' + confirm('JS confirm:点确定返回 true'));
+    }
+
+    function jsPrompt() {
+        log('触发 prompt');
+        var input = prompt('JS prompt:随便输点', '默认值');
+        log('prompt 返回:' + (input === null ? 'null(取消)' : input));
+    }
+
+    function filePicked(input) {
+        var file = input.files && input.files[0];
+        log(file ? '选中文件:' + file.name + ' (' + Math.round(file.size / 1024) + ' KB)' : '没有选择文件');
+    }
+
+    function render() {
+        var isDetail = location.hash === '#detail';
+        home.className = isDetail ? 'hidden' : '';
+        detail.className = isDetail ? '' : 'hidden';
+        window.scrollTo(0, 0);
+    }
+
+    function openDetail() {
+        try {
+            history.pushState({ page: 'detail' }, '', '#detail');
+            render();
+        } catch (e) {
+            // file:// 下个别 WebView 不允许 pushState,退回改 hash
+            location.hash = '#detail';
+        }
+    }
+
+    function closeDetail() {
+        if (history.length > 1) {
+            history.back();
+        } else {
+            location.hash = '';
+            render();
+        }
+    }
+
+    window.addEventListener('popstate', render);
+    window.addEventListener('hashchange', render);
+    render();
+</script>
+</body>
+</html>
