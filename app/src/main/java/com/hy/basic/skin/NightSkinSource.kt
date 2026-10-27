@@ -41,9 +41,9 @@ internal class NightSkinSource(context: Context) : SkinSource {
         darkRes = null
     }
 
-    /** 取色 */
+    /** 取色,资源不存在时回 0 */
     override fun color(@ColorRes id: Int): Int =
-        ResourcesCompat.getColor(currentResources(), id, appContext.theme)
+        runCatching { ResourcesCompat.getColor(currentResources(), id, appContext.theme) }.getOrDefault(0)
 
     /** 取 ColorStateList,资源不存在时返回 null */
     override fun colorStateList(@ColorRes id: Int): ColorStateList? =

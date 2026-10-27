@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4"
-            android:text="本页没有换肤代码，继承 BaseFragment 即可；按压反馈来自 drawable。"
+            android:text="继承 BaseFragment 即可自动换肤；按压态与代码切态见下方两张卡片。"
             android:textColor="@color/skin_text_tertiary"
             android:textSize="12sp" />
 

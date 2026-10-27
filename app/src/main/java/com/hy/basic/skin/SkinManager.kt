@@ -240,7 +240,13 @@ object SkinManager {
     fun color(@ColorRes id: Int): Int {
         currentSource?.let { return it.color(id) }
         val ctx = appContext ?: return 0
-        return runCatching { ResourcesCompat.getColor(ctx.resources, id, ctx.theme) }.getOrDefault(0)
+        return runCatching {
+            ResourcesCompat.getColor(
+                ctx.resources,
+                id,
+                ctx.theme
+            )
+        }.getOrDefault(0)
     }
 
     /** 取当前皮肤 ColorStateList */
@@ -262,7 +268,9 @@ object SkinManager {
         val source = currentSource ?: return
 
         @Suppress("UNCHECKED_CAST")
-        (view.getTag(R.id.skin_slot_tag) as? List<SkinSlot>)?.forEach { applySlot(view, source, it) }
+        val slots = view.getTag(R.id.skin_slot_tag) as? List<SkinSlot> ?: emptyList()
+        // 先快照:回调里调 setSkinRes 会改这个列表
+        slots.toList().forEach { applySlot(view, source, it) }
         (view as? IDarkMode)?.onSkinChanged(source.isDark)
         if (view is RecyclerView) watchChildren(view)
         if (view is ViewGroup) {
@@ -316,11 +324,13 @@ object SkinManager {
                 source.drawable(slot.resId)?.let { iv.setImageDrawable(it.mutate()) }
             }
 
-            SkinPart.IMAGE_TINT ->
-                (view as? ImageView)?.imageTintList = source.colorStateList(slot.resId)
+            SkinPart.IMAGE_TINT -> (view as? ImageView)?.let { iv ->
+                source.colorStateList(slot.resId)?.let { iv.imageTintList = it }
+            }
 
-            SkinPart.BACKGROUND_TINT ->
-                ViewCompat.setBackgroundTintList(view, source.colorStateList(slot.resId))
+            SkinPart.BACKGROUND_TINT -> source.colorStateList(slot.resId)?.let {
+                ViewCompat.setBackgroundTintList(view, it)
+            }
 
             SkinPart.COMPOUND_DRAWABLE_START,
             SkinPart.COMPOUND_DRAWABLE_TOP,
@@ -329,34 +339,36 @@ object SkinManager {
                 applyCompoundDrawable(tv, slot.kind, source.drawable(slot.resId)?.mutate())
             }
 
-            SkinPart.PROGRESS_TINT -> (view as? ProgressBar)?.let {
-                it.progressTintList = source.colorStateList(slot.resId)
+            SkinPart.PROGRESS_TINT -> (view as? ProgressBar)?.let { pb ->
+                source.colorStateList(slot.resId)?.let { pb.progressTintList = it }
             }
 
-            SkinPart.PROGRESS_BACKGROUND_TINT -> (view as? ProgressBar)?.let {
-                it.progressBackgroundTintList = source.colorStateList(slot.resId)
+            SkinPart.PROGRESS_BACKGROUND_TINT -> (view as? ProgressBar)?.let { pb ->
+                source.colorStateList(slot.resId)?.let { pb.progressBackgroundTintList = it }
             }
 
-            SkinPart.SECONDARY_PROGRESS_TINT -> (view as? ProgressBar)?.let {
-                it.secondaryProgressTintList = source.colorStateList(slot.resId)
+            SkinPart.SECONDARY_PROGRESS_TINT -> (view as? ProgressBar)?.let { pb ->
+                source.colorStateList(slot.resId)?.let { pb.secondaryProgressTintList = it }
             }
 
-            SkinPart.INDETERMINATE_TINT -> (view as? ProgressBar)?.let {
-                it.indeterminateTintList = source.colorStateList(slot.resId)
+            SkinPart.INDETERMINATE_TINT -> (view as? ProgressBar)?.let { pb ->
+                source.colorStateList(slot.resId)?.let { pb.indeterminateTintList = it }
             }
 
-            SkinPart.THUMB_TINT -> (view as? SeekBar)?.let {
-                it.thumbTintList = source.colorStateList(slot.resId)
+            SkinPart.THUMB_TINT -> (view as? SeekBar)?.let { sb ->
+                source.colorStateList(slot.resId)?.let { sb.thumbTintList = it }
             }
 
-            SkinPart.TICK_MARK_TINT -> (view as? SeekBar)?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    it.tickMarkTintList = source.colorStateList(slot.resId)
+            SkinPart.TICK_MARK_TINT -> (view as? SeekBar)?.let { sb ->
+                source.colorStateList(slot.resId)?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        sb.tickMarkTintList = it
+                    }
                 }
             }
 
-            SkinPart.BUTTON_TINT -> (view as? CompoundButton)?.let {
-                it.buttonTintList = source.colorStateList(slot.resId)
+            SkinPart.BUTTON_TINT -> (view as? CompoundButton)?.let { btn ->
+                source.colorStateList(slot.resId)?.let { btn.buttonTintList = it }
             }
 
             SkinPart.DIVIDER -> (view as? LinearLayout)?.let {
