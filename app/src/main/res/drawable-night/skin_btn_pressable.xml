@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    夜间按压态:渐变底 + 大圆角,和日间不是同一张图。
+    资源 id 相同,框架按夜间 Resources 重新取图时会命中本文件。
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_accent_soft" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_accent" />
+            <corners android:radius="@dimen/dimen_22" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:endColor="@color/skin_bg_card"
+                android:startColor="@color/skin_bg_chip" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_accent_soft" />
+            <corners android:radius="@dimen/dimen_22" />
+        </shape>
+    </item>
+
+</selector>

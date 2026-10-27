@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    日间按压态:描边卡片,按下填充浅主色。
+    只换颜色时不用建夜间副本,内部的 skin_* 会按夜间 Resources 解析。
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_accent_soft" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_accent" />
+            <corners android:radius="@dimen/dimen_12" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_bg_chip" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_divider" />
+            <corners android:radius="@dimen/dimen_12" />
+        </shape>
+    </item>
+
+</selector>

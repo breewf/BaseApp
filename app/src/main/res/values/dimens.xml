@@ -57,6 +57,7 @@
     <dimen name="dimen_240">240dp</dimen>
     <dimen name="dimen_260">260dp</dimen>
     <dimen name="dimen_300">300dp</dimen>
+    <dimen name="dimen_400">400dp</dimen>
 
     <dimen name="slidingmenu_offset">100dp</dimen>
     <dimen name="list_padding">10dp</dimen>

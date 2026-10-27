@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    换肤夜间色板：只覆盖 skin_* 语义色，名字与 values/colors.xml 一一对应。
+    资源 id 不变，所以运行时切肤只需换一套 Resources 取色，布局不用重建。
+-->
+<resources>
+
+    <color name="skin_bg_page">#FF121212</color>
+    <color name="skin_bg_card">#FF1E1E1E</color>
+    <color name="skin_bg_chip">#FF2A2A2A</color>
+    <color name="skin_text_primary">#FFE6E6E6</color>
+    <color name="skin_text_secondary">#FFB0B0B0</color>
+    <color name="skin_text_tertiary">#FF8A8A8A</color>
+    <color name="skin_divider">#FF2E2E2E</color>
+    <color name="skin_accent">#FF8C9EFF</color>
+    <color name="skin_accent_soft">#338C9EFF</color>
+    <color name="skin_danger">#FFFF6B6B</color>
+    <color name="skin_danger_soft">#33FF6B6B</color>
+
+</resources>

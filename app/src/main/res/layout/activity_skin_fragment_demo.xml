@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    换肤验证宿主页：TabLayout + ViewPager2 承载两个 Fragment。
+    TabLayout 的标签是内部 TextView，颜色在 Activity 里手动刷。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:orientation="vertical">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/skin_bg_card"
+        app:tabIndicatorColor="@color/skin_accent"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/skin_accent"
+        app:tabTextColor="@color/skin_text_tertiary" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

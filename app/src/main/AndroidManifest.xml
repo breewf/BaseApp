@@ -81,6 +81,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 换肤框架演示页(自研不重启 / 引擎可切回官方实现) -->
+        <activity
+            android:name=".demo.skin.SkinDemoActivity"
+            android:exported="false"
+            android:label="换肤框架" />
+        <!-- 换肤 + Fragment 验证页(Tab + ViewPager2) -->
+        <activity
+            android:name=".demo.skin.SkinFragmentDemoActivity"
+            android:exported="false"
+            android:label="换肤 Fragment" />
         <!-- 网络请求测试页 -->
         <activity
             android:name=".demo.network.NetworkTestActivity"

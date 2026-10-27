@@ -20,6 +20,8 @@ import com.hy.myapp.demo.permission.PermissionDemoActivity
 import com.hy.myapp.demo.profile.ProfileDemoActivity
 import com.hy.myapp.demo.richtext.RichTextDemoActivity
 import com.hy.myapp.demo.result.ActivityResultDemoActivity
+import com.hy.myapp.demo.skin.SkinDemoActivity
+import com.hy.myapp.demo.skin.SkinFragmentDemoActivity
 import com.hy.myapp.demo.storage.StorageDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
@@ -82,6 +84,21 @@ object DemoMenu {
                     "全局事件总线",
                     "EventBus 一对多广播 · Fragment 间通信 · 粘性补收",
                     EventBusDemoActivity::class.java,
+                ),
+            ),
+        ),
+        DemoGroup(
+            "主题 · 换肤",
+            listOf(
+                DemoEntry(
+                    "换肤框架（不重启）",
+                    "values-night + 双 Context · 引擎可切回官方实现",
+                    SkinDemoActivity::class.java,
+                ),
+                DemoEntry(
+                    "换肤 · Tab + Fragment",
+                    "ViewPager2 双 Fragment · 无需额外接入",
+                    SkinFragmentDemoActivity::class.java,
                 ),
             ),
         ),

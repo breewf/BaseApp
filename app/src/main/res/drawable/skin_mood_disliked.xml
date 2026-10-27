@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 不喜欢态:警示色描边,按下用浅警示色 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_danger_soft" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_danger" />
+            <corners android:radius="@dimen/dimen_10" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_bg_chip" />
+            <stroke
+                android:width="@dimen/dimen_1"
+                android:color="@color/skin_danger" />
+            <corners android:radius="@dimen/dimen_10" />
+        </shape>
+    </item>
+
+</selector>

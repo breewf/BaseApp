@@ -37,6 +37,22 @@
     <color name="demo_white_alpha_70">#B3FFFFFF</color>
     <color name="demo_white_alpha_60">#99FFFFFF</color>
 
+    <!-- ================= 换肤语义色(只给已接入换肤的页面用) =================
+         底色/文字/分割线这类会随明暗翻转的色,统一用 skin_ 前缀;
+         夜间版本在 values-night/colors.xml 里同名覆盖,布局不用改。
+         颜色统一写满 8 位 ARGB。 -->
+    <color name="skin_bg_page">#FFF8F8F8</color>
+    <color name="skin_bg_card">#FFFFFFFF</color>
+    <color name="skin_bg_chip">#FFF2F3F5</color>
+    <color name="skin_text_primary">#FF333333</color>
+    <color name="skin_text_secondary">#FF666666</color>
+    <color name="skin_text_tertiary">#FF999999</color>
+    <color name="skin_divider">#FFE5E5E5</color>
+    <color name="skin_accent">#FF3F51B5</color>
+    <color name="skin_accent_soft">#1A3F51B5</color>
+    <color name="skin_danger">#FFE53935</color>
+    <color name="skin_danger_soft">#1AE53935</color>
+
     <!-- demo 拖拽排序 / 侧滑删除 -->
     <color name="demo_swipe_delete_bg">#FFFF3B30</color>
     <color name="demo_grid_add_bg">#FFF8F8F8</color>

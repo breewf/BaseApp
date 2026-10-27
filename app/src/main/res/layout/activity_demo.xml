@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_background_grey">
+    android:background="@color/skin_bg_page">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_24"
         android:text="@string/demo_hub_title"
-        android:textColor="@color/color_333333"
+        android:textColor="@color/skin_text_primary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_4"
         android:text="@string/demo_hub_subtitle"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/skin_text_tertiary"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />

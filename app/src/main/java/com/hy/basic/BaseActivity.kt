@@ -87,7 +87,11 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     protected var toolbar: Toolbar? = null
         private set
 
+    /** 布局创建前的 inflater 钩子,在 super.onCreate 之前调用 */
+    protected open fun onConfigureInflater(inflater: LayoutInflater) {}
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        onConfigureInflater(layoutInflater)
         super.onCreate(savedInstanceState)
         binding = createBinding(layoutInflater)
         setupContentView()

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    换肤框架演示页：明暗切换 / 引擎切换 / 语义色板 / 按压 Drawable / 自定义绘制 / 列表复用。
+    整页颜色只引用 skin_xxx 语义色，切肤时由框架就地刷新，不重建页面。
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true">
+
+    <!-- 背景放内层:滚动容器根 View 的槽位在换肤刷新时不稳 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/skin_bg_page"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="换肤框架（自研 · 不重启）"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:lineSpacingExtra="@dimen/dimen_2"
+            android:text="资源走官方 values-night，切换只换一套 Resources 取值；\n页面不重建，状态全部保留。"
+            android:textColor="@color/skin_text_tertiary"
+            android:textSize="12sp" />
+
+        <!-- 明暗模式 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="明暗模式"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCurrentMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="12sp"
+                    tools:text="当前：跟随系统 · 浅色" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_12"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvFollow"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_40"
+                        android:layout_weight="1"
+                        android:background="@color/skin_bg_chip"
+                        android:gravity="center"
+                        android:text="跟随系统"
+                        android:textColor="@color/skin_text_primary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tvLight"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_40"
+                        android:layout_marginStart="@dimen/dimen_8"
+                        android:layout_weight="1"
+                        android:background="@color/skin_bg_chip"
+                        android:gravity="center"
+                        android:text="浅色"
+                        android:textColor="@color/skin_text_primary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tvDark"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_40"
+                        android:layout_marginStart="@dimen/dimen_8"
+                        android:layout_weight="1"
+                        android:background="@color/skin_bg_chip"
+                        android:gravity="center"
+                        android:text="深色"
+                        android:textColor="@color/skin_text_primary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 引擎切换 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="引擎（可切回官方实现）"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvEngine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@color/skin_bg_chip"
+                    android:gravity="center"
+                    android:textColor="@color/skin_accent"
+                    android:textSize="13sp"
+                    tools:text="引擎：自研（不重启）" />
+
+                <TextView
+                    android:id="@+id/tvEngineTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:lineSpacingExtra="@dimen/dimen_2"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="11sp"
+                    tools:text="点一下切到官方实现：走 AppCompatDelegate + recreate，页面会重建一次。" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 语义色板：代码里按资源 id 取当前皮肤色 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="语义色板"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/llSwatches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 自定义绘制：实现 IDarkMode -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="自定义绘制（IDarkMode）"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.hy.myapp.demo.skin.SkinRingView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_140" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Canvas 里的颜色框架看不到，实现 IDarkMode 后用 SkinManager.color() 取色并 invalidate。"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 按压反馈：背景是一张 selector，夜间走 drawable-night 变体 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="按压反馈（Drawable）"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_2"
+                    android:lineSpacingExtra="@dimen/dimen_2"
+                    android:text="背景是 selector：日间描边，夜间渐变大圆角；切肤时按同一个资源 id 重新取图。"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvPressable"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_44"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@drawable/skin_btn_pressable"
+                    android:gravity="center"
+                    android:text="按住我看按压态"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 列表复用：滑出屏幕再滚回来也不串色 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="列表复用"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_2"
+                    android:text="切肤后上下滚动，item 颜色应始终保持当前皮肤。"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="11sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_400"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

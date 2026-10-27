@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
-import com.hy.basic.BaseActivity
 import com.hy.basic.BaseViewModel
 import com.hy.basic.network.ApiException
 import com.hy.basic.network.ApiExceptionExt
+import com.hy.basic.skin.BaseSkinActivity
 import com.hy.myapp.databinding.ActivityDemoBinding
 import com.hy.myapp.demo.adapter.DemoMenuAdapter
 import com.hy.myapp.demo.model.DemoEntry
@@ -23,8 +23,9 @@ import com.hy.myapp.demo.model.DemoMenu
  * 描述在模型里就按"一行核心信息"撰写(展示端 maxLines=1 截断)。
  *
  * 本页同样走 BaseActivity 规范:ViewBinding + ViewModel + 模板方法。
+ * 继承 [BaseSkinActivity] 后接入换肤:列表卡片与页面底色都走 skin_* 语义色
  */
-class DemoActivity : BaseActivity<ActivityDemoBinding, BaseViewModel>() {
+class DemoActivity : BaseSkinActivity<ActivityDemoBinding, BaseViewModel>() {
 
     private val menuAdapter = DemoMenuAdapter(::onEntrySelected)
 

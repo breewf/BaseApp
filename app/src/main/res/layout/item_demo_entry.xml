@@ -10,7 +10,7 @@
     android:layout_marginEnd="@dimen/dimen_6"
     android:layout_marginBottom="@dimen/dimen_4"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/skin_bg_card"
     app:cardCornerRadius="@dimen/dimen_12"
     app:cardElevation="@dimen/dimen_1">
 
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/color_333333"
+            android:textColor="@color/skin_text_primary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:minLines="2"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/skin_text_tertiary"
             android:textSize="12sp" />
 
     </LinearLayout>
