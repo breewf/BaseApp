@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    车机能力库:车辆信号抽象、CAN/协议解析、诊断(UDS)、电源与显示等能力。
+    本模块不声明权限与组件:CAN 设备节点权限、系统签名能力、
+    常驻 Service 等由宿主 App 或中间层进程按车型补充。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" />

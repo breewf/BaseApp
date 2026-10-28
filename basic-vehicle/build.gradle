@@ -1,0 +1,45 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'com.hy.basic.vehicle'
+    compileSdk 36
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 36
+        // 混淆规则随 aar 下发,后续反射加载信号表/协议定义时靠它保名字
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
+dependencies {
+    // 车机能力建立在基础框架之上:协程、事件总线、MMKV 配置、Room 存储等,
+    // 版本统一由 basic 维护,宿主只需 implementation project(':basic-vehicle')
+    api project(':basic')
+
+    // 协议解析、信号解码是纯逻辑,单测直接跑在 JVM 上
+    testImplementation 'junit:junit:4.13.2'
+}
