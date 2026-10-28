@@ -72,6 +72,12 @@ object SkinManager {
     var pack: SkinPack? = null
         private set
 
+    /** 节日包状态源 */
+    private val _pack = MutableStateFlow<SkinPack?>(null)
+
+    /** 当前节日包,订阅即拿到当前值 */
+    val packFlow: StateFlow<SkinPack?> = _pack.asStateFlow()
+
     /** 已注册的页面根 View */
     private val roots = WeakHashMap<View, Boolean>()
 
@@ -120,12 +126,9 @@ object SkinManager {
         baseSource = source
         // 节日包可能在 initialize 前注册,这里补一次恢复
         val restored = readPackId()?.let { packs[it] }
-        if (restored != null) {
-            pack = restored
-            currentSource = FestivalSkinSource(source, restored)
-        } else {
-            currentSource = source
-        }
+        pack = restored
+        currentSource = restored?.let { FestivalSkinSource(source, it) } ?: source
+        _pack.value = restored
         _isDark.value = source.isDark
         app.registerComponentCallbacks(configCallbacks)
         initialized = true
@@ -225,11 +228,17 @@ object SkinManager {
     /** 套用节日包:在默认来源外再包一层资源映射 */
     private fun applyPack(target: SkinPack?) {
         pack = target
-        val base = baseSource ?: return
+        val base = baseSource
+        if (base == null) {
+            _pack.value = target
+            return
+        }
         currentSource = target?.let { FestivalSkinSource(base, it) } ?: base
         currentSource?.applyMode(computeDark())
         _isDark.value = isDark
         refreshAllNow()
+        // 放在来源切换与刷新之后:订阅方回调时读到的已经是新来源
+        _pack.value = target
     }
 
     /** 手动刷新已注册页面 */

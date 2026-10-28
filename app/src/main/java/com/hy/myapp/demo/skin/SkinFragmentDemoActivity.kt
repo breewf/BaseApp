@@ -12,6 +12,7 @@ import com.hy.basic.skin.BaseSkinActivity
 import com.hy.basic.skin.SkinManager
 import com.hy.myapp.R
 import com.hy.myapp.databinding.ActivitySkinFragmentDemoBinding
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 /** 换肤验证:Tab + ViewPager2 双 Fragment,Fragment 无需额外接入 */
@@ -50,8 +51,10 @@ class SkinFragmentDemoActivity :
         }.attach()
 
         applySkinExtras()
+        // 深浅或节日包变化都要重刷 Tab/Toolbar
         lifecycleScope.launch {
-            SkinManager.isDarkFlow.collect { applySkinExtras() }
+            combine(SkinManager.isDarkFlow, SkinManager.packFlow) { _, _ -> Unit }
+                .collect { applySkinExtras() }
         }
     }
 

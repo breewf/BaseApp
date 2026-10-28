@@ -13,6 +13,7 @@ import androidx.viewbinding.ViewBinding
 import com.hy.basic.BaseActivity
 import com.hy.basic.BaseViewModel
 import com.hy.myapp.R
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 /**
@@ -35,10 +36,12 @@ abstract class BaseSkinActivity<VB : ViewBinding, VM : BaseViewModel> :
         applySystemBarStyle()
         applyContentInsets()
         lifecycleScope.launch {
-            SkinManager.isDarkFlow.collect {
-                applyWindowBackground()
-                applySystemBarStyle()
-            }
+            // 深浅或节日包变化时,窗口底色与系统栏图标都要重算
+            combine(SkinManager.isDarkFlow, SkinManager.packFlow) { _, _ -> Unit }
+                .collect {
+                    applyWindowBackground()
+                    applySystemBarStyle()
+                }
         }
     }
 
