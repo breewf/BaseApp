@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hy.basic.BaseViewModel
+import com.hy.basic.font.ignoreFontScale
 import com.hy.basic.network.ApiException
 import com.hy.basic.network.ApiExceptionExt
 import com.hy.basic.skin.BaseSkinActivity
@@ -27,6 +28,9 @@ import com.hy.myapp.demo.model.DemoMenu
  */
 class DemoActivity : BaseSkinActivity<ActivityDemoBinding, BaseViewModel>() {
 
+    /** 首页跟随字号,设置页改完返回时会重建一次 */
+    override val followFontScale: Boolean get() = true
+
     private val menuAdapter = DemoMenuAdapter(::onEntrySelected)
 
     override fun createBinding(inflater: LayoutInflater) = ActivityDemoBinding.inflate(inflater)
@@ -34,6 +38,8 @@ class DemoActivity : BaseSkinActivity<ActivityDemoBinding, BaseViewModel>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding.rvMenu.adapter = menuAdapter
         menuAdapter.submitList(DemoMenu.rows(this))
+        // 副标题不跟随:标题会随档位变大,这行保持原样
+        binding.tvSubtitle.ignoreFontScale()
         // XML 声明的 GridLayoutManager(spanCount=2)在此补跨列规则:标题占整行,入口各占一列
         (binding.rvMenu.layoutManager as? GridLayoutManager)?.spanSizeLookup =
             object : GridLayoutManager.SpanSizeLookup() {

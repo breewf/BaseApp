@@ -1,6 +1,7 @@
 package com.hy.basic
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
+import com.hy.basic.font.FontScaleManager
 import com.hy.basic.hint.ToastKit
 import com.hy.basic.network.ApiException
 import com.hy.basic.network.ApiExceptionExt
@@ -89,6 +91,31 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
 
     /** 布局创建前的 inflater 钩子,在 super.onCreate 之前调用 */
     protected open fun onConfigureInflater(inflater: LayoutInflater) {}
+
+    /** 本页是否跟随字号。默认取全局策略,单页重写 false 就整体退出 */
+    protected open val followFontScale: Boolean get() = FontScaleManager.followByDefault
+
+    /** 字号要在建 View 前包进 Context,放到 onCreate 就来不及了 */
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(if (followFontScale) FontScaleManager.wrap(newBase) else newBase)
+    }
+
+    /** 从其他页面回来时补一次检查 */
+    override fun onResume() {
+        super.onResume()
+        syncFontScale()
+    }
+
+    /**
+     * 档位变了但页面还在栈里,不会再走 onCreate,只能重建一次。
+     * 放到可见时才重建,避免改档瞬间把栈里的页面一起刷了。
+     */
+    private fun syncFontScale() {
+        if (!followFontScale || FontScaleManager.isApplied(this)) return
+        window.decorView.post {
+            if (!isFinishing && !isDestroyed) recreate()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         onConfigureInflater(layoutInflater)

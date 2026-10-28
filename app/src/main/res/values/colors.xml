@@ -61,6 +61,15 @@
     <color name="skin_festival_accent_soft">#1AD32F2F</color>
     <color name="skin_festival_page">#FFFFF3E6</color>
 
+    <!-- 字号设置页:独立配色,不接换肤 -->
+    <color name="font_demo_page">#FFF5F6F8</color>
+    <color name="font_demo_card">#FFFFFFFF</color>
+    <color name="font_demo_text">#FF1A1A1A</color>
+    <color name="font_demo_hint">#FF8A8A8A</color>
+    <color name="font_demo_chip">#FFF0F2F5</color>
+    <color name="font_demo_accent">#FF2F6BFF</color>
+    <color name="font_demo_on_accent">#FFFFFFFF</color>
+
     <!-- demo 拖拽排序 / 侧滑删除 -->
     <color name="demo_swipe_delete_bg">#FFFF3B30</color>
     <color name="demo_grid_add_bg">#FFF8F8F8</color>

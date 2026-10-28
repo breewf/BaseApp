@@ -91,6 +91,11 @@
             android:name=".demo.skin.SkinFragmentDemoActivity"
             android:exported="false"
             android:label="换肤 Fragment" />
+        <!-- 字体大小设置页(fontScale 覆盖 + 重建) -->
+        <activity
+            android:name=".demo.font.FontScaleDemoActivity"
+            android:exported="false"
+            android:label="字体大小" />
         <!-- 网络请求测试页 -->
         <activity
             android:name=".demo.network.NetworkTestActivity"

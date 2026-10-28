@@ -12,4 +12,7 @@
     <item name="skin_slot_tag" type="id" />
     <item name="skin_rv_tag" type="id" />
 
+    <!-- 字号：控件级退出缩放时记录的基准像素 -->
+    <item name="font_scale_base_tag" type="id" />
+
 </resources>

@@ -10,6 +10,7 @@ import com.hy.myapp.demo.db.DbDemoActivity
 import com.hy.myapp.demo.dialog.DialogDemoActivity
 import com.hy.myapp.demo.dialog.DialogFragmentDemoActivity
 import com.hy.myapp.demo.event.EventBusDemoActivity
+import com.hy.myapp.demo.font.FontScaleDemoActivity
 import com.hy.myapp.demo.hint.HintDemoActivity
 import com.hy.myapp.demo.image.ImageLoaderDemoActivity
 import com.hy.myapp.demo.list.ListDemoActivity
@@ -21,7 +22,6 @@ import com.hy.myapp.demo.profile.ProfileDemoActivity
 import com.hy.myapp.demo.richtext.RichTextDemoActivity
 import com.hy.myapp.demo.result.ActivityResultDemoActivity
 import com.hy.myapp.demo.skin.SkinDemoActivity
-import com.hy.myapp.demo.skin.SkinFragmentDemoActivity
 import com.hy.myapp.demo.storage.StorageDemoActivity
 import com.hy.myapp.demo.state.FragmentPageStateActivity
 import com.hy.myapp.demo.state.PageStateDemoActivity
@@ -88,7 +88,7 @@ object DemoMenu {
             ),
         ),
         DemoGroup(
-            "主题 · 换肤",
+            "主题 · 换肤 · 字号",
             listOf(
                 DemoEntry(
                     "换肤框架（不重启）",
@@ -96,9 +96,9 @@ object DemoMenu {
                     SkinDemoActivity::class.java,
                 ),
                 DemoEntry(
-                    "换肤 · Tab + Fragment",
-                    "ViewPager2 双 Fragment · 无需额外接入",
-                    SkinFragmentDemoActivity::class.java,
+                    "字体大小设置",
+                    "fontScale 覆盖 + 重建 · 页面和控件都能单独退出",
+                    FontScaleDemoActivity::class.java,
                 ),
             ),
         ),

@@ -35,6 +35,18 @@
             android:textColor="@color/skin_text_tertiary"
             android:textSize="12sp" />
 
+        <!-- Tab + Fragment 换肤验证,从总入口拆出来单独留一格 -->
+        <TextView
+            android:id="@+id/tvFragmentDemo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:background="@color/skin_bg_card"
+            android:gravity="center"
+            android:text="Tab + Fragment 换肤验证 →"
+            android:textColor="@color/skin_accent"
+            android:textSize="14sp" />
+
         <!-- 明暗模式 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

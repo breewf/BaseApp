@@ -1,5 +1,6 @@
 package com.hy.myapp.demo.skin
 
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
@@ -41,6 +42,10 @@ class SkinDemoActivity : BaseSkinActivity<ActivitySkinDemoBinding, BaseViewModel
         binding.tvEngine.setOnClickListener { toggleEngine() }
         // 按下反馈来自 drawable selector,切肤时整张图会重新取一次
         binding.tvPressable.setOnClickListener { showToast("按压态由 drawable 提供") }
+        // Tab + Fragment 验证放在这里,总入口对应位置换成了字号设置
+        binding.tvFragmentDemo.setOnClickListener {
+            startActivity(Intent(this, SkinFragmentDemoActivity::class.java))
+        }
 
         // 皮肤变化后重绘文案和色板,系统栏由基类处理
         lifecycleScope.launch {
