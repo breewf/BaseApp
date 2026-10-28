@@ -13,6 +13,7 @@ import com.hy.myapp.databinding.ActivityDemoBinding
 import com.hy.demo.adapter.DemoMenuAdapter
 import com.hy.demo.model.DemoEntry
 import com.hy.demo.model.DemoMenu
+import com.hy.vehicle.VehicleDemoActivity
 
 /**
  * desc: App 启动总入口 = 基类框架能力验证总入口
@@ -38,6 +39,10 @@ class DemoActivity : BaseSkinActivity<ActivityDemoBinding, BaseViewModel>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding.rvMenu.adapter = menuAdapter
         menuAdapter.submitList(DemoMenu.rows(this))
+        // 车机相关能力单独一页,从这里进,不混进手机端演示列表
+        binding.tvVehicleEntry.setOnClickListener {
+            startActivity(Intent(this, VehicleDemoActivity::class.java))
+        }
         // 副标题不跟随:标题会随档位变大,这行保持原样
         binding.tvSubtitle.ignoreFontScale()
         // XML 声明的 GridLayoutManager(spanCount=2)在此补跨列规则:标题占整行,入口各占一列

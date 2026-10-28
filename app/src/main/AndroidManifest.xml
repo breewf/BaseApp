@@ -81,6 +81,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 车机能力验证入口(能力验证首页右上角进入) -->
+        <activity
+            android:name="com.hy.vehicle.VehicleDemoActivity"
+            android:exported="false"
+            android:label="车机能力验证" />
+        <!-- 字节 / 位域 / 校验验证页 -->
+        <activity
+            android:name="com.hy.vehicle.ByteChecksumDemoActivity"
+            android:exported="false" />
+        <!-- CAN 信号解析验证页 -->
+        <activity
+            android:name="com.hy.vehicle.CanSignalDemoActivity"
+            android:exported="false" />
+        <!-- 单位换算验证页 -->
+        <activity
+            android:name="com.hy.vehicle.UnitConvertDemoActivity"
+            android:exported="false" />
+        <!-- 车机环境:多屏 / 存储 / 电源 / 按键 -->
+        <activity
+            android:name="com.hy.vehicle.VehicleEnvDemoActivity"
+            android:exported="false" />
+        <!-- 车型功能开关验证页 -->
+        <activity
+            android:name="com.hy.vehicle.VehicleConfigDemoActivity"
+            android:exported="false" />
         <!-- 换肤框架演示页(自研不重启 / 引擎可切回官方实现) -->
         <activity
             android:name="com.hy.demo.skin.SkinDemoActivity"

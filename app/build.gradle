@@ -52,6 +52,8 @@ dependencies {
     // appcompat/material/recyclerview/coroutines/retrofit/room/glide 等共享依赖由 basic 通过 api 暴露,
     // 版本统一在 basic/build.gradle 维护,这里不再重复声明。
     implementation project(':basic')
+    // 车机能力:字节/协议解析、信号模型、多屏/存储/电源等封装
+    implementation project(':basic-vehicle')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // 仅 app 自身使用

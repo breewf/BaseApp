@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 车机环境验证页:显示屏 / 电源 / 存储 / 按键四块信息集中展示 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="多屏、存储卷、亮灭屏、按键旋钮都是车机上天天要处理的东西,这里一次性拿到当前环境。"
+            android:textColor="@color/skin_text_secondary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="显示屏"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="64dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="电源 / 亮灭屏"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/skin_bg_chip"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="存储卷"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvStorage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="96dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="刷新环境信息"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="按键 / 旋钮"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="本页会吞掉除返回键外的按键事件,按方向键、音量键或转旋钮都能看到记录。"
+            android:textColor="@color/skin_text_tertiary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvKeyLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="120dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</ScrollView>

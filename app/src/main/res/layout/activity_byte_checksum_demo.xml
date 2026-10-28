@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 字节 / 位域 / 校验验证页:文本统一等宽字体,方便逐位对照 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="字节序、位域、BCD 和校验都按协议文档来。切换样例时重点看 Intel 与 Motorola 同一 startBit 的差异。"
+            android:textColor="@color/skin_text_secondary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvSample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnNextSample"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="换一组样例"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:minHeight="320dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -19,6 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 车机能力验证入口:和标题同一行,靠右;后续车机相关页面统一从这里进 -->
+    <TextView
+        android:id="@+id/tvVehicleEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_16"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/dimen_8"
+        android:paddingTop="@dimen/dimen_4"
+        android:paddingEnd="@dimen/dimen_8"
+        android:paddingBottom="@dimen/dimen_4"
+        android:text="@string/demo_vehicle_entry"
+        android:textColor="@color/skin_accent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"

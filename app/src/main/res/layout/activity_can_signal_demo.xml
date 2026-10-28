@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CAN 信号解析验证页:一帧报文 + 四条信号,等宽字体方便对齐看 raw -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="8 字节仿真帧里混了 Intel 和 Motorola 信号,车速带 0.1 精度,温度带 -40 偏移,档位是枚举。"
+            android:textColor="@color/skin_text_secondary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnNextFrame"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_button"
+            android:text="切换一帧(正常 / 超范围 / 无效)"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvSignals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:minHeight="280dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

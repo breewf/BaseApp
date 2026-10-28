@@ -22,6 +22,8 @@
     <!-- demo 能力验证总入口 -->
     <string name="demo_hub_title">能力验证</string>
     <string name="demo_hub_subtitle">Kotlin MVVM 基类 · ViewBinding + 协程 + Flow</string>
+    <string name="demo_vehicle_entry">车机能力验证 ›</string>
+    <string name="demo_vehicle_subtitle">协议解析 · 信号质量 · 多屏 / 存储 / 电源 / 按键</string>
     <string name="demo_entry_arrow">›</string>
 
     <!-- demo 网络请求测试 -->

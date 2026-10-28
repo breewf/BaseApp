@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 单位换算验证页:全部是静态结果,核对量纲即可 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="车机信号常用整数 + 精度传值,这里把常见量纲换算集中验证一遍,业务里别再散落 *0.1 这种数字。"
+            android:textColor="@color/skin_text_secondary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="5dp"
+            android:minHeight="420dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

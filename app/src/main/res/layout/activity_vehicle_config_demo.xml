@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 车型配置验证页:两个功能开关 + 当前配置快照 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_bg_page"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="同一份 App 装到不同车型,功能开关、默认值都可能不一样。这里用 MMKV 存一份,写入后通知页面刷新。"
+            android:textColor="@color/skin_text_secondary"
+            android:textSize="13sp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swSimulation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:text="启用本地信号仿真"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="15sp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swDriveLock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:text="启用行车限制"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="当前配置"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSnapshot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/skin_bg_chip"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:minHeight="160dp"
+            android:padding="12dp"
+            android:textColor="@color/skin_text_primary"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/demo_bg_button_outline"
+            android:text="清空车辆配置"
+            android:textAllCaps="false"
+            android:textColor="@color/skin_accent"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</ScrollView>
