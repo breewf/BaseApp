@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    基类框架库：页面基类、组件与工具。权限、FileProvider 等仍需宿主 App 自行声明。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,0 +1,77 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'com.hy.basic'
+    compileSdk 36
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 36
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        viewBinding true
+        // Api 用 BuildConfig.DEBUG 决定是否挂日志拦截器，库模块需显式开启
+        buildConfig true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
+dependencies {
+    // 共享依赖版本统一在这里维护,app 通过 :basic 的 api 传递获取
+    api 'androidx.activity:activity-ktx:1.8.0'
+    api 'androidx.appcompat:appcompat:1.8.0'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.4.0'
+    api 'androidx.viewpager2:viewpager2:1.0.0'
+    api 'com.google.android.material:material:1.13.0'
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.11.0"
+    api 'androidx.lifecycle:lifecycle-common-java8:2.11.0'
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0"
+    api 'androidx.palette:palette-ktx:1.0.0'
+
+    // kotlin
+    // noinspection DifferentStdlibGradleVersion
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api 'androidx.core:core-ktx:1.18.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
+
+    // 网络层
+    api 'com.squareup.retrofit2:retrofit:3.0.0'
+    api 'com.squareup.retrofit2:converter-gson:3.0.0'
+    api 'com.squareup.okhttp3:logging-interceptor:5.1.0'
+    api 'com.google.code.gson:gson:2.14.0'
+
+    // 本地键值存储
+    api 'com.tencent:mmkv:2.4.3'
+
+    // Room 基类能力(runtime 即可,具体 @Database 由宿主模块用 KSP 生成)
+    api 'androidx.room:room-runtime:2.8.5'
+    api 'androidx.room:room-ktx:2.8.5'
+
+    // 图片加载
+    api 'com.github.bumptech.glide:glide:4.16.0'
+
+    api 'com.blankj:utilcodex:1.31.1'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    api 'io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.4.1'
+}

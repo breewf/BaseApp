@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    基类框架自带的默认色板：仅覆盖框架组件用到的颜色，宿主 App 可用同名资源覆盖成自己的主题色。
+-->
+<resources>
+    <color name="colorPrimary">#FF3F51B5</color>
+    <color name="colorAccent">#FFFF4081</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="black_alpha">#FF333333</color>
+    <color name="color_323232">#FF323232</color>
+    <color name="color_333333">#FF333333</color>
+    <color name="color_666666">#FF666666</color>
+    <color name="common_view_grey">#FFE5E5E5</color>
+
+    <!-- Banner 轮播:指示器默认色(半透白,图片/纯色背景上都看得见) -->
+    <color name="banner_indicator_dot">#66FFFFFF</color>
+    <color name="banner_indicator_selected">#FFFFFFFF</color>
+
+    <!-- 换肤:页面底色默认值,宿主可用自己的 skin_* 语义色覆盖 -->
+    <color name="skin_bg_page">#FFF8F8F8</color>
+</resources>

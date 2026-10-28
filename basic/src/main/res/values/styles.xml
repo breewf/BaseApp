@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    基类框架自带的弹框皮肤，宿主可用同名样式覆盖。
+-->
+<resources>
+
+    <!-- 自定义弹框：CustomDialog / dialog_custom.xml -->
+    <style name="DialogCustom" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <!-- 全屏弹框：BaseDialogFragment(isFullscreen = true) -->
+    <style name="AbsDialogFullscreen" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!-- 卡片弹框：BaseDialogFragment 默认皮肤 -->
+    <style name="AbsDialogCard" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!-- 弹框从底部滑入 / 滑出 -->
+    <style name="AbsDialogAnimBottom">
+        <item name="android:windowEnterAnimation">@anim/abs_dialog_enter_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/abs_dialog_exit_to_bottom</item>
+    </style>
+
+    <!-- 弹框淡入 / 淡出 -->
+    <style name="AbsDialogAnimFade">
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_out</item>
+    </style>
+
+    <!-- Material 底部面板主题 -->
+    <style name="AbsBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AbsBottomSheet</item>
+        <item name="enableEdgeToEdge">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- 底部面板本体：白底 + 顶部圆角 -->
+    <style name="AbsBottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">@style/AbsBottomSheetShape</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="shouldRemoveExpandedCorners">false</item>
+        <item name="paddingTopSystemWindowInsets">false</item>
+        <item name="paddingBottomSystemWindowInsets">true</item>
+        <item name="paddingLeftSystemWindowInsets">true</item>
+        <item name="paddingRightSystemWindowInsets">true</item>
+    </style>
+
+    <!-- 底部面板圆角 -->
+    <style name="AbsBottomSheetShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+</resources>

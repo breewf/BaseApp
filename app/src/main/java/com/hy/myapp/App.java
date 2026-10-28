@@ -6,7 +6,7 @@ import com.hy.baseapp.BaseApplication;
 import com.hy.baseapp.common.Toasts;
 import com.hy.baseapp.base.net.RetrofitClient;
 import com.hy.basic.skin.SkinManager;
-import com.hy.myapp.demo.skin.FestivalPacks;
+import com.hy.demo.skin.FestivalPacks;
 import com.tencent.mmkv.MMKV;
 
 /**

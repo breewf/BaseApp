@@ -37,7 +37,7 @@
         android:textColor="@color/skin_text_primary"
         android:textSize="13sp" />
 
-    <com.hy.myapp.demo.skin.SkinRingView
+    <com.hy.demo.skin.SkinRingView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_120"
         android:layout_marginTop="@dimen/dimen_10" />

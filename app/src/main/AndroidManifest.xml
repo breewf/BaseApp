@@ -72,7 +72,7 @@
             android:theme="@style/AppTheme2" />
         <!-- 能力验证总入口:启动页 -->
         <activity
-            android:name=".demo.DemoActivity"
+            android:name="com.hy.demo.DemoActivity"
             android:exported="true"
             android:label="@string/demo_hub_title">
             <intent-filter>
@@ -83,122 +83,122 @@
         </activity>
         <!-- 换肤框架演示页(自研不重启 / 引擎可切回官方实现) -->
         <activity
-            android:name=".demo.skin.SkinDemoActivity"
+            android:name="com.hy.demo.skin.SkinDemoActivity"
             android:exported="false"
             android:label="换肤框架" />
         <!-- 换肤 + Fragment 验证页(Tab + ViewPager2) -->
         <activity
-            android:name=".demo.skin.SkinFragmentDemoActivity"
+            android:name="com.hy.demo.skin.SkinFragmentDemoActivity"
             android:exported="false"
             android:label="换肤 Fragment" />
         <!-- 字体大小设置页(fontScale 覆盖 + 重建) -->
         <activity
-            android:name=".demo.font.FontScaleDemoActivity"
+            android:name="com.hy.demo.font.FontScaleDemoActivity"
             android:exported="false"
             android:label="字体大小" />
         <!-- 网络请求测试页 -->
         <activity
-            android:name=".demo.network.NetworkTestActivity"
+            android:name="com.hy.demo.network.NetworkTestActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <!-- 整页多状态示例页 -->
         <activity
-            android:name=".demo.state.PageStateDemoActivity"
+            android:name="com.hy.demo.state.PageStateDemoActivity"
             android:exported="false" />
         <!-- Fragment(ViewPager)多状态页面测试页 -->
         <activity
-            android:name=".demo.state.FragmentPageStateActivity"
+            android:name="com.hy.demo.state.FragmentPageStateActivity"
             android:exported="false" />
         <!-- 运行时权限演示页 -->
         <activity
-            android:name=".demo.permission.PermissionDemoActivity"
+            android:name="com.hy.demo.permission.PermissionDemoActivity"
             android:exported="false" />
         <!-- 本地持久化演示页(MMKV 属性委托 + SP 扩展备用) -->
         <activity
-            android:name=".demo.storage.StorageDemoActivity"
+            android:name="com.hy.demo.storage.StorageDemoActivity"
             android:exported="false" />
         <!-- Room 数据库演示页(BaseDao + Flow 查询 + 版本迁移) -->
         <activity
-            android:name=".demo.db.DbDemoActivity"
+            android:name="com.hy.demo.db.DbDemoActivity"
             android:exported="false" />
         <!-- 共享元素转场 demo:单图入口 / 大图详情 / 列表网格(均需转场主题) -->
         <activity
-            android:name=".demo.transition.SharedImageDemoActivity"
+            android:name="com.hy.demo.transition.SharedImageDemoActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialTransition" />
         <activity
-            android:name=".demo.transition.SharedImageDetailActivity"
+            android:name="com.hy.demo.transition.SharedImageDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialTransition" />
         <activity
-            android:name=".demo.transition.SharedGridDemoActivity"
+            android:name="com.hy.demo.transition.SharedGridDemoActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialTransition" />
         <!-- Dialog 弹窗演示页 -->
         <activity
-            android:name=".demo.dialog.DialogDemoActivity"
+            android:name="com.hy.demo.dialog.DialogDemoActivity"
             android:exported="false" />
         <!-- DialogFragment 弹框基类演示页(全屏/卡片弹框 + Material 底部面板) -->
         <activity
-            android:name=".demo.dialog.DialogFragmentDemoActivity"
+            android:name="com.hy.demo.dialog.DialogFragmentDemoActivity"
             android:exported="false" />
         <!-- Toast + Snackbar 提示演示页 -->
         <activity
-            android:name=".demo.hint.HintDemoActivity"
+            android:name="com.hy.demo.hint.HintDemoActivity"
             android:exported="false" />
         <!-- Banner 轮播演示页 -->
         <activity
-            android:name=".demo.banner.BannerDemoActivity"
+            android:name="com.hy.demo.banner.BannerDemoActivity"
             android:exported="false" />
         <!-- 图片加载演示页 -->
         <activity
-            android:name=".demo.image.ImageLoaderDemoActivity"
+            android:name="com.hy.demo.image.ImageLoaderDemoActivity"
             android:exported="false" />
         <!-- 油价查询演示页(第三方裸 JSON 接口示例) -->
         <activity
-            android:name=".demo.oilprice.OilPriceActivity"
+            android:name="com.hy.demo.oilprice.OilPriceActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <!-- 图片吸色主题演示页(Palette 取色 + 主题联动) -->
         <activity
-            android:name=".demo.palette.PaletteThemeActivity"
+            android:name="com.hy.demo.palette.PaletteThemeActivity"
             android:exported="false" />
         <!-- 列表组件演示页(竖向/横向/网格/瀑布流 + 下拉刷新 + 整页多状态) -->
         <activity
-            android:name=".demo.list.ListDemoActivity"
+            android:name="com.hy.demo.list.ListDemoActivity"
             android:exported="false" />
         <!-- 拖拽排序 / 侧滑删除演示页(ItemTouchHelper + BRVAH4) -->
         <activity
-            android:name=".demo.touch.ItemTouchDemoActivity"
+            android:name="com.hy.demo.touch.ItemTouchDemoActivity"
             android:exported="false" />
         <!-- 富文本演示页(Spannable 常见用法 + 展开折叠/链接) -->
         <activity
-            android:name=".demo.richtext.RichTextDemoActivity"
+            android:name="com.hy.demo.richtext.RichTextDemoActivity"
             android:exported="false" />
         <!-- 个人详情页(CollapsingToolbarLayout 折叠吸顶 + 视差头图 + Tab 吸顶联动) -->
         <activity
-            android:name=".demo.profile.ProfileDemoActivity"
+            android:name="com.hy.demo.profile.ProfileDemoActivity"
             android:exported="false" />
         <!-- ActivityResult 封装 + 统一事件通道演示页 -->
         <activity
-            android:name=".demo.result.ActivityResultDemoActivity"
+            android:name="com.hy.demo.result.ActivityResultDemoActivity"
             android:exported="false" />
         <!-- 表单回传页(被 awaitResult 拉起,提交时发 ShowResult 事件) -->
         <activity
-            android:name=".demo.result.ActivityResultFormActivity"
+            android:name="com.hy.demo.result.ActivityResultFormActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <!-- 全局事件总线演示页(EventBus:一对多广播 + Fragment 间通信 + 粘性跨页) -->
         <activity
-            android:name=".demo.event.EventBusDemoActivity"
+            android:name="com.hy.demo.event.EventBusDemoActivity"
             android:exported="false" />
         <!-- 粘性补收子页(晚创建仍能补收最近一次登录事件) -->
         <activity
-            android:name=".demo.event.LoginReceiverActivity"
+            android:name="com.hy.demo.event.LoginReceiverActivity"
             android:exported="false" />
         <!-- WebView 基类演示页(JS Bridge / 进度条 / SSL 容错 / 返回键拦截) -->
         <activity
-            android:name=".demo.web.WebViewDemoActivity"
+            android:name="com.hy.demo.web.WebViewDemoActivity"
             android:exported="false"
             android:label="WebView 封装"
             android:windowSoftInputMode="adjustResize" />

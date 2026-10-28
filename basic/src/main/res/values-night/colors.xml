@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    换肤默认色板的夜间取值：宿主未覆盖时,BaseSkinActivity 的窗口底色会跟着变深。
+-->
+<resources>
+    <color name="skin_bg_page">#FF121212</color>
+</resources>

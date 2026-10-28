@@ -8,11 +8,4 @@
     <item name="slidable_panel" type="id" />
     <item name="slidable_content" type="id" />
 
-    <!-- 换肤：View 上挂的属性槽位 / RecyclerView 补色监听标记 -->
-    <item name="skin_slot_tag" type="id" />
-    <item name="skin_rv_tag" type="id" />
-
-    <!-- 字号：控件级退出缩放时记录的基准像素 -->
-    <item name="font_scale_base_tag" type="id" />
-
 </resources>

@@ -225,7 +225,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <com.hy.myapp.demo.skin.SkinRingView
+                <com.hy.demo.skin.SkinRingView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_140" />
 
