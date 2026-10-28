@@ -56,6 +56,11 @@
     <!-- 故意不写 values-night:验证缺夜间配置时自动回落,切深色应保持原样 -->
     <color name="skin_demo_day_only">#FFFFE0B2</color>
 
+    <!-- 节日皮肤:春节包的主色与页面底色 -->
+    <color name="skin_festival_accent">#FFD32F2F</color>
+    <color name="skin_festival_accent_soft">#1AD32F2F</color>
+    <color name="skin_festival_page">#FFFFF3E6</color>
+
     <!-- demo 拖拽排序 / 侧滑删除 -->
     <color name="demo_swipe_delete_bg">#FFFF3B30</color>
     <color name="demo_grid_add_bg">#FFF8F8F8</color>

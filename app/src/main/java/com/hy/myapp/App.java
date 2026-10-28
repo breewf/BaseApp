@@ -6,6 +6,7 @@ import com.hy.baseapp.BaseApplication;
 import com.hy.baseapp.common.Toasts;
 import com.hy.baseapp.base.net.RetrofitClient;
 import com.hy.basic.skin.SkinManager;
+import com.hy.myapp.demo.skin.FestivalPacks;
 import com.tencent.mmkv.MMKV;
 
 /**
@@ -35,6 +36,8 @@ public class App extends BaseApplication {
 
         // 换肤:读持久化模式,处理引擎切换残留,需在首个 Activity 前调用
         SkinManager.initialize(this);
+        // 注册节日皮肤包;持久化过春节包时会在这里自动恢复
+        SkinManager.registerPack(FestivalPacks.SPRING);
 
         Toasts.install(this);
         RetrofitClient.getInstance().initClient();

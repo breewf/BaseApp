@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 春节按压按钮:颜色引用节日色,自带日夜值 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_festival_accent_soft" />
+            <corners android:radius="@dimen/dimen_10" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/skin_festival_accent" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/skin_bg_chip" />
+            <corners android:radius="@dimen/dimen_10" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/skin_festival_accent" />
+        </shape>
+    </item>
+</selector>

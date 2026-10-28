@@ -43,6 +43,9 @@ object SkinManager {
     /** 模式存储键 */
     private const val KEY_MODE = "skin.mode"
 
+    /** 节日包存储键,空串表示默认皮肤 */
+    private const val KEY_PACK = "skin.pack"
+
     /** 官方引擎标记,用于下次冷启动复位 AppCompat */
     private const val KEY_COMPAT = "skin.compat"
 
@@ -58,6 +61,16 @@ object SkinManager {
     /** 当前资源来源,取色可能发生在子线程 */
     @Volatile
     private var currentSource: SkinSource? = null
+
+    /** 默认来源,节日包叠在它上面 */
+    private var baseSource: SkinSource? = null
+
+    /** 已注册的节日包 */
+    private val packs = LinkedHashMap<String, SkinPack>()
+
+    /** 当前节日包,null 为默认皮肤 */
+    var pack: SkinPack? = null
+        private set
 
     /** 已注册的页面根 View */
     private val roots = WeakHashMap<View, Boolean>()
@@ -104,7 +117,15 @@ object SkinManager {
         appContext = app
         currentMode = readMode()
         val source = NightSkinSource(app).apply { applyMode(computeDark()) }
-        currentSource = source
+        baseSource = source
+        // 节日包可能在 initialize 前注册,这里补一次恢复
+        val restored = readPackId()?.let { packs[it] }
+        if (restored != null) {
+            pack = restored
+            currentSource = FestivalSkinSource(source, restored)
+        } else {
+            currentSource = source
+        }
         _isDark.value = source.isDark
         app.registerComponentCallbacks(configCallbacks)
         initialized = true
@@ -173,13 +194,42 @@ object SkinManager {
         SkinConfig.enabled = enabled
     }
 
-    /** 替换资源来源,节日皮肤入口 */
+    /** 替换默认来源,节日包会重新叠上去 */
     @MainThread
     fun setSource(source: SkinSource) {
-        currentSource = source
-        source.applyMode(computeDark())
+        baseSource = source
+        currentSource = pack?.let { FestivalSkinSource(source, it) } ?: source
+        currentSource?.applyMode(computeDark())
         refreshAllNow()
-        _isDark.value = source.isDark
+        _isDark.value = isDark
+    }
+
+    // ==== 节日皮肤 ====
+
+    /** 注册节日包;冷启动后首次注册时按持久化记录恢复 */
+    @JvmStatic
+    @MainThread
+    fun registerPack(pack: SkinPack) {
+        packs[pack.id] = pack
+        if (this.pack == null && readPackId() == pack.id) applyPack(pack)
+    }
+
+    /** 切换节日皮肤,null 回默认;明暗模式与节日包相互独立 */
+    @JvmStatic
+    @MainThread
+    fun setPack(pack: SkinPack?) {
+        persistPackId(pack?.id)
+        applyPack(pack)
+    }
+
+    /** 套用节日包:在默认来源外再包一层资源映射 */
+    private fun applyPack(target: SkinPack?) {
+        pack = target
+        val base = baseSource ?: return
+        currentSource = target?.let { FestivalSkinSource(base, it) } ?: base
+        currentSource?.applyMode(computeDark())
+        _isDark.value = isDark
+        refreshAllNow()
     }
 
     /** 手动刷新已注册页面 */
@@ -445,4 +495,12 @@ object SkinManager {
     /** 存官方引擎标记 */
     private fun persistCompatFlag(applied: Boolean) =
         runCatching { MMKVStore.putBoolean(KEY_COMPAT, applied) }
+
+    /** 读节日包 id */
+    private fun readPackId(): String? =
+        runCatching { MMKVStore.getString(KEY_PACK) }.getOrNull()?.takeIf { it.isNotEmpty() }
+
+    /** 存节日包 id */
+    private fun persistPackId(id: String?) =
+        runCatching { MMKVStore.putString(KEY_PACK, id ?: "") }
 }

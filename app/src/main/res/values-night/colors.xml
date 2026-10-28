@@ -16,4 +16,9 @@
     <color name="skin_danger">#FFFF6B6B</color>
     <color name="skin_danger_soft">#33FF6B6B</color>
 
+    <!-- 节日皮肤:春节包的夜间取值 -->
+    <color name="skin_festival_accent">#FFFFB74D</color>
+    <color name="skin_festival_accent_soft">#33FFB74D</color>
+    <color name="skin_festival_page">#FF1F1410</color>
+
 </resources>

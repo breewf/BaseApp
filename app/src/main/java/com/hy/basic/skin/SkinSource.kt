@@ -7,7 +7,8 @@ import androidx.annotation.DrawableRes
 
 /**
  * 皮肤资源来源。默认实现 [NightSkinSource] 读 values / values-night;
- * 节日皮肤实现本接口后交给 [SkinManager.setSource] 即可,刷新链路不用改。
+ * 节日皮肤走 [SkinPack],由 [FestivalSkinSource] 在默认来源外做资源映射。
+ * 自定义来源仍可通过 [SkinManager.setSource] 替换默认来源。
  */
 interface SkinSource {
 

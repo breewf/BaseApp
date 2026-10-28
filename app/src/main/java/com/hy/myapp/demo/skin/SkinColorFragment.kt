@@ -14,7 +14,7 @@ import com.hy.myapp.R
 import com.hy.myapp.databinding.FragmentSkinColorBinding
 import kotlinx.coroutines.launch
 
-/** 换肤验证 Fragment 一:静态控件、按压 drawable、多形态切态、缺夜间配置回落 */
+/** 换肤验证 Fragment 一:静态控件、按压 drawable、多形态切态、节日包、缺夜间配置回落 */
 class SkinColorFragment : BaseFragment<FragmentSkinColorBinding, BaseViewModel>() {
 
     /** 当前形态,默认正常态 */
@@ -38,6 +38,7 @@ class SkinColorFragment : BaseFragment<FragmentSkinColorBinding, BaseViewModel>(
             renderMood()
         }
         renderMood()
+        setupPacks()
         binding.tvMark.setOnClickListener { showToast("按压态由 drawable 提供") }
         viewLifecycleOwner.lifecycleScope.launch {
             SkinManager.isDarkFlow.collect { renderState() }
@@ -48,6 +49,27 @@ class SkinColorFragment : BaseFragment<FragmentSkinColorBinding, BaseViewModel>(
     private fun renderState() {
         binding.tvState.text =
             "当前：${SkinManager.mode.label} · ${if (SkinManager.isDark) "深色" else "浅色"}"
+    }
+
+    /** 节日包切换:默认与春节,按钮文案标出当前包 */
+    private fun setupPacks() {
+        binding.tvPackDefault.setOnClickListener {
+            SkinManager.setPack(null)
+            renderPack()
+        }
+        binding.tvPackSpring.setOnClickListener {
+            SkinManager.setPack(FestivalPacks.SPRING)
+            renderPack()
+        }
+        renderPack()
+    }
+
+    /** 当前节日包写回按钮文案 */
+    private fun renderPack() {
+        val current = SkinManager.pack
+        binding.tvPackDefault.text = if (current == null) "默认皮肤（当前）" else "默认皮肤"
+        binding.tvPackSpring.text =
+            if (current?.id == FestivalPacks.SPRING.id) "春节（当前）" else "春节"
     }
 
     /** 用 setSkinRes 写入当前形态,切肤时会按同一个资源重新取色 */
