@@ -20,12 +20,12 @@ interface SkinSource {
     /** 配置变化时清缓存,默认空实现 */
     fun invalidate() {}
 
-    /** 取色,不要用 context.resources(可能还是系统配置),资源不存在回 0 */
+    /** 取色;当前皮肤没有就回落默认配置,都没有回 0 */
     fun color(@ColorRes id: Int): Int
 
-    /** 取 ColorStateList */
+    /** 取 ColorStateList;取不到返回 null,调用方应保持原值 */
     fun colorStateList(@ColorRes id: Int): ColorStateList?
 
-    /** 取 Drawable,颜色资源会返回 ColorDrawable */
+    /** 取 Drawable;取不到返回 null,调用方应保持原值 */
     fun drawable(@DrawableRes id: Int): Drawable?
 }

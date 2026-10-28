@@ -55,7 +55,8 @@ object SkinManager {
     /** 当前模式 */
     private var currentMode = SkinMode.FOLLOW_SYSTEM
 
-    /** 当前资源来源 */
+    /** 当前资源来源,取色可能发生在子线程 */
+    @Volatile
     private var currentSource: SkinSource? = null
 
     /** 已注册的页面根 View */
@@ -235,17 +236,16 @@ object SkinManager {
 
     // ==== 取色 ====
 
-    /** 取当前皮肤色 */
+    /** 取当前皮肤色;source 取不到时回落到默认配置 */
     @JvmStatic
     fun color(@ColorRes id: Int): Int {
-        currentSource?.let { return it.color(id) }
+        currentSource?.let {
+            val color = it.color(id)
+            if (color != 0) return color
+        }
         val ctx = appContext ?: return 0
         return runCatching {
-            ResourcesCompat.getColor(
-                ctx.resources,
-                id,
-                ctx.theme
-            )
+            ResourcesCompat.getColor(ctx.resources, id, ctx.theme)
         }.getOrDefault(0)
     }
 
@@ -381,9 +381,10 @@ object SkinManager {
         }
     }
 
-    /** 复合图只改一个位置,其余保持原样 */
+    /** 复合图只改一个位置,其余保持原样;目标资源取不到就不动 */
     private fun applyCompoundDrawable(tv: TextView, part: SkinPart, drawable: Drawable?) {
-        val current = tv.compoundDrawablesRelative ?: return
+        if (drawable == null) return
+        val current = tv.compoundDrawablesRelative
         tv.setCompoundDrawablesRelativeWithIntrinsicBounds(
             if (part == SkinPart.COMPOUND_DRAWABLE_START) drawable else current.getOrNull(0),
             if (part == SkinPart.COMPOUND_DRAWABLE_TOP) drawable else current.getOrNull(1),

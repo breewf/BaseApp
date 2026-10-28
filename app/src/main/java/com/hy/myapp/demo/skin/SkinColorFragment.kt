@@ -14,7 +14,7 @@ import com.hy.myapp.R
 import com.hy.myapp.databinding.FragmentSkinColorBinding
 import kotlinx.coroutines.launch
 
-/** 换肤验证 Fragment 一:静态控件、按压 drawable、多形态切态 */
+/** 换肤验证 Fragment 一:静态控件、按压 drawable、多形态切态、缺夜间配置回落 */
 class SkinColorFragment : BaseFragment<FragmentSkinColorBinding, BaseViewModel>() {
 
     /** 当前形态,默认正常态 */

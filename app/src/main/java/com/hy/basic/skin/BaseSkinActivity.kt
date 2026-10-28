@@ -42,11 +42,11 @@ abstract class BaseSkinActivity<VB : ViewBinding, VM : BaseViewModel> :
         }
     }
 
-    /** 窗口底色跟随皮肤,根布局透明时也不会露出旧色 */
+    /** 窗口底色跟随皮肤,根布局透明时也不会露出旧色;取不到就保留主题底色 */
     private fun applyWindowBackground() {
+        if (!SkinConfig.enabled) return
         // 和页面颜色一样走 colorStateList,避免 getColor 拿不到夜间值
-        val color = SkinManager.colorStateList(R.color.skin_bg_page)?.defaultColor
-            ?: SkinManager.color(R.color.skin_bg_page)
+        val color = SkinManager.colorStateList(R.color.skin_bg_page)?.defaultColor ?: return
         window.setBackgroundDrawable(ColorDrawable(color))
     }
 

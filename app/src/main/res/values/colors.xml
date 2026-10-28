@@ -53,6 +53,9 @@
     <color name="skin_danger">#FFE53935</color>
     <color name="skin_danger_soft">#1AE53935</color>
 
+    <!-- 故意不写 values-night:验证缺夜间配置时自动回落,切深色应保持原样 -->
+    <color name="skin_demo_day_only">#FFFFE0B2</color>
+
     <!-- demo 拖拽排序 / 侧滑删除 -->
     <color name="demo_swipe_delete_bg">#FFFF3B30</color>
     <color name="demo_grid_add_bg">#FFF8F8F8</color>

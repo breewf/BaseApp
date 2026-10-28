@@ -165,6 +165,62 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- 缺夜间配置:两个资源都只写了浅色版,切深色后应保持原样 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/skin_bg_card"
+            app:cardCornerRadius="@dimen/dimen_14"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="缺夜间配置（应保持原样）"
+                    android:textColor="@color/skin_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_2"
+                    android:lineSpacingExtra="@dimen/dimen_2"
+                    android:text="下面两块只有浅色版；切到深色后颜色和形状都不变，不崩、不透明。"
+                    android:textColor="@color/skin_text_tertiary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvDayOnlyColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_44"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@color/skin_demo_day_only"
+                    android:gravity="center"
+                    android:text="只有 values：颜色不变"
+                    android:textColor="@color/color_333333"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvDayOnlyDrawable"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_44"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:background="@drawable/skin_demo_day_only"
+                    android:gravity="center"
+                    android:text="只有 drawable：形状不变"
+                    android:textColor="@color/color_333333"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 </ScrollView>

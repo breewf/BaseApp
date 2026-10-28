@@ -41,19 +41,26 @@ internal class NightSkinSource(context: Context) : SkinSource {
         darkRes = null
     }
 
-    /** 取色,资源不存在时回 0 */
+    /** 取色;当前皮肤取不到就回落默认配置,都没有回 0 */
     override fun color(@ColorRes id: Int): Int =
-        runCatching { ResourcesCompat.getColor(currentResources(), id, appContext.theme) }.getOrDefault(0)
+        resolve { ResourcesCompat.getColor(it, id, appContext.theme) } ?: 0
 
-    /** 取 ColorStateList,资源不存在时返回 null */
+    /** 取 ColorStateList;当前皮肤取不到就回落默认配置 */
     override fun colorStateList(@ColorRes id: Int): ColorStateList? =
-        runCatching { ResourcesCompat.getColorStateList(currentResources(), id, appContext.theme) }
-            .getOrNull()
+        resolve { ResourcesCompat.getColorStateList(it, id, appContext.theme) }
 
-    /** 取 Drawable,资源不存在时返回 null */
+    /** 取 Drawable;当前皮肤取不到就回落默认配置 */
     override fun drawable(@DrawableRes id: Int): Drawable? =
-        runCatching { ResourcesCompat.getDrawable(currentResources(), id, appContext.theme) }
-            .getOrNull()
+        resolve { ResourcesCompat.getDrawable(it, id, appContext.theme) }
+
+    /**
+     * 先按当前皮肤取,失败再试默认配置。
+     * 只写了 values、没写 values-night 的资源由系统自动回落,不会走到这里;
+     * 这里兜的是资源确实缺失的情况,拿不到返回 null,调用方保持原值。
+     */
+    private inline fun <T> resolve(block: (Resources) -> T): T? =
+        runCatching { block(currentResources()) }.getOrNull()
+            ?: runCatching { block(appContext.resources) }.getOrNull()
 
     /** 当前皮肤对应的 Resources */
     private fun currentResources(): Resources = if (isDark) {
