@@ -24,7 +24,6 @@ android {
     }
     buildFeatures {
         viewBinding true
-        // Api 用 BuildConfig.DEBUG 决定是否挂日志拦截器，库模块需显式开启
         buildConfig true
     }
 }
