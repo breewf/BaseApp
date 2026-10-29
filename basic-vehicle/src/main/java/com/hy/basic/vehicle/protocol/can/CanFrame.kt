@@ -25,7 +25,7 @@ data class CanFrame(
     val extended: Boolean = false,
     /** 是否 CAN FD 帧 */
     val fd: Boolean = false,
-    /** 接收时间戳(毫秒),由通道层填写 */
+    /** 接收时间戳(毫秒),建议用单调时钟,方便判断超时 */
     val timestampMs: Long = 0L,
 ) {
 

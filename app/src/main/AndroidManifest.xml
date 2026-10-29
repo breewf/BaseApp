@@ -94,6 +94,10 @@
         <activity
             android:name="com.hy.vehicle.CanSignalDemoActivity"
             android:exported="false" />
+        <!-- DBC 解析验证页 -->
+        <activity
+            android:name="com.hy.vehicle.DbcSignalDemoActivity"
+            android:exported="false" />
         <!-- 单位换算验证页 -->
         <activity
             android:name="com.hy.vehicle.UnitConvertDemoActivity"

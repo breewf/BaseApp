@@ -32,6 +32,11 @@ object VehicleDemoMenu {
                     CanSignalDemoActivity::class.java,
                 ),
                 DemoEntry(
+                    "DBC 解析",
+                    "BO_/SG_/VAL_ · 解析后直接解码仿真帧",
+                    DbcSignalDemoActivity::class.java,
+                ),
+                DemoEntry(
                     "单位换算",
                     "车速 / 温度 / 压力 / 电量等常用量纲",
                     UnitConvertDemoActivity::class.java,

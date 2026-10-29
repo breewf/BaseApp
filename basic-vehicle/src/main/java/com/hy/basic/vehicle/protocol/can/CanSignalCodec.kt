@@ -30,7 +30,7 @@ object CanSignalCodec {
         val physical = raw * spec.factor + spec.offset
 
         val quality = when {
-            spec.invalidRaw != null && raw == spec.invalidRaw -> SignalQuality.INVALID
+            matchesInvalid(raw, spec) -> SignalQuality.INVALID
             physical < spec.min || physical > spec.max -> SignalQuality.INVALID
             else -> SignalQuality.VALID
         }
@@ -87,7 +87,21 @@ object CanSignalCodec {
             val max = (1L shl (spec.length - 1)) - 1
             (-max - 1)..max
         } else {
-            0L..<(1L shl spec.length)
+            // 63 位时 1L shl 63 会溢出成负数,直接用 Long.MAX_VALUE
+            if (spec.length == 63) 0L..Long.MAX_VALUE else 0L..<(1L shl spec.length)
         }
+    }
+
+    /**
+     * 无效哨兵可能按无符号写(如 0xFFFF),而有符号信号解出来是 -1;
+     * 先按原值比,再按位掩码比一次,两种写法都能识别。
+     */
+    private fun matchesInvalid(raw: Long, spec: CanSignalSpec): Boolean {
+        val invalid = spec.invalidRaw ?: return false
+        if (raw == invalid) return true
+        if (spec.length >= 64) return false
+
+        val mask = (1L shl spec.length) - 1
+        return (raw and mask) == (invalid and mask)
     }
 }

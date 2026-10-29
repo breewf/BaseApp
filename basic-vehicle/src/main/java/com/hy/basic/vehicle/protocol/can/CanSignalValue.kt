@@ -1,6 +1,7 @@
 package com.hy.basic.vehicle.protocol.can
 
 import com.hy.basic.vehicle.signal.SignalQuality
+import com.hy.basic.vehicle.signal.SignalValue
 import java.util.Locale
 import kotlin.math.roundToLong
 
@@ -19,7 +20,7 @@ data class CanSignalValue(
     val physical: Double,
     /** 信号质量,决定是否能上屏 */
     val quality: SignalQuality,
-    /** 解码时间戳(毫秒) */
+    /** 解码时间戳(毫秒),建议用单调时钟 */
     val timestampMs: Long = 0L,
 ) {
 
@@ -50,3 +51,12 @@ data class CanSignalValue(
         return "$name: $number$suffix"
     }
 }
+
+/** 转成通用信号模型,方便交给 VehicleSignalManager */
+fun CanSignalValue.toSignalValue(): SignalValue<Double> =
+    SignalValue(
+        value = if (isValid) physical else null,
+        quality = quality,
+        timestampMs = timestampMs,
+        raw = raw,
+    )
