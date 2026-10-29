@@ -16,7 +16,8 @@ import java.util.Locale
  *
  * 用法：
  * `context.externalVolumes()`，`context.hasRemovableVolume()`。
- * 注意：卷列表随插拔变化，调用方每次重新获取；Android 10+ 访问外接盘受分区存储限制。
+ * 注意：卷列表随插拔变化，调用方每次重新获取；API 23 用路径回退，API 24+ 用 StorageVolume 描述。
+ * Android 10+ 访问外接盘受分区存储限制。
  */
 
 /** 一个已挂载或可用的存储卷 */
@@ -38,7 +39,6 @@ data class ExternalVolume(
 )
 
 /** 当前可用的存储卷(含内置存储),取不到时返回空列表 */
-@RequiresApi(Build.VERSION_CODES.N)
 @Suppress("DEPRECATION")
 fun Context.externalVolumes(): List<ExternalVolume> {
     val appContext = applicationContext
@@ -47,23 +47,23 @@ fun Context.externalVolumes(): List<ExternalVolume> {
         .mapNotNull { it.volumeRootOrNull() }
         .distinctBy { it.absolutePath }
 
-    val storageManager = appContext.getSystemService(Context.STORAGE_SERVICE) as? StorageManager
     val primaryRoot = runCatching { Environment.getExternalStorageDirectory().canonicalPath }
         .getOrNull()
 
     return roots.map { root ->
-        val volume = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            runCatching { storageManager?.getStorageVolume(root) }.getOrNull()
+        val meta = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            volumeMeta(appContext, root)
         } else {
-            null
+            VolumeMeta()
         }
         val isPrimary = runCatching { root.canonicalPath == primaryRoot }.getOrDefault(false)
         ExternalVolume(
             root = root,
-            label = runCatching { volume?.getDescription(appContext) }.getOrNull()
+            label = meta.label
                 ?: if (isPrimary) "内部存储" else "外部存储",
-            removable = runCatching { Environment.isExternalStorageRemovable(root) }
-                .getOrDefault(!isPrimary),
+            removable = meta.removable
+                ?: runCatching { Environment.isExternalStorageRemovable(root) }
+                    .getOrDefault(!isPrimary),
             primary = isPrimary,
             mounted = runCatching {
                 Environment.getExternalStorageState(root) == Environment.MEDIA_MOUNTED
@@ -73,6 +73,26 @@ fun Context.externalVolumes(): List<ExternalVolume> {
         )
     }
 }
+
+/** API 24+ 的 StorageVolume 信息；放在独立方法里，避免 API 23 加载缺失类 */
+@RequiresApi(Build.VERSION_CODES.N)
+private fun volumeMeta(context: Context, root: File): VolumeMeta = runCatching {
+    val manager = context.getSystemService(Context.STORAGE_SERVICE) as? StorageManager
+        ?: return@runCatching VolumeMeta()
+    val volume = manager.getStorageVolume(root) ?: return@runCatching VolumeMeta()
+    VolumeMeta(
+        label = volume.getDescription(context),
+        removable = volume.isRemovable,
+    )
+}.getOrDefault(VolumeMeta())
+
+/** 存储卷展示信息 */
+private data class VolumeMeta(
+    /** 系统展示名称 */
+    val label: String? = null,
+    /** 是否可移动 */
+    val removable: Boolean? = null,
+)
 
 /** 从应用目录 `<root>/Android/data/<pkg>/files` 往上四级拿到卷根 */
 private fun File.volumeRootOrNull(): File? {
@@ -95,5 +115,4 @@ fun Long.toReadableSize(decimals: Int = 1): String {
 }
 
 /** 是否存在可移动存储(U 盘/SD 卡) */
-@RequiresApi(Build.VERSION_CODES.N)
 fun Context.hasRemovableVolume(): Boolean = externalVolumes().any { it.removable }

@@ -24,7 +24,8 @@ import kotlinx.coroutines.launch
  *
  * 用法：
  * `CanSignalSource.fromDatabase("can", transport, db)` 后注册到 [VehicleSignalManager]。
- * 注意：key 默认包含报文 ID；多路复用信号当前按普通信号解码，复杂 DBC 需自行过滤。
+ * 注意：key 默认包含报文 ID；支持一级 DBC 多路复用，嵌套多路复用需自行扩展。
+ * 写多路复用分支信号时，调用方需要同时写选择器信号。
  * 源只订阅 transport，不负责关闭它。
  */
 class CanSignalSource(
@@ -104,6 +105,8 @@ class CanSignalSource(
 
         return try {
             transport.send(frame)
+            // 缓存刚发出的帧，连续写同一报文的多个信号时保留前面的写入
+            lastFrames[binding.messageId to binding.extended] = frame
             true
         } catch (e: CancellationException) {
             throw e
@@ -128,10 +131,30 @@ class CanSignalSource(
         lastFrames[messageKey] = frame
 
         val timestamp = frame.timestampMs.takeIf { it > 0 } ?: monotonicMs()
+        val selectorRaw = matched
+            .firstOrNull { it.multiplexer == "M" }
+            ?.let { binding -> runCatching { frame.decode(binding.spec).raw }.getOrNull() }
         val updates = HashMap<String, SignalValue<*>>(matched.size)
-        for (binding in matched) {
+        for ((key, _, _, _, _, spec, multiplexer) in matched) {
+            if (multiplexer.isMuxedSignal()) {
+                val expected = multiplexer.muxValue()
+                val active = expected != null && selectorRaw == expected
+                if (!active) {
+                    // 选择器切走后，旧分支的最后一个值立即标记无效，避免继续上屏
+                    val current = values.value[key]
+                    if (current != null && current.quality != SignalQuality.INVALID) {
+                        updates[key] = SignalValue<Double>(
+                            value = null,
+                            quality = SignalQuality.INVALID,
+                            timestampMs = timestamp,
+                        )
+                    }
+                    continue
+                }
+            }
+
             val value = try {
-                val decoded = frame.decode(binding.spec)
+                val decoded = frame.decode(spec)
                 SignalValue(
                     value = if (decoded.isValid) decoded.physical else null,
                     quality = decoded.quality,
@@ -139,10 +162,10 @@ class CanSignalSource(
                     raw = decoded.raw,
                 )
             } catch (e: Exception) {
-                VehicleLog.w(TAG, "信号解码失败: ${binding.key}", e)
+                VehicleLog.w(TAG, "信号解码失败: $key", e)
                 SignalValue<Double>(null, SignalQuality.INVALID, timestamp)
             }
-            updates[binding.key] = value
+            updates[key] = value
         }
         values.update { it + updates }
     }
@@ -173,6 +196,7 @@ class CanSignalSource(
                         dataLength = if (message.dlc in 1..64) message.dlc else 8,
                         fd = message.dlc > 8,
                         spec = signal.spec,
+                        multiplexer = signal.multiplexer,
                     )
                 }
             }
@@ -200,12 +224,24 @@ data class CanSignalBinding(
     val fd: Boolean = false,
     /** 信号定义 */
     val spec: CanSignalSpec,
+    /** DBC 多路复用标识: M / m0 / m0M */
+    val multiplexer: String? = null,
 ) {
 
     init {
         require(key.isNotBlank()) { "信号 key 不能为空" }
         require(dataLength in 1..(if (fd) 64 else 8)) { "dataLength 超出范围: $dataLength" }
     }
+}
+
+/** 是否是受多路选择器控制的信号 */
+private fun String?.isMuxedSignal(): Boolean = this != null && startsWith("m")
+
+/** 从 m0 / m0M 里取选择值 0 */
+private fun String?.muxValue(): Long? {
+    val text = this ?: return null
+    if (!text.startsWith("m")) return null
+    return text.drop(1).takeWhile { it.isDigit() }.toLongOrNull()
 }
 
 /** CAN 信号 key 的拼装规则，保证不同报文下的同名信号不冲突 */

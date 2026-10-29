@@ -8,6 +8,7 @@ import com.hy.basic.vehicle.protocol.can.CanByteOrder
 import com.hy.basic.vehicle.protocol.can.CanFrame
 import com.hy.basic.vehicle.protocol.can.CanSignalCodec
 import com.hy.basic.vehicle.protocol.can.CanSignalSpec
+import com.hy.basic.vehicle.signal.monotonicMs
 import com.hy.myapp.databinding.ActivityCanSignalDemoBinding
 import java.util.Locale
 
@@ -109,7 +110,7 @@ class CanSignalDemoActivity :
         CanSignalCodec.writeBits(data, gearSpec, CanSignalCodec.encodeRaw(gearSpec, gear))
         CanSignalCodec.writeBits(data, tempSpec, CanSignalCodec.encodeRaw(tempSpec, temperature))
         CanSignalCodec.writeBits(data, torqueSpec, CanSignalCodec.encodeRaw(torqueSpec, torque))
-        return CanFrame.standard(0x18F, data, timestampMs = System.currentTimeMillis())
+        return CanFrame.standard(0x18F, data, timestampMs = monotonicMs())
     }
 
     /** 解码并刷新界面 */

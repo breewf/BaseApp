@@ -7,6 +7,7 @@ import java.nio.charset.Charset
 
 /**
  * DBC 文本解析，支持 BO_/SG_/VAL_/CM_ 和常用 BA_ 属性。
+ * SG_ 的 M/m0/m1 多路复用标记会保存在 [DbcSignal.multiplexer]。
  *
  * 用法：
  * `DbcParser.parse(text)` 或 `DbcParser.parseFile(file, Charsets.UTF_8)`。
@@ -68,7 +69,7 @@ object DbcParser {
                     }
 
                     val id = (rawId and 0x7FFFFFFFL).toInt()
-                    val extended = rawId and 0x80000000L != 0L
+                    val extended = (rawId and 0x80000000L) != 0L
                     val dlc = match.groupValues[3].toIntOrNull()
                     if (dlc == null || dlc !in 0..64) {
                         issues += "报文 ${match.groupValues[2]} 的 DLC 非法: ${match.groupValues[3]}"
@@ -271,7 +272,7 @@ object DbcParser {
         val rawId = parseLong(token)
         if (rawId != null) {
             val id = (rawId and 0x7FFFFFFFL).toInt()
-            val extended = rawId and 0x80000000L != 0L
+            val extended = (rawId and 0x80000000L) != 0L
             return messages[keyOf(id, extended)] ?: messages.values.firstOrNull { it.id == id }
         }
         return messages.values.firstOrNull { it.name == token }

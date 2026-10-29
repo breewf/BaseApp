@@ -24,10 +24,19 @@ class DrivingRestrictionTest {
         assertFalse(DrivingRestriction.isAllowed(DrivingOperation.VIDEO, DrivingRestrictionLevel.SIMPLE))
     }
 
-    /** 车速未知时不锁界面 */
+    /** 车速未知或非法时按安全策略锁定 */
     @Test
-    fun `车速未知按不受限处理`() {
-        assertEquals(DrivingRestrictionLevel.NONE, DrivingRestriction.levelOf(null))
-        assertEquals(DrivingRestrictionLevel.NONE, DrivingRestriction.levelOf(Double.NaN))
+    fun `车速未知按锁定处理`() {
+        assertEquals(DrivingRestrictionLevel.LOCKED, DrivingRestriction.levelOf(null))
+        assertEquals(DrivingRestrictionLevel.LOCKED, DrivingRestriction.levelOf(Double.NaN))
+        assertEquals(DrivingRestrictionLevel.LOCKED, DrivingRestriction.levelOf(-1.0))
+    }
+
+    /** 允许按车型配置未知车速时的策略 */
+    @Test
+    fun `可覆盖未知车速等级`() {
+        val config = DrivingRestrictionConfig(unknownLevel = DrivingRestrictionLevel.SIMPLE)
+
+        assertEquals(DrivingRestrictionLevel.SIMPLE, DrivingRestriction.levelOf(null, config))
     }
 }

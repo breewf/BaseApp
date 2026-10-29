@@ -1,11 +1,9 @@
 package com.hy.vehicle
 
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -49,7 +47,6 @@ class VehicleEnvDemoActivity :
         ActivityVehicleEnvDemoBinding.inflate(inflater)
 
     /** 绑定刷新按钮并铺首屏 */
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun initView(savedInstanceState: Bundle?) {
         binding.btnRefresh.setOnClickListener { render() }
         render()
@@ -72,7 +69,6 @@ class VehicleEnvDemoActivity :
     }
 
     /** 刷新全部环境信息 */
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun render() {
         renderDisplays()
         renderStorage()
@@ -96,7 +92,6 @@ class VehicleEnvDemoActivity :
     }
 
     /** 刷新存储卷列表 */
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun renderStorage() {
         val volumes = externalVolumes()
         binding.tvStorage.text = if (volumes.isEmpty()) {

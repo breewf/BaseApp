@@ -21,6 +21,7 @@ class CanSignalSourceTest {
     private val dbc = """
         BO_ 256 Powertrain: 8 ECU
          SG_ Speed : 0|16@1+ (0.1,0) [0|250] "km/h" ECU
+         SG_ Gear : 16|4@1+ (1,0) [0|15] "" ECU
     """.trimIndent()
 
     /** 原始帧解码后能通过管理器订阅 */
@@ -70,6 +71,66 @@ class CanSignalSourceTest {
         manager.close()
     }
 
+    /** DBC 多路复用只解当前选择器分支 */
+    @Test
+    fun `DBC 多路复用只解当前分支`() = runBlocking {
+        val muxDbc = """
+            BO_ 512 MuxMessage: 8 ECU
+             SG_ Mux M : 0|4@1+ (1,0) [0|15] "" ECU
+             SG_ MuxA m0 : 8|8@1+ (1,0) [0|255] "" ECU
+             SG_ MuxB m1 : 8|8@1+ (1,0) [0|255] "" ECU
+        """.trimIndent()
+        val db = DbcParser.parse(muxDbc)
+        val transport = FakeCanTransport()
+        val source = CanSignalSource.fromDatabase(transport = transport, database = db)
+        val mux = db.signal(0x200, "Mux")!!.spec
+        val muxA = db.signal(0x200, "MuxA")!!.spec
+        val muxB = db.signal(0x200, "MuxB")!!.spec
+
+        val frameA = CanFrame.standard(0x200, ByteArray(8))
+            .write(mux, 0.0)
+            .write(muxA, 42.0)
+            .copy(timestampMs = monotonicMs())
+        transport.receive(frameA)
+        val valueA = withTimeout(1_000.milliseconds) {
+            source.observe("can:0x200:MuxA").first()
+        }
+
+        assertEquals(42.0, valueA.value as Double, 0.001)
+        assertTrue(source.latest("can:0x200:MuxB") == null)
+
+        val frameB = CanFrame.standard(0x200, ByteArray(8))
+            .write(mux, 1.0)
+            .write(muxB, 99.0)
+            .copy(timestampMs = monotonicMs())
+        transport.receive(frameB)
+        val valueB = withTimeout(1_000.milliseconds) {
+            source.observe("can:0x200:MuxB").first()
+        }
+
+        assertEquals(99.0, valueB.value as Double, 0.001)
+        assertEquals(SignalQuality.INVALID, source.latest("can:0x200:MuxA")?.quality)
+        source.close()
+    }
+
+    /** 连续写同一报文时要保留前一个信号的值 */
+    @Test
+    fun `连续写同一报文保留其它信号`() = runBlocking {
+        val transport = FakeCanTransport()
+        val source = CanSignalSource.fromDatabase(
+            transport = transport,
+            database = DbcParser.parse(dbc),
+        )
+
+        source.write(CanSignalKeys.of(0x100, "Speed"), 60.5)
+        source.write(CanSignalKeys.of(0x100, "Gear"), 3.0)
+
+        val sent = transport.sent.last()
+        assertEquals(60.5, sent.decode(DbcParser.parse(dbc).signal(0x100, "Speed")!!.spec).physical, 0.001)
+        assertEquals(3.0, sent.decode(DbcParser.parse(dbc).signal(0x100, "Gear")!!.spec).physical, 0.001)
+        source.close()
+    }
+
     /** 测试用 CAN 通道，保留最后一帧避免订阅时序影响 */
     private class FakeCanTransport : CanTransport {
 
@@ -77,7 +138,12 @@ class CanSignalSourceTest {
         private val incoming = MutableSharedFlow<CanFrame>(replay = 1, extraBufferCapacity = 8)
         override val frames: SharedFlow<CanFrame> = incoming.asSharedFlow()
 
-        override suspend fun send(frame: CanFrame) = Unit
+        /** 已发送帧 */
+        val sent = mutableListOf<CanFrame>()
+
+        override suspend fun send(frame: CanFrame) {
+            sent += frame
+        }
 
         /** 喂一帧 */
         suspend fun receive(frame: CanFrame) {

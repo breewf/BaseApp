@@ -30,6 +30,8 @@ data class DrivingRestrictionConfig(
     val simpleAboveKph: Double = 5.0,
     /** 超过该车速完全锁定(km/h) */
     val lockedAboveKph: Double = 20.0,
+    /** 车速缺失/非法时的等级；默认锁定，避免信号异常时误放行 */
+    val unknownLevel: DrivingRestrictionLevel = DrivingRestrictionLevel.LOCKED,
 ) {
     init {
         require(simpleAboveKph <= lockedAboveKph) {
@@ -43,7 +45,7 @@ data class DrivingRestrictionConfig(
  *
  * 用法：
  * `DrivingRestriction.levelOf(speedKph)` 取等级，再调用 `isAllowed(operation, level)`。
- * 注意：纯策略，不依赖信号来源；阈值需按车型标定，车速未知时返回 NONE。
+ * 注意：纯策略，不依赖信号来源；车速缺失或非法时默认按 [DrivingRestrictionLevel.LOCKED] 处理。
  */
 object DrivingRestriction {
 
@@ -52,7 +54,9 @@ object DrivingRestriction {
         speedKph: Double?,
         config: DrivingRestrictionConfig = DrivingRestrictionConfig(),
     ): DrivingRestrictionLevel {
-        if (speedKph == null || speedKph.isNaN()) return DrivingRestrictionLevel.NONE
+        if (speedKph == null || !speedKph.isFinite() || speedKph < 0.0) {
+            return config.unknownLevel
+        }
 
         return when {
             speedKph <= config.simpleAboveKph -> DrivingRestrictionLevel.NONE
