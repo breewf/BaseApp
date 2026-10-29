@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
  *
  * 用法：
  * `val source = ManualSignalSource("sim")`，`source.set("speed", 60.0)` 后注册到管理器。
- * 注意：新订阅者会立即收到最近一次值；真实接车时替换成 CAN/广播 Source。
+ * 注意：新订阅者会立即收到最近一次值；值按 Double 保存，适合仿真和单测。
  */
 class ManualSignalSource(
     /** 数据源名 */
@@ -22,15 +22,16 @@ class ManualSignalSource(
     private val values = MutableStateFlow<Map<String, SignalValue<Double>>>(emptyMap())
 
     /** 订阅 key 对应的值 */
-    override fun observe(key: String): Flow<SignalValue<Double>> =
+    override fun observe(key: String): Flow<SignalValue<*>> =
         values.mapNotNull { it[key] }.distinctUntilChanged()
 
     /** 最近一次值 */
-    override fun latest(key: String): SignalValue<Double>? = values.value[key]
+    override fun latest(key: String): SignalValue<*>? = values.value[key]
 
     /** 写入有效值 */
-    override fun write(key: String, value: Double): Boolean {
-        set(key, value)
+    override suspend fun write(key: String, value: Any): Boolean {
+        val number = value as? Number ?: return false
+        set(key, number.toDouble())
         return true
     }
 

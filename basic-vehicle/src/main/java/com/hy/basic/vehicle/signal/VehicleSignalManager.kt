@@ -1,21 +1,34 @@
 package com.hy.basic.vehicle.signal
 
+import java.io.Closeable
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
 /**
  * 车辆信号统一入口，按 key 聚合多个 [SignalSource]。
  *
  * 用法：
- * `manager.register(canSource)`，`manager.observe("can:0x18F:Speed", staleTimeoutMs = 300)`。
+ * `manager.register(canSource)`，`manager.observe<Double>("can:0x18F:Speed", staleTimeoutMs = 300)`。
  * 注意：先注册再订阅；observe 使用注册时的源快照；同名源只保留一个。
+ *
+ * @param defaultStaleTimeoutMs 默认超时；传 null 表示不自动补 STALE
  */
-class VehicleSignalManager {
+class VehicleSignalManager(
+    /** 默认超时，子调用可覆盖 */
+    private val defaultStaleTimeoutMs: Long? = null,
+) : Closeable {
 
     /** 已注册的数据源 */
     private val sources = CopyOnWriteArrayList<SignalSource>()
+
+    init {
+        require(defaultStaleTimeoutMs == null || defaultStaleTimeoutMs > 0) {
+            "defaultStaleTimeoutMs 必须大于 0: $defaultStaleTimeoutMs"
+        }
+    }
 
     /** 注册数据源;同名已存在时返回 false */
     fun register(source: SignalSource): Boolean {
@@ -37,28 +50,46 @@ class VehicleSignalManager {
 
     /**
      * 订阅信号。多个源会合并;[staleTimeoutMs] 非空时超时自动补 STALE。
+     * 调用方需保证 T 和源实际类型一致，例如 CAN 信号用 Double。
      */
-    fun observe(key: String, staleTimeoutMs: Long? = null): Flow<SignalValue<Double>> {
+    @Suppress("UNCHECKED_CAST")
+    fun <T> observe(
+        key: String,
+        staleTimeoutMs: Long? = defaultStaleTimeoutMs,
+    ): Flow<SignalValue<T>> {
         val flows = sources.map { it.observe(key) }
         if (flows.isEmpty()) return emptyFlow()
 
-        val merged = merge(*flows.toTypedArray())
-        return if (staleTimeoutMs != null) {
+        // 源按各自类型发射，合并后统一按 Any? 处理，调用方再用 T 取用
+        val merged = merge(*flows.toTypedArray()) as Flow<SignalValue<Any?>>
+        val timed = if (staleTimeoutMs != null) {
             merged.withStaleTimeout(staleTimeoutMs)
         } else {
             merged
         }
+        return timed.map { it as SignalValue<T> }
     }
 
     /** 最近一次值,后注册的源优先 */
-    fun latest(key: String): SignalValue<Double>? =
-        sources.asReversed().firstNotNullOfOrNull { it.latest(key) }
+    @Suppress("UNCHECKED_CAST")
+    fun <T> latest(key: String): SignalValue<T>? =
+        sources.asReversed().firstNotNullOfOrNull { it.latest(key) } as SignalValue<T>?
 
-    /** 下发物理值,后注册的源优先;所有源都不支持时返回 false */
-    fun write(key: String, value: Double): Boolean =
-        sources.asReversed().any { it.write(key, value) }
+    /** 下发值,后注册的源优先;所有源都不支持时返回 false */
+    suspend fun write(key: String, value: Any): Boolean {
+        for (source in sources.asReversed()) {
+            if (source.write(key, value)) return true
+        }
+        return false
+    }
 
-    /** 清空数据源,主要给测试用 */
+    /** 注销并关闭全部数据源 */
+    override fun close() {
+        sources.forEach { runCatching { it.close() } }
+        sources.clear()
+    }
+
+    /** 清空数据源,不关闭监听;主要给测试用 */
     fun clear() {
         sources.clear()
     }

@@ -31,7 +31,7 @@ class SignalManagerTest {
         manager.register(source)
 
         source.set("speed", 60.0)
-        val value = withTimeout(1_000.milliseconds) { manager.observe("speed").first() }
+        val value = withTimeout(1_000.milliseconds) { manager.observe<Double>("speed").first() }
 
         assertEquals(60.0, value.value)
         assertTrue(value.isValid)
@@ -46,7 +46,7 @@ class SignalManagerTest {
         source.set("speed", 60.0)
 
         val stale = withTimeout(2_000.milliseconds) {
-            manager.observe("speed", staleTimeoutMs = 100)
+            manager.observe<Double>("speed", staleTimeoutMs = 100)
                 .first { it.quality == SignalQuality.STALE }
         }
 

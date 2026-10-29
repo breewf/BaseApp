@@ -11,6 +11,7 @@ import com.hy.basic.vehicle.protocol.u8At
  * 用法：
  * `CanFrame.standard(0x18F, data)`、`frame.decode(spec)`、`frame.write(spec, 60.5)`。
  * 注意：标准帧 ID 最大 0x7FF，扩展帧 0x1FFFFFFF；经典 CAN 最长 8 字节，FD 最长 64 字节。
+ * CAN FD 的 BRS 只在 [fd] 为 true 时有效。
  */
 data class CanFrame(
     /** 报文 ID,标准帧 11 位 / 扩展帧 29 位 */
@@ -23,6 +24,8 @@ data class CanFrame(
     val fd: Boolean = false,
     /** 接收时间戳(毫秒)，用单调时钟便于判断超时 */
     val timestampMs: Long = 0L,
+    /** CAN FD 是否开启可变速率(BRS)；经典 CAN 必须为 false */
+    val bitRateSwitch: Boolean = false,
 ) {
 
     init {
@@ -31,6 +34,7 @@ data class CanFrame(
         require(id <= maxId) { "CAN ID 超出范围: 0x${id.toString(16)}, 上限 0x${maxId.toString(16)}" }
         val maxLength = if (fd) 64 else 8
         require(data.size <= maxLength) { "数据长度 ${data.size} 超过上限 $maxLength(fd=$fd)" }
+        require(!bitRateSwitch || fd) { "BRS 只适用于 CAN FD" }
     }
 
     /** 实际数据字节数。CAN FD 的 DLC 编码(9~15)换算由驱动层处理 */
@@ -68,6 +72,7 @@ data class CanFrame(
         return id == other.id &&
             extended == other.extended &&
             fd == other.fd &&
+            bitRateSwitch == other.bitRateSwitch &&
             data.contentEquals(other.data)
     }
 
@@ -77,6 +82,7 @@ data class CanFrame(
         result = 31 * result + data.contentHashCode()
         result = 31 * result + extended.hashCode()
         result = 31 * result + fd.hashCode()
+        result = 31 * result + bitRateSwitch.hashCode()
         return result
     }
 
