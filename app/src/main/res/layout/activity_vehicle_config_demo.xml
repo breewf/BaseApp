@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 车型配置验证页:两个功能开关 + 当前配置快照 -->
+<!-- 车型配置示例 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="3dp"
-            android:text="同一份 App 装到不同车型,功能开关、默认值都可能不一样。这里用 MMKV 存一份,写入后通知页面刷新。"
+            android:text="按车型裁功能的开关示例，写入 MMKV，重启后仍保留。"
             android:textColor="@color/skin_text_secondary"
             android:textSize="13sp" />
 

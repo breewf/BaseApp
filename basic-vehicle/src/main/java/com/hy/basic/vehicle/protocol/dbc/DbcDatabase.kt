@@ -1,9 +1,11 @@
 package com.hy.basic.vehicle.protocol.dbc
 
 /**
- * desc: DBC 解析结果。
+ * DBC 解析结果，按 ID/名称索引报文。
  *
- * [issues] 记录解析时跳过或纠正的行,正式接入前先看一眼,能把 DBC 里的坑提前暴露。
+ * 用法：
+ * `db.message(0x100)?.signal("Speed")`、`db.message("Powertrain")`。
+ * 注意：issues 记录跳过或纠正的行，接入前先看一遍。
  */
 data class DbcDatabase(
     /** 解析出的报文,保持 DBC 里的顺序 */

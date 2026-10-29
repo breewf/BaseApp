@@ -5,11 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/**
- * desc: 驾驶限制策略回归测试。
- *
- * 只验证纯计算,不依赖车速信号来源。
- */
+/** 驾驶限制策略回归测试：等级和操作权限。 */
 class DrivingRestrictionTest {
 
     /** 默认阈值下三档等级 */

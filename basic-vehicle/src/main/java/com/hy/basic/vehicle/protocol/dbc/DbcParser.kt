@@ -6,15 +6,11 @@ import java.io.File
 import java.nio.charset.Charset
 
 /**
- * desc: DBC 文本解析。
+ * DBC 文本解析，支持 BO_/SG_/VAL_/CM_ 和常用 BA_ 属性。
  *
- * 只处理车机常用的几类语句:BO_ / SG_ / VAL_ / CM_ / BA_。
- * EV_、ENVVAR_、SIG_VALTYPE_ 等复杂语法直接忽略,不影响已解析出的消息。
- *
- * 注意:
- * - DBC 的 @1 是 Intel(小端),@0 是 Motorola(大端),和帧里的字节序别混;
- * - 扩展帧 ID 的 bit31 是标志位,解析后会拆成 id + extended;
- * - 单行解析失败只记 [DbcDatabase.issues],不会中断整个文件。
+ * 用法：
+ * `DbcParser.parse(text)` 或 `DbcParser.parseFile(file, Charsets.UTF_8)`。
+ * 注意：不支持的语句会忽略；失败行写入 [DbcDatabase.issues]，不中断解析。
  */
 object DbcParser {
 
@@ -337,16 +333,24 @@ object DbcParser {
 
     /** 解析中的可变报文,最后统一转成 DbcMessage */
     private class MutableMessage(
+        /** 报文 ID */
         val id: Int,
+        /** 报文名 */
         val name: String,
+        /** 数据长度 */
         val dlc: Int,
+        /** 发送节点 */
         val sender: String,
+        /** 是否扩展帧 */
         val extended: Boolean,
     ) {
+        /** 信号列表 */
         val signals = mutableListOf<MutableSignal>()
 
+        /** 周期 */
         var cycleTimeMs: Int? = null
 
+        /** 报文注释 */
         var comment: String? = null
 
         /** 转成对外不可变模型 */
@@ -372,12 +376,17 @@ object DbcParser {
 
     /** 解析中的可变信号 */
     private class MutableSignal(
+        /** 信号定义 */
         var spec: CanSignalSpec,
+        /** 复用标识 */
         val multiplexer: String?,
+        /** 接收节点 */
         val receivers: List<String>,
     ) {
+        /** 信号注释 */
         var comment: String? = null
 
+        /** 起始 raw */
         var startValueRaw: Long? = null
     }
 }

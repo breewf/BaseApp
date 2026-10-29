@@ -14,15 +14,11 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * desc: 信号流常用加工。
+ * 信号流加工：过滤无效值、按容差去重、超时置 STALE。
  *
- * 车机 UI 对信号有三个高频要求:无效值不上屏、数值抖动不要每帧刷、长时间没更新要能看出来。
- * 这里把这三件事做成 Flow 扩展,业务侧按需拼。
- *
- * 注意:
- * - [withStaleTimeout] 只把 VALID 改成 STALE,不会把 INVALID 再改一遍;
- * - [distinctByTolerance] 只比较值和质量,不比较时间戳,避免每帧都触发刷新;
- * - 超时时间按信号周期定,一般取 3~5 个周期。
+ * 用法：
+ * `flow.onlyValid()`、`flow.distinctByTolerance(0.1)`、`flow.withStaleTimeout(300)`。
+ * 注意：超时只把 VALID 改成 STALE；容差只比较值和质量，不比较时间戳。
  */
 
 /** 只保留质量可用的信号 */

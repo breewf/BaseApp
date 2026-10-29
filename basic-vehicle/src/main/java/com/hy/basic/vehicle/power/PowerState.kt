@@ -14,15 +14,11 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 /**
- * desc: 亮灭屏 / 休眠唤醒监听。
+ * 亮灭屏/休眠唤醒监听。
  *
- * AOSP 里能稳定拿到的是 SCREEN_ON / SCREEN_OFF,车机熄火休眠通常也走这两个广播;
- * ACC、READY、充电这些状态得看厂商广播或车辆信号,这里不猜。
- *
- * 注意:
- * - 休眠时进程会被冻结,恢复后不要只依赖广播,onResume 里主动读一次 [isScreenOn];
- * - 亮屏不等于前台可见,页面该用 repeatOnLifecycle 收集,别在后台一直刷 UI;
- * - 厂商如果改过电源管理,广播可能延迟,关键业务还是要结合车辆电源信号判断。
+ * 用法：
+ * `context.observeScreenState().collect { on -> ... }`，或直接读 `context.isScreenOn()`。
+ * 注意：只处理 AOSP 的 SCREEN_ON/OFF；ACC、READY 等状态需要厂商信号。
  */
 object ScreenStateMonitor {
 

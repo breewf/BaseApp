@@ -5,13 +5,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/**
- * desc: DBC 解析回归测试。
- *
- * 覆盖报文/信号基础字段、Intel/Motorola、枚举值、注释、周期、扩展帧和坏行容错。
- */
+/** DBC 解析回归测试：字段、扩展帧、写入解码和坏行。 */
 class DbcParserTest {
 
+    /** 测试用 DBC 文本 */
     private val sample = """
         VERSION ""
         NS_ :
@@ -32,6 +29,7 @@ class DbcParserTest {
         BA_ "GenSigStartValue" SG_ 256 Speed 0;
     """.trimIndent()
 
+    /** 解析报文、信号、注释和枚举 */
     @Test
     fun `解析报文和信号字段`() {
         val db = DbcParser.parse(sample)
@@ -58,6 +56,7 @@ class DbcParserTest {
         assertTrue(torque.spec.signed)
     }
 
+    /** 扩展帧 ID 拆分 */
     @Test
     fun `扩展帧标志位会拆出来`() {
         val db = DbcParser.parse(sample)
@@ -68,6 +67,7 @@ class DbcParserTest {
         assertTrue(extended.extended)
     }
 
+    /** 写入后按 DBC 解回 */
     @Test
     fun `信号写入后能按 DBC 解回`() {
         val db = DbcParser.parse(sample)
@@ -84,6 +84,7 @@ class DbcParserTest {
         assertEquals(-120.0, values["Torque"]!!.physical, 0.0001)
     }
 
+    /** 坏行记录 issue，不中断解析 */
     @Test
     fun `坏行只记录问题不中断解析`() {
         val db = DbcParser.parse("BO_ not_a_number Bad: 8 ECU")

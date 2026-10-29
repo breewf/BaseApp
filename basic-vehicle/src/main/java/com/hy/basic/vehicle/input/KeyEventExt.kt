@@ -8,16 +8,11 @@ import android.view.KeyEvent.keyCodeToString
 import android.view.MotionEvent
 
 /**
- * desc: 方控、旋钮、媒体键的判定扩展。
+ * 方控、旋钮、媒体键判定。
  *
- * 车机输入比手机杂:方向盘按键走 KeyEvent,旋钮大多走 ACTION_SCROLL,
- * 还有 Touchpad/触摸板混着来。这里只做"这是哪类键"的判断和可读名称,
- * 具体业务映射(接听/挂断/切歌)由各车型自己配。
- *
- * 注意:
- * - 方控按键的 keyCode 各家可能不同,别只认标准媒体键,必要时按 keyCode 配映射表;
- * - 旋钮滚动在不同车型可能是 AXIS_SCROLL 或 AXIS_WHEEL,先看 InputDevice 的 source;
- * - 长按重复事件靠 repeatCount 判断,ACTION_DOWN 只处理一次。
+ * 用法：
+ * `event.isMediaKey()`、`event.isDirectionalKey()`、`motionEvent.isRotaryScroll()`。
+ * 注意：方控 keyCode 各家不同；旋钮滚动一般走 ACTION_SCROLL。
  */
 
 /** 媒体控制键 */

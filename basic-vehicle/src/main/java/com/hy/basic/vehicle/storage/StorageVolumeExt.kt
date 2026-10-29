@@ -12,15 +12,11 @@ import java.io.File
 import java.util.Locale
 
 /**
- * desc: 车机外接存储(U 盘 / SD 卡)信息读取。
+ * 存储卷信息读取，包括 U 盘/SD 卡。
  *
- * 车里插 U 盘听歌、导日志是常见需求。这里用 getExternalFilesDirs 拿到各存储卷上
- * 的应用目录,再反推卷根路径,避开 StorageVolume.getDirectory() 在低版本不可用的问题。
- *
- * 注意:
- * - Android 10 起应用不能随意遍历整个 U 盘,只能访问自己的目录或通过 SAF 授权;
- * - 卷的挂载状态会变,插拔 U 盘后重新调用一次,不要缓存 [ExternalVolume] 列表;
- * - 容量按 1024 进位显示,和系统设置里按 1000 进位的数字会有差异,别拿来对账。
+ * 用法：
+ * `context.externalVolumes()`，`context.hasRemovableVolume()`。
+ * 注意：卷列表随插拔变化，调用方每次重新获取；Android 10+ 访问外接盘受分区存储限制。
  */
 
 /** 一个已挂载或可用的存储卷 */

@@ -1,10 +1,6 @@
 package com.hy.basic.vehicle.driving
 
-/**
- * desc: 驾驶限制等级。
- *
- * 只表达"当前允许做到什么程度",具体哪些按钮禁用由页面自己决定。
- */
+/** 驾驶限制等级 */
 enum class DrivingRestrictionLevel {
     /** 不受限 */
     NONE,
@@ -43,14 +39,11 @@ data class DrivingRestrictionConfig(
 }
 
 /**
- * desc: 根据车速判断驾驶限制。
+ * 驾驶限制策略：按车速给出 NONE/SIMPLE/LOCKED。
  *
- * 纯策略,不依赖信号来源;调用方把车速传进来即可。
- *
- * 注意:
- * - 车速未知(null/NaN)时按不受限处理,避免信号丢失把界面全锁死;
- * - 真要做安全兜底,应该在信号层把 UNKNOWN 转成明确的 LOCKED 再传进来;
- * - 阈值只是默认值,量产必须按车型法规和标定表调整。
+ * 用法：
+ * `DrivingRestriction.levelOf(speedKph)` 取等级，再调用 `isAllowed(operation, level)`。
+ * 注意：纯策略，不依赖信号来源；阈值需按车型标定，车速未知时返回 NONE。
  */
 object DrivingRestriction {
 

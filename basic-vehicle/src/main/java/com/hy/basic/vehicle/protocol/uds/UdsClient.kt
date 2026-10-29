@@ -5,48 +5,66 @@ import java.util.Locale
 import kotlinx.coroutines.CancellationException
 
 /**
- * desc: UDS(ISO 14229)请求/响应封装。
+ * UDS(ISO 14229) 服务层封装，ISO-TP 与 CAN 收发由 [UdsTransport] 实现。
  *
- * 只做服务层:发 SID + 数据、收完整响应、拆肯定/否定/超时。
- * ISO-TP 分包重组、CAN 发送、0x78 响应挂起重试由 [UdsTransport] 实现方处理。
- *
- * 注意:
- * - 0x78(ResponsePending)表示 ECU 还在处理,传输层要继续等,不要当失败;
- * - 安全访问的 seed/key 算法各车厂不同,通过 [UdsClient.securityAccess] 回调传入;
- * - 这是协议层,不依赖 CarService / VHAL,台架和单测里可以换假传输。
+ * 用法：
+ * `UdsClient(transport).sessionControl(0x03)`、`readDataByIdentifier(0xF190)`。
+ * 注意：传输层需处理 0x78 ResponsePending；安全访问算法通过回调传入。
  */
 
 /** UDS 常用服务号 */
 object UdsService {
+    /** 10 会话控制 */
     const val DIAGNOSTIC_SESSION_CONTROL = 0x10
+    /** 11 ECU 复位 */
     const val ECU_RESET = 0x11
+    /** 22 按 DID 读数据 */
     const val READ_DATA_BY_IDENTIFIER = 0x22
+    /** 27 安全访问 */
     const val SECURITY_ACCESS = 0x27
+    /** 2E 按 DID 写数据 */
     const val WRITE_DATA_BY_IDENTIFIER = 0x2E
+    /** 19 读 DTC */
     const val READ_DTC_INFORMATION = 0x19
+    /** 31 例程控制 */
     const val ROUTINE_CONTROL = 0x31
+    /** 3E 保持会话 */
     const val TESTER_PRESENT = 0x3E
 }
 
 /** 常见否定响应码 */
 object UdsNrc {
+    /** 服务不支持 */
     const val SERVICE_NOT_SUPPORTED = 0x11
+    /** 子功能不支持 */
     const val SUB_FUNCTION_NOT_SUPPORTED = 0x12
+    /** 报文长度错误 */
     const val INCORRECT_MESSAGE_LENGTH = 0x13
+    /** 条件不满足 */
     const val CONDITIONS_NOT_CORRECT = 0x22
+    /** 请求顺序错误 */
     const val REQUEST_SEQUENCE_ERROR = 0x24
+    /** 请求超出范围 */
     const val REQUEST_OUT_OF_RANGE = 0x31
+    /** 安全访问被拒绝 */
     const val SECURITY_ACCESS_DENIED = 0x33
+    /** key 无效 */
     const val INVALID_KEY = 0x35
+    /** ECU 还在处理 */
     const val RESPONSE_PENDING = 0x78
 }
 
 /** DTC 状态位 */
 object UdsDtcStatus {
+    /** 当前测试失败 */
     const val TEST_FAILED = 0x01
+    /** 本周期测试失败 */
     const val TEST_FAILED_THIS_CYCLE = 0x02
+    /** pending */
     const val PENDING = 0x04
+    /** 已确认 */
     const val CONFIRMED = 0x08
+    /** 报警指示灯 */
     const val WARNING_INDICATOR = 0x80
 }
 
@@ -65,21 +83,39 @@ interface UdsTransport {
 sealed class UdsResult {
 
     /** 肯定响应,[response] 含 0x40+SID */
-    data class Success(val response: ByteArray) : UdsResult() {
+    data class Success(
+        /** 完整响应 */
+        val response: ByteArray,
+    ) : UdsResult() {
+        /** 按内容比较 */
         override fun equals(other: Any?): Boolean =
             other is Success && response.contentEquals(other.response)
 
+        /** 与 equals 保持一致 */
         override fun hashCode(): Int = response.contentHashCode()
     }
 
     /** 否定响应 */
-    data class Negative(val serviceId: Int, val nrc: Int) : UdsResult()
+    data class Negative(
+        /** 原始服务号 */
+        val serviceId: Int,
+        /** 否定响应码 */
+        val nrc: Int,
+    ) : UdsResult()
 
     /** 超时 */
-    data class Timeout(val serviceId: Int) : UdsResult()
+    data class Timeout(
+        /** 原始服务号 */
+        val serviceId: Int,
+    ) : UdsResult()
 
     /** 传输层异常或响应格式不对 */
-    data class TransportError(val serviceId: Int, val message: String?) : UdsResult()
+    data class TransportError(
+        /** 原始服务号 */
+        val serviceId: Int,
+        /** 错误描述 */
+        val message: String?,
+    ) : UdsResult()
 
     /** 是否肯定响应 */
     val isSuccess: Boolean get() = this is Success
@@ -88,7 +124,8 @@ sealed class UdsResult {
 /**
  * UDS 客户端。
  *
- * 默认超时 1 秒,长例程(刷写、自检)调用时单独传更大的 timeout。
+ * @param transport 收发实现，负责 ISO-TP 重组
+ * @param defaultTimeoutMs 默认超时，长例程单独传
  */
 class UdsClient(
     private val transport: UdsTransport,
@@ -184,7 +221,7 @@ class UdsClient(
      * 27 服务:安全访问。
      *
      * [level] 是请求种子的子功能,通常是奇数;拿到 seed 后交给 [keyProvider] 算 key,
-     * 再自动发 level+1 的送 key 请求。keyProvider 放最后,方便用尾随 lambda 传算法。
+     * 再自动发 level+1 的送 key 请求。keyProvider 放最后，支持尾随 lambda。
      */
     suspend fun securityAccess(
         level: Int,

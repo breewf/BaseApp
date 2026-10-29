@@ -4,11 +4,7 @@ import com.hy.demo.model.DemoEntry
 import com.hy.demo.model.DemoGroup
 import com.hy.demo.model.DemoRow
 
-/**
- * desc: 车机能力验证菜单。
- *
- * 分组按"纯协议工具"和"系统能力"分开,后面加新页面在这里登记一行即可。
- */
+/** 车机能力验证菜单。 */
 object VehicleDemoMenu {
 
     /** 分组 -> 扁平列表行(标题行 + 入口行) */

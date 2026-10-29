@@ -6,15 +6,11 @@ import com.hy.basic.vehicle.protocol.toHexString
 import com.hy.basic.vehicle.protocol.u8At
 
 /**
- * desc: 一帧 CAN / CAN FD 报文。
+ * CAN/CAN FD 数据帧，只承载数据和取值，不做收发。
  *
- * 只做数据承载和取值,不做收发。收发由具体通道(SocketCAN、厂商 Service)负责,
- * 这样上层解析和单元测试都不依赖 Android。
- *
- * 注意:
- * - 标准帧 ID 最大 0x7FF,扩展帧最大 0x1FFFFFFF,构造时直接校验;
- * - 经典 CAN 数据最长 8 字节,CAN FD 最长 64 字节,别把 FD 帧丢给只支持 8 字节的通道;
- * - equals/hashCode 只比较 ID、标志位和数据,不比较时间戳,方便测试里直接对比帧内容。
+ * 用法：
+ * `CanFrame.standard(0x18F, data)`、`frame.decode(spec)`、`frame.write(spec, 60.5)`。
+ * 注意：标准帧 ID 最大 0x7FF，扩展帧 0x1FFFFFFF；经典 CAN 最长 8 字节，FD 最长 64 字节。
  */
 data class CanFrame(
     /** 报文 ID,标准帧 11 位 / 扩展帧 29 位 */
@@ -25,7 +21,7 @@ data class CanFrame(
     val extended: Boolean = false,
     /** 是否 CAN FD 帧 */
     val fd: Boolean = false,
-    /** 接收时间戳(毫秒),建议用单调时钟,方便判断超时 */
+    /** 接收时间戳(毫秒)，用单调时钟便于判断超时 */
     val timestampMs: Long = 0L,
 ) {
 
@@ -65,6 +61,7 @@ data class CanFrame(
     /** 数据区转十六进制文本,便于日志排查 */
     fun hex(): String = data.toHexString()
 
+    /** 比较 ID、标志位和数据内容，不比较时间戳 */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CanFrame) return false
@@ -74,6 +71,7 @@ data class CanFrame(
             data.contentEquals(other.data)
     }
 
+    /** 与 equals 保持一致 */
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + data.contentHashCode()
@@ -82,9 +80,11 @@ data class CanFrame(
         return result
     }
 
+    /** 日志输出 */
     override fun toString(): String =
         "CanFrame(id=0x${id.toString(16).uppercase()}, len=$byteCount, data=${hex()})"
 
+    /** 快捷构造 */
     companion object {
 
         /** 标准帧快捷构造 */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- DBC 解析验证页:解析结果 + 仿真帧解码,文本用等宽字体方便看 raw -->
+<!-- DBC 解析示例 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="3dp"
-            android:text="点击按钮切换 DBC 组,下方展示当前组的原文和解析结果;点击结果区可切换样例数据。"
+            android:text="点击按钮切换 DBC 组；结果区展示当前组原文、解析结果和样例解码，点击结果区切换样例。"
             android:textColor="@color/skin_text_secondary"
             android:textSize="13sp" />
 

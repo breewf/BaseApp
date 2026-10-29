@@ -3,12 +3,11 @@ package com.hy.basic.vehicle.signal
 import kotlinx.coroutines.flow.Flow
 
 /**
- * desc: 信号数据源。
+ * 信号数据源，CAN/广播/CarProperty/仿真统一实现这个接口。
  *
- * 车辆信号可能来自 CAN、厂商广播、CarProperty,甚至本地仿真。
- * 统一成这个接口后,上层只订阅 key,不关心底层通道。
- *
- * key 由业务自己定,建议带来源前缀,例如 `can:0x18F:Speed`、`sim:vehicleSpeed`。
+ * 用法：
+ * `source.observe("can:0x18F:Speed").collect { ... }`，再交给 VehicleSignalManager 统一订阅。
+ * 注意：key 由业务定义，建议带来源前缀；不支持时 observe 返回 emptyFlow。
  */
 interface SignalSource {
 

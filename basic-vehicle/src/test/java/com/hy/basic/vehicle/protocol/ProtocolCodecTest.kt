@@ -8,11 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
 
-/**
- * desc: 协议工具的回归测试。
- *
- * 位域和 CRC 是最容易"看起来对、实际错一位"的地方,这里用固定报文和标准 check 值锁住行为。
- */
+/** 协议工具回归测试：位域、BCD 和 CRC check 值。 */
 class ProtocolCodecTest {
 
     /** 同一 startBit 在两种字节序下取值不同 */

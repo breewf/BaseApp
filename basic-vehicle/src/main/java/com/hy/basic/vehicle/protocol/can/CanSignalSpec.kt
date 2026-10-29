@@ -1,14 +1,11 @@
 package com.hy.basic.vehicle.protocol.can
 
 /**
- * desc: 一条 CAN 信号的描述,字段和 DBC 里的 SIGNAL_* 基本对应。
+ * CAN 信号定义，字段和 DBC 的 SIGNAL_* 对应。
  *
- * 关键点在 [invalidRaw] 和 [min]/[max]:
- * - 很多协议用 0xFF、0xFFFF、0x7FFF 表示"无效",必须单独判掉,否则 UI 会显示
- *   6553.5 km/h 这种离谱值;
- * - min/max 是物理值范围,用来兜底判定;不填就不做范围校验。
- *
- * [valueLabels] 适合档位、车门状态这类枚举信号,展示时可以直接取中文/字母标签。
+ * 用法：
+ * `CanSignalSpec(name = "Speed", startBit = 0, length = 16, factor = 0.1, unit = "km/h")`。
+ * 注意：invalidRaw 用于 0xFF/0xFFFF 这类无效值；min/max 是物理值范围。
  */
 data class CanSignalSpec(
     /** 信号名,和 DBC 保持一致 */

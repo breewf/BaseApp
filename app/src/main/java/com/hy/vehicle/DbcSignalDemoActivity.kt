@@ -10,10 +10,9 @@ import com.hy.basic.vehicle.protocol.dbc.DbcParser
 import com.hy.myapp.databinding.ActivityDbcSignalDemoBinding
 
 /**
- * desc: DBC 解析验证页。
+ * DBC 解析示例页。
  *
- * 页面里放多组 DBC 定义,启动时全部解析并逐组展示原文、信号定义和解析备注;
- * 下方保留多组仿真数据,按钮只切换样例,方便观察同一组信号在不同输入下的解码变化。
+ * 按钮切换 DBC 组，只展示当前组的原文、解析结果和样例解码；点击结果区切换样例。
  */
 class DbcSignalDemoActivity :
     BaseSkinActivity<ActivityDbcSignalDemoBinding, BaseViewModel>() {
@@ -24,7 +23,7 @@ class DbcSignalDemoActivity :
     /** Toolbar 标题 */
     override val toolbarTitle: CharSequence get() = "DBC 解析"
 
-    /** 多组 DBC 定义,页面会全部解析并展示解析备注 */
+    /** 多组 DBC 定义，解析结果按组切换展示 */
     private val dbcGroups = listOf(
         DbcGroup(
             name = "基础动力报文",
@@ -66,7 +65,7 @@ class DbcSignalDemoActivity :
         ),
         DbcGroup(
             name = "含问题行",
-            note = "factor=0、min>max、长度非法会进解析备注",
+            note = "factor=0、min>max、长度非法，仍能解出报文",
             text = """
                 BO_ 256 Powertrain: 8 ECU
                  SG_ Speed : 0|16@1+ (0.1,0) [0|250] "km/h" ECU
@@ -78,7 +77,7 @@ class DbcSignalDemoActivity :
         ),
     )
 
-    /** 多组 DBC 只解析一次,切换样例时复用 */
+    /** 多组 DBC 只解析一次，切换 DBC 组时复用 */
     private val parsedGroups by lazy { dbcGroups.map { it to DbcParser.parse(it.text) } }
 
     /** 当前 DBC 组下标 */
@@ -87,7 +86,7 @@ class DbcSignalDemoActivity :
     /** 当前样例下标 */
     private var sampleIndex = 0
 
-    /** 多组仿真输入,按钮循环切换 */
+    /** 多组仿真输入，点击结果区切换 */
     private val samples = listOf(
         Sample("正常巡航", speedKph = 60.5, gear = 3.0, torqueNm = 120.0),
         Sample("低速蠕行", speedKph = 8.2, gear = 3.0, torqueNm = 40.0),
@@ -161,7 +160,7 @@ class DbcSignalDemoActivity :
         }
     }
 
-    /** 信号定义摘要,方便和 DBC 原文对照 */
+    /** 信号定义摘要，用于和 DBC 原文对照 */
     private fun definitionText(message: DbcMessage): String = buildString {
         appendLine(
             "报文 ${message.name}  id=0x${message.id.toString(16)}  " +

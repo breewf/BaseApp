@@ -11,12 +11,7 @@ import com.hy.basic.vehicle.config.VehicleConfig
 import com.hy.myapp.databinding.ActivityVehicleConfigDemoBinding
 import kotlinx.coroutines.launch
 
-/**
- * desc: 车型功能开关验证页。
- *
- * 两个开关走 VehicleConfig,写入即落 MMKV,并通过 changed 通知页面刷新。
- * 杀掉进程再进来,状态还在;清空只删 vehicle_cfg_ 前缀的键,不动其它业务配置。
- */
+/** 车型功能开关示例页。 */
 class VehicleConfigDemoActivity :
     BaseSkinActivity<ActivityVehicleConfigDemoBinding, BaseViewModel>() {
 
@@ -74,14 +69,14 @@ class VehicleConfigDemoActivity :
     /** 把当前配置和最近变更铺到页面上 */
     private fun render() {
         binding.tvSnapshot.text = buildString {
-            appendLine("当前配置(MMKV 持久化)")
+            appendLine("当前配置（MMKV）")
             appendLine("信号仿真: ${VehicleConfig.boolean(simulationKey, false)}")
             appendLine("行车限制: ${VehicleConfig.boolean(driveLockKey, true)}")
             appendLine()
             appendLine("已保存 key: ${VehicleConfig.keys().joinToString().ifBlank { "无" }}")
             appendLine("最近变更: ${lastChangedKey.ifBlank { "无" }}")
             appendLine()
-            appendLine("清空只删 vehicle_cfg_ 前缀的键,不影响其它业务数据。")
+            appendLine("清空只影响车辆配置键。")
         }
     }
 }

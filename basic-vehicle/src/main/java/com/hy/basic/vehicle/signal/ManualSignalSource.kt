@@ -7,22 +7,28 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.update
 
 /**
- * desc: 内存信号源,用于仿真、单测和没有真实车辆信号的场景。
+ * 内存信号源，用于仿真和单测。
  *
- * 写进去的值会保存在 StateFlow 里,新订阅者能立即拿到最近一次值。
- * 真实接车时用 CAN / 广播 / CarProperty 各自的 Source 替换即可。
+ * 用法：
+ * `val source = ManualSignalSource("sim")`，`source.set("speed", 60.0)` 后注册到管理器。
+ * 注意：新订阅者会立即收到最近一次值；真实接车时替换成 CAN/广播 Source。
  */
 class ManualSignalSource(
+    /** 数据源名 */
     override val name: String = "manual",
 ) : SignalSource {
 
+    /** 当前信号值 */
     private val values = MutableStateFlow<Map<String, SignalValue<Double>>>(emptyMap())
 
+    /** 订阅 key 对应的值 */
     override fun observe(key: String): Flow<SignalValue<Double>> =
         values.mapNotNull { it[key] }.distinctUntilChanged()
 
+    /** 最近一次值 */
     override fun latest(key: String): SignalValue<Double>? = values.value[key]
 
+    /** 写入有效值 */
     override fun write(key: String, value: Double): Boolean {
         set(key, value)
         return true

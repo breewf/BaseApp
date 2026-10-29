@@ -6,10 +6,11 @@ import com.hy.basic.vehicle.protocol.can.CanSignalSpec
 import com.hy.basic.vehicle.protocol.can.CanSignalValue
 
 /**
- * desc: DBC 里的一条信号。
+ * DBC 信号，复用 [CanSignalSpec] 做解码。
  *
- * [spec] 直接复用 CAN 信号定义,解析和处理流程和手写 [CanSignalSpec] 完全一致。
- * 多路复用、接收节点、注释这些 DBC 专有信息单独保留,不影响解码。
+ * 用法：
+ * `signal.decode(frame)`；DBC 专有信息通过 multiplexer/receivers/comment 读取。
+ * 注意：多路复用信号需要业务按选择子自行筛选。
  */
 data class DbcSignal(
     /** 解码/编码用信号定义 */

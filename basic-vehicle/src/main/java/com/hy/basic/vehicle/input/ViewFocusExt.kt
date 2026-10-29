@@ -6,15 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 
 /**
- * desc: 车机 D-pad / 旋钮焦点操作的小封装。
+ * 车机 D-pad/旋钮焦点操作：安全请求焦点、记录/恢复焦点 id。
  *
- * 车机大量用方向键和确认键,页面切换、Tab 切换后焦点容易丢。
- * 这里提供安全的请求焦点和焦点 id 记忆/恢复,复杂焦点链仍交给 XML 的 nextFocus* 配置。
- *
- * 注意:
- * - 隐藏页面不要抢焦点,所以 requestFocus 前先判 isShown;
- * - restoreFocus 找不到原 View 时会回退到第一个可聚焦子 View;
- * - 焦点高亮样式由主题和 selector 控制,这里只管焦点落在哪。
+ * 用法：
+ * `val id = container.focusedChildId()`，`container.restoreFocus(id)`。
+ * 注意：只负责焦点落点；焦点高亮和 nextFocus* 链路由主题与 XML 控制。
  */
 
 /** 可见且可聚焦时才请求焦点,避免隐藏页抢焦点 */

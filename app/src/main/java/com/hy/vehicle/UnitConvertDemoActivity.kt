@@ -25,12 +25,7 @@ import com.hy.basic.vehicle.unit.toSignedDegrees
 import com.hy.basic.vehicle.unit.whToKwh
 import com.hy.myapp.databinding.ActivityUnitConvertDemoBinding
 
-/**
- * desc: 单位换算验证页。
- *
- * 用几组车机常见原始值走一遍换算,确认精度和单位没有写错。
- * 真实项目的 factor/offset 以 DBC 为准,这里只验证量纲换算本身。
- */
+/** 单位换算示例页。 */
 class UnitConvertDemoActivity :
     BaseSkinActivity<ActivityUnitConvertDemoBinding, BaseViewModel>() {
 

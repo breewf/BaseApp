@@ -22,11 +22,9 @@ import com.hy.myapp.databinding.ActivityByteChecksumDemoBinding
 import java.util.Locale
 
 /**
- * desc: 字节 / 位域 / 校验的验证页。
+ * 字节/位域/校验示例页。
  *
- * 三组样例轮换,文本都是实时算出来的。重点看两处:
- * - 同一个 startBit 在 Intel 和 Motorola 下取出来的值完全不同;
- * - 无效值、校验范围这类问题在解析层很容易埋坑,先把工具函数对齐再写业务。
+ * 三组样例轮换，重点对比 Intel 与 Motorola 位序。
  */
 class ByteChecksumDemoActivity :
     BaseSkinActivity<ActivityByteChecksumDemoBinding, BaseViewModel>() {
@@ -78,7 +76,7 @@ class ByteChecksumDemoActivity :
             appendLine()
             appendLine("位域 start=0 len=12 Intel    -> 0x${intel.toString(16).uppercase(Locale.US)}")
             appendLine("位域 start=7 len=12 Motorola -> 0x${motorola.toString(16).uppercase(Locale.US)}")
-            appendLine("同一个 startBit 在两个字节序里含义不同,别混用")
+            appendLine("同一 startBit 在两种字节序下含义不同")
             appendLine()
             appendLine("BCD 23 59    -> ${bcd ?: "非法"}")
             appendLine()

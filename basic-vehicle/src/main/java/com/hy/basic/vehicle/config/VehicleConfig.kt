@@ -11,16 +11,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 /**
- * desc: 车型 / 功能开关的持久化配置。
+ * 车型/功能开关配置，基于 MMKV 持久化。
  *
- * 同一份 App 常要按车型裁功能,把开关集中到这里:MMKV 落盘、默认值兜底、
- * 写入后用 [changed] 通知同进程页面刷新,省得每个页面都去读一遍磁盘。
- *
- * 注意:
- * - key 自动加 `vehicle_cfg_` 前缀,避免和业务其它配置撞;
- * - 默认库是单进程模式,通信进程也要读配置时,得换成 MMKV 多进程实例单独封装;
- * - [changed] 只在本进程内通知,跨进程请走 EventBus 或广播;
- * - 配置是"功能开关"级别的东西,不要把实时信号值往这里塞。
+ * 用法：
+ * `VehicleConfig.putBoolean("simulation", true)`，`VehicleConfig.observeBoolean("simulation")`。
+ * 注意：key 自动加 `vehicle_cfg_` 前缀；[changed] 只通知当前进程。
  */
 object VehicleConfig {
 

@@ -6,10 +6,11 @@ import java.util.Locale
 import kotlin.math.roundToLong
 
 /**
- * desc: 一条信号解析后的结果。
+ * 信号解码结果：raw、物理值、质量、时间戳。
  *
- * raw 保留原始码值,方便对照报文;physical 是乘过 factor / 加过 offset 的物理值。
- * 只有 [quality] 为 VALID 时才建议上屏,其余情况统一显示 "--"。
+ * 用法：
+ * `value.display()` 生成上屏文本，`value.toSignalValue()` 转给 VehicleSignalManager。
+ * 注意：quality 不是 VALID 时 UI 显示 "--"。
  */
 data class CanSignalValue(
     /** 对应的信号定义 */
@@ -20,7 +21,7 @@ data class CanSignalValue(
     val physical: Double,
     /** 信号质量,决定是否能上屏 */
     val quality: SignalQuality,
-    /** 解码时间戳(毫秒),建议用单调时钟 */
+    /** 解码时间戳(毫秒)，用单调时钟 */
     val timestampMs: Long = 0L,
 ) {
 
@@ -36,7 +37,7 @@ data class CanSignalValue(
     /** 枚举信号的标签,比如档位 3 -> "D" */
     val label: String? get() = spec.labelOf(raw)
 
-    /** 上屏文本;无效值不要显示 0,统一 "--" */
+    /** 上屏文本；无效值显示 "--" */
     fun display(decimals: Int = 1): String {
         if (!isValid) return "$name: --"
 
@@ -52,7 +53,7 @@ data class CanSignalValue(
     }
 }
 
-/** 转成通用信号模型,方便交给 VehicleSignalManager */
+/** 转成通用信号模型 */
 fun CanSignalValue.toSignalValue(): SignalValue<Double> =
     SignalValue(
         value = if (isValid) physical else null,

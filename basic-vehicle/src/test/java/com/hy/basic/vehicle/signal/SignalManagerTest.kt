@@ -10,13 +10,10 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * desc: 信号管理回归测试。
- *
- * 覆盖多源合并、最近值、写入和超时置 STALE,全部用仿真源,不依赖车机系统。
- */
+/** 信号管理回归测试：注册、订阅、STALE 和容差。 */
 class SignalManagerTest {
 
+    /** 同名源只注册一个 */
     @Test
     fun `同名数据源只注册一个`() {
         val manager = VehicleSignalManager()
@@ -26,6 +23,7 @@ class SignalManagerTest {
         assertEquals(1, manager.sources().size)
     }
 
+    /** 写入后能订阅到 */
     @Test
     fun `手动源写入后能订阅到`() = runBlocking {
         val source = ManualSignalSource("sim")
@@ -39,6 +37,7 @@ class SignalManagerTest {
         assertTrue(value.isValid)
     }
 
+    /** 超时补 STALE */
     @Test
     fun `超时未更新会补 STALE`() = runBlocking {
         val source = ManualSignalSource("sim")
@@ -54,6 +53,7 @@ class SignalManagerTest {
         assertEquals(60.0, stale.value)
     }
 
+    /** 小抖动按容差去重 */
     @Test
     fun `小抖动按容差去重`() = runBlocking {
         val values = flowOf(

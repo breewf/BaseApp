@@ -7,14 +7,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/**
- * desc: UDS 客户端回归测试。
- *
- * 用假传输固定请求字节和响应拆分,不依赖真实 CAN 通道。
- */
+/** UDS 客户端回归测试：用假传输固定请求和响应。 */
 class UdsClientTest {
 
+    /** 假传输，按队列返回响应 */
     private class FakeTransport(
+        /** 预置响应队列 */
         private val responses: ArrayDeque<ByteArray?>,
     ) : UdsTransport {
 
@@ -38,6 +36,7 @@ class UdsClientTest {
         return queue
     }
 
+    /** 10 服务请求字节正确 */
     @Test
     fun `会话切换请求字节正确`() = runBlocking {
         val transport = FakeTransport(queue(byteArrayOf(0x50, 0x03)))
@@ -50,6 +49,7 @@ class UdsClientTest {
         assertEquals(500L, transport.lastTimeoutMs)
     }
 
+    /** 否定响应拆出 NRC */
     @Test
     fun `否定响应拆出 NRC`() = runBlocking {
         val transport = FakeTransport(queue(byteArrayOf(0x7F, 0x22, 0x31)))
@@ -64,6 +64,7 @@ class UdsClientTest {
         assertArrayEquals(byteArrayOf(0x22, 0xF1.toByte(), 0x90.toByte()), transport.lastPayload!!)
     }
 
+    /** 超时返回 Timeout */
     @Test
     fun `超时返回 Timeout`() = runBlocking {
         val transport = FakeTransport(queue(null))
@@ -74,6 +75,7 @@ class UdsClientTest {
         assertTrue(result is UdsResult.Timeout)
     }
 
+    /** 安全访问用 seed 算 key */
     @Test
     fun `安全访问用 seed 算 key`() = runBlocking {
         val transport = FakeTransport(
@@ -96,6 +98,7 @@ class UdsClientTest {
         )
     }
 
+    /** 解析 19 02 响应 */
     @Test
     fun `DTC 响应解析`() {
         val response = byteArrayOf(

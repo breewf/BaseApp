@@ -7,15 +7,11 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * desc: 轻量诊断日志。
+ * 诊断日志：Logcat + 内存环形缓冲。
  *
- * 除了写 Logcat,还在内存里保留一段环形缓冲。车机出问题时可以把最近几百条日志导出来,
- * 不用连 adb。真正落盘/上报交给外部设置 [sink]。
- *
- * 注意:
- * - 环形缓冲只保留最近 [capacity] 条,进程重启就没了;
- * - [sink] 在调用线程执行,别在里面做重 IO;
- * - 日志里不要打 VIN、手机号、定位坐标,需要的话先脱敏。
+ * 用法：
+ * `VehicleLog.e("CAN", "decode failed", e)`，`VehicleLog.exportText()` 导出最近日志。
+ * 注意：缓冲只保留当前进程最近 [capacity] 条；[sink] 在调用线程执行。
  */
 object VehicleLog {
 
@@ -65,6 +61,7 @@ object VehicleLog {
     @Volatile
     var sink: ((Record) -> Unit)? = null
 
+    /** 内存日志缓冲 */
     private val ring = ArrayDeque<Record>()
 
     /** 详细日志 */
@@ -125,7 +122,7 @@ object VehicleLog {
     /** 清空环形缓冲 */
     fun clear() = synchronized(ring) { ring.clear() }
 
-    /** 导出成文本,方便复制到 U 盘或日志文件 */
+    /** 导出成文本，用于复制或落盘 */
     fun exportText(limit: Int = 100): String {
         val formatter = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.US)
         return recent(limit).joinToString("\n") { record ->

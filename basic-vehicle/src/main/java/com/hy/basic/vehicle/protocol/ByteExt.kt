@@ -5,19 +5,14 @@ package com.hy.basic.vehicle.protocol
 import java.util.Locale
 
 /**
- * desc: 协议解析里最常用的字节/位操作。
+ * 协议解析常用字节/位操作：hex、大小端、DBC 位域、BCD。
  *
- * 包括十六进制互转、大小端取值、DBC 风格的位域提取(Intel/Motorola)、BCD 码。
- * 位域结果统一用 Long 承载:信号长度最长 64 位,用 Int 接 32 位以上的信号会溢出。
- *
- * 几个容易踩的点:
- * - 位序号按 DBC 约定:bitIndex = 字节下标 * 8 + 字节内位下标,字节内 0 是最低位;
- * - Intel 的 startBit 是信号最低位,Motorola 的 startBit 是信号最高位,两者不能混用;
- * - 十六进制解析会忽略空格/逗号/0x 前缀,但长度必须成对,避免 "F" 这种半字节歧义;
- * - 发生越界直接抛异常,不做静默补 0,免得把协议配置错误藏起来。
+ * 用法：
+ * `data.extractBits(startBit, length, motorola)`、`data.setBit(bit, true)`、`data.toHexString()`。
+ * 注意：位序号按 DBC 约定；Motorola 的 startBit 是信号最高位，Intel 是最低位。
  */
 
-/** 无符号字节值(0..255)。`byte.toInt()` 在负数字节上会得到负数,解析时别直接用 */
+/** 无符号字节值(0..255)。负数字节直接 toInt 会得到负数 */
 val Byte.unsigned: Int get() = toInt() and 0xFF
 
 /** 按字节下标取无符号值,越界抛 [IllegalArgumentException] */
@@ -180,8 +175,8 @@ fun Int.toBcdByte(): Byte {
 }
 
 /**
- * BCD 转十进制。例如 [0x23, 0x59] -> 2359。
- * 任意 nibble 超过 9 视为非法 BCD,返回 null。
+ * BCD 转十进制。例如 `0x23 0x59` -> 2359。
+ * 任意 nibble 超过 9 视为非法 BCD，返回 null。
  */
 fun ByteArray.bcdToIntOrNull(): Int? {
     if (isEmpty()) return null

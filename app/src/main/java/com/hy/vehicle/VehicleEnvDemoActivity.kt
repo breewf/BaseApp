@@ -28,10 +28,9 @@ import com.hy.myapp.databinding.ActivityVehicleEnvDemoBinding
 import kotlinx.coroutines.launch
 
 /**
- * desc: 车机环境信息验证页。
+ * 车机环境信息示例页：多屏、存储卷、亮灭屏、按键/旋钮。
  *
- * 把多屏、存储卷、亮灭屏、方控按键这几类系统能力放在一页里看效果。
- * 按键区会吞掉本页的按键事件(返回键除外),按方向键、音量键或转旋钮都能看到记录。
+ * 本页会拦截除返回键外的按键事件。
  */
 class VehicleEnvDemoActivity :
     BaseSkinActivity<ActivityVehicleEnvDemoBinding, BaseViewModel>() {

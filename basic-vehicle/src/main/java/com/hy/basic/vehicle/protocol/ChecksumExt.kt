@@ -5,13 +5,11 @@ package com.hy.basic.vehicle.protocol
 import java.util.zip.CRC32
 
 /**
- * desc: 报文校验常用的和校验、异或校验与 CRC。
+ * 和校验、异或校验与 CRC。
  *
- * CRC 的参数(poly / init / xorOut)必须和协议文档完全一致,同名 CRC 在不同厂家
- * 的定义里结果可能不同,接新协议时先拿一组已知报文对一遍再上线。
- *
- * 校验范围默认是整个数组;如果校验字节本身也在数组里,调用时把 to 参数减 1,
- * 不要把校验位算进去。
+ * 用法：
+ * `data.crc8SaeJ1850()`、`data.crc16Ccitt()`、`data.checksumSum8(to = data.size - 1)`。
+ * 注意：CRC 参数需和协议文档一致；校验字节本身不计入范围。
  */
 
 /** 累加和取低 8 位 */
@@ -83,7 +81,7 @@ fun ByteArray.crc16Modbus(): Int {
     return crc and 0xFFFF
 }
 
-/** CRC32,标准 IEEE 多项式;返回 Long 方便和协议里的 8 位十六进制对齐 */
+/** CRC32，标准 IEEE 多项式；返回 Long，和协议里的 8 位十六进制对齐 */
 fun ByteArray.crc32(): Long {
     val crc = CRC32()
     crc.update(this)

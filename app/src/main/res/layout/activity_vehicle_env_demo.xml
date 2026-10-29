@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 车机环境验证页:显示屏 / 电源 / 存储 / 按键四块信息集中展示 -->
+<!-- 车机环境示例：显示屏 / 电源 / 存储 / 按键 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="3dp"
-            android:text="多屏、存储卷、亮灭屏、按键旋钮都是车机上天天要处理的东西,这里一次性拿到当前环境。"
+            android:text="当前设备的多屏、存储卷、亮灭屏和按键信息。"
             android:textColor="@color/skin_text_secondary"
             android:textSize="13sp" />
 
@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="本页会吞掉除返回键外的按键事件,按方向键、音量键或转旋钮都能看到记录。"
+            android:text="本页拦截除返回键外的按键事件，按方向键、音量键或旋钮可查看记录。"
             android:textColor="@color/skin_text_tertiary"
             android:textSize="12sp" />
 

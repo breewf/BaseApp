@@ -6,18 +6,15 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.merge
 
 /**
- * desc: 车辆信号统一入口。
+ * 车辆信号统一入口，按 key 聚合多个 [SignalSource]。
  *
- * 把 CAN、广播、CarProperty、仿真等多个 [SignalSource] 收在一起,上层只按 key 订阅。
- * 本身不做解析和收发,也不依赖车机系统,方便在台架和单测里替换成仿真源。
- *
- * 注意:
- * - 建议在初始化阶段注册数据源,再开始订阅;observe 拿到的是注册时刻的快照;
- * - 同名数据源只保留一个,重复注册返回 false;
- * - latest/write 按注册顺序倒序查找,后注册的源优先。
+ * 用法：
+ * `manager.register(canSource)`，`manager.observe("can:0x18F:Speed", staleTimeoutMs = 300)`。
+ * 注意：先注册再订阅；observe 使用注册时的源快照；同名源只保留一个。
  */
 class VehicleSignalManager {
 
+    /** 已注册的数据源 */
     private val sources = CopyOnWriteArrayList<SignalSource>()
 
     /** 注册数据源;同名已存在时返回 false */

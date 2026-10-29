@@ -12,10 +12,7 @@ import com.hy.demo.model.DemoEntry
 import com.hy.myapp.databinding.ActivityVehicleDemoBinding
 
 /**
- * desc: 车机能力验证入口。
- *
- * 和 DemoActivity 共用一套菜单模型,后面加能力只往 [VehicleDemoMenu] 登记一行,
- * 布局和这个页面都不用改。
+ * 车机能力验证入口。新增页面只需在 [VehicleDemoMenu] 登记。
  */
 class VehicleDemoActivity : BaseSkinActivity<ActivityVehicleDemoBinding, BaseViewModel>() {
 

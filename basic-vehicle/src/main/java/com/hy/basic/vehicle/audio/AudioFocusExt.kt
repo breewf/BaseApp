@@ -8,21 +8,18 @@ import android.os.Build
 import java.io.Closeable
 
 /**
- * desc: 音频焦点请求/释放的轻量封装。
+ * 音频焦点请求/释放，兼容 API 26 前后差异。
  *
- * 车机上导航播报、语音提示、警告音经常要临时抢焦点。这里把 API 26 前后的差异收在一处,
- * 业务只关心"拿到没有"和"什么时候释放"。
- *
- * 注意:
- * - 默认 AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK,导航/提示音用这个比较合适;
- * - [usage]/[contentType] 按播放内容传,导航可用 USAGE_ASSISTANCE_NAVIGATION_GUIDANCE;
- * - 焦点变化回调在主线程,不要在回调里做耗时操作;
- * - handle 用完必须 close,否则会一直占着焦点。
+ * 用法：
+ * `context.requestAudioFocus(usage = USAGE_ASSISTANCE_NAVIGATION_GUIDANCE) { ... }?.close()`。
+ * 注意：返回 null 表示未授予；handle 要在播放结束或页面销毁时 close。
  */
 class AudioFocusHandle internal constructor(
+    /** 释放动作 */
     private val abandon: () -> Unit,
 ) : Closeable {
 
+    /** 是否已释放 */
     private var closed = false
 
     /** 释放焦点,重复调用不会重复释放 */
@@ -34,10 +31,13 @@ class AudioFocusHandle internal constructor(
 }
 
 /**
- * 请求音频焦点。返回 null 表示系统没有授予,调用方不要继续播音。
+ * 请求音频焦点。返回 null 表示系统未授予焦点。
  *
- * [onFocusChange] 会收到 AUDIOFOCUS_LOSS / LOSS_TRANSIENT / GAIN 等回调,
- * 业务按需暂停、压低音量或恢复播放。
+ * @param gainType 焦点类型，默认 transient may duck
+ * @param streamType API 26 以下使用的流类型
+ * @param usage 播放用途，导航可传 USAGE_ASSISTANCE_NAVIGATION_GUIDANCE
+ * @param contentType 内容类型
+ * @param onFocusChange 焦点变化回调，在主线程触发
  */
 @Suppress("DEPRECATION")
 fun Context.requestAudioFocus(

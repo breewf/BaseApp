@@ -4,10 +4,11 @@ import com.hy.basic.vehicle.protocol.can.CanFrame
 import com.hy.basic.vehicle.protocol.can.CanSignalValue
 
 /**
- * desc: DBC 里的一帧报文。
+ * DBC 报文定义。
  *
- * 只保留解析和仿真常用字段,发送节点、周期、注释都带着,方便做信号矩阵展示。
- * 解码时仍按 [signals] 里的信号定义逐条取。
+ * 用法：
+ * `message.signal("Speed")?.decode(frame)`、`message.frame(ByteArray(8))`。
+ * 注意：id 已去掉扩展帧标志位，extended 单独保存。
  */
 data class DbcMessage(
     /** 规范化后的报文 ID,不含扩展帧标志位 */

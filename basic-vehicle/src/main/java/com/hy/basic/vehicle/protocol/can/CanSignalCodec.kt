@@ -7,16 +7,11 @@ import com.hy.basic.vehicle.signal.SignalQuality
 import kotlin.math.roundToLong
 
 /**
- * desc: 按 [CanSignalSpec] 做信号编解码。
+ * CAN 信号编解码：提位域、补码、factor/offset 换算、无效值判定。
  *
- * 解码流程:提位域 -> 有符号补码 -> factor/offset 换算 -> 无效哨兵/范围判定。
- * 写入流程反过来,物理值先按 factor/offset 还原成 raw,再按位序写回字节。
- *
- * 注意:
- * - 写物理值时会把 raw 限制在信号长度能表示的范围内,避免越界写到旁边信号;
- * - 64 位无符号信号直接用 Long 承载时,最高位会被当成符号位,实际项目里很少见,
- *   真遇到就单独处理,不要依赖这里的物理值换算;
- * - 无效判定优先看 [CanSignalSpec.invalidRaw],再做物理范围判断,两者顺序不要反。
+ * 用法：
+ * `frame.decode(spec)` 解一条信号，`frame.write(spec, 60.5)` 写物理值并返回新帧。
+ * 注意：写物理值会按信号长度限幅；64 位无符号信号不能直接用 Long 物理值换算。
  */
 object CanSignalCodec {
 

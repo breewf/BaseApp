@@ -1,11 +1,10 @@
 package com.hy.basic.vehicle.signal
 
 /**
- * desc: 信号质量。
+ * 信号质量。
  *
- * 解码层目前只会给出 VALID / INVALID;STALE、UNKNOWN 留给后续的信号管理
- * (超时未更新、还没收到过)使用。UI 判断能不能上屏,统一看 [isUsable],
- * 不要直接把 0 当成有效值——车机上 0 和"没数据"是两回事。
+ * 用法：上屏前判断 [isUsable]；INVALID/STALE 显示 "--"。
+ * 注意：解码层目前只产出 VALID/INVALID，STALE 由超时逻辑补发。
  */
 enum class SignalQuality {
 

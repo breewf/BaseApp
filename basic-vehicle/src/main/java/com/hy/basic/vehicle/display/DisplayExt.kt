@@ -8,15 +8,11 @@ import android.util.DisplayMetrics
 import android.view.Display
 
 /**
- * desc: 多屏相关扩展。
+ * 多屏信息读取与副屏 Context。
  *
- * 车机常见中控 + 仪表 + 副驾多块屏,每块屏的尺寸和 density 都可能不同。
- * 这里统一从 DisplayManager 取信息,副屏要建 UI 时用 [displayContext] 拿对应 Context。
- *
- * 注意:
- * - 不要拿主屏的 resources.displayMetrics 去量副屏布局,密度对不上会整体偏大/偏小;
- * - 副屏 Context 用完跟着 View/Window 一起释放,别长期静态持有;
- * - 部分车机的虚拟屏(投屏/倒车影像)也会出现在列表里,按 displayId 或名称过滤。
+ * 用法：
+ * `context.displayInfoList()`，`context.displayContext(displayId)?.let { ... }`。
+ * 注意：副屏 density 可能和主屏不同，复用主屏 metrics 会算错；虚拟屏也会出现在列表里。
  */
 
 /** 单块显示屏的基本信息 */

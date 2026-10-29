@@ -12,10 +12,9 @@ import com.hy.myapp.databinding.ActivityCanSignalDemoBinding
 import java.util.Locale
 
 /**
- * desc: CAN 信号解析验证页。
+ * CAN 信号解析示例页。
  *
- * 用 8 字节仿真帧演示 Intel/Motorola 混排、factor/offset、枚举标签和无效值。
- * 第 2 帧故意让车速超物理上限,第 3 帧写 0xFFFF 哨兵值,用来确认无效判定生效。
+ * 三帧分别演示正常、超范围、0xFFFF 无效值。
  */
 class CanSignalDemoActivity :
     BaseSkinActivity<ActivityCanSignalDemoBinding, BaseViewModel>() {
@@ -128,8 +127,8 @@ class CanSignalDemoActivity :
                 )
             }
             appendLine()
-            appendLine("第 1 帧正常;第 2 帧车速 300 超出上限;第 3 帧车速写 0xFFFF 无效哨兵。")
-            appendLine("无效信号统一显示 --,别用 0 顶替。")
+            appendLine("帧 1 正常；帧 2 车速超上限；帧 3 车速为 0xFFFF 无效值。")
+            appendLine("无效信号显示 --。")
         }
     }
 }

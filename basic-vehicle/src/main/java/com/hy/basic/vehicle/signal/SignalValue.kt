@@ -1,10 +1,11 @@
 package com.hy.basic.vehicle.signal
 
 /**
- * desc: 通用信号值。
+ * 通用信号值：值、质量、时间戳。
  *
- * CAN、厂商广播、仿真源最后都落到这个模型:值 + 质量 + 时间戳。
- * 上层只认它,不关心数据从哪来。
+ * 用法：
+ * `SignalValue(60.0, SignalQuality.VALID, monotonicMs())`，`value.map { ... }` 做类型转换。
+ * 注意：timestamp 用单调时钟，便于判断 STALE。
  */
 data class SignalValue<T>(
     /** 解码后的值,无效时为 null */
