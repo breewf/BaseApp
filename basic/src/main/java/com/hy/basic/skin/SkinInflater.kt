@@ -118,7 +118,6 @@ internal object SkinInflater {
         ): View? {
             val view = origin?.onCreateView(parent, name, context, attrs)
                 // 参数顺序:inheritContext, readAndroidTheme, readAppTheme, wrapContext
-                // readAndroidTheme 必须为 true,否则控件上单独写的 android:theme 会被忽略
                 ?: appCompatInflater.createView(parent, name, context, attrs, false, true, true, true)
                 ?: runCatching { inflater.createView(name, null, attrs) }.getOrNull()
                 ?: return null
